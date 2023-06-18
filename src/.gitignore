@@ -53,3 +53,4 @@ fabric.properties
 # modules.xml
 
 /build/
+/.idea/aws.xml
