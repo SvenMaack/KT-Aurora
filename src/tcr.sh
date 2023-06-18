@@ -1,0 +1,1 @@
+gradle check && git commit --amend || git reset --hard
