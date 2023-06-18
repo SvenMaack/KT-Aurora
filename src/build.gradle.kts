@@ -1,5 +1,8 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
 plugins {
     kotlin("multiplatform") version "1.8.21"
+    id("io.gitlab.arturbosch.detekt").version("1.23.0")
 }
 
 group = "sven.maack"
