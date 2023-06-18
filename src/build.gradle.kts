@@ -34,3 +34,13 @@ kotlin {
         val nativeTest by getting
     }
 }
+
+tasks.withType<Detekt>().configureEach {
+    reports {
+        html.required.set(true)
+        xml.required.set(false)
+        txt.required.set(false)
+        sarif.required.set(false)
+        md.required.set(false)
+    }
+}
