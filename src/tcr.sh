@@ -1,1 +1,1 @@
-gradle check && git commit --amend || git reset --hard
+gradle check && git commit -a || (git reset --hard && google-chrome "http://localhost:63342/kte/src/build/reports/tests/nativeTest/index.html?&_ij_reload=RELOAD_ON_SAVE")
