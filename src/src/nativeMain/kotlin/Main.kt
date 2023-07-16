@@ -1,3 +1,9 @@
+import example.page1
+import lib.DebugVisitor
+
 fun main() {
-    println("Hello, Kotlin/Native! ")
+    with(DebugVisitor()) {
+        page1.traverse(this)
+        println(this.html)
+    }
 }

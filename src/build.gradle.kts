@@ -3,6 +3,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 plugins {
     kotlin("multiplatform") version "1.8.21"
     id("io.gitlab.arturbosch.detekt").version("1.23.0")
+    id("com.google.devtools.ksp") version "1.8.22-1.0.11"
 }
 
 group = "sven.maack"
@@ -31,7 +32,11 @@ kotlin {
     }
     sourceSets {
         val nativeMain by getting
-        val nativeTest by getting
+        val nativeTest by getting {
+            dependencies {
+                implementation("io.mockative:mockative:1.4.1")
+            }
+        }
     }
 }
 
@@ -43,4 +48,12 @@ tasks.withType<Detekt>().configureEach {
         sarif.required.set(false)
         md.required.set(false)
     }
+}
+
+dependencies {
+    configurations
+        .filter { it.name.startsWith("ksp") && it.name.contains("Test") }
+        .forEach {
+            add(it.name, "io.mockative:mockative-processor:1.4.1")
+        }
 }
