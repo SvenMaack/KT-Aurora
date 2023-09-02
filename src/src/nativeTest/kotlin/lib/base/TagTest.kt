@@ -6,6 +6,7 @@ import io.mockative.mock
 import io.mockative.classOf
 import io.mockative.verify
 import io.mockative.time
+import lib.get
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -42,6 +43,21 @@ class TagTest {
     @Test
     fun `tag is lower string`() {
         assertEquals("p", Tag("P").tagName)
+    }
+
+    @Test
+    fun `attributes are set`() {
+        val attributes = arrayOf(object : Attribute {
+            override val name: String = "a"
+            override val value: String = "b"
+        })
+        assertEquals(attributes, Tag("P").setAttributes(attributes).attributes)
+    }
+
+    @Test
+    fun `attributes can be set empty`() {
+        val attributes = arrayOf<Attribute>()
+        assertEquals(attributes, Tag("P").setAttributes(attributes).attributes)
     }
 
     @Test

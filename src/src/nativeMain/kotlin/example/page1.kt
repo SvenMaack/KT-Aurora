@@ -1,7 +1,7 @@
 package example
 
 import lib.base.Element
-import lib.html
+import lib.*
 
 val page1: Element =
     html {
@@ -14,8 +14,8 @@ val page1: Element =
             h1 {
                 +"Hello, world!"
             }
-            div {
-                p {
+            div(clazz["MyClass"]) {
+                p(id["myID"]) {
                     +"This is my first web page."
                 }
             }
