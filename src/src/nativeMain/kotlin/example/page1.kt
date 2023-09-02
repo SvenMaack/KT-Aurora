@@ -5,6 +5,8 @@ import lib.html
 
 val page1: Element =
     html {
+        head {
+        }
         body {
             p {
                 +"Hello World"

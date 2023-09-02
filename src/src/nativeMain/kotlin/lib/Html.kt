@@ -4,6 +4,7 @@ import lib.base.TagContainer
 
 class Html: TagContainer("html") {
     inline fun body(init: Body.() -> Unit) = add(Body(), init)
+    inline fun head(init: Head.() -> Unit) = add(Head(), init)
 }
 
 fun html(init: Html.() -> Unit): Html =
