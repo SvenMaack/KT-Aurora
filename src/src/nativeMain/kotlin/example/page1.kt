@@ -11,13 +11,13 @@ val page1: Element =
             }
         }
         body {
+            h1 {
+                +"Hello, world!"
+            }
             p {
-                +"Hello World"
+                +"This is my first web page."
             }
             br()
-            p {
-                +"Hello Kotlin"
-            }
         }
     }
 
@@ -37,6 +37,7 @@ val page1: Element =
  *         <p class="myClass">
  *             This is my first web page.
  *         </p>
+ *         </br>
  *     </body>
  * </html>
  */
