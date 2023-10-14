@@ -1,6 +1,6 @@
 package lib.base
 
-open class TagContainer(name: String) : Tag(name) {
+open class TagContainer(name: String) : TagWithAttributes(name) {
     @PublishedApi
     internal val mChildren: MutableCollection<Element> = mutableListOf()
 

@@ -1,8 +1,8 @@
 package lib
 
 import lib.base.Attribute
-import lib.base.Tag
 import lib.base.TagContainer
+import lib.base.TagWithAttributes
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -10,10 +10,10 @@ import kotlin.test.assertEquals
 class DebugVisitorTest {
     @Test
     fun `visit tag prints tag`() {
-        val tag = Tag("a")
+        val tagWithAttributes = TagWithAttributes("a")
         val debugVisitor = DebugVisitor()
 
-        debugVisitor.visitTag(tag)
+        debugVisitor.visitTagWithAttributes(tagWithAttributes)
 
         assertEquals("<a>${DebugVisitor.linebreak}", debugVisitor.html)
     }
@@ -61,7 +61,7 @@ class DebugVisitorTest {
 
     @Test
     fun `attributes are printed in tag`() {
-        val tag = Tag("a").setAttributes(object : Attribute {
+        val tagWithAttributes = TagWithAttributes("a").setAttributes(object : Attribute {
             override val name: String = "same"
             override val value: String = "a"
         },object : Attribute {
@@ -73,17 +73,17 @@ class DebugVisitorTest {
         })
 
         val debugVisitor = DebugVisitor()
-        debugVisitor.visitTag(tag)
+        debugVisitor.visitTagWithAttributes(tagWithAttributes)
 
         assertEquals("<a same=\"a b\" other=\"c\">${DebugVisitor.linebreak}", debugVisitor.html)
     }
 
     @Test
     fun `empty attributes doesn't change the tag`() {
-        val tag = Tag("a").setAttributes()
+        val tagWithAttributes = TagWithAttributes("a").setAttributes()
 
         val debugVisitor = DebugVisitor()
-        debugVisitor.visitTag(tag)
+        debugVisitor.visitTagWithAttributes(tagWithAttributes)
 
         assertEquals("<a>${DebugVisitor.linebreak}", debugVisitor.html)
     }

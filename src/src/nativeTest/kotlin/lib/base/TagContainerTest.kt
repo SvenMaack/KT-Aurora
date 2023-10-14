@@ -46,15 +46,15 @@ class TagContainerTest {
 
     @Test
     fun `visitor of child is being called`() {
-        val tag = Tag("b")
+        val tagWithAttributes = TagWithAttributes("b")
         val tagContainer = TagContainer("a")
-        tagContainer.add(tag)
+        tagContainer.add(tagWithAttributes)
 
         tagContainer.traverse(api)
 
         verify(api)
             .invocation {
-                visitTag(tag)
+                visitTagWithAttributes(tagWithAttributes)
             }
             .wasInvoked(exactly = 1.time)
     }

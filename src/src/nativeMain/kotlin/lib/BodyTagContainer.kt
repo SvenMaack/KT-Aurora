@@ -2,7 +2,6 @@ package lib
 
 import lib.base.Attribute
 import lib.base.TagContainer
-import lib.base.TextElement
 
 open class BodyTagContainer(name: String) : TagContainer(name) {
     inline fun p(vararg attributes: Attribute, clazz: String? = null, init: P.() -> Unit) = add(P()) {

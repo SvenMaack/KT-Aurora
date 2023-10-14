@@ -1,5 +1,5 @@
 package lib
 
-import lib.base.Tag
+import lib.base.TagWithAttributes
 
-object Br: Tag("br")
+object Br: TagWithAttributes("br")
