@@ -2,6 +2,7 @@ package lib
 
 import lib.base.Attribute
 import lib.base.TagContainer
+import lib.base.TextElement
 
 open class BodyTagContainer(name: String) : TagContainer(name) {
     inline fun p(vararg attributes: Attribute, clazz: String? = null, init: P.() -> Unit) = add(P()) {
@@ -61,5 +62,5 @@ open class BodyTagContainer(name: String) : TagContainer(name) {
         init()
     }
     inline fun br() = add(Br)
-    inline fun comment(comment: String) = add(Comment(comment))
+    inline operator fun String.not() = add(Comment(this))
 }
