@@ -9,3 +9,7 @@ inline operator fun String.get(value: String): Attribute = object : Attribute {
 
 const val clazz = "class"
 const val id = "id"
+const val tabindex = "tabindex"
+const val height = "height"
+const val width = "width"
+const val target = "target"
