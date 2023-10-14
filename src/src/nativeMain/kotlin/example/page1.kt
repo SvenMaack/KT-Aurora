@@ -20,6 +20,7 @@ val page1: Element =
                     +"This is my first web page."
                 }
             }
+            hr()
             br()
         }
     }

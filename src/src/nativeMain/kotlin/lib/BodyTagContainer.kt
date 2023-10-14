@@ -61,5 +61,6 @@ open class BodyTagContainer(name: String) : TagContainer(name) {
         init()
     }
     inline fun br() = add(Br)
+    inline fun hr() = add(Hr)
     inline operator fun String.not() = add(Comment(this))
 }
