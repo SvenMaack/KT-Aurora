@@ -54,3 +54,5 @@ fabric.properties
 
 /build/
 /.idea/aws.xml
+
+test.html
