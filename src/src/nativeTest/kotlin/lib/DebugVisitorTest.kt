@@ -1,5 +1,6 @@
 package lib
 
+import lib.base.Attribute
 import lib.base.Tag
 import lib.base.TagContainer
 import kotlin.test.Test
@@ -35,6 +36,68 @@ class DebugVisitorTest {
         debugVisitor.visitTagContainerEnd(tagContainer)
 
         assertEquals("</a>${DebugVisitor.linebreak}", debugVisitor.html)
+    }
+
+    @Test
+    fun `attributes are printed in tagContainer`() {
+        val tagContainer = TagContainer("a")
+        tagContainer.setAttributes(object : Attribute {
+            override val name: String = "same"
+            override val value: String = "a"
+        },object : Attribute {
+            override val name: String = "same"
+            override val value: String = "b"
+        },object : Attribute {
+            override val name: String = "other"
+            override val value: String = "c"
+        })
+
+        val debugVisitor = DebugVisitor()
+        debugVisitor.visitTagContainerBegin(tagContainer)
+        debugVisitor.visitTagContainerEnd(tagContainer)
+
+        assertEquals("<a same=\"a b\" other=\"c\">${DebugVisitor.linebreak}</a>${DebugVisitor.linebreak}", debugVisitor.html)
+    }
+
+    @Test
+    fun `attributes are printed in tag`() {
+        val tag = Tag("a").setAttributes(object : Attribute {
+            override val name: String = "same"
+            override val value: String = "a"
+        },object : Attribute {
+            override val name: String = "same"
+            override val value: String = "b"
+        },object : Attribute {
+            override val name: String = "other"
+            override val value: String = "c"
+        })
+
+        val debugVisitor = DebugVisitor()
+        debugVisitor.visitTag(tag)
+
+        assertEquals("<a same=\"a b\" other=\"c\">${DebugVisitor.linebreak}", debugVisitor.html)
+    }
+
+    @Test
+    fun `empty attributes doesn't change the tag`() {
+        val tag = Tag("a").setAttributes()
+
+        val debugVisitor = DebugVisitor()
+        debugVisitor.visitTag(tag)
+
+        assertEquals("<a>${DebugVisitor.linebreak}", debugVisitor.html)
+    }
+
+    @Test
+    fun `empty attributes doesn't change the tagContainer`() {
+        val tagContainer = TagContainer("a")
+        tagContainer.setAttributes()
+
+        val debugVisitor = DebugVisitor()
+        debugVisitor.visitTagContainerBegin(tagContainer)
+        debugVisitor.visitTagContainerEnd(tagContainer)
+
+        assertEquals("<a>${DebugVisitor.linebreak}</a>${DebugVisitor.linebreak}", debugVisitor.html)
     }
 
     @Test
