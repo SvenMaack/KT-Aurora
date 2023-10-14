@@ -36,11 +36,17 @@ class DebugVisitor: Visitor {
     }
 
     private fun renderAttributes(attributes: Map<String, List<String>>): String =
-        if (attributes.isEmpty())
-            ""
-        else " " + attributes.entries.joinToString(" ") {
-            "${it.key}=\"${this.renderValuesOfOneAttribute(it.value)}\""
+        attributes.entries.joinToString("") {
+            renderOneAttribute(it)
         }
+
+    private inline fun renderOneAttribute(entry: Map.Entry<String, List<String>>): String {
+        val values = entry.value.filter { it.isNotEmpty() }
+        return if(values.isEmpty())
+            " ${entry.key}"
+        else
+            " ${entry.key}=\"${this.renderValuesOfOneAttribute(values)}\""
+    }
 
     private inline fun renderValuesOfOneAttribute(values: List<String>): String =
         values.joinToString(" ")

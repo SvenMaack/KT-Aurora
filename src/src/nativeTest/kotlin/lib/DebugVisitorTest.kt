@@ -1,8 +1,6 @@
 package lib
 
-import lib.base.Attribute
-import lib.base.TagContainer
-import lib.base.TagWithAttributes
+import lib.base.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -98,6 +96,46 @@ class DebugVisitorTest {
         debugVisitor.visitTagContainerEnd(tagContainer)
 
         assertEquals("<a>${DebugVisitor.linebreak}</a>${DebugVisitor.linebreak}", debugVisitor.html)
+    }
+
+    @Test
+    fun `allow attributes without value in the tag`() {
+        val tagWithAttributes = TagWithAttributes("a").setAttributes(
+            object : Attribute {
+                override val name: String = "attr"
+                override val value: String = ""
+            },
+            object : Attribute {
+                override val name: String = "attr2"
+                override val value: String = "value"
+            }
+        )
+
+        val debugVisitor = DebugVisitor()
+        debugVisitor.visitTagWithAttributes(tagWithAttributes)
+
+        assertEquals("<a attr attr2=\"value\">${DebugVisitor.linebreak}", debugVisitor.html)
+    }
+
+    @Test
+    fun `allow attributes without value in the tagContainer`() {
+        val tagContainer = TagContainer("a")
+        tagContainer.setAttributes(
+            object : Attribute {
+                override val name: String = "attr"
+                override val value: String = ""
+            },
+            object : Attribute {
+                override val name: String = "attr2"
+                override val value: String = "value"
+            }
+        )
+
+        val debugVisitor = DebugVisitor()
+        debugVisitor.visitTagContainerBegin(tagContainer)
+        debugVisitor.visitTagContainerEnd(tagContainer)
+
+        assertEquals("<a attr attr2=\"value\">${DebugVisitor.linebreak}</a>${DebugVisitor.linebreak}", debugVisitor.html)
     }
 
     @Test
