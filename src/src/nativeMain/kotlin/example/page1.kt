@@ -4,7 +4,7 @@ import lib.base.Element
 import lib.*
 
 val page1: Element =
-    html {
+    html(lang="en") {
         head {
             title {
                 +"My Webpage"

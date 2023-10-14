@@ -3,6 +3,11 @@ package lib
 import lib.base.TagContainer
 import lib.base.Visitor
 
+enum class Direction(val shortCode: String) {
+    RTL("rtl"),
+    LTR("ltr")
+}
+
 class Html: TagContainer("html") {
     inline fun body(init: Body.() -> Unit) = add(Body(), init)
     inline fun head(init: Head.() -> Unit) = add(Head(), init)
@@ -13,5 +18,12 @@ class Html: TagContainer("html") {
     }
 }
 
-fun html(init: Html.() -> Unit): Html =
-    Html().apply(init)
+fun html(
+    lang: String = "",
+    dir: Direction = Direction.LTR,
+    init: Html.() -> Unit
+): Html =
+    Html().apply {
+        init()
+        setAttributes("lang"[lang], "dir"[dir.shortCode])
+    }
