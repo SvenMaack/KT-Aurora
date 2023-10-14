@@ -9,7 +9,9 @@ val page1: Element =
             title {
                 +"My Webpage"
             }
-            meta("viewport", "width=device-width, initial-scale=1")
+            meta(name="viewport", content="width=device-width, initial-scale=1")
+            meta(charset="UTF-8")
+            meta(name="description", content="Put your description here.")
         }
         body {
             h1 {
@@ -17,7 +19,7 @@ val page1: Element =
             }
             !"more comments"
             hr()
-            div(clazz["MyClass"], clazz["MyClass2"]) {
+            div(clazz="MyClass") {
                 p(clazz="test") {
                     +"This is my first"
                 }

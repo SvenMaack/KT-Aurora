@@ -7,8 +7,14 @@ class Head: TagContainer("head") {
 
     inline fun meta(
         name: String = "",
-        content: String = ""
+        content: String = "",
     ) = add(Meta()) {
         setAttributes("name"[name], "content"[content])
+    }
+
+    inline fun meta(
+        charset: String = ""
+    ) = add(Meta()) {
+        setAttributes("charset"[charset])
     }
 }
