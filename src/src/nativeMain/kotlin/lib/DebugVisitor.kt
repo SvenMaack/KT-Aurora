@@ -14,7 +14,7 @@ class DebugVisitor: Visitor {
     private var currentIndentation = ""
 
     override fun visitTag(tag: Tag) {
-        _html.append("$currentIndentation</${tag.tagName}${renderAttributes(tag.attributes)}>$linebreak")
+        _html.append("$currentIndentation<${tag.tagName}${renderAttributes(tag.attributes)}>$linebreak")
     }
 
     override fun visitTagContainerBegin(tagContainer: TagContainer) {
