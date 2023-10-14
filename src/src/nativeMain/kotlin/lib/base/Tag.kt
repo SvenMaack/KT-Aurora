@@ -15,5 +15,4 @@ open class Tag(name: String) : Element {
     }
 
     protected open fun createTag(name: String): String = name
-        .lowercase()
 }
