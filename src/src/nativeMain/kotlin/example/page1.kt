@@ -9,21 +9,22 @@ val page1: Element =
             title {
                 +"My Webpage"
             }
+            meta("viewport", "width=device-width, initial-scale=1")
         }
         body {
             h1 {
                 +"Hello, world!"
             }
             !"more comments"
+            hr()
             div(clazz["MyClass"], clazz["MyClass2"]) {
                 p(clazz="test") {
-                    +"This is my first web page."
+                    +"This is my first"
                 }
                 span {
-                    +"span"
+                    +"kotlin page"
                 }
             }
-            hr()
             br()
         }
     }
