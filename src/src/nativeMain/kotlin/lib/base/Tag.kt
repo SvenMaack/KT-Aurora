@@ -25,7 +25,7 @@ open class Tag(name: String) : Element {
         .trim()
         .lowercase()
         .filter {
-            it.isLetterOrDigit()
+            it.isLetterOrDigit() || it =='-' || it == '!'
         }
         .ifEmpty {
             "empty"

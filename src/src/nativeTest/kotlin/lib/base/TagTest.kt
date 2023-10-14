@@ -35,9 +35,19 @@ class TagTest {
     }
 
     @Test
-    fun `tag is alpha numeric`() {
-        assertEquals("p", Tag("<§p>").tagName, )
+    fun `tag removes special chars`() {
+        assertEquals("p", Tag("<§p>").tagName)
         assertEquals("empty", Tag("<§>").tagName)
+    }
+
+    @Test
+    fun `tag still allows -`() {
+        assertEquals("-p-", Tag("<-p->").tagName)
+    }
+
+    @Test
+    fun `tag still allows !`() {
+        assertEquals("!p!", Tag("<!p!>").tagName)
     }
 
     @Test
@@ -51,13 +61,35 @@ class TagTest {
             override val name: String = "a"
             override val value: String = "b"
         })
-        assertEquals(attributes, Tag("P").setAttributes(attributes).attributes)
+        val expectedResult = mapOf(
+            "a" to listOf("b")
+        )
+        assertEquals(expectedResult, Tag("P").setAttributes(*attributes).attributes)
+    }
+
+    @Test
+    fun `attributes are only set once`() {
+        val attributes = arrayOf(object : Attribute {
+            override val name: String = "same"
+            override val value: String = "a"
+        }, object : Attribute {
+            override val name: String = "other"
+            override val value: String = "b"
+        }, object : Attribute {
+            override val name: String = "same"
+            override val value: String = "c"
+        })
+        val expectedResult = mapOf(
+            "same" to listOf("a", "c"),
+            "other" to listOf("b")
+        )
+        assertEquals(expectedResult, Tag("P").setAttributes(*attributes).attributes)
     }
 
     @Test
     fun `attributes can be set empty`() {
         val attributes = arrayOf<Attribute>()
-        assertEquals(attributes, Tag("P").setAttributes(attributes).attributes)
+        assertEquals(mapOf(), Tag("P").setAttributes(*attributes).attributes)
     }
 
     @Test

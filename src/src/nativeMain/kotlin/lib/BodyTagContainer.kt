@@ -60,6 +60,6 @@ open class BodyTagContainer(name: String) : TagContainer(name) {
             setAttributes(*attributes, "class"[clazz])
         init()
     }
-    inline fun br() = add(Br) {
-    }
+    inline fun br() = add(Br)
+    inline fun comment(comment: String) = add(Comment(comment))
 }

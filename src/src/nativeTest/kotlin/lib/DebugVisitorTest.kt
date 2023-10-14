@@ -14,7 +14,7 @@ class DebugVisitorTest {
 
         debugVisitor.visitTag(tag)
 
-        assertEquals("</a>${DebugVisitor.linebreak}", debugVisitor.html)
+        assertEquals("<a>${DebugVisitor.linebreak}", debugVisitor.html)
     }
 
     @Test
