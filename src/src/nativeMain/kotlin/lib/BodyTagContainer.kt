@@ -11,6 +11,13 @@ open class BodyTagContainer(name: String) : TagContainer(name) {
             setAttributes(*attributes, "class"[clazz])
         init()
     }
+    inline fun span(vararg attributes: Attribute, clazz: String? = null, init: Span.() -> Unit) = add(Span()) {
+        if(clazz.isNullOrEmpty())
+            setAttributes(*attributes)
+        else
+            setAttributes(*attributes, "class"[clazz])
+        init()
+    }
     inline fun h1(vararg attributes: Attribute, clazz: String? = null, init: H1.() -> Unit) = add(H1()) {
         if(clazz.isNullOrEmpty())
             setAttributes(*attributes)

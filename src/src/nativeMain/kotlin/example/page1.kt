@@ -19,6 +19,9 @@ val page1: Element =
                 p(clazz="test") {
                     +"This is my first web page."
                 }
+                span {
+                    +"span"
+                }
             }
             hr()
             br()
