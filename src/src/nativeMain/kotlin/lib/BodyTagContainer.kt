@@ -4,39 +4,62 @@ import lib.base.Attribute
 import lib.base.TagContainer
 
 open class BodyTagContainer(name: String) : TagContainer(name) {
-    inline fun p(vararg attributes: Attribute, init: P.() -> Unit) = add(P()) {
-        setAttributes(attributes)
+    inline fun p(vararg attributes: Attribute, clazz: String? = null, init: P.() -> Unit) = add(P()) {
+        if(clazz.isNullOrEmpty())
+            setAttributes(*attributes)
+        else
+            setAttributes(*attributes, "class"[clazz])
         init()
     }
-    inline fun h1(vararg attributes: Attribute, init: H1.() -> Unit) = add(H1()) {
-        setAttributes(attributes)
+    inline fun h1(vararg attributes: Attribute, clazz: String? = null, init: H1.() -> Unit) = add(H1()) {
+        if(clazz.isNullOrEmpty())
+            setAttributes(*attributes)
+        else
+            setAttributes(*attributes, "class"[clazz])
         init()
     }
-    inline fun h2(vararg attributes: Attribute, init: H2.() -> Unit) = add(H2()) {
-        setAttributes(attributes)
+    inline fun h2(vararg attributes: Attribute, clazz: String? = null, init: H2.() -> Unit) = add(H2()) {
+        if(clazz.isNullOrEmpty())
+            setAttributes(*attributes)
+        else
+            setAttributes(*attributes, "class"[clazz])
         init()
     }
-    inline fun h3(vararg attributes: Attribute, init: H3.() -> Unit) = add(H3()) {
-        setAttributes(attributes)
+    inline fun h3(vararg attributes: Attribute, clazz: String? = null, init: H3.() -> Unit) = add(H3()) {
+        if(clazz.isNullOrEmpty())
+            setAttributes(*attributes)
+        else
+            setAttributes(*attributes, "class"[clazz])
         init()
     }
-    inline fun h4(vararg attributes: Attribute, init: H4.() -> Unit) = add(H4()) {
-        setAttributes(attributes)
+    inline fun h4(vararg attributes: Attribute, clazz: String? = null, init: H4.() -> Unit) = add(H4()) {
+        if(clazz.isNullOrEmpty())
+            setAttributes(*attributes)
+        else
+            setAttributes(*attributes, "class"[clazz])
         init()
     }
-    inline fun h5(vararg attributes: Attribute, init: H5.() -> Unit) = add(H5()) {
-        setAttributes(attributes)
+    inline fun h5(vararg attributes: Attribute, clazz: String? = null, init: H5.() -> Unit) = add(H5()) {
+        if(clazz.isNullOrEmpty())
+            setAttributes(*attributes)
+        else
+            setAttributes(*attributes, "class"[clazz])
         init()
     }
-    inline fun h6(vararg attributes: Attribute, init: H6.() -> Unit) = add(H6()) {
-        setAttributes(attributes)
+    inline fun h6(vararg attributes: Attribute, clazz: String? = null, init: H6.() -> Unit) = add(H6()) {
+        if(clazz.isNullOrEmpty())
+            setAttributes(*attributes)
+        else
+            setAttributes(*attributes, "class"[clazz])
         init()
     }
-    inline fun div(vararg attributes: Attribute, init: Div.() -> Unit) = add(Div()) {
-        setAttributes(attributes)
+    inline fun div(vararg attributes: Attribute, clazz: String? = null, init: Div.() -> Unit) = add(Div()) {
+        if(clazz.isNullOrEmpty())
+            setAttributes(*attributes)
+        else
+            setAttributes(*attributes, "class"[clazz])
         init()
     }
-    inline fun br(vararg attributes: Attribute) = add(Br) {
-        setAttributes(attributes)
+    inline fun br() = add(Br) {
     }
 }

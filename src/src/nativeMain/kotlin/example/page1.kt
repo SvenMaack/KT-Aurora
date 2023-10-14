@@ -14,8 +14,8 @@ val page1: Element =
             h1 {
                 +"Hello, world!"
             }
-            div(clazz["MyClass"]) {
-                p(id["myID"]) {
+            div(clazz["MyClass"], clazz["MyClass2"]) {
+                p(clazz="test") {
                     +"This is my first web page."
                 }
             }

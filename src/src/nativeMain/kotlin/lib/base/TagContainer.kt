@@ -3,7 +3,7 @@ package lib.base
 open class TagContainer(name: String) : Tag(name) {
     @PublishedApi
     internal val mChildren: MutableCollection<Element> = mutableListOf()
-    @Suppress("MemberVisibilityCanBePrivate")
+
     val children: Collection<Element>
         get() = mChildren
 
