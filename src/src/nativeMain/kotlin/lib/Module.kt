@@ -1,10 +1,7 @@
-package lib.tags
+package lib
 
-import lib.StaticTemplate
-import lib.Template
-import lib.tags.base.Element
-import lib.tags.base.TagContainer
-import lib.tags.base.TransientTag
+import lib.tags.DebugVisitor
+import lib.tags.base.*
 import kotlin.system.getTimeNanos
 
 class ModuleTag: TransientTag()

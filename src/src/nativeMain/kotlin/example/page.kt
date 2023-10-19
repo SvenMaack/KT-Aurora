@@ -1,6 +1,8 @@
 package example
 
+import lib.Module
 import lib.Template
+import lib.include
 import lib.tags.*
 
 data class PageDto(

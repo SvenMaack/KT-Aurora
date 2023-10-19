@@ -2,8 +2,8 @@ package example
 
 import lib.Template
 import lib.tags.Head
-import lib.tags.Module
-import lib.tags.with
+import lib.Module
+import lib.with
 
 data class HeadDto(
     val title: String,

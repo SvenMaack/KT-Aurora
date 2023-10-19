@@ -2,7 +2,7 @@ package example
 
 import lib.StaticTemplate
 import lib.tags.Body
-import lib.tags.with
+import lib.with
 
 val BodyModule: StaticTemplate = {
     Body() with {
