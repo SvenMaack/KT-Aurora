@@ -1,17 +1,17 @@
-package example
+package example2
 
-import lib.base.Element
-import lib.*
+import lib2.base.Element
+import lib2.*
 
-val page1: Element =
-    html(lang="en") {
+val page1: () -> Element = {
+    html(lang = "en") {
         head {
             title {
                 +"My Webpage"
             }
-            meta(name="viewport", content="width=device-width, initial-scale=1")
-            meta(charset="UTF-8")
-            meta(name="description", content="Put your description here.")
+            meta(name = "viewport", content = "width=device-width, initial-scale=1")
+            meta(charset = "UTF-8")
+            meta(name = "description", content = "Put your description here.")
         }
         body {
             h1 {
@@ -19,14 +19,17 @@ val page1: Element =
             }
             !"more comments"
             hr()
-            div(clazz="MyClass") {
-                p(clazz="test") {
-                    +"This is my first"
+            for(i in 1..100) {
+                div(clazz = "MyClass") {
+                    p(clazz = "test") {
+                        +"This is my first"
+                    }
+                    span {
+                        +"kotlin page"
+                    }
                 }
-                span {
-                    +"kotlin page"
-                }
+                br()
             }
-            br()
         }
     }
+}

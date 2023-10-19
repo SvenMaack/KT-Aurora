@@ -1,4 +1,6 @@
-package lib.base
+package lib.tags.base
+
+import lib.tags.Tag
 
 interface Visitor {
     fun visitTextElement(element: TextElement)

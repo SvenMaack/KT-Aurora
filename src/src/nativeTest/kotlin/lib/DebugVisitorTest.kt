@@ -1,6 +1,9 @@
 package lib
 
-import lib.base.*
+import lib.tags.base.Attribute
+import lib.tags.DebugVisitor
+import lib.tags.base.TagContainer
+import lib.tags.base.TagWithAttributes
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

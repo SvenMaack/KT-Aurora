@@ -1,6 +1,6 @@
-package lib
+package lib.tags
 
-import lib.base.TagWithText
+import lib.tags.base.TagWithText
 
 class H1: TagWithText("h1")
 class H2: TagWithText("h2")

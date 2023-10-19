@@ -1,10 +1,11 @@
 import example.page1
 import kotlinx.cinterop.memScoped
-import lib.DebugVisitor
+import lib.tags.DebugVisitor
 import platform.posix.EOF
 import platform.posix.fclose
 import platform.posix.fopen
 import platform.posix.fputs
+import kotlin.system.measureNanoTime
 
 fun writeAllText(filePath:String, text:String) {
     val file = fopen(filePath, "w") ?:
@@ -18,10 +19,25 @@ fun writeAllText(filePath:String, text:String) {
     }
 }
 
-fun main() {
-    with(DebugVisitor()) {
-        page1.traverse(this)
-        println(this.html)
-        writeAllText("./test.html", this.html)
+fun executeMeasured(block: (visitor: DebugVisitor) -> Unit) {
+    val times = 1000L
+    var elapsed = measureNanoTime {
+        for (i in 1..times) {
+            block(DebugVisitor())
+        }
     }
+    elapsed /= times
+    println("Duration ${elapsed / (1000*1000)} Milliseconds, ${(elapsed / (1000) % 1000)} Microseconds, ${(elapsed % 1000)} NanoSeconds")
+}
+
+fun main() {
+    executeMeasured {
+        page1().traverse(it)
+        it.html
+    }
+
+    val visitor = DebugVisitor()
+    page1().traverse(visitor)
+    println(visitor.html)
+    writeAllText("./test.html", visitor.html)
 }

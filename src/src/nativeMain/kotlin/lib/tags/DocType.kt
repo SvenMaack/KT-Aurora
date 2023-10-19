@@ -1,5 +1,3 @@
-package lib
-
-import lib.base.Tag
+package lib.tags
 
 object DocType: Tag("!DOCTYPE html")

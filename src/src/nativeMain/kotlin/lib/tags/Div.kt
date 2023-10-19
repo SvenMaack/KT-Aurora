@@ -1,3 +1,3 @@
-package lib
+package lib.tags
 
 class Div : BodyTagContainer("div")

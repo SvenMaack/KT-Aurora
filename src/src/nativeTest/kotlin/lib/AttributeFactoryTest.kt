@@ -1,6 +1,6 @@
 package lib
 
-import lib.base.Attribute
+import lib.tags.base.Attribute
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

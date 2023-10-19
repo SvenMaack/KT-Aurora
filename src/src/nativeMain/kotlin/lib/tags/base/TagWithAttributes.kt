@@ -1,4 +1,7 @@
-package lib.base
+package lib.tags.base
+
+import lib.tags.HtmlTagMarker
+import lib.tags.Tag
 
 @HtmlTagMarker
 open class TagWithAttributes(name: String) : Tag(name) {

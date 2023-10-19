@@ -1,6 +1,9 @@
-package lib
+package lib.tags
 
-import lib.base.*
+import lib.tags.base.TagContainer
+import lib.tags.base.TagWithAttributes
+import lib.tags.base.TextElement
+import lib.tags.base.Visitor
 
 class DebugVisitor: Visitor {
     companion object {
