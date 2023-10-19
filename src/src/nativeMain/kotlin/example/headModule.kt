@@ -3,15 +3,12 @@ package example
 import lib.Template
 import lib.tags.Head
 import lib.tags.Module
-import lib.tags.base.Element
 import lib.tags.with
 
 data class HeadDto(
-    val title: String
-): Module {
-    override val template: Element
-        get() = HeadModule(this)
-}
+    val title: String,
+    override val template: Template<HeadDto> = HeadModule
+): Module<HeadDto>
 
 val HeadModule: Template<HeadDto> = { data ->
     Head() with {
