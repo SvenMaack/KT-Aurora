@@ -1,6 +1,7 @@
 package unit.lib.base
 
 import lib.base.Attribute
+import lib.base.get
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
