@@ -4,13 +4,9 @@ import lib.StaticTemplate
 import lib.Template
 import lib.tags.base.Element
 import lib.tags.base.TagContainer
-import lib.tags.base.Visitor
+import lib.tags.base.TransientTag
 
-class ModuleTag: TagContainer("") {
-    override fun traverse(visitor: Visitor) {
-        children.forEach { it.traverse(visitor) }
-    }
-}
+class ModuleTag: TransientTag()
 
 interface Module<DTO> {
     val template: Template<DTO>
