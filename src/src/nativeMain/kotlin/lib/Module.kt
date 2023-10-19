@@ -20,14 +20,7 @@ fun TagContainer.include(context: Context, template: StaticTemplate) {
     add(TransientTag().apply {
         val timestamp = getTimeNanos()
         !"Cache start - $timestamp"
-        +ModuleCache.getOrSet(context, template, ::renderTemplate)
+        +ModuleCache.getOrSet(context, template, TemplateRenderer::render)
         !"Cache end   - $timestamp"
     })
-}
-
-private fun renderTemplate(context: Context, template: StaticTemplate): String {
-    val visitor = context.visitorFactory.getVisitor()
-    val element = template(context)
-    element.traverse(visitor)
-    return visitor.html
 }

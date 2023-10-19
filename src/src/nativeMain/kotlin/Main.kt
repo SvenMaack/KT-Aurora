@@ -2,6 +2,7 @@ import example.HeadDto
 import example.PageDto
 import kotlinx.cinterop.memScoped
 import lib.Context
+import lib.TemplateRenderer
 import lib.tags.DebugVisitor
 import lib.tags.ProductionVisitor
 import platform.posix.EOF
@@ -12,6 +13,8 @@ import kotlin.system.measureNanoTime
 
 val headData: HeadDto = HeadDto("World")
 val pageData: PageDto = PageDto(headData)
+val productionContext: Context = Context { ProductionVisitor() }
+val debugContext: Context = Context { DebugVisitor() }
 
 fun writeAllText(filePath:String, text:String) {
     val file = fopen(filePath, "w") ?:
@@ -25,11 +28,11 @@ fun writeAllText(filePath:String, text:String) {
     }
 }
 
-fun executeMeasured(block: (visitor: ProductionVisitor) -> Unit) {
+fun executeMeasured(block: () -> Unit) {
     val times = 1000L
     var elapsed = measureNanoTime {
         for (i in 1..times) {
-            block(ProductionVisitor())
+            block()
         }
     }
     elapsed /= times
@@ -38,12 +41,10 @@ fun executeMeasured(block: (visitor: ProductionVisitor) -> Unit) {
 
 fun main() {
     executeMeasured {
-        pageData.template(Context { ProductionVisitor() }, pageData).traverse(it)
-        it.html
+        TemplateRenderer.render(productionContext, pageData.template, pageData)
     }
 
-    val visitor = DebugVisitor()
-    pageData.template(Context { DebugVisitor() }, pageData).traverse(visitor)
-    println(visitor.html)
-    writeAllText("./test.html", visitor.html)
+    val html = TemplateRenderer.render(debugContext, pageData.template, pageData)
+    println(html)
+    writeAllText("./test.html", html)
 }

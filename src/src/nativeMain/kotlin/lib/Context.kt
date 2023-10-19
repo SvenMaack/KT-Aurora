@@ -3,7 +3,7 @@ package lib
 import lib.tags.base.Visitor
 
 fun interface VisitorFactory {
-    fun getVisitor(): Visitor
+    fun create(): Visitor
 }
 
 data class Context(
