@@ -9,6 +9,7 @@ interface Module<DTO> {
     val template: Template<DTO>
 }
 
+//creation of module
 inline infix fun <T: Element>T.with(init: T.() -> Unit): TransientTag =
     TransientTag().apply {
         add(this@with, init)

@@ -1,10 +1,9 @@
 import example.HeadDto
 import example.PageDto
 import kotlinx.cinterop.memScoped
-import lib.Context
 import lib.TemplateRenderer
-import lib.visitors.DebugVisitor
-import lib.visitors.ProductionVisitor
+import lib.base.debugContext
+import lib.base.productionContext
 import platform.posix.EOF
 import platform.posix.fclose
 import platform.posix.fopen
@@ -13,8 +12,6 @@ import kotlin.system.measureNanoTime
 
 val headData: HeadDto = HeadDto("World")
 val pageData: PageDto = PageDto(headData)
-val productionContext: Context = Context { ProductionVisitor() }
-val debugContext: Context = Context { DebugVisitor() }
 
 inline fun writeAllText(filePath:String, text:String) {
     val file = fopen(filePath, "w") ?:

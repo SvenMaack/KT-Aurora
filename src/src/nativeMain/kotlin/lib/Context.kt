@@ -1,10 +1,6 @@
 package lib
 
-import lib.base.Visitor
-
-fun interface VisitorFactory {
-    fun create(): Visitor
-}
+import lib.base.VisitorFactory
 
 data class Context(
     val visitorFactory: VisitorFactory

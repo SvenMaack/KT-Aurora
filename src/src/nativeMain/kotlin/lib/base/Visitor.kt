@@ -1,5 +1,9 @@
 package lib.base
 
+import lib.Context
+import lib.visitors.DebugVisitor
+import lib.visitors.ProductionVisitor
+
 interface Visitor {
     val html: String
 
@@ -10,3 +14,10 @@ interface Visitor {
     fun visitTagContainerBegin(tagContainer: TagContainer)
     fun visitTagContainerEnd(tagContainer: TagContainer)
 }
+
+fun interface VisitorFactory {
+    fun create(): Visitor
+}
+
+val productionContext: Context = Context { ProductionVisitor() }
+val debugContext: Context = Context { DebugVisitor() }
