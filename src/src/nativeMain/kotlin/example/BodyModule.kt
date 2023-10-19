@@ -4,7 +4,7 @@ import lib.StaticTemplate
 import lib.tags.Body
 import lib.with
 
-val BodyModule: StaticTemplate = {
+val BodyModule: StaticTemplate = { _ ->
     Body() with {
         h1 {
             +"Hello, world!"

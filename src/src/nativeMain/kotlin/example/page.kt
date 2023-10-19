@@ -11,8 +11,8 @@ data class PageDto(
 ): Module<PageDto>
 
 val PageModule: Template<PageDto> = { context, data ->
-    html(lang = "en") {
-        include(context=context, module=data.headDto)
-        include(context=context, template=BodyModule)
+    html(lang="en") {
+        include(module=data.headDto, context=context)
+        include(template=BodyModule, context=context)
     }
 }
