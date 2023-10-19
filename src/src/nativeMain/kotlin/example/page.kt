@@ -10,9 +10,9 @@ data class PageDto(
     override val template: Template<PageDto> = PageModule
 ): Module<PageDto>
 
-val PageModule: Template<PageDto> = { data ->
+val PageModule: Template<PageDto> = { context, data ->
     html(lang = "en") {
-        include(module=data.headDto)
-        include(template=BodyModule)
+        include(context=context, module=data.headDto)
+        include(context=context, template=BodyModule)
     }
 }

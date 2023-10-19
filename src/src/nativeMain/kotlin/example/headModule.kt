@@ -10,7 +10,7 @@ data class HeadDto(
     override val template: Template<HeadDto> = HeadModule
 ): Module<HeadDto>
 
-val HeadModule: Template<HeadDto> = { data ->
+val HeadModule: Template<HeadDto> = { _, data ->
     Head() with {
         title {
             +data.title

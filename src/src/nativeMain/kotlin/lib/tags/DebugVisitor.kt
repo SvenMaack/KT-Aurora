@@ -9,7 +9,7 @@ class DebugVisitor: Visitor {
     }
 
     private val _html = StringBuilder()
-    val html: String
+    override val html: String
         get() = _html.toString()
     private var currentIndentation = ""
 

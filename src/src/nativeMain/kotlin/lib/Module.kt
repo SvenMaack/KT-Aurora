@@ -1,6 +1,5 @@
 package lib
 
-import lib.tags.DebugVisitor
 import lib.tags.base.*
 import kotlin.system.getTimeNanos
 
@@ -15,28 +14,32 @@ inline infix fun <T: Element>T.with(init: T.() -> Unit): ModuleTag =
         add(this@with, init)
     }
 
-inline fun <M: Module<M>>TagContainer.include(module: M) {
-    add(module.template(module))
+inline fun <M: Module<M>>TagContainer.include(context: Context, module: M) {
+    add(module.template(context, module))
 }
 
-fun TagContainer.include(template: StaticTemplate) {
+fun TagContainer.include(context: Context, template: StaticTemplate) {
     add(TransientTag().apply {
         val timestamp = getTimeNanos()
         !"Cache start - $timestamp"
-        + cachedResult.getOrElse(template) {
-            val result = renderTemplate(template)
-            cachedResult[template] = result
+        + cachedResult.getOrElse(getCacheKey(context, template)) {
+            println("no cache")
+            val result = renderTemplate(context, template)
+            cachedResult[getCacheKey(context, template)] = result
             result
         }
         !"Cache end   - $timestamp"
     })
 }
 
-private fun renderTemplate(template: StaticTemplate): String {
-    val visitor = DebugVisitor()
-    val element = template()
+private fun renderTemplate(context: Context, template: StaticTemplate): String {
+    val visitor = context.visitorFactory.getVisitor()
+    val element = template(context)
     element.traverse(visitor)
-    return (DebugVisitor.LINE_BREAK + visitor.html)
+    return visitor.html
 }
 
-private val cachedResult: MutableMap<StaticTemplate, String> = mutableMapOf()
+private fun getCacheKey(context: Context, template: StaticTemplate): String =
+    context.hashCode().toString() + template.hashCode().toString()
+
+private val cachedResult: MutableMap<String, String> = mutableMapOf()

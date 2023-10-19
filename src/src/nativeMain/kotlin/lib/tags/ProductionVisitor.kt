@@ -4,7 +4,7 @@ import lib.tags.base.*
 
 class ProductionVisitor: Visitor {
     private val _html = StringBuilder()
-    val html: String
+    override val html: String
         get() = _html.toString()
 
     override fun visitTag(tag: Tag) {

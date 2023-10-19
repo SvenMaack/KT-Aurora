@@ -3,6 +3,8 @@ package lib.tags.base
 import lib.tags.Tag
 
 interface Visitor {
+    val html: String
+
     fun visitTextElement(element: TextElement)
     fun visitTag(tag: Tag)
     fun visitComment(comment: Comment)
