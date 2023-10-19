@@ -2,6 +2,7 @@ import example.HeadDto
 import example.PageDto
 import kotlinx.cinterop.memScoped
 import lib.tags.DebugVisitor
+import lib.tags.ProductionVisitor
 import platform.posix.EOF
 import platform.posix.fclose
 import platform.posix.fopen
@@ -23,11 +24,11 @@ fun writeAllText(filePath:String, text:String) {
     }
 }
 
-fun executeMeasured(block: (visitor: DebugVisitor) -> Unit) {
+fun executeMeasured(block: (visitor: ProductionVisitor) -> Unit) {
     val times = 1000L
     var elapsed = measureNanoTime {
         for (i in 1..times) {
-            block(DebugVisitor())
+            block(ProductionVisitor())
         }
     }
     elapsed /= times

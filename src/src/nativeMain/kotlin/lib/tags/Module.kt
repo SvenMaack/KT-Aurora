@@ -39,7 +39,7 @@ private fun renderTemplate(template: StaticTemplate): String {
     val visitor = DebugVisitor()
     val element = template()
     element.traverse(visitor)
-    return (DebugVisitor.linebreak + visitor.html)
+    return (DebugVisitor.LINE_BREAK + visitor.html)
 }
 
 private val cachedResult: MutableMap<StaticTemplate, String> = mutableMapOf()
