@@ -1,6 +1,7 @@
 package lib.tags
 
 import lib.base.Attribute
+import lib.base.get
 import lib.base.TagContainer
 
 open class BodyTagContainer(name: String) : TagContainer(name) {

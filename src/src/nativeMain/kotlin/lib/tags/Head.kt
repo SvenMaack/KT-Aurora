@@ -1,6 +1,7 @@
 package lib.tags
 
 import lib.base.TagContainer
+import lib.base.get
 
 class Head: TagContainer("head") {
     inline fun title(init: Title.() -> Unit) = add(Title(), init)

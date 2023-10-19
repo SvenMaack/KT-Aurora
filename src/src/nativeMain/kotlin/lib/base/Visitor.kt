@@ -1,7 +1,5 @@
 package lib.base
 
-import lib.tags.Tag
-
 interface Visitor {
     val html: String
 

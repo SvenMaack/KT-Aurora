@@ -1,7 +1,7 @@
 package lib.visitors
 
 import lib.base.*
-import lib.tags.Tag
+import lib.base.Tag
 
 class DebugVisitor: Visitor {
     companion object {

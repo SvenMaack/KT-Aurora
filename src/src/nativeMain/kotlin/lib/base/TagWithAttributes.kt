@@ -1,8 +1,5 @@
 package lib.base
 
-import lib.tags.HtmlTagMarker
-import lib.tags.Tag
-
 @HtmlTagMarker
 open class TagWithAttributes(name: String) : Tag(name) {
     var attributes: Map<String, List<String>> = mapOf()
