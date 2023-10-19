@@ -1,5 +1,5 @@
 import example.HeadDto
-import example.page1
+import example.page
 import kotlinx.cinterop.memScoped
 import lib.tags.DebugVisitor
 import platform.posix.EOF
@@ -36,12 +36,12 @@ fun executeMeasured(block: (visitor: DebugVisitor) -> Unit) {
 
 fun main() {
     executeMeasured {
-        page1(headData).traverse(it)
+        page(headData).traverse(it)
         it.html
     }
 
     val visitor = DebugVisitor()
-    page1(headData).traverse(visitor)
+    page(headData).traverse(visitor)
     println(visitor.html)
     writeAllText("./test.html", visitor.html)
 }
