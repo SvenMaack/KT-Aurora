@@ -1,11 +1,16 @@
 package example
 
+import lib.Template
 import lib.tags.*
-import lib.tags.base.Element
 
-val page: (HeadDto) -> Element = { headData ->
-    html(lang="en") {
-        include(module=headData)
+data class PageDto(
+    val headDto: HeadDto,
+    override val template: Template<PageDto> = PageModule
+): Module<PageDto>
+
+val PageModule: Template<PageDto> = { data ->
+    html(lang = "en") {
+        include(module=data.headDto)
         include(template=BodyModule)
     }
 }
