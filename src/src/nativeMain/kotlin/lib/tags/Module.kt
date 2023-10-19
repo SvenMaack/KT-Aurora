@@ -25,5 +25,5 @@ inline fun <M: Module>TagContainer.include(module: M) {
 }
 
 inline fun TagContainer.include(template: StaticTemplate) {
-    add(template(Unit))
+    add(template())
 }
