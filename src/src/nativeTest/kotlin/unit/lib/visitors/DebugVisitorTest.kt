@@ -1,4 +1,4 @@
-package lib
+package unit.lib.visitors
 
 import lib.base.Attribute
 import lib.visitors.DebugVisitor

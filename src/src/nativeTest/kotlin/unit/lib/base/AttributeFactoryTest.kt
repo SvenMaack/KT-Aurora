@@ -1,4 +1,4 @@
-package lib
+package unit.lib.base
 
 import lib.base.Attribute
 import kotlin.test.Test
