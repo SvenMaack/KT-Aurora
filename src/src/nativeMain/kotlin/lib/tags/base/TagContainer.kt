@@ -17,4 +17,6 @@ open class TagContainer(name: String) : TagWithAttributes(name) {
         children.forEach { it.traverse(visitor) }
         visitor.visitTagContainerEnd(this)
     }
+
+    inline operator fun String.not() = add(Comment(this))
 }

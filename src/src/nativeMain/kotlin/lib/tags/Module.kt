@@ -5,6 +5,7 @@ import lib.Template
 import lib.tags.base.Element
 import lib.tags.base.TagContainer
 import lib.tags.base.TransientTag
+import kotlin.system.getTimeNanos
 
 class ModuleTag: TransientTag()
 
@@ -21,6 +22,24 @@ inline fun <M: Module<M>>TagContainer.include(module: M) {
     add(module.template(module))
 }
 
-inline fun TagContainer.include(template: StaticTemplate) {
-    add(template())
+fun TagContainer.include(template: StaticTemplate) {
+    add(TransientTag().apply {
+        val timestamp = getTimeNanos()
+        !"Cache start - $timestamp"
+        + cachedResult.getOrElse(template) {
+            val result = renderTemplate(template)
+            cachedResult[template] = result
+            result
+        }
+        !"Cache end   - $timestamp"
+    })
 }
+
+private fun renderTemplate(template: StaticTemplate): String {
+    val visitor = DebugVisitor()
+    val element = template()
+    element.traverse(visitor)
+    return (DebugVisitor.linebreak + visitor.html)
+}
+
+private val cachedResult: MutableMap<StaticTemplate, String> = mutableMapOf()

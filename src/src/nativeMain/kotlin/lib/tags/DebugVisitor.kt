@@ -1,9 +1,6 @@
 package lib.tags
 
-import lib.tags.base.TagContainer
-import lib.tags.base.TagWithAttributes
-import lib.tags.base.TextElement
-import lib.tags.base.Visitor
+import lib.tags.base.*
 
 class DebugVisitor: Visitor {
     companion object {
@@ -18,6 +15,10 @@ class DebugVisitor: Visitor {
 
     override fun visitTag(tag: Tag) {
         _html.append("$currentIndentation<${tag.tagName}>$linebreak")
+    }
+
+    override fun visitComment(comment: Comment) {
+        visitTag(comment)
     }
 
     override fun visitTagWithAttributes(tag: TagWithAttributes) {

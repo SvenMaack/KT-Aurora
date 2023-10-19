@@ -9,7 +9,6 @@ val BodyModule: StaticTemplate = {
         h1 {
             +"Hello, world!"
         }
-        !"more comments"
         hr()
         div(clazz="MyClass") {
             p(clazz="test") {
