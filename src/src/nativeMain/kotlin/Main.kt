@@ -1,3 +1,4 @@
+import example.HeadDto
 import example.page1
 import kotlinx.cinterop.memScoped
 import lib.tags.DebugVisitor
@@ -6,6 +7,9 @@ import platform.posix.fclose
 import platform.posix.fopen
 import platform.posix.fputs
 import kotlin.system.measureNanoTime
+
+
+val headData: HeadDto = HeadDto("World")
 
 fun writeAllText(filePath:String, text:String) {
     val file = fopen(filePath, "w") ?:
@@ -32,12 +36,12 @@ fun executeMeasured(block: (visitor: DebugVisitor) -> Unit) {
 
 fun main() {
     executeMeasured {
-        page1().traverse(it)
+        page1(headData).traverse(it)
         it.html
     }
 
     val visitor = DebugVisitor()
-    page1().traverse(visitor)
+    page1(headData).traverse(visitor)
     println(visitor.html)
     writeAllText("./test.html", visitor.html)
 }
