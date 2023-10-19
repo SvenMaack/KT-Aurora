@@ -1,7 +1,7 @@
 package lib.tags
 
-import lib.tags.base.TagContainer
-import lib.tags.base.Visitor
+import lib.base.TagContainer
+import lib.base.Visitor
 
 enum class Direction(val shortCode: String) {
     RTL("rtl"),

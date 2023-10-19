@@ -1,6 +1,8 @@
 package lib
 
-import lib.tags.base.*
+import lib.base.Element
+import lib.base.TagContainer
+import lib.base.TransientTag
 import kotlin.system.getTimeNanos
 
 interface Module<DTO> {
@@ -12,7 +14,7 @@ inline infix fun <T: Element>T.with(init: T.() -> Unit): TransientTag =
         add(this@with, init)
     }
 
-inline fun <M: Module<M>>TagContainer.include(context: Context, module: M) {
+inline fun <M: Module<M>> TagContainer.include(context: Context, module: M) {
     add(module.template(context, module))
 }
 

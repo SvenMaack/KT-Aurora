@@ -1,7 +1,7 @@
 package lib.tags
 
-import lib.tags.base.Element
-import lib.tags.base.Visitor
+import lib.base.Element
+import lib.base.Visitor
 
 @DslMarker
 annotation class HtmlTagMarker

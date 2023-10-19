@@ -1,4 +1,4 @@
-package lib.tags.base
+package lib.base
 
 open class TransientTag: TagWithText("") {
     override fun traverse(visitor: Visitor) {

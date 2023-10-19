@@ -1,4 +1,4 @@
-package lib.tags.base
+package lib.base
 
 interface Attribute {
     val name: String

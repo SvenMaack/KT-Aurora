@@ -6,9 +6,9 @@ import io.mockative.mock
 import io.mockative.classOf
 import io.mockative.verify
 import io.mockative.time
-import lib.tags.base.TagWithText
-import lib.tags.base.TextElement
-import lib.tags.base.Visitor
+import lib.base.TagWithText
+import lib.base.TextElement
+import lib.base.Visitor
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

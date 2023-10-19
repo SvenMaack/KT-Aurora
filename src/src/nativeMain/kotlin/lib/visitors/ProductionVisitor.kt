@@ -1,6 +1,7 @@
-package lib.tags
+package lib.visitors
 
-import lib.tags.base.*
+import lib.base.*
+import lib.tags.Tag
 
 class ProductionVisitor: Visitor {
     private val _html = StringBuilder()

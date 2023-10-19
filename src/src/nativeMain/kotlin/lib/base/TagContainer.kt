@@ -1,4 +1,4 @@
-package lib.tags.base
+package lib.base
 
 open class TagContainer(name: String) : TagWithAttributes(name) {
     @PublishedApi

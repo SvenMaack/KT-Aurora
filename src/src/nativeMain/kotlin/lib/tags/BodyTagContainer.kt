@@ -1,7 +1,7 @@
 package lib.tags
 
-import lib.tags.base.Attribute
-import lib.tags.base.TagContainer
+import lib.base.Attribute
+import lib.base.TagContainer
 
 open class BodyTagContainer(name: String) : TagContainer(name) {
     inline fun p(vararg attributes: Attribute, clazz: String? = null, init: P.() -> Unit) = add(P()) {

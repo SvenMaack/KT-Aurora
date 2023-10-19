@@ -1,6 +1,6 @@
 package lib
 
-import lib.tags.base.Visitor
+import lib.base.Visitor
 
 fun interface VisitorFactory {
     fun create(): Visitor

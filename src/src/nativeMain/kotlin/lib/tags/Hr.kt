@@ -1,5 +1,5 @@
 package lib.tags
 
-import lib.tags.base.TagWithAttributes
+import lib.base.TagWithAttributes
 
 object Hr: TagWithAttributes("hr")

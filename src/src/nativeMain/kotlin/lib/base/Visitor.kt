@@ -1,4 +1,4 @@
-package lib.tags.base
+package lib.base
 
 import lib.tags.Tag
 

@@ -3,8 +3,8 @@ import example.PageDto
 import kotlinx.cinterop.memScoped
 import lib.Context
 import lib.TemplateRenderer
-import lib.tags.DebugVisitor
-import lib.tags.ProductionVisitor
+import lib.visitors.DebugVisitor
+import lib.visitors.ProductionVisitor
 import platform.posix.EOF
 import platform.posix.fclose
 import platform.posix.fopen
@@ -16,7 +16,7 @@ val pageData: PageDto = PageDto(headData)
 val productionContext: Context = Context { ProductionVisitor() }
 val debugContext: Context = Context { DebugVisitor() }
 
-fun writeAllText(filePath:String, text:String) {
+inline fun writeAllText(filePath:String, text:String) {
     val file = fopen(filePath, "w") ?:
         throw IllegalArgumentException("Cannot open output file $filePath")
     try {
@@ -28,7 +28,7 @@ fun writeAllText(filePath:String, text:String) {
     }
 }
 
-fun executeMeasured(block: () -> Unit) {
+inline fun executeMeasured(block: () -> Unit) {
     val times = 1000L
     var elapsed = measureNanoTime {
         for (i in 1..times) {

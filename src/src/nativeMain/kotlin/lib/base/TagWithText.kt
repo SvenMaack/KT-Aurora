@@ -1,4 +1,4 @@
-package lib.tags.base
+package lib.base
 
 open class TagWithText(name: String) : TagContainer(name) {
     inline operator fun String.unaryPlus(): TextElement {
