@@ -10,17 +10,18 @@ data class HeadDto(
 
 val HeadModule: DynamicTemplate<HeadDto> = { context, data ->
     Head() with {
+        include(template=StaticHead, context=context)
         title {
             +data.title
         }
         meta(name="description", content="Put your description here.")
-        include(template=StaticHead, context=context)
+        meta(name="keywords", content="Put your description here.")
     }
 }
 
 val StaticHead: StaticTemplate = { _ ->
     childrenOf(Head()) {
-        meta(name="viewport", content="width=device-width, initial-scale=1")
         meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
     }
 }
