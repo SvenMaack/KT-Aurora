@@ -6,13 +6,14 @@ import io.mockative.mock
 import io.mockative.classOf
 import io.mockative.verify
 import io.mockative.time
+import lib.base.Comment
+import lib.base.Tag
 import lib.base.TagContainer
-import lib.base.TagWithAttributes
 import lib.base.Visitor
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
-@Suppress("FunctionNaming")
 class TagContainerTest {
     @Mock
     val api = configure(mock(classOf<Visitor>())) {
@@ -49,16 +50,26 @@ class TagContainerTest {
 
     @Test
     fun `visitor of child is being called`() {
-        val tagWithAttributes = TagWithAttributes("b")
+        val tag = Tag("b")
         val tagContainer = TagContainer("a")
-        tagContainer.add(tagWithAttributes)
+        tagContainer.add(tag)
 
         tagContainer.traverse(api)
 
         verify(api)
             .invocation {
-                visitTagWithAttributes(tagWithAttributes)
+                visitTag(tag)
             }
             .wasInvoked(exactly = 1.time)
+    }
+
+    @Test
+    fun `adding comment works`() {
+        val tagContainer = TagContainer("a")
+        tagContainer.apply { !"comment" }
+
+        assertEquals(1, tagContainer.children.size)
+        assertTrue { tagContainer.children[0] is Comment }
+        assertEquals( "!--comment--", (tagContainer.children[0] as Comment).tagName)
     }
 }

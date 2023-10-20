@@ -2,9 +2,9 @@ package lib.base
 
 open class TagContainer(name: String) : TagWithAttributes(name) {
     @PublishedApi
-    internal val mChildren: MutableCollection<Element> = mutableListOf()
+    internal val mChildren: MutableList<Element> = mutableListOf()
 
-    val children: Collection<Element>
+    val children: List<Element>
         get() = mChildren
 
     inline fun <T : Element> add(tag: T, init: T.() -> Unit = {}): T = tag.apply {

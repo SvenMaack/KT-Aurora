@@ -5,7 +5,6 @@ import lib.base.get
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-@Suppress("FunctionNaming")
 class AttributeFactoryTest {
     @Test
     fun `test attributes creation`() {

@@ -11,7 +11,6 @@ import lib.base.Visitor
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-@Suppress("FunctionNaming")
 class TagTest {
     @Mock
     val api = configure(mock(classOf<Visitor>())) {

@@ -7,7 +7,7 @@ The following inheritance exists to create tags
           -------------------
           |                  |
        Comment               |
-                     TagWithAttributes //validates the tag name
+                     TagWithAttributes //validates the tag name and adds attributes
                              |
                         TagContainer //supports tags as children
                              |

@@ -3,6 +3,7 @@ package lib.base
 @DslMarker
 annotation class HtmlTagMarker
 
+@HtmlTagMarker
 open class Tag(name: String) : Element {
     val tagName: String
 
