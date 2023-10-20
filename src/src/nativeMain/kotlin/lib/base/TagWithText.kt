@@ -9,7 +9,7 @@ open class TagWithText(name: String) : TagContainer(name) {
 }
 
 class TextElement(val text: String) : Element {
-    override fun traverse(visitor: Visitor) {
+    override fun traverse(visitor: Visitor<*>) {
         visitor.visitTextElement(this)
     }
 }

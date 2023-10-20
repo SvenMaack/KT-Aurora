@@ -13,7 +13,7 @@ open class TagWithAttributes(name: String):
     ) {
     var attributes: Map<String, List<String>> = mapOf()
 
-    override fun traverse(visitor: Visitor) {
+    override fun traverse(visitor: Visitor<*>) {
         visitor.visitTagWithAttributes(this)
     }
 

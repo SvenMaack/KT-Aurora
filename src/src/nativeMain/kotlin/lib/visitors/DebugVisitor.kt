@@ -3,14 +3,14 @@ package lib.visitors
 import lib.base.*
 import lib.base.Tag
 
-class DebugVisitor: Visitor {
+class DebugVisitor: Visitor<String> {
     companion object {
         const val LINE_BREAK = "\n"
         const val INDENTATION = "\t"
     }
 
     private val _html = StringBuilder()
-    override val html: String
+    override val result: String
         get() = _html.toString()
     private var currentIndentation = ""
 

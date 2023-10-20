@@ -11,7 +11,7 @@ open class Tag(name: String) : Element {
         this.tagName = createTag(name)
     }
 
-    override fun traverse(visitor: Visitor) {
+    override fun traverse(visitor: Visitor<*>) {
         visitor.visitTag(this)
     }
 

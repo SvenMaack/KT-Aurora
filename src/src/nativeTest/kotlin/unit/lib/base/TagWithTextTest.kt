@@ -14,7 +14,7 @@ import kotlin.test.assertEquals
 
 class TagWithTextTest {
     @Mock
-    val api = configure(mock(classOf<Visitor>())) {
+    val api = configure(mock(classOf<Visitor<String>>())) {
         stubsUnitByDefault = true
     }
 

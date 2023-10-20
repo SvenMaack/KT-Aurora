@@ -7,7 +7,7 @@ import kotlin.test.Test
 
 class TransientTagTest {
     @Mock
-    val api = configure(mock(classOf<Visitor>())) {
+    val api = configure(mock(classOf<Visitor<String>>())) {
         stubsUnitByDefault = true
     }
 

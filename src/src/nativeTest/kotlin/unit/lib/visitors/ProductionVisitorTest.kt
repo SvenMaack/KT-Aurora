@@ -2,7 +2,6 @@ package unit.lib.visitors
 
 import lib.base.Attribute
 import lib.base.Comment
-import lib.visitors.DebugVisitor
 import lib.base.TagContainer
 import lib.base.TagWithAttributes
 import lib.visitors.ProductionVisitor
@@ -17,7 +16,7 @@ class ProductionVisitorTest {
 
         productionVisitor.visitTagWithAttributes(tagWithAttributes)
 
-        assertEquals("<a>", productionVisitor.html)
+        assertEquals("<a>", productionVisitor.result)
     }
 
     @Test
@@ -27,7 +26,7 @@ class ProductionVisitorTest {
 
         productionVisitor.visitComment(comment)
 
-        assertEquals("", productionVisitor.html)
+        assertEquals("", productionVisitor.result)
     }
 
     @Test
@@ -37,7 +36,7 @@ class ProductionVisitorTest {
 
         productionVisitor.visitTagContainerBegin(tagContainer)
 
-        assertEquals("<a>", productionVisitor.html)
+        assertEquals("<a>", productionVisitor.result)
     }
 
     @Test
@@ -47,7 +46,7 @@ class ProductionVisitorTest {
 
         productionVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("</a>", productionVisitor.html)
+        assertEquals("</a>", productionVisitor.result)
     }
 
     @Test
@@ -68,7 +67,7 @@ class ProductionVisitorTest {
         productionVisitor.visitTagContainerBegin(tagContainer)
         productionVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("<a same=\"a b\" other=\"c\"></a>", productionVisitor.html)
+        assertEquals("<a same=\"a b\" other=\"c\"></a>", productionVisitor.result)
     }
 
     @Test
@@ -87,7 +86,7 @@ class ProductionVisitorTest {
         val productionVisitor = ProductionVisitor()
         productionVisitor.visitTagWithAttributes(tagWithAttributes)
 
-        assertEquals("<a same=\"a b\" other=\"c\">", productionVisitor.html)
+        assertEquals("<a same=\"a b\" other=\"c\">", productionVisitor.result)
     }
 
     @Test
@@ -97,7 +96,7 @@ class ProductionVisitorTest {
         val productionVisitor = ProductionVisitor()
         productionVisitor.visitTagWithAttributes(tagWithAttributes)
 
-        assertEquals("<a>", productionVisitor.html)
+        assertEquals("<a>", productionVisitor.result)
     }
 
     @Test
@@ -109,7 +108,7 @@ class ProductionVisitorTest {
         productionVisitor.visitTagContainerBegin(tagContainer)
         productionVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("<a></a>", productionVisitor.html)
+        assertEquals("<a></a>", productionVisitor.result)
     }
 
     @Test
@@ -128,7 +127,7 @@ class ProductionVisitorTest {
         val productionVisitor = ProductionVisitor()
         productionVisitor.visitTagWithAttributes(tagWithAttributes)
 
-        assertEquals("<a attr attr2=\"value\">", productionVisitor.html)
+        assertEquals("<a attr attr2=\"value\">", productionVisitor.result)
     }
 
     @Test
@@ -149,7 +148,7 @@ class ProductionVisitorTest {
         productionVisitor.visitTagContainerBegin(tagContainer)
         productionVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("<a attr attr2=\"value\"></a>", productionVisitor.html)
+        assertEquals("<a attr attr2=\"value\"></a>", productionVisitor.result)
     }
 
     @Test
@@ -162,6 +161,6 @@ class ProductionVisitorTest {
         productionVisitor.visitTagContainerEnd(tagContainer)
         productionVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("<a><a></a></a>", productionVisitor.html)
+        assertEquals("<a><a></a></a>", productionVisitor.result)
     }
 }

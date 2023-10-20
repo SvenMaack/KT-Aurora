@@ -1,5 +1,5 @@
 package lib.base
 
 interface Element {
-    fun traverse(visitor: Visitor)
+    fun traverse(visitor: Visitor<*>)
 }

@@ -16,7 +16,7 @@ import kotlin.test.assertTrue
 
 class TagContainerTest {
     @Mock
-    val api = configure(mock(classOf<Visitor>())) {
+    val api = configure(mock(classOf<Visitor<String>>())) {
         stubsUnitByDefault = true
     }
 

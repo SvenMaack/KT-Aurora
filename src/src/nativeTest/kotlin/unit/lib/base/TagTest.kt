@@ -13,7 +13,7 @@ import kotlin.test.assertEquals
 
 class TagTest {
     @Mock
-    val api = configure(mock(classOf<Visitor>())) {
+    val api = configure(mock(classOf<Visitor<String>>())) {
         stubsUnitByDefault = true
     }
 

@@ -8,7 +8,7 @@ import kotlin.test.assertEquals
 
 class CommentTest {
     @Mock
-    val api = configure(mock(classOf<Visitor>())) {
+    val api = configure(mock(classOf<Visitor<String>>())) {
         stubsUnitByDefault = true
     }
 
@@ -18,7 +18,7 @@ class CommentTest {
     }
 
     @Test
-    fun `empty omment is set correctly`() {
+    fun `empty comment is set correctly`() {
         assertEquals("!----", Comment("").tagName)
     }
 

@@ -3,9 +3,9 @@ package lib.visitors
 import lib.base.*
 import lib.base.Tag
 
-class ProductionVisitor: Visitor {
+class ProductionVisitor: Visitor<String> {
     private val _html = StringBuilder()
-    override val html: String
+    override val result: String
         get() = _html.toString()
 
     override fun visitTag(tag: Tag) {

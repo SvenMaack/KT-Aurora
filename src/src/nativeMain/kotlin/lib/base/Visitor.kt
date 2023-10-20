@@ -4,8 +4,8 @@ import lib.Context
 import lib.visitors.DebugVisitor
 import lib.visitors.ProductionVisitor
 
-interface Visitor {
-    val html: String
+interface Visitor<T> {
+    val result: T
 
     fun visitTextElement(element: TextElement)
     fun visitTag(tag: Tag)
@@ -15,8 +15,8 @@ interface Visitor {
     fun visitTagContainerEnd(tagContainer: TagContainer)
 }
 
-fun interface VisitorFactory {
-    fun create(): Visitor
+fun interface VisitorFactory<T> {
+    fun create(): Visitor<T>
 }
 
 val productionContext: Context = Context { ProductionVisitor() }

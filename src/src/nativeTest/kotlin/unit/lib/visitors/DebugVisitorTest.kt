@@ -16,7 +16,7 @@ class DebugVisitorTest {
 
         debugVisitor.visitTagWithAttributes(tagWithAttributes)
 
-        assertEquals("<a>${DebugVisitor.LINE_BREAK}", debugVisitor.html)
+        assertEquals("<a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -26,7 +26,7 @@ class DebugVisitorTest {
 
         debugVisitor.visitComment(comment)
 
-        assertEquals("<!--comment-->${DebugVisitor.LINE_BREAK}", debugVisitor.html)
+        assertEquals("<!--comment-->${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -36,7 +36,7 @@ class DebugVisitorTest {
 
         debugVisitor.visitTagContainerBegin(tagContainer)
 
-        assertEquals("<a>${DebugVisitor.LINE_BREAK}", debugVisitor.html)
+        assertEquals("<a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -46,7 +46,7 @@ class DebugVisitorTest {
 
         debugVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("</a>${DebugVisitor.LINE_BREAK}", debugVisitor.html)
+        assertEquals("</a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -67,7 +67,7 @@ class DebugVisitorTest {
         debugVisitor.visitTagContainerBegin(tagContainer)
         debugVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("<a same=\"a b\" other=\"c\">${DebugVisitor.LINE_BREAK}</a>${DebugVisitor.LINE_BREAK}", debugVisitor.html)
+        assertEquals("<a same=\"a b\" other=\"c\">${DebugVisitor.LINE_BREAK}</a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -86,7 +86,7 @@ class DebugVisitorTest {
         val debugVisitor = DebugVisitor()
         debugVisitor.visitTagWithAttributes(tagWithAttributes)
 
-        assertEquals("<a same=\"a b\" other=\"c\">${DebugVisitor.LINE_BREAK}", debugVisitor.html)
+        assertEquals("<a same=\"a b\" other=\"c\">${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -96,7 +96,7 @@ class DebugVisitorTest {
         val debugVisitor = DebugVisitor()
         debugVisitor.visitTagWithAttributes(tagWithAttributes)
 
-        assertEquals("<a>${DebugVisitor.LINE_BREAK}", debugVisitor.html)
+        assertEquals("<a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -108,7 +108,7 @@ class DebugVisitorTest {
         debugVisitor.visitTagContainerBegin(tagContainer)
         debugVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("<a>${DebugVisitor.LINE_BREAK}</a>${DebugVisitor.LINE_BREAK}", debugVisitor.html)
+        assertEquals("<a>${DebugVisitor.LINE_BREAK}</a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -127,7 +127,7 @@ class DebugVisitorTest {
         val debugVisitor = DebugVisitor()
         debugVisitor.visitTagWithAttributes(tagWithAttributes)
 
-        assertEquals("<a attr attr2=\"value\">${DebugVisitor.LINE_BREAK}", debugVisitor.html)
+        assertEquals("<a attr attr2=\"value\">${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -148,7 +148,7 @@ class DebugVisitorTest {
         debugVisitor.visitTagContainerBegin(tagContainer)
         debugVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("<a attr attr2=\"value\">${DebugVisitor.LINE_BREAK}</a>${DebugVisitor.LINE_BREAK}", debugVisitor.html)
+        assertEquals("<a attr attr2=\"value\">${DebugVisitor.LINE_BREAK}</a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -163,7 +163,7 @@ class DebugVisitorTest {
 
         assertEquals(
             "<a>${DebugVisitor.LINE_BREAK}${DebugVisitor.INDENTATION}<a>${DebugVisitor.LINE_BREAK}${DebugVisitor.INDENTATION}</a>${DebugVisitor.LINE_BREAK}</a>${DebugVisitor.LINE_BREAK}",
-            debugVisitor.html
+            debugVisitor.result
         )
     }
 }
