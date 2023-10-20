@@ -37,11 +37,14 @@ inline fun executeMeasured(block: () -> Unit) {
 }
 
 fun main() {
+    //warmup
+    TemplateRenderer.render(productionContext, pageData.dynamicTemplate, pageData)
+
     executeMeasured {
-        TemplateRenderer.render(productionContext, pageData.template, pageData)
+        TemplateRenderer.render(productionContext, pageData.dynamicTemplate, pageData)
     }
 
-    val html = TemplateRenderer.render(debugContext, pageData.template, pageData)
+    val html = TemplateRenderer.render(debugContext, pageData.dynamicTemplate, pageData)
     println(html)
     writeAllText("./test.html", html)
 }

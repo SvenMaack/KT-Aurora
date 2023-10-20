@@ -1,15 +1,18 @@
 package lib
 
 object TemplateRenderer {
-    inline fun <DTO>render(context: Context, template: Template<DTO>, dto: DTO): String {
+    inline fun <DTO>render(context: Context, dynamicTemplate: DynamicTemplate<DTO>, dto: DTO): String {
         val visitor = context.visitorFactory.create()
-        template(context, dto).traverse(visitor)
+        dynamicTemplate(context, dto).traverse(visitor)
         return visitor.html
     }
 
     inline fun render(context: Context, template: StaticTemplate): String {
         val visitor = context.visitorFactory.create()
-        template(context).traverse(visitor)
+        val tagContainer = template(context)
+        tagContainer.children.forEach {
+            it.traverse(visitor)
+        }
         return visitor.html
     }
 }

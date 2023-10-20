@@ -1,22 +1,28 @@
 package lib
 
-import lib.base.Element
 import lib.base.TagContainer
 import lib.base.TransientTag
 import kotlin.system.getTimeNanos
 
 interface Module<DTO> {
-    val template: Template<DTO>
+    val dynamicTemplate: DynamicTemplate<DTO>
 }
 
 //creation of module
-inline infix fun <T: Element>T.with(init: T.() -> Unit): TransientTag =
+inline infix fun <T: TagContainer>T.with(init: T.() -> Unit): TransientTag =
     TransientTag().apply {
         add(this@with, init)
     }
 
+inline fun <T: TagContainer>childrenOf(tag: T, init: T.() -> Unit): T {
+    tag.init()
+    return tag
+}
+
 inline fun <M: Module<M>> TagContainer.include(context: Context, module: M) {
-    add(module.template(context, module))
+    module.dynamicTemplate(context, module).children.forEach {
+        add(it)
+    }
 }
 
 fun TagContainer.include(context: Context, template: StaticTemplate) {

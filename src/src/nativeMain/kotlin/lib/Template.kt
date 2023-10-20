@@ -1,6 +1,6 @@
 package lib
 
-import lib.base.Element
+import lib.base.TagContainer
 
-typealias Template<DTO> = (context: Context, data: DTO) -> Element
-typealias StaticTemplate = (context: Context) -> Element
+typealias DynamicTemplate<DTO> = (context: Context, data: DTO) -> TagContainer
+typealias StaticTemplate = (context: Context) -> TagContainer

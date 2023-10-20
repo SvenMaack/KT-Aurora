@@ -1,22 +1,26 @@
 package example
 
-import lib.Template
+import lib.*
 import lib.tags.Head
-import lib.Module
-import lib.with
 
 data class HeadDto(
     val title: String,
-    override val template: Template<HeadDto> = HeadModule
+    override val dynamicTemplate: DynamicTemplate<HeadDto> = HeadModule
 ): Module<HeadDto>
 
-val HeadModule: Template<HeadDto> = { _, data ->
+val HeadModule: DynamicTemplate<HeadDto> = { context, data ->
     Head() with {
         title {
             +data.title
         }
+        meta(name="description", content="Put your description here.")
+        include(template=StaticHead, context=context)
+    }
+}
+
+val StaticHead: StaticTemplate = { _ ->
+    childrenOf(Head()) {
         meta(name="viewport", content="width=device-width, initial-scale=1")
         meta(charset="UTF-8")
-        meta(name="description", content="Put your description here.")
     }
 }
