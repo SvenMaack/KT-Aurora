@@ -1,6 +1,16 @@
 package lib.base
 
-open class TagWithAttributes(name: String) : Tag(name) {
+open class TagWithAttributes(name: String):
+    Tag(
+        name.trim()
+            .lowercase()
+            .filter {
+                it.isLetterOrDigit()
+            }
+            .ifEmpty {
+                "empty"
+            }
+    ) {
     var attributes: Map<String, List<String>> = mapOf()
 
     override fun traverse(visitor: Visitor) {
@@ -11,14 +21,4 @@ open class TagWithAttributes(name: String) : Tag(name) {
         this.attributes = attributes.groupBy({ it.name }, { it.value })
         return this
     }
-
-    override fun createTag(name: String): String =  name
-        .trim()
-        .lowercase()
-        .filter {
-            it.isLetterOrDigit()
-        }
-        .ifEmpty {
-            "empty"
-        }
 }

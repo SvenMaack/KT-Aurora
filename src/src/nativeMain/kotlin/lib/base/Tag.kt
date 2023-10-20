@@ -15,5 +15,5 @@ open class Tag(name: String) : Element {
         visitor.visitTag(this)
     }
 
-    protected open fun createTag(name: String): String = name
+    protected fun createTag(name: String): String = name
 }
