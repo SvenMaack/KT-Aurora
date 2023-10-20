@@ -46,5 +46,5 @@ fun main() {
 
     val html = TemplateRenderer.render(debugContext, pageData.dynamicTemplate, pageData)
     println(html)
-    writeAllText("./test.html", html)
+    writeAllText("./out/html/test.html", html)
 }

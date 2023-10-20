@@ -1,13 +1,17 @@
 package example
 
 import lib.StaticTemplate
+import lib.include
 import lib.tags.Body
 import lib.with
 
-val BodyModule: StaticTemplate = { _ ->
+val BodyModule: StaticTemplate = { context ->
     Body() with {
-        h1 {
-            +"Hello, world!"
+        include(template=Header, context=context)
+        div(clazz="image") {
+            span {
+                +"image"
+            }
         }
         hr()
         div(clazz="MyClass") {
