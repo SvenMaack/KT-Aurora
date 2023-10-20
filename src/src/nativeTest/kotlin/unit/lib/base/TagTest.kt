@@ -19,12 +19,12 @@ class TagTest {
 
     @Test
     fun `tag is set correctly`() {
-        assertEquals("p", Tag("p").tagName)
+        assertEquals("p", Tag("p").name)
     }
 
     @Test
     fun `tag is set correctly with special characters`() {
-        assertEquals("!- p", Tag("!- p").tagName)
+        assertEquals("!- p", Tag("!- p").name)
     }
 
     @Test

@@ -70,6 +70,6 @@ class TagContainerTest {
 
         assertEquals(1, tagContainer.children.size)
         assertTrue { tagContainer.children[0] is Comment }
-        assertEquals( "!--comment--", (tagContainer.children[0] as Comment).tagName)
+        assertEquals( "!--comment--", (tagContainer.children[0] as Comment).name)
     }
 }

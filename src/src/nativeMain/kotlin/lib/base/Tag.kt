@@ -4,16 +4,8 @@ package lib.base
 annotation class HtmlTagMarker
 
 @HtmlTagMarker
-open class Tag(name: String) : Element {
-    val tagName: String
-
-    init {
-        this.tagName = createTag(name)
-    }
-
+open class Tag(val name: String) : Element {
     override fun traverse(visitor: Visitor<*>) {
         visitor.visitTag(this)
     }
-
-    protected fun createTag(name: String): String = name
 }

@@ -14,12 +14,12 @@ class CommentTest {
 
     @Test
     fun `comment is set correctly`() {
-        assertEquals("!--p--", Comment("p").tagName)
+        assertEquals("!--p--", Comment("p").name)
     }
 
     @Test
     fun `empty comment is set correctly`() {
-        assertEquals("!----", Comment("").tagName)
+        assertEquals("!----", Comment("").name)
     }
 
     @Test

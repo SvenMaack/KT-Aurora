@@ -20,30 +20,30 @@ class TagWithAttributesTest {
 
     @Test
     fun `tag is set correctly`() {
-        assertEquals("p", TagWithAttributes("p").tagName)
+        assertEquals("p", TagWithAttributes("p").name)
     }
 
     @Test
     fun `tag without content is set to empty`() {
-        assertEquals("empty", TagWithAttributes("").tagName)
+        assertEquals("empty", TagWithAttributes("").name)
     }
 
     @Test
     fun `tag is trimmed`() {
-        assertEquals("p", TagWithAttributes(" p").tagName)
-        assertEquals("p", TagWithAttributes("p ").tagName)
-        assertEquals("p", TagWithAttributes(" p ").tagName)
+        assertEquals("p", TagWithAttributes(" p").name)
+        assertEquals("p", TagWithAttributes("p ").name)
+        assertEquals("p", TagWithAttributes(" p ").name)
     }
 
     @Test
     fun `tag removes special chars`() {
-        assertEquals("p", TagWithAttributes("<§p>").tagName)
-        assertEquals("empty", TagWithAttributes("<§>").tagName)
+        assertEquals("p", TagWithAttributes("<§p>").name)
+        assertEquals("empty", TagWithAttributes("<§>").name)
     }
 
     @Test
     fun `tag is lower string`() {
-        assertEquals("p", TagWithAttributes("P").tagName)
+        assertEquals("p", TagWithAttributes("P").name)
     }
 
     @Test

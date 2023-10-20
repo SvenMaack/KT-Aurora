@@ -9,7 +9,7 @@ class ProductionVisitor: Visitor<String> {
         get() = _html.toString()
 
     override fun visitTag(tag: Tag) {
-        _html.append("<${tag.tagName}>")
+        _html.append("<${tag.name}>")
     }
 
     override fun visitComment(comment: Comment) {
@@ -17,15 +17,15 @@ class ProductionVisitor: Visitor<String> {
     }
 
     override fun visitTagWithAttributes(tag: TagWithAttributes) {
-        _html.append("<${tag.tagName}${renderAttributes(tag.attributes)}>")
+        _html.append("<${tag.name}${renderAttributes(tag.attributes)}>")
     }
 
     override fun visitTagContainerBegin(tagContainer: TagContainer) {
-        _html.append("<${tagContainer.tagName}${renderAttributes(tagContainer.attributes)}>")
+        _html.append("<${tagContainer.name}${renderAttributes(tagContainer.attributes)}>")
     }
 
     override fun visitTagContainerEnd(tagContainer: TagContainer) {
-        _html.append("</${tagContainer.tagName}>")
+        _html.append("</${tagContainer.name}>")
     }
 
     override fun visitTextElement(element: TextElement) {

@@ -15,7 +15,7 @@ class DebugVisitor: Visitor<String> {
     private var currentIndentation = ""
 
     override fun visitTag(tag: Tag) {
-        _html.append("$currentIndentation<${tag.tagName}>$LINE_BREAK")
+        _html.append("$currentIndentation<${tag.name}>$LINE_BREAK")
     }
 
     override fun visitComment(comment: Comment) {
@@ -23,17 +23,17 @@ class DebugVisitor: Visitor<String> {
     }
 
     override fun visitTagWithAttributes(tag: TagWithAttributes) {
-        _html.append("$currentIndentation<${tag.tagName}${renderAttributes(tag.attributes)}>$LINE_BREAK")
+        _html.append("$currentIndentation<${tag.name}${renderAttributes(tag.attributes)}>$LINE_BREAK")
     }
 
     override fun visitTagContainerBegin(tagContainer: TagContainer) {
-        _html.append("$currentIndentation<${tagContainer.tagName}${renderAttributes(tagContainer.attributes)}>$LINE_BREAK")
+        _html.append("$currentIndentation<${tagContainer.name}${renderAttributes(tagContainer.attributes)}>$LINE_BREAK")
         currentIndentation += INDENTATION
     }
 
     override fun visitTagContainerEnd(tagContainer: TagContainer) {
         currentIndentation = currentIndentation.dropLast(1)
-        _html.append("$currentIndentation</${tagContainer.tagName}>$LINE_BREAK")
+        _html.append("$currentIndentation</${tagContainer.name}>$LINE_BREAK")
     }
 
     override fun visitTextElement(element: TextElement) {
