@@ -1,52 +1,52 @@
-package unit.lib.visitors
+package lib.visitors
 
 import lib.base.Attribute
 import lib.base.Comment
+import lib.visitors.DebugVisitor
 import lib.base.TagContainer
 import lib.base.TagWithAttributes
-import lib.visitors.ProductionVisitor
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ProductionVisitorTest {
+class DebugVisitorTest {
     @Test
     fun `visit tag prints tag`() {
         val tagWithAttributes = TagWithAttributes("a")
-        val productionVisitor = ProductionVisitor()
+        val debugVisitor = DebugVisitor()
 
-        productionVisitor.visitTagWithAttributes(tagWithAttributes)
+        debugVisitor.visitTagWithAttributes(tagWithAttributes)
 
-        assertEquals("<a>", productionVisitor.result)
+        assertEquals("<a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
-    fun `visit comment prints not comment`() {
+    fun `visit comment prints comment`() {
         val comment = Comment("comment")
-        val productionVisitor = ProductionVisitor()
+        val debugVisitor = DebugVisitor()
 
-        productionVisitor.visitComment(comment)
+        debugVisitor.visitComment(comment)
 
-        assertEquals("", productionVisitor.result)
+        assertEquals("<!--comment-->${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
     fun `visit tag container begin prints open tag`() {
         val tagContainer = TagContainer("a")
-        val productionVisitor = ProductionVisitor()
+        val debugVisitor = DebugVisitor()
 
-        productionVisitor.visitTagContainerBegin(tagContainer)
+        debugVisitor.visitTagContainerBegin(tagContainer)
 
-        assertEquals("<a>", productionVisitor.result)
+        assertEquals("<a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
     fun `visit tag container end prints close tag`() {
         val tagContainer = TagContainer("a")
-        val productionVisitor = ProductionVisitor()
+        val debugVisitor = DebugVisitor()
 
-        productionVisitor.visitTagContainerEnd(tagContainer)
+        debugVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("</a>", productionVisitor.result)
+        assertEquals("</a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -63,11 +63,11 @@ class ProductionVisitorTest {
             override val value: String = "c"
         })
 
-        val productionVisitor = ProductionVisitor()
-        productionVisitor.visitTagContainerBegin(tagContainer)
-        productionVisitor.visitTagContainerEnd(tagContainer)
+        val debugVisitor = DebugVisitor()
+        debugVisitor.visitTagContainerBegin(tagContainer)
+        debugVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("<a same=\"a b\" other=\"c\"></a>", productionVisitor.result)
+        assertEquals("<a same=\"a b\" other=\"c\">${DebugVisitor.LINE_BREAK}</a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -83,20 +83,20 @@ class ProductionVisitorTest {
             override val value: String = "c"
         })
 
-        val productionVisitor = ProductionVisitor()
-        productionVisitor.visitTagWithAttributes(tagWithAttributes)
+        val debugVisitor = DebugVisitor()
+        debugVisitor.visitTagWithAttributes(tagWithAttributes)
 
-        assertEquals("<a same=\"a b\" other=\"c\">", productionVisitor.result)
+        assertEquals("<a same=\"a b\" other=\"c\">${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
     fun `empty attributes doesn't change the tag`() {
         val tagWithAttributes = TagWithAttributes("a").setAttributes()
 
-        val productionVisitor = ProductionVisitor()
-        productionVisitor.visitTagWithAttributes(tagWithAttributes)
+        val debugVisitor = DebugVisitor()
+        debugVisitor.visitTagWithAttributes(tagWithAttributes)
 
-        assertEquals("<a>", productionVisitor.result)
+        assertEquals("<a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -104,11 +104,11 @@ class ProductionVisitorTest {
         val tagContainer = TagContainer("a")
         tagContainer.setAttributes()
 
-        val productionVisitor = ProductionVisitor()
-        productionVisitor.visitTagContainerBegin(tagContainer)
-        productionVisitor.visitTagContainerEnd(tagContainer)
+        val debugVisitor = DebugVisitor()
+        debugVisitor.visitTagContainerBegin(tagContainer)
+        debugVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("<a></a>", productionVisitor.result)
+        assertEquals("<a>${DebugVisitor.LINE_BREAK}</a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -124,10 +124,10 @@ class ProductionVisitorTest {
             }
         )
 
-        val productionVisitor = ProductionVisitor()
-        productionVisitor.visitTagWithAttributes(tagWithAttributes)
+        val debugVisitor = DebugVisitor()
+        debugVisitor.visitTagWithAttributes(tagWithAttributes)
 
-        assertEquals("<a attr attr2=\"value\">", productionVisitor.result)
+        assertEquals("<a attr attr2=\"value\">${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
@@ -144,23 +144,26 @@ class ProductionVisitorTest {
             }
         )
 
-        val productionVisitor = ProductionVisitor()
-        productionVisitor.visitTagContainerBegin(tagContainer)
-        productionVisitor.visitTagContainerEnd(tagContainer)
+        val debugVisitor = DebugVisitor()
+        debugVisitor.visitTagContainerBegin(tagContainer)
+        debugVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("<a attr attr2=\"value\"></a>", productionVisitor.result)
+        assertEquals("<a attr attr2=\"value\">${DebugVisitor.LINE_BREAK}</a>${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
-    fun `indentation is not added`() {
+    fun `indentation works`() {
         val tagContainer = TagContainer("a")
-        val productionVisitor = ProductionVisitor()
+        val debugVisitor = DebugVisitor()
 
-        productionVisitor.visitTagContainerBegin(tagContainer)
-        productionVisitor.visitTagContainerBegin(tagContainer)
-        productionVisitor.visitTagContainerEnd(tagContainer)
-        productionVisitor.visitTagContainerEnd(tagContainer)
+        debugVisitor.visitTagContainerBegin(tagContainer)
+        debugVisitor.visitTagContainerBegin(tagContainer)
+        debugVisitor.visitTagContainerEnd(tagContainer)
+        debugVisitor.visitTagContainerEnd(tagContainer)
 
-        assertEquals("<a><a></a></a>", productionVisitor.result)
+        assertEquals(
+            "<a>${DebugVisitor.LINE_BREAK}${DebugVisitor.INDENTATION}<a>${DebugVisitor.LINE_BREAK}${DebugVisitor.INDENTATION}</a>${DebugVisitor.LINE_BREAK}</a>${DebugVisitor.LINE_BREAK}",
+            debugVisitor.result
+        )
     }
 }

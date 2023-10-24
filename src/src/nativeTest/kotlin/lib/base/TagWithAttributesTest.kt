@@ -1,4 +1,4 @@
-package unit.lib.base
+package lib.base
 
 import io.mockative.configure
 import io.mockative.Mock
@@ -6,9 +6,6 @@ import io.mockative.mock
 import io.mockative.classOf
 import io.mockative.verify
 import io.mockative.time
-import lib.base.Attribute
-import lib.base.TagWithAttributes
-import lib.base.Visitor
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

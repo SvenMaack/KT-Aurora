@@ -1,4 +1,4 @@
-package unit.lib.base
+package lib.base
 
 import io.mockative.*
 import lib.base.Comment
