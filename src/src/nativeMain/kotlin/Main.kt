@@ -4,10 +4,7 @@ import kotlinx.cinterop.memScoped
 import lib.TemplateRenderer
 import lib.base.debugContext
 import lib.base.productionContext
-import platform.posix.EOF
-import platform.posix.fclose
-import platform.posix.fopen
-import platform.posix.fputs
+import platform.posix.*
 import kotlin.system.measureNanoTime
 
 val headData: HeadDto = HeadDto("World")
