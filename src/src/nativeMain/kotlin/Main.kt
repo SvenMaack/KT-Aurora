@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalForeignApi::class)
+@file:OptIn(ExperimentalForeignApi::class, ExperimentalForeignApi::class)
 
 import example.HeadDto
 import example.PageDto
@@ -9,6 +9,7 @@ import lib.base.debugContext
 import lib.base.productionContext
 import platform.posix.*
 import kotlin.system.measureNanoTime
+import kotlin.time.measureTime
 
 val headData: HeadDto = HeadDto("World")
 val pageData: PageDto = PageDto(headData)
@@ -27,13 +28,13 @@ inline fun writeAllText(filePath:String, text:String) {
 
 inline fun executeMeasured(block: () -> Unit) {
     val times = 1000L
-    var elapsed = measureNanoTime {
+    var elapsed = measureTime {
         for (i in 1..times) {
             block()
         }
     }
-    elapsed /= times
-    println("Duration ${elapsed / (1000*1000)} Milliseconds, ${(elapsed / (1000) % 1000)} Microseconds, ${(elapsed % 1000)} NanoSeconds")
+    elapsed = elapsed.div(times.toDouble())
+    println("Duration ${elapsed.inWholeMilliseconds} Milliseconds, ${elapsed.inWholeMicroseconds} Microseconds, ${elapsed.inWholeNanoseconds} NanoSeconds")
 }
 
 fun main() {
