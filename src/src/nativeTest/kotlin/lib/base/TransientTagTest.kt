@@ -1,8 +1,6 @@
 package lib.base
 
 import io.mockative.*
-import lib.base.TransientTag
-import lib.base.Visitor
 import kotlin.test.Test
 
 class TransientTagTest {

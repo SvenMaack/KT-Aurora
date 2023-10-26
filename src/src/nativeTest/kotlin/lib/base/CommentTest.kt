@@ -1,8 +1,6 @@
 package lib.base
 
 import io.mockative.*
-import lib.base.Comment
-import lib.base.Visitor
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -18,7 +18,7 @@ open class TagWithAttributes(name: String):
     }
 
     fun setAttributes(vararg attributes: Attribute): TagWithAttributes {
-        this.attributes = attributes.groupBy({ it.name }, { it.value })
+        this.attributes = attributes.filter { it.value !== null }.groupBy({ it.name }, { it.value!! })
         return this
     }
 }

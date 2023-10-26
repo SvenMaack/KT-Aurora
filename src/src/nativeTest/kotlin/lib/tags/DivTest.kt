@@ -1,0 +1,12 @@
+package lib.tags
+
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+class DivTest {
+    @Test
+    fun `test tag name is body`() {
+        val tag = Div()
+        assertEquals("div", tag.name)
+    }
+}
