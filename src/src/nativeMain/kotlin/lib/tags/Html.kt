@@ -10,8 +10,8 @@ enum class Direction(val shortCode: String) {
 }
 
 class Html: TagContainer("html") {
-    inline fun body(init: Body.() -> Unit) = add(Body(), init)
     inline fun head(init: Head.() -> Unit) = add(Head(), init)
+    inline fun body(init: Body.() -> Unit) = add(Body(), init)
 
     override fun traverse(visitor: Visitor<*>) {
         DocType.traverse(visitor)
