@@ -1,19 +1,12 @@
 package lib.base
 
-import io.mockative.configure
-import io.mockative.Mock
-import io.mockative.mock
-import io.mockative.classOf
-import io.mockative.verify
-import io.mockative.time
+import io.mockative.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class TagWithTextTest {
     @Mock
-    val api = configure(mock(classOf<Visitor<String>>())) {
-        stubsUnitByDefault = true
-    }
+    val visitor = mock(classOf<Visitor<String>>())
 
     @Test
     fun `text is saved correctly`() {
@@ -42,12 +35,9 @@ class TagWithTextTest {
             tx = +"Lorem"
         }
 
-        tag.traverse(api)
+        tag.traverse(visitor)
 
-        verify(api)
-            .invocation {
-                visitTextElement(tx!!)
-            }
-            .wasInvoked(exactly = 1.time)
+        verify { visitor.visitTextElement(tx!!) }
+            .wasInvoked(exactly = once)
     }
 }

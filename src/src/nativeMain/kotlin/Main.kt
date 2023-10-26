@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalForeignApi::class)
+
 import example.HeadDto
 import example.PageDto
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.memScoped
 import lib.TemplateRenderer
 import lib.base.debugContext

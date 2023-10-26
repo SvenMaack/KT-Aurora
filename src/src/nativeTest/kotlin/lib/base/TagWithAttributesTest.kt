@@ -1,19 +1,12 @@
 package lib.base
 
-import io.mockative.configure
-import io.mockative.Mock
-import io.mockative.mock
-import io.mockative.classOf
-import io.mockative.verify
-import io.mockative.time
+import io.mockative.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class TagWithAttributesTest {
     @Mock
-    val api = configure(mock(classOf<Visitor<String>>())) {
-        stubsUnitByDefault = true
-    }
+    val visitor = mock(classOf<Visitor<String>>())
 
     @Test
     fun `tag is set correctly`() {
@@ -83,11 +76,10 @@ class TagWithAttributesTest {
     @Test
     fun `visitor is being called`() {
         val tagWithAttributes = TagWithAttributes("a")
-        tagWithAttributes.traverse(api)
-        verify(api)
-            .invocation {
-                visitTagWithAttributes(tagWithAttributes)
-            }
-            .wasInvoked(exactly = 1.time)
+
+        tagWithAttributes.traverse(visitor)
+
+        verify { visitor.visitTagWithAttributes(tagWithAttributes) }
+            .wasInvoked(exactly = once)
     }
 }

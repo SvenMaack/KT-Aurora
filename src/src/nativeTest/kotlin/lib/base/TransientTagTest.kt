@@ -5,20 +5,19 @@ import kotlin.test.Test
 
 class TransientTagTest {
     @Mock
-    val api = configure(mock(classOf<Visitor<String>>())) {
-        stubsUnitByDefault = true
-    }
+    val visitor = mock(classOf<Visitor<String>>())
 
     @Test
     fun `visitor is not called`() {
         val tag = TransientTag()
-        tag.traverse(api)
-        verify(api)
-            .invocation {
-                visitTag(tag)
-                visitTagContainerBegin(tag)
-                visitTagContainerEnd(tag)
-            }
+
+        tag.traverse(visitor)
+
+        verify { visitor.visitTag(tag) }
+            .wasNotInvoked()
+        verify { visitor.visitTagContainerBegin(tag) }
+            .wasNotInvoked()
+        verify { visitor.visitTagContainerEnd(tag) }
             .wasNotInvoked()
     }
 }

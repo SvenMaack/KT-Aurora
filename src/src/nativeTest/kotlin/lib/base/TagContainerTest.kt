@@ -1,20 +1,13 @@
 package lib.base
 
-import io.mockative.configure
-import io.mockative.Mock
-import io.mockative.mock
-import io.mockative.classOf
-import io.mockative.verify
-import io.mockative.time
+import io.mockative.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class TagContainerTest {
     @Mock
-    val api = configure(mock(classOf<Visitor<String>>())) {
-        stubsUnitByDefault = true
-    }
+    val visitor = mock(classOf<Visitor<String>>())
 
     @Test
     fun `add adds a children`() {
@@ -30,18 +23,13 @@ class TagContainerTest {
     fun `visitor is being called`() {
         val tag = TagContainer("a")
 
-        tag.traverse(api)
+        tag.traverse(visitor)
 
-        verify(api)
-            .invocation {
-                visitTagContainerBegin(tag)
-            }
-            .wasInvoked(exactly = 1.time)
-        verify(api)
-            .invocation {
-                visitTagContainerEnd(tag)
-            }
-            .wasInvoked(exactly = 1.time)
+        verify { visitor.visitTagContainerBegin(tag) }
+            .wasInvoked(exactly = once)
+
+        verify { visitor.visitTagContainerEnd(tag) }
+            .wasInvoked(exactly = once)
     }
 
     @Test
@@ -50,13 +38,10 @@ class TagContainerTest {
         val tagContainer = TagContainer("a")
         tagContainer.add(tag)
 
-        tagContainer.traverse(api)
+        tagContainer.traverse(visitor)
 
-        verify(api)
-            .invocation {
-                visitTag(tag)
-            }
-            .wasInvoked(exactly = 1.time)
+        verify { visitor.visitTag(tag) }
+            .wasInvoked(exactly = once)
     }
 
     @Test
