@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class DivTest {
     @Test
-    fun `test tag name is body`() {
+    fun `test tag name is div`() {
         val tag = Div()
         assertEquals("div", tag.name)
     }
