@@ -16,7 +16,7 @@ fun TagContainer.include(context: Context, template: StaticTemplate): TagContain
     add(TransientTag().apply {
         val timestamp = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
         !"Cache start - $timestamp"
-        +TemplateCache.getOrSet(context, template, TemplateRenderer::render)
+        +TemplateCache.getOrSet(context, template)
         !"Cache end   - $timestamp"
     })
 
