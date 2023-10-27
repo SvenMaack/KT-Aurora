@@ -1,6 +1,6 @@
 package lib
 
-internal object ModuleCache {
+internal object TemplateCache {
     private val cachedResult: MutableMap<String, String> = mutableMapOf()
 
     fun getOrSet(context: Context, template: StaticTemplate, default: (Context, StaticTemplate) -> String) =

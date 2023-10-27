@@ -4,13 +4,12 @@ import lib.*
 import lib.tags.Head
 
 data class HeadDto(
-    val title: String,
-    override val dynamicTemplate: DynamicTemplate<HeadDto> = HeadModule
-): Module<HeadDto>
+    val title: String
+)
 
 val HeadModule: DynamicTemplate<HeadDto> = { context, data ->
-    Head() with {
-        include(template=StaticHead, context=context)
+    Head().apply {
+        include(context=context, template=StaticHead)
         title {
             +data.title
         }
@@ -20,7 +19,7 @@ val HeadModule: DynamicTemplate<HeadDto> = { context, data ->
 }
 
 val StaticHead: StaticTemplate = { _ ->
-    childrenOf(Head()) {
+    Head().childs {
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1")
     }

@@ -2,13 +2,13 @@
 
 import example.HeadDto
 import example.PageDto
+import example.PageModule
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.memScoped
 import lib.TemplateRenderer
 import lib.base.debugContext
 import lib.base.productionContext
 import platform.posix.*
-import kotlin.system.measureNanoTime
 import kotlin.time.measureTime
 
 val headData: HeadDto = HeadDto("World")
@@ -39,13 +39,13 @@ inline fun executeMeasured(block: () -> Unit) {
 
 fun main() {
     //warmup
-    TemplateRenderer.render(productionContext, pageData.dynamicTemplate, pageData)
+    TemplateRenderer.render(productionContext, PageModule, pageData)
 
     executeMeasured {
-        TemplateRenderer.render(productionContext, pageData.dynamicTemplate, pageData)
+        TemplateRenderer.render(productionContext, PageModule, pageData)
     }
 
-    val html = TemplateRenderer.render(debugContext, pageData.dynamicTemplate, pageData)
+    val html = TemplateRenderer.render(debugContext, PageModule, pageData)
     println(html)
     writeAllText("./out/html/test.html", html)
 }

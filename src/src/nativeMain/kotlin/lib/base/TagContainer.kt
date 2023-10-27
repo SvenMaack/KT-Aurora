@@ -12,6 +12,10 @@ open class TagContainer(name: String) : TagWithAttributes(name) {
         mChildren.add(this)
     }
 
+    internal inline fun addChildren(childs: List<Element>) {
+        this.mChildren.addAll(childs)
+    }
+
     override fun traverse(visitor: Visitor<*>) {
         visitor.visitTagContainerBegin(this)
         children.forEach { it.traverse(visitor) }

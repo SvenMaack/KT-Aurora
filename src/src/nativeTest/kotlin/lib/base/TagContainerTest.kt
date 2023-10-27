@@ -3,6 +3,7 @@ package lib.base
 import io.mockative.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
 class TagContainerTest {
@@ -52,5 +53,15 @@ class TagContainerTest {
         assertEquals(1, tagContainer.children.size)
         assertTrue { tagContainer.children[0] is Comment }
         assertEquals( "!--comment--", (tagContainer.children[0] as Comment).name)
+    }
+
+    @Test
+    fun `adding children works`() {
+        val tagContainer = TagContainer("a")
+        val tagContainer2 = TagContainer("a2")
+        tagContainer.addChildren(listOf(tagContainer2))
+
+        assertEquals(1, tagContainer.children.size)
+        assertSame(tagContainer2, tagContainer.children[0])
     }
 }

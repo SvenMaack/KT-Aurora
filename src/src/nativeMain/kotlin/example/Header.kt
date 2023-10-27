@@ -4,10 +4,9 @@ import extensions.images.Loading
 import extensions.images.img
 import lib.StaticTemplate
 import lib.tags.Div
-import lib.with
 
 val Header: StaticTemplate = { _ ->
-    Div() with {
+    Div().apply {
         img(src="./logo-big.png", width=250, height=250, alt="Logo", loading=Loading.EAGER)
         div(clazz="navigation") {
             span{
