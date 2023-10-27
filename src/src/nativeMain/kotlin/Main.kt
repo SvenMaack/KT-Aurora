@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalForeignApi::class, ExperimentalForeignApi::class)
-
 import example.HeadDto
 import example.PageDto
 import example.PageModule
@@ -14,6 +12,7 @@ import kotlin.time.measureTime
 val headData: HeadDto = HeadDto("World")
 val pageData: PageDto = PageDto(headData)
 
+@OptIn(ExperimentalForeignApi::class)
 inline fun writeAllText(filePath:String, text:String) {
     val file = fopen(filePath, "w") ?:
         throw IllegalArgumentException("Cannot open output file $filePath")
