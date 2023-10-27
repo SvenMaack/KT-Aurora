@@ -1,6 +1,8 @@
 package lib.tags
 
 import io.mockative.*
+import lib.base.TagContainer
+import lib.base.Visitor
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -9,6 +11,10 @@ class HtmlTest {
     val blockHead = mock(classOf<Callable<Head>>())
     @Mock
     val blockBody = mock(classOf<Callable<Body>>())
+    @Mock
+    val visitor = mock(classOf<Visitor<String>>())
+    @Mock
+    val blockHtml = mock(classOf<Callable<Html>>())
 
     @Test
     fun `test tag name is html`() {
@@ -32,5 +38,30 @@ class HtmlTest {
 
         verify { blockBody.test(body) }
             .wasInvoked(exactly = once)
+    }
+
+    @Test
+    fun `DocType is added`() {
+        val html = Html()
+
+        html.traverse(visitor)
+
+        verify { visitor.visitTag(DocType) }
+            .wasInvoked(exactly = once)
+    }
+
+    @Test
+    fun `html function works`() {
+        val html = html(lang="en", dir=Direction.LTR, blockHtml::test)
+
+        assertEquals("html", html.name)
+
+        verify { blockHtml.test(html) }
+            .wasInvoked(exactly = once)
+
+        assertEquals(mapOf(
+            "lang" to listOf("en"),
+            "dir" to listOf("ltr"),
+        ), html.attributes)
     }
 }
