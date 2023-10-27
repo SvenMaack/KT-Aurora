@@ -9,10 +9,7 @@ object TemplateRenderer {
 
     inline fun render(context: Context, template: StaticTemplate): String {
         val visitor = context.visitorFactory.create()
-        val tagContainer = template(context)
-        tagContainer.children.forEach {
-            it.traverse(visitor)
-        }
+        template(context).traverse(visitor)
         return visitor.result
     }
 }
