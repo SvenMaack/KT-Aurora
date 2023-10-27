@@ -1,9 +1,9 @@
 package extensions.images
 
-import lib.base.Attribute
-import lib.base.TagWithAttributes
-import lib.base.get
-import lib.tags.BodyTagContainer
+import template_lib.base.Attribute
+import template_lib.base.TagWithAttributes
+import template_lib.base.get
+import template_lib.tags.BodyTagContainer
 
 enum class Loading(val value: String) {
     LAZY("lazy"),

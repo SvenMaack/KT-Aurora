@@ -1,7 +1,7 @@
 package example
 
-import lib.*
-import lib.tags.Head
+import template_lib.*
+import template_lib.tags.Head
 
 data class HeadDto(
     val title: String

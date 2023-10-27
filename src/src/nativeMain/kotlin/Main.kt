@@ -5,9 +5,9 @@ import example.PageDto
 import example.PageModule
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.memScoped
-import lib.TemplateRenderer
-import lib.base.debugContext
-import lib.base.productionContext
+import template_lib.TemplateRenderer
+import template_lib.base.debugContext
+import template_lib.base.productionContext
 import platform.posix.*
 import kotlin.time.measureTime
 

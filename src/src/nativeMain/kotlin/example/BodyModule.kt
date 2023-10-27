@@ -1,8 +1,8 @@
 package example
 
-import lib.StaticTemplate
-import lib.include
-import lib.tags.Body
+import template_lib.StaticTemplate
+import template_lib.include
+import template_lib.tags.Body
 
 val BodyModule: StaticTemplate = { context ->
     Body().apply {

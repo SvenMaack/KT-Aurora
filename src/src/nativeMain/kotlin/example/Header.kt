@@ -2,8 +2,8 @@ package example
 
 import extensions.images.Loading
 import extensions.images.img
-import lib.StaticTemplate
-import lib.tags.Div
+import template_lib.StaticTemplate
+import template_lib.tags.Div
 
 val Header: StaticTemplate = { _ ->
     Div().apply {

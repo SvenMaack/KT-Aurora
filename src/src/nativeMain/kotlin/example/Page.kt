@@ -1,8 +1,8 @@
 package example
 
-import lib.DynamicTemplate
-import lib.include
-import lib.tags.*
+import template_lib.DynamicTemplate
+import template_lib.include
+import template_lib.tags.*
 
 data class PageDto(
     val headDto: HeadDto
