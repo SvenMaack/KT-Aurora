@@ -3,10 +3,6 @@ package page_lib
 import template_lib.*
 import template_lib.tags.Head
 
-data class TechnicalDto(
-    val cssFileName: String
-)
-
 data class PageSeoDto(
     val title: String,
     val description: String,
@@ -14,7 +10,6 @@ data class PageSeoDto(
 )
 
 data class HeadDto(
-    val technical: TechnicalDto,
     val pageSeo: PageSeoDto
 )
 
@@ -25,12 +20,12 @@ val SimpleHeadTemplate: DynamicTemplate<HeadDto> = { context, data ->
     }
 }
 
-val DynamicHead: DynamicTemplate<HeadDto> = { _, data ->
+val DynamicHead: DynamicTemplate<HeadDto> = { context, data ->
     Head().childs {
         title {
             +data.pageSeo.title
         }
-        link(rel="stylesheet", href="${data.technical.cssFileName}.css")
+        link(rel="stylesheet", href="${context.uniqueId}.css")
         meta(name="description", content=data.pageSeo.description)
         meta(name="keywords", content=data.pageSeo.keywords)
     }

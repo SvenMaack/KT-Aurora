@@ -8,8 +8,7 @@ import platform.posix.*
 import kotlin.time.measureTime
 
 val seoData: PageSeoDto = PageSeoDto("Hello World", "description", "keyword1, keyword2")
-val technicalData: TechnicalDto = TechnicalDto(page.getUniqueName())
-val headData: HeadDto = HeadDto(technicalData, seoData)
+val headData: HeadDto = HeadDto(seoData)
 val pageData: PageDto = PageDto(headData)
 
 @OptIn(ExperimentalForeignApi::class)
@@ -43,5 +42,5 @@ fun main() {
     }
 
     writeAllText("./out/html/test.html", page.renderPage(productionContext, pageData))
-    writeAllText("./out/html/${page.getUniqueName()}.css", page.getCss(ProductionVisitor()))
+    writeAllText("./out/html/${page.getUniqueId()}.css", page.getCss(ProductionVisitor()))
 }
