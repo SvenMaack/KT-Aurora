@@ -1,3 +1,4 @@
+@file:Suppress("FunctionName")
 package css_lib
 
 fun Rule.margin(value: Size): Rule =

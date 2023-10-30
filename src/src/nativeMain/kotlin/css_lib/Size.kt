@@ -50,18 +50,10 @@ open class ValueSize(
 }
 
 @Suppress("ClassName")
-object auto: Size {
-    override fun toString(): String {
-        return "auto"
-    }
-}
+data object auto: Size
 
 @Suppress("ClassName")
-object inherit: Size {
-    override fun toString(): String {
-        return "inherit"
-    }
-}
+data object inherit: Size
 
 val Double.px: Size get() = FloatingValueSize(this, CssUnit.px)
 val Double.rem: Size get() = FloatingValueSize(this, CssUnit.rem)
