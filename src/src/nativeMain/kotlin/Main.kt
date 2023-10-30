@@ -1,6 +1,7 @@
 import example.HeadDto
 import example.PageDto
 import example.PageModule
+import example.cssRules
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.memScoped
 import template_lib.TemplateRenderer
@@ -47,4 +48,6 @@ fun main() {
     val html = TemplateRenderer.render(debugContext, PageModule, pageData)
     println(html)
     writeAllText("./out/html/test.html", html)
+
+    writeAllText("./out/html/test.css", cssRules.value)
 }
