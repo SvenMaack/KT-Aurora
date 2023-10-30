@@ -8,13 +8,13 @@ val Navigation: StaticTemplate = { _ ->
     Div().childs {
         nav(clazz="navigation") {
             ul {
-                li{
+                li {
                     span{+"Home"}
                 }
-                li{
+                li {
                     span{+"Trends"}
                 }
-                li{
+                li {
                     span{+"Sales"}
                 }
             }

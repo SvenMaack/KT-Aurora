@@ -10,10 +10,7 @@ val BodyModule: StaticTemplate = { context ->
         hr()
         div(clazz="MyClass") {
             p(clazz="test") {
-                +"This is my first"
-            }
-            span {
-                +"kotlin rendered page"
+                +"This is my first kotlin rendered page"
             }
         }
     }
