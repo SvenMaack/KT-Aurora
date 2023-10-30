@@ -1,15 +1,15 @@
 import css_lib.visitors.ProductionVisitor
-import page_lib.HeadDto
-import example.PageDto
-import example.page
+import landingpage.PageDto
+import landingpage.page
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.memScoped
-import template_lib.base.debugContext
-import template_lib.base.productionContext
+import page_lib.*
 import platform.posix.*
 import kotlin.time.measureTime
 
-val headData: HeadDto = HeadDto("World")
+val seoData: PageSeoDto = PageSeoDto("Hello World", "description", "keyword1, keyword2")
+val technicalData: TechnicalDto = TechnicalDto(page.getUniqueName())
+val headData: HeadDto = HeadDto(technicalData, seoData)
 val pageData: PageDto = PageDto(headData)
 
 @OptIn(ExperimentalForeignApi::class)
@@ -42,6 +42,6 @@ fun main() {
         page.renderPage(productionContext, pageData)
     }
 
-    writeAllText("./out/html/test.html", page.renderPage(debugContext, pageData))
-    writeAllText("./out/html/test.css", page.getCss(ProductionVisitor()))
+    writeAllText("./out/html/test.html", page.renderPage(productionContext, pageData))
+    writeAllText("./out/html/${page.getUniqueName()}.css", page.getCss(ProductionVisitor()))
 }

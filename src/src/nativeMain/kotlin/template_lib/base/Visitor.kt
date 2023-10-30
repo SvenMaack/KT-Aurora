@@ -1,9 +1,5 @@
 package template_lib.base
 
-import template_lib.Context
-import template_lib.visitors.DebugVisitor
-import template_lib.visitors.ProductionVisitor
-
 interface Visitor<T> {
     val result: T
 
@@ -18,6 +14,3 @@ interface Visitor<T> {
 fun interface VisitorFactory<T> {
     fun create(): Visitor<T>
 }
-
-val productionContext: Context = Context { ProductionVisitor() }
-val debugContext: Context = Context { DebugVisitor() }

@@ -1,4 +1,4 @@
-package example
+package landingpage
 
 import template_lib.StaticTemplate
 import template_lib.include
