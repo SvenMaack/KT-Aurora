@@ -24,9 +24,21 @@ class HeadTest {
     }
 
     @Test
+    fun `test link function works`() {
+        val head = Head()
+        val link = head.link(rel="a", href="b")
+
+        assertEquals(mapOf(
+            "rel" to listOf("a"),
+            "href" to listOf("b"),
+        ), link.attributes)
+    }
+
+    @Test
     fun `test meta charset function works`() {
         val head = Head()
         val meta = head.meta(charset = "test")
+
         assertEquals(mapOf(
             "charset" to listOf("test"),
         ), meta.attributes)
@@ -36,6 +48,7 @@ class HeadTest {
     fun `test meta name-content function works`() {
         val head = Head()
         val meta = head.meta(name = "name", content = "content")
+
         assertEquals(mapOf(
             "name" to listOf("name"),
             "content" to listOf("content")
