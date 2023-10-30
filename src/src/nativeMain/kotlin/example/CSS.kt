@@ -1,7 +1,10 @@
 package example
 
-import css_lib.*
-import css_lib.px
+import css_lib.base.Document
+import css_lib.properties.margin
+import css_lib.properties.`margin-right`
+import css_lib.properties.px
+import css_lib.visitors.DebugVisitor
 
 val document: Document = Document().apply {
     this[".logo"] = {

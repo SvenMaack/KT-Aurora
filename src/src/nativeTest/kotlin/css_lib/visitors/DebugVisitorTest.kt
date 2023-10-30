@@ -1,5 +1,8 @@
-package css_lib
+package css_lib.visitors
 
+import css_lib.base.Document
+import css_lib.base.Property
+import css_lib.visitors.DebugVisitor
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

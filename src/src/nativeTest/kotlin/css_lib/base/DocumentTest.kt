@@ -1,5 +1,9 @@
-package css_lib
+package css_lib.base
 
+import css_lib.base.Document
+import css_lib.base.Property
+import css_lib.base.Rule
+import css_lib.base.Visitor
 import io.mockative.*
 import template_lib.tags.Callable
 import kotlin.test.Test

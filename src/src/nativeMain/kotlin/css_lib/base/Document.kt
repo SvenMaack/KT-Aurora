@@ -1,4 +1,4 @@
-package css_lib
+package css_lib.base
 
 class Document {
     internal val rules: MutableList<Rule> = mutableListOf()

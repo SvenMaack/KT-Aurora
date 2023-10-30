@@ -1,5 +1,8 @@
 @file:Suppress("FunctionName")
-package css_lib
+package css_lib.properties
+
+import css_lib.base.Property
+import css_lib.base.Rule
 
 fun Rule.margin(value: Size): Rule =
     add(Property("margin", value.toString()))

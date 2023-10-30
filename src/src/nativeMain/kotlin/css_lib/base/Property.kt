@@ -1,4 +1,4 @@
-package css_lib
+package css_lib.base
 
 data class Property(
     val property: String,

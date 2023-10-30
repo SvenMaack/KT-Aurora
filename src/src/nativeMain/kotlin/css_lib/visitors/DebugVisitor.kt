@@ -1,4 +1,7 @@
-package css_lib
+package css_lib.visitors
+
+import css_lib.base.Rule
+import css_lib.base.Visitor
 
 class DebugVisitor: Visitor<String> {
     companion object {
@@ -13,7 +16,7 @@ class DebugVisitor: Visitor<String> {
     override fun visitRule(rule: Rule) {
         _rules.append("""${rule.selector} {
 ${rule.properties.joinToString(LINE_BREAK){
-    INDENTATION+it.toString()
+    INDENTATION +it.toString()
 }}
 }
 """

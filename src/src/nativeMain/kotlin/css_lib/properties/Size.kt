@@ -1,5 +1,5 @@
 @file:Suppress("unused")
-package css_lib
+package css_lib.properties
 
 @Suppress("EnumEntryName")
 enum class CssUnit(val value: String) {
