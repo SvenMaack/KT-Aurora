@@ -5,6 +5,7 @@ import css_lib.properties.margin
 import css_lib.properties.`margin-right`
 import css_lib.properties.px
 import css_lib.visitors.DebugVisitor
+import css_lib.visitors.ProductionVisitor
 
 val document: Document = Document().apply {
     this[".logo"] = {
@@ -18,7 +19,7 @@ val document: Document = Document().apply {
     }
 }
 
-val visitor = DebugVisitor()
+val visitor = ProductionVisitor()
 val cssRules: Lazy<String> = lazy {
     document.traverse(visitor)
     visitor.result
