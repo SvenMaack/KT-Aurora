@@ -41,6 +41,18 @@ open class BodyTagContainer(name: String) : TagContainer(name) {
         setAttributes(*attributes, "class"[clazz])
         init()
     }
+    inline fun nav(vararg attributes: Attribute, clazz: String? = null, init: Nav.() -> Unit): Nav = add(Nav()) {
+        setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+    inline fun ul(vararg attributes: Attribute, clazz: String? = null, init: Ul.() -> Unit): Ul = add(Ul()) {
+        setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+    inline fun ol(vararg attributes: Attribute, clazz: String? = null, init: Ol.() -> Unit): Ol = add(Ol()) {
+        setAttributes(*attributes, "class"[clazz])
+        init()
+    }
     inline fun br(): Br = add(Br)
     inline fun hr(): Hr = add(Hr)
 }
