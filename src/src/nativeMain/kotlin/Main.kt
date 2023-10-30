@@ -1,10 +1,9 @@
-import example.HeadDto
+import css_lib.visitors.ProductionVisitor
+import page_lib.HeadDto
 import example.PageDto
-import example.PageModule
-import example.cssRules
+import example.page
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.memScoped
-import template_lib.TemplateRenderer
 import template_lib.base.debugContext
 import template_lib.base.productionContext
 import platform.posix.*
@@ -38,16 +37,11 @@ inline fun executeMeasured(block: () -> Unit) {
 }
 
 fun main() {
-    //warmup
-    TemplateRenderer.render(productionContext, PageModule, pageData)
-
+    page.renderPage(productionContext, pageData)
     executeMeasured {
-        TemplateRenderer.render(productionContext, PageModule, pageData)
+        page.renderPage(productionContext, pageData)
     }
 
-    val html = TemplateRenderer.render(debugContext, PageModule, pageData)
-    println(html)
-    writeAllText("./out/html/test.html", html)
-
-    writeAllText("./out/html/test.css", cssRules.value)
+    writeAllText("./out/html/test.html", page.renderPage(debugContext, pageData))
+    writeAllText("./out/html/test.css", page.getCss(ProductionVisitor()))
 }
