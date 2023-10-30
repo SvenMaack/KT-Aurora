@@ -46,4 +46,17 @@ class DocumentTest {
         verify { visitor.visitRule(document.rules[0]) }
             .wasInvoked(exactly = once)
     }
+
+    @Test
+    fun `visitor is being called for every rule`() {
+        val document = Document()
+        val property = Property("property", "value")
+        document["selector1", "selector2"] = {
+            add(property)
+        }
+        document.traverse(visitor)
+
+        verify { visitor.visitRule(any()) }
+            .wasInvoked(exactly = twice)
+    }
 }
