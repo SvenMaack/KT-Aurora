@@ -15,7 +15,7 @@ class TemplateCacheTest {
     @Test
     fun `test cache works`() {
         val tag = TagContainer("parent")
-        val context = Context { visitorMock }
+        val context = Context({ visitorMock }, "1")
         every { staticTemplateMock.test(context) }.returns(tag)
         every { visitorMock.result }.returns("")
 

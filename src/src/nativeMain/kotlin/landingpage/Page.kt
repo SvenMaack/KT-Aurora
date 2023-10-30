@@ -20,6 +20,7 @@ val landingPageTemplate: DynamicTemplate<LandingPageDto> = { context, data ->
         include(context=context, template=BodyModule)
     }
 }
+
 val landingPageCssDocument: Document = Document().apply {
     this[".logo"] = {
         margin(50.px)

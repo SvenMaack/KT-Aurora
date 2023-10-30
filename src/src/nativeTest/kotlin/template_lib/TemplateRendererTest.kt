@@ -22,7 +22,7 @@ class TemplateRendererTest {
     @Test
     fun `test dynamic template render works`() {
         val tag = TagContainer("parent")
-        val context = Context { visitorMock }
+        val context = Context({ visitorMock },"1")
         val dto = "test1"
         every { dynamicTemplateMock.test(context, dto) }.returns(tag)
         every { visitorMock.result }.returns("visitorResult")
@@ -34,7 +34,7 @@ class TemplateRendererTest {
     @Test
     fun `test static template render works`() {
         val tag = TagContainer("parent")
-        val context = Context { visitorMock }
+        val context = Context({ visitorMock },"1")
         every { staticTemplateMock.test(context) }.returns(tag)
         every { visitorMock.result }.returns("visitorResult")
 

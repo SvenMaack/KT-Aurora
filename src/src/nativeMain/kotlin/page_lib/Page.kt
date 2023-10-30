@@ -16,14 +16,14 @@ class Page<DTO>(
     private val template: DynamicTemplate<DTO>,
     private val cssDocument: Document
 ) {
-    private val uniqueName: Lazy<String> = lazy {
+    private val name: Lazy<String> = lazy {
         "${this.hashCode()}_${Clock.System.now().toEpochMilliseconds()}"
     }
 
     private fun createContext(pageContext: PageContext): Context =
         Context(
             pageContext.visitorFactory,
-            getUniqueId()
+            getId()
         )
 
     fun renderPage(context: PageContext, dto: DTO): String =
@@ -34,6 +34,6 @@ class Page<DTO>(
         return visitor.result
     }
 
-    fun getUniqueId(): String =
-        uniqueName.value
+    fun getId(): String =
+        name.value
 }

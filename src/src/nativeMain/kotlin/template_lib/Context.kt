@@ -4,5 +4,5 @@ import template_lib.base.VisitorFactory
 
 data class Context(
     val visitorFactory: VisitorFactory<String>,
-    val uniqueId: String
+    val id: String
 )
