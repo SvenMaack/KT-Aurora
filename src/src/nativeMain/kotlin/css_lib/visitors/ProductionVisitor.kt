@@ -9,9 +9,6 @@ class ProductionVisitor: Visitor<String> {
         get() = _rules.toString()
 
     override fun visitRule(rule: Rule) {
-        _rules.append("${rule.selector}{${rule.properties.joinToString(""){
-            it.toString()
-        }}}"
-        )
+        _rules.append("${rule.selector}{${rule.properties.joinToString("")}}")
     }
 }
