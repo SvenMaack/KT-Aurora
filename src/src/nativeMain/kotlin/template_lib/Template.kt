@@ -15,9 +15,9 @@ fun <DTO>TagContainer.include(context: Context, template: DynamicTemplate<DTO>, 
 fun TagContainer.include(context: Context, template: StaticTemplate): TagContainer =
     add(TransientTag().apply {
         val timestamp = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
-        !"Cache start - $timestamp"
+        !"Rendering starts at - $timestamp"
         +TemplateCache.getOrSet(context, template)
-        !"Cache end   - $timestamp"
+        !"Rendering ends      - $timestamp"
     })
 
 fun <T: TagContainer>T.childs(block: T.() -> Unit): TransientTag {
