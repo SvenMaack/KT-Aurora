@@ -9,13 +9,17 @@ class ProductionVisitorTest {
     @Test
     fun `visit rules turns them into string`() {
         val document = Document()
-        document["selector"] = {
-            add(Property("property", "value"))
+        document["selector1"] = {
+            add(Property("property1", "value"))
+        }
+        document["selector2"] = {
+            add(Property("property2", "value"))
         }
         val productionVisitor = ProductionVisitor()
 
         productionVisitor.visitRule(document.rules[0])
+        productionVisitor.visitRule(document.rules[1])
 
-        assertEquals("selector{property:value;}", productionVisitor.result)
+        assertEquals("selector1{property1:value;}selector2{property2:value;}", productionVisitor.result)
     }
 }
