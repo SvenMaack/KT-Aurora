@@ -23,6 +23,18 @@ class DocumentTest {
     }
 
     @Test
+    fun `test property set works for multiple classes`() {
+        val document = Document()
+        document["selector1", "selector2"] = ruleMock::test
+
+        assertEquals(2, document.rules.size)
+        assertEquals("selector1", document.rules[0].selector)
+        assertEquals("selector2", document.rules[1].selector)
+        verify { ruleMock.test(any()) }
+            .wasInvoked(exactly = twice)
+    }
+
+    @Test
     fun `visitor is being called`() {
         val document = Document()
         val property = Property("property", "value")
