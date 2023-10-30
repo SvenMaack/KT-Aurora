@@ -10,23 +10,23 @@ import template_lib.DynamicTemplate
 import template_lib.include
 import template_lib.tags.*
 
-data class PageDto(
+data class LandingPageDto(
     val head: HeadDto
 )
 
-val pageTemplate: DynamicTemplate<PageDto> = { context, data ->
+val landingPageTemplate: DynamicTemplate<LandingPageDto> = { context, data ->
     html(lang="en") {
         include(context=context, template=SimpleHeadTemplate, dto=data.head)
         include(context=context, template=BodyModule)
     }
 }
-val document: Document = Document().apply {
+val landingPageCssDocument: Document = Document().apply {
     this[".logo"] = {
         margin(50.px)
     }
 }
 
-val page = Page(
-    pageTemplate,
-    document
+val landingPage = Page(
+    landingPageTemplate,
+    landingPageCssDocument
 )

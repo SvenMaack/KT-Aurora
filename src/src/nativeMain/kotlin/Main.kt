@@ -1,6 +1,6 @@
 import css_lib.visitors.ProductionVisitor
-import landingpage.PageDto
-import landingpage.page
+import landingpage.LandingPageDto
+import landingpage.landingPage
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.memScoped
 import page_lib.*
@@ -9,7 +9,7 @@ import kotlin.time.measureTime
 
 val seoData: PageSeoDto = PageSeoDto("Hello World", "description", "keyword1, keyword2")
 val headData: HeadDto = HeadDto(seoData)
-val pageData: PageDto = PageDto(headData)
+val pageData: LandingPageDto = LandingPageDto(headData)
 
 @OptIn(ExperimentalForeignApi::class)
 inline fun writeAllText(filePath:String, text:String) {
@@ -36,11 +36,11 @@ inline fun executeMeasured(block: () -> Unit) {
 }
 
 fun main() {
-    page.renderPage(productionContext, pageData)
+    landingPage.renderPage(productionContext, pageData)
     executeMeasured {
-        page.renderPage(productionContext, pageData)
+        landingPage.renderPage(productionContext, pageData)
     }
 
-    writeAllText("./out/html/test.html", page.renderPage(productionContext, pageData))
-    writeAllText("./out/html/${page.getUniqueId()}.css", page.getCss(ProductionVisitor()))
+    writeAllText("./out/html/test.html", landingPage.renderPage(productionContext, pageData))
+    writeAllText("./out/html/${landingPage.getUniqueId()}.css", landingPage.getCss(ProductionVisitor()))
 }
