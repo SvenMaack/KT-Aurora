@@ -1,3 +1,5 @@
+@file:Suppress("WrapUnaryOperator")
+
 package modules_lib.navigation
 
 import css_lib.base.Document
@@ -42,6 +44,7 @@ internal val navigationCssDocument: Document = Document().apply {
         position(absolute)
         top(50.percentage)
         left(50.percentage)
+        transform(-50.percentage, -50.percentage)
     }
     this[".navigation__list"] = {
         `list-style`(none)
