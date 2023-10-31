@@ -1,8 +1,9 @@
 package modules_lib.navigation
 
 import css_lib.base.Document
-import css_lib.properties.margin
-import css_lib.properties.px
+import css_lib.properties.*
+import css_lib.properties.ListStyleValues.none
+import css_lib.properties.PositionValues.absolute
 import page_lib.DynamicModule
 import template_lib.DynamicTemplate
 import template_lib.childs
@@ -23,7 +24,7 @@ data class NavigationDto(
 internal val NavigationTemplate: DynamicTemplate<NavigationDto> = { _, data ->
     Div().childs {
         nav(clazz="navigation") {
-            ul {
+            ul(clazz="navigation__list") {
                 data.entries.forEach { entry ->
                     li(clazz="navigation__item") {
                         span {
@@ -38,9 +39,11 @@ internal val NavigationTemplate: DynamicTemplate<NavigationDto> = { _, data ->
 
 internal val navigationCssDocument: Document = Document().apply {
     this[".navigation"] = {
-        margin(50.px)
+        position(absolute)
+        top(50.percentage)
+        left(50.percentage)
     }
-    this[".navigation__item"] = {
-        margin(15.px)
+    this[".navigation__list"] = {
+        `list-style`(none)
     }
 }

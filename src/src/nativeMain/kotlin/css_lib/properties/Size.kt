@@ -28,6 +28,7 @@ enum class CssUnit(val value: String) {
     lvh("lvh"),
     dvw("dvw"),
     dvh("dvh"),
+    percentage("%"),
 }
 
 interface Size
@@ -81,6 +82,7 @@ val Double.lvw: Size get() = FloatingValueSize(this, CssUnit.lvw)
 val Double.lvh: Size get() = FloatingValueSize(this, CssUnit.lvh)
 val Double.dvw: Size get() = FloatingValueSize(this, CssUnit.dvw)
 val Double.dvh: Size get() = FloatingValueSize(this, CssUnit.dvh)
+val Double.percentage: Size get() = FloatingValueSize(this, CssUnit.percentage)
 
 val Int.px: Size get() = ValueSize(this, CssUnit.px)
 val Int.rem: Size get() = ValueSize(this, CssUnit.rem)
@@ -107,3 +109,4 @@ val Int.lvw: Size get() = ValueSize(this, CssUnit.lvw)
 val Int.lvh: Size get() = ValueSize(this, CssUnit.lvh)
 val Int.dvw: Size get() = ValueSize(this, CssUnit.dvw)
 val Int.dvh: Size get() = ValueSize(this, CssUnit.dvh)
+val Int.percentage: Size get() = ValueSize(this, CssUnit.percentage)

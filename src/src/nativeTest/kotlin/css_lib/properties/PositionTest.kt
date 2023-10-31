@@ -55,4 +55,44 @@ class PositionTest {
         assertEquals("position", rule.properties[0].property)
         assertEquals("sticky", rule.properties[0].value)
     }
+
+    @Test
+    fun `test top`() {
+        val rule = Rule("selector")
+        rule.top(5.px)
+
+        assertEquals(1, rule.properties.size)
+        assertEquals("top", rule.properties[0].property)
+        assertEquals("5px", rule.properties[0].value)
+    }
+
+    @Test
+    fun `test right`() {
+        val rule = Rule("selector")
+        rule.right(5.px)
+
+        assertEquals(1, rule.properties.size)
+        assertEquals("right", rule.properties[0].property)
+        assertEquals("5px", rule.properties[0].value)
+    }
+
+    @Test
+    fun `test bottom`() {
+        val rule = Rule("selector")
+        rule.bottom(5.px)
+
+        assertEquals(1, rule.properties.size)
+        assertEquals("bottom", rule.properties[0].property)
+        assertEquals("5px", rule.properties[0].value)
+    }
+
+    @Test
+    fun `test left`() {
+        val rule = Rule("selector")
+        rule.left(5.px)
+
+        assertEquals(1, rule.properties.size)
+        assertEquals("left", rule.properties[0].property)
+        assertEquals("5px", rule.properties[0].value)
+    }
 }
