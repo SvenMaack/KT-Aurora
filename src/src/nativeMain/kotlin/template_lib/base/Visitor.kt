@@ -1,16 +1,16 @@
 package template_lib.base
 
-interface Visitor<T> {
-    val result: T
+interface Visitor<RESULT> {
+    val result: RESULT
 
-    fun visitTextElement(element: TextElement)
     fun visitTag(tag: Tag)
-    fun visitComment(comment: Comment)
     fun visitTagWithAttributes(tag: TagWithAttributes)
     fun visitTagContainerBegin(tagContainer: TagContainer)
     fun visitTagContainerEnd(tagContainer: TagContainer)
+    fun visitTextElement(element: TextElement)
+    fun visitComment(comment: Comment)
 }
 
-fun interface VisitorFactory<T> {
-    fun create(): Visitor<T>
+fun interface VisitorFactory<RESULT> {
+    fun create(): Visitor<RESULT>
 }

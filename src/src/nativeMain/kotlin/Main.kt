@@ -3,13 +3,15 @@ import landingpage.LandingPageDto
 import landingpage.landingPage
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.memScoped
+import modules_lib.navigation.NavigationDto
 import page_lib.*
 import platform.posix.*
 import kotlin.time.measureTime
 
 val seoData: PageSeoDto = PageSeoDto("Hello World", "description", "keyword1, keyword2")
 val headData: HeadDto = HeadDto(seoData)
-val pageData: LandingPageDto = LandingPageDto(headData)
+val navigationDto: NavigationDto = NavigationDto(listOf("Home", "Trends", "New Arrival", "Sales"))
+val pageData: LandingPageDto = LandingPageDto(headData, navigationDto)
 
 @OptIn(ExperimentalForeignApi::class)
 inline fun writeAllText(filePath:String, text:String) {

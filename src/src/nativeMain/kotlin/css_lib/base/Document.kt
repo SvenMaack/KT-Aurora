@@ -1,6 +1,6 @@
 package css_lib.base
 
-class Document {
+open class Document {
     internal val rules: MutableList<Rule> = mutableListOf()
 
     operator fun set(vararg selector: String, init: Rule.() -> Unit) {
@@ -11,7 +11,7 @@ class Document {
         }
     }
 
-    fun traverse(visitor: Visitor<*>) {
+    open fun traverse(visitor: Visitor<*>) {
         rules.forEach {
             visitor.visitRule(it)
         }
