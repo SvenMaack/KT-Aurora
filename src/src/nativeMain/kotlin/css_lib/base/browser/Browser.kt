@@ -1,5 +1,7 @@
 package css_lib.base.browser
 
-fun interface Browser {
+interface Browser {
     fun minimalSupportedVersion(): Double
+
+    fun browserName(): String
 }
