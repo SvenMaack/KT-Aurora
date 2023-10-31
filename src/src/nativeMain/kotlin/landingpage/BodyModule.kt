@@ -24,7 +24,6 @@ val DynamicBody: DynamicTemplate<NavigationDto> = { context, data ->
 
 val StaticBody: StaticTemplate = { _ ->
     Body().childs {
-        hr()
         div(clazz="MyClass") {
             p(clazz="test") {
                 +"This is my first kotlin rendered page"

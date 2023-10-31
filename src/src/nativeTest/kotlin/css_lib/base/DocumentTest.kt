@@ -1,9 +1,5 @@
 package css_lib.base
 
-import css_lib.base.Document
-import css_lib.base.Property
-import css_lib.base.Rule
-import css_lib.base.Visitor
 import io.mockative.*
 import template_lib.tags.Callable
 import kotlin.test.Test
@@ -41,9 +37,9 @@ class DocumentTest {
     @Test
     fun `visitor is being called`() {
         val document = Document()
-        val property = Property("property", "value")
+        val property = UnsupportedProperty("property", "value")
         document["selector"] = {
-            add(property)
+            +property
         }
         document.traverse(visitor)
 
@@ -54,9 +50,9 @@ class DocumentTest {
     @Test
     fun `visitor is being called for every rule`() {
         val document = Document()
-        val property = Property("property", "value")
+        val property = UnsupportedProperty("property", "value")
         document["selector1", "selector2"] = {
-            add(property)
+            +property
         }
         document.traverse(visitor)
 

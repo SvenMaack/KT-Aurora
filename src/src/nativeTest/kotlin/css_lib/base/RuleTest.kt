@@ -1,8 +1,5 @@
 package css_lib.base
 
-import css_lib.base.Property
-import css_lib.base.Rule
-import css_lib.base.rule
 import io.mockative.*
 import template_lib.tags.Callable
 import kotlin.test.Test
@@ -24,9 +21,9 @@ class RuleTest {
 
     @Test
     fun `test add property works`() {
-        val property = Property("a", "b")
+        val property = UnsupportedProperty("a", "b")
         val rule: Rule = "selector".rule {
-            add(property)
+            +property
         }
 
         assertEquals(1, rule.properties.size)

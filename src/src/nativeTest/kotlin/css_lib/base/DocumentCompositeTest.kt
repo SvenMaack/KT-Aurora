@@ -25,7 +25,7 @@ class DocumentCompositeTest {
         val parentDocument = DocumentComposite()
         val childDocument = Document()
         childDocument["selector"] = {
-            add(Property("property", "value"))
+            +UnsupportedProperty("property", "value")
         }
 
         parentDocument.addDocument(childDocument)

@@ -2,6 +2,7 @@ package css_lib.visitors
 
 import css_lib.base.Document
 import css_lib.base.Property
+import css_lib.base.UnsupportedProperty
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -10,10 +11,10 @@ class ProductionVisitorTest {
     fun `visit rules turns them into string`() {
         val document = Document()
         document["selector1"] = {
-            add(Property("property1", "value"))
+            +UnsupportedProperty("property1", "value")
         }
         document["selector2"] = {
-            add(Property("property2", "value"))
+            +UnsupportedProperty("property2", "value")
         }
         val productionVisitor = ProductionVisitor()
 

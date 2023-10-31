@@ -45,7 +45,7 @@ class PageTest {
 
         page.addDocument(document)
 
-        assertEquals(1, page._cssDocument.documents.size)
-        assertSame(document, page._cssDocument.documents[0])
+        assertEquals(2, page._cssDocument.documents.size)
+        assertSame(document, page._cssDocument.documents[1])
     }
 }

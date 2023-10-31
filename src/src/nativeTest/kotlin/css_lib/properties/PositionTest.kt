@@ -1,7 +1,6 @@
 package css_lib.properties
 
 import css_lib.base.Rule
-import css_lib.properties.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -9,7 +8,7 @@ class PositionTest {
     @Test
     fun `test position static`() {
         val rule = Rule("selector")
-        rule.position(PositionValues.static)
+        rule.position(PositionValue.static)
 
         assertEquals(1, rule.properties.size)
         assertEquals("position", rule.properties[0].property)
@@ -19,7 +18,7 @@ class PositionTest {
     @Test
     fun `test position relative`() {
         val rule = Rule("selector")
-        rule.position(PositionValues.relative)
+        rule.position(PositionValue.relative)
 
         assertEquals(1, rule.properties.size)
         assertEquals("position", rule.properties[0].property)
@@ -29,7 +28,7 @@ class PositionTest {
     @Test
     fun `test position fixed`() {
         val rule = Rule("selector")
-        rule.position(PositionValues.fixed)
+        rule.position(PositionValue.fixed)
 
         assertEquals(1, rule.properties.size)
         assertEquals("position", rule.properties[0].property)
@@ -39,7 +38,7 @@ class PositionTest {
     @Test
     fun `test position absolute`() {
         val rule = Rule("selector")
-        rule.position(PositionValues.absolute)
+        rule.position(PositionValue.absolute)
 
         assertEquals(1, rule.properties.size)
         assertEquals("position", rule.properties[0].property)
@@ -49,7 +48,7 @@ class PositionTest {
     @Test
     fun `test position sticky`() {
         val rule = Rule("selector")
-        rule.position(PositionValues.sticky)
+        rule.position(PositionValue.sticky)
 
         assertEquals(1, rule.properties.size)
         assertEquals("position", rule.properties[0].property)

@@ -5,8 +5,8 @@ package modules_lib.navigation
 import css_lib.base.Document
 import css_lib.properties.*
 import css_lib.properties.DisplayTypeValues.`inline-block`
-import css_lib.properties.ListStyleValues.none
-import css_lib.properties.PositionValues.absolute
+import css_lib.properties.ListStyleTypeValue.*
+import css_lib.properties.PositionValue.absolute
 import css_lib.properties.TextTransformValues.uppercase
 import page_lib.DynamicModule
 import template_lib.DynamicTemplate
@@ -47,10 +47,9 @@ internal val navigationCssDocument: Document = Document().apply {
         top(50.percentage)
         left(50.percentage)
         transform(-50.percentage, -50.percentage)
-        `list-style`(none)
+        `list-style-type`(none)
     }
     this[".navigation__item"] = {
-        `text-decoration`(TextDecorationValues.none)
         `text-transform`(uppercase)
         display(`inline-block`)
         padding(15.px)

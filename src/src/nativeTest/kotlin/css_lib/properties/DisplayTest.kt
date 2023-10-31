@@ -1,7 +1,6 @@
 package css_lib.properties
 
 import css_lib.base.Rule
-import css_lib.properties.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
