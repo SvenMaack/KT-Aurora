@@ -9,8 +9,9 @@ class PropertyVisitorTest {
     val visitPropertyMock = mock(classOf<Callable<Property>>())
 
     val visitor: RuleVisitor<String> = object: PropertyVisitor<String>() {
-        override fun visitProperty(property: Property) {
+        override fun visitProperty(property: Property): PropertyVisitor<String> {
             visitPropertyMock.test(property)
+            return this
         }
 
         override val result: String = ""
