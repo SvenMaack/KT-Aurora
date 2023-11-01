@@ -45,4 +45,5 @@ fun main() {
 
     writeAllText("./out/html/test.html", landingPage.renderPage(productionContext, pageData))
     writeAllText("./out/html/${landingPage.getId()}.css", landingPage.getCss(ProductionVisitor()))
+    println(landingPage.getMinimumBrowserVersions())
 }

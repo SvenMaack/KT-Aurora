@@ -2,7 +2,8 @@ package page_lib
 
 import css_lib.base.Document
 import css_lib.base.DocumentComposite
-import css_lib.base.Visitor
+import css_lib.base.RuleVisitor
+import css_lib.visitors.BrowserVersionVisitor
 import kotlinx.datetime.Clock
 import template_lib.Context
 import template_lib.DynamicTemplate
@@ -29,7 +30,7 @@ class Page<DTO>(
     fun renderPage(context: PageContext, dto: DTO): String =
         TemplateRenderer.render(createContext(context), template, dto)
 
-    fun getCss(visitor: Visitor<String>): String {
+    fun getCss(visitor: RuleVisitor<String>): String {
         _cssDocument.traverse(visitor)
         return visitor.result
     }
@@ -41,6 +42,12 @@ class Page<DTO>(
 
     fun getId(): String =
         name.value
+
+    fun getMinimumBrowserVersions(): Map<String, Double> {
+        val browserVersionVisitor = BrowserVersionVisitor()
+        _cssDocument.traverse(browserVersionVisitor)
+        return browserVersionVisitor.result
+    }
 
     private fun createContext(pageContext: PageContext): Context =
         Context(
