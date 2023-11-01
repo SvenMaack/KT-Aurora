@@ -43,7 +43,6 @@ enum class ListStylePositionValue(val value: String) {
     inherit("inherit"),
 }
 
-
 @Suppress("EnumEntryName")
 enum class ListStyleImageValue(val value: String) {
     none("none"),
