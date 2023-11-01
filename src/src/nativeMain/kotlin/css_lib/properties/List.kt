@@ -1,10 +1,8 @@
 @file:Suppress("FunctionName", "unused")
-
 package css_lib.properties
 
 import css_lib.base.Property
 import css_lib.base.Rule
-import css_lib.base.browser.Support
 import css_lib.base.browser.SupportImpl
 
 //https://www.w3schools.com/cssref/pr_list-style.php
@@ -44,6 +42,7 @@ enum class ListStylePositionValue(val value: String) {
     initial("initial"),
     inherit("inherit"),
 }
+
 
 @Suppress("EnumEntryName")
 enum class ListStyleImageValue(val value: String) {
@@ -103,7 +102,7 @@ fun Rule.`list-style-image`(style: ListStyleImageValue): Property =
 fun Rule.`list-style-image`(url: String): Property =
     +Property.build(
         property = "list-style-image",
-        value = url,
+        value = "url(\"$url\")",
         defaultValue = ListStyleImageValue.none.value,
         supportedBrowsers = SupportImpl(
             chrome = { 1.0 },
@@ -114,14 +113,50 @@ fun Rule.`list-style-image`(url: String): Property =
         ).supportedBrowsers
     )
 
-fun Rule.`list-style`(type: ListStyleTypeValue, position: ListStylePositionValue, image: ListStyleImageValue): Property {
-    `list-style-position`(position)
-    `list-style-image`(image)
-    return `list-style-type`(type)
-}
+fun Rule.`list-style`(type: ListStyleTypeValue, position: ListStylePositionValue, image: ListStyleImageValue): Property =
+    setListStyle(type, position, image.value)
 
-fun Rule.`list-style`(type: ListStyleTypeValue, position: ListStylePositionValue, image: String): Property {
-    `list-style-position`(position)
-    `list-style-image`(image)
-    return `list-style-type`(type)
-}
+fun Rule.`list-style`(type: ListStyleTypeValue, position: ListStylePositionValue, url: String): Property =
+    setListStyle(type, position, "url(\"$url\")")
+
+fun Rule.`list-style`(position: ListStylePositionValue, image: ListStyleImageValue): Property =
+    setListStyle(null, position, image.value)
+
+fun Rule.`list-style`(position: ListStylePositionValue, url: String): Property =
+    setListStyle(null, position, "url(\"$url\")")
+
+fun Rule.`list-style`(type: ListStyleTypeValue, image: ListStyleImageValue): Property =
+    setListStyle(type, null, image.value)
+
+fun Rule.`list-style`(type: ListStyleTypeValue, url: String): Property =
+    setListStyle(type, null, "url(\"$url\")")
+
+fun Rule.`list-style`(type: ListStyleTypeValue, position: ListStylePositionValue): Property =
+    setListStyle(type, position, null)
+
+fun Rule.`list-style`(image: ListStyleImageValue): Property =
+    setListStyle(null, null, image.value)
+
+fun Rule.`list-style`(url: String): Property =
+    setListStyle(null, null, "url(\"$url\")")
+
+fun Rule.`list-style`(position: ListStylePositionValue): Property =
+    setListStyle(null, position, null)
+
+fun Rule.`list-style`(type: ListStyleTypeValue): Property =
+    setListStyle(type, null, null)
+
+
+private fun Rule.setListStyle(type: ListStyleTypeValue?, position: ListStylePositionValue?, image: String?): Property =
+    +Property.build(
+        property = "list-style",
+        value = "${type?.value ?: ""} ${position?.value ?: ""} ${image ?: ""}".replace("  ", " ").trim(),
+        defaultValue = ListStyleImageValue.none.value,
+        supportedBrowsers = SupportImpl(
+            chrome = { 1.0 },
+            edge = { 4.0 },
+            firefox = { 1.0 },
+            safari = { 1.0 },
+            opera = { 7.0 },
+        ).supportedBrowsers
+    )

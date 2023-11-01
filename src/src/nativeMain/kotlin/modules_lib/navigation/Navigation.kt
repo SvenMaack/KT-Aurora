@@ -4,7 +4,7 @@ package modules_lib.navigation
 
 import css_lib.base.Document
 import css_lib.properties.*
-import css_lib.properties.DisplayTypeValues.`inline-block`
+import css_lib.properties.DisplayTypeValue.`inline-block`
 import css_lib.properties.ListStyleTypeValue.*
 import css_lib.properties.PositionValue.absolute
 import css_lib.properties.TextTransformValues.uppercase

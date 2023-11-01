@@ -9,7 +9,7 @@ import css_lib.base.browser.SupportImpl
 //https://www.w3schools.com/cssref/pr_class_display.php
 
 @Suppress("EnumEntryName")
-enum class DisplayTypeValues(val value: String) {
+enum class DisplayTypeValue(val value: String) {
     `inline`("inline"),
     block("block"),
     contents("contents"),
@@ -35,7 +35,7 @@ enum class DisplayTypeValues(val value: String) {
     unset("unset")
 }
 
-fun Rule.display(style: DisplayTypeValues): Property =
+fun Rule.display(style: DisplayTypeValue): Property =
     +Property.build(
         property = "display",
         value = style.value,
