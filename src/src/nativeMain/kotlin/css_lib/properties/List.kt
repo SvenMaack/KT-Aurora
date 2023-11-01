@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName")
+@file:Suppress("FunctionName", "unused")
 
 package css_lib.properties
 
@@ -59,52 +59,60 @@ enum class ListStyleValue(val value: String) {
 }
 
 fun Rule.`list-style-type`(style: ListStyleTypeValue): Property =
-    +object : Property("list-style-type", style.value), Support by SupportImpl(
-        chrome = { 1.0 },
-        edge = { 4.0 },
-        firefox = { 1.0 },
-        safari = { 1.0 },
-        opera = { 3.5 },
-    ) {
-        override val defaultValue: String?
-            get() = ListStyleTypeValue.disc.value
-    }
+    +Property.build(
+        property = "list-style-type",
+        value = style.value,
+        defaultValue = ListStyleTypeValue.disc.value,
+        supportedBrowsers = SupportImpl(
+            chrome = { 1.0 },
+            edge = { 4.0 },
+            firefox = { 1.0 },
+            safari = { 1.0 },
+            opera = { 3.5 },
+        ).supportedBrowsers
+    )
 
 fun Rule.`list-style-position`(style: ListStylePositionValue): Property =
-    +object : Property("list-style-position", style.value), Support by SupportImpl(
-        chrome = { 1.0 },
-        edge = { 4.0 },
-        firefox = { 1.0 },
-        safari = { 1.0 },
-        opera = { 3.5 },
-    ) {
-        override val defaultValue: String?
-            get() = ListStylePositionValue.outside.value
-    }
+    +Property.build(
+        property = "list-style-position",
+        value = style.value,
+        defaultValue = ListStylePositionValue.outside.value,
+        supportedBrowsers = SupportImpl(
+            chrome = { 1.0 },
+            edge = { 4.0 },
+            firefox = { 1.0 },
+            safari = { 1.0 },
+            opera = { 3.5 },
+        ).supportedBrowsers
+    )
 
 fun Rule.`list-style-image`(style: ListStyleImageValue): Property =
-    +object : Property("list-style-image", style.value), Support by SupportImpl(
-        chrome = { 1.0 },
-        edge = { 4.0 },
-        firefox = { 1.0 },
-        safari = { 1.0 },
-        opera = { 7.0 },
-    ) {
-        override val defaultValue: String?
-            get() = ListStyleImageValue.none.value
-    }
+    +Property.build(
+        property = "list-style-image",
+        value = style.value,
+        defaultValue = ListStyleImageValue.none.value,
+        supportedBrowsers = SupportImpl(
+            chrome = { 1.0 },
+            edge = { 4.0 },
+            firefox = { 1.0 },
+            safari = { 1.0 },
+            opera = { 7.0 },
+        ).supportedBrowsers
+    )
 
 fun Rule.`list-style-image`(url: String): Property =
-    +object : Property("list-style-image", url), Support by SupportImpl(
-        chrome = { 1.0 },
-        edge = { 4.0 },
-        firefox = { 1.0 },
-        safari = { 1.0 },
-        opera = { 7.0 },
-    ) {
-        override val defaultValue: String?
-            get() = ListStyleImageValue.none.value
-    }
+    +Property.build(
+        property = "list-style-image",
+        value = url,
+        defaultValue = ListStyleImageValue.none.value,
+        supportedBrowsers = SupportImpl(
+            chrome = { 1.0 },
+            edge = { 4.0 },
+            firefox = { 1.0 },
+            safari = { 1.0 },
+            opera = { 7.0 },
+        ).supportedBrowsers
+    )
 
 fun Rule.`list-style`(type: ListStyleTypeValue, position: ListStylePositionValue, image: ListStyleImageValue): Property {
     `list-style-position`(position)
@@ -117,15 +125,3 @@ fun Rule.`list-style`(type: ListStyleTypeValue, position: ListStylePositionValue
     `list-style-image`(image)
     return `list-style-type`(type)
 }
-
-fun Rule.`list-style`(style: ListStyleValue): Property =
-    +object : Property("list-style", style.value), Support by SupportImpl(
-        chrome = { 1.0 },
-        edge = { 4.0 },
-        firefox = { 1.0 },
-        safari = { 1.0 },
-        opera = { 7.0 },
-    ) {
-        override val defaultValue: String?
-            get() = ListStyleValue.initial.value
-    }

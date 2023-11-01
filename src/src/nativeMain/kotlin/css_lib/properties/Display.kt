@@ -4,7 +4,6 @@ package css_lib.properties
 
 import css_lib.base.Property
 import css_lib.base.Rule
-import css_lib.base.browser.Support
 import css_lib.base.browser.SupportImpl
 
 //https://www.w3schools.com/cssref/pr_class_display.php
