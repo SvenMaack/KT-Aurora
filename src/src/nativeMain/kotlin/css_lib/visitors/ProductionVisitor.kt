@@ -1,9 +1,9 @@
 package css_lib.visitors
 
 import css_lib.base.Rule
-import css_lib.base.Visitor
+import css_lib.base.RuleVisitor
 
-class ProductionVisitor: Visitor<String> {
+class ProductionVisitor: RuleVisitor<String> {
     private val _rules = StringBuilder()
     override val result: String
         get() = _rules.toString()

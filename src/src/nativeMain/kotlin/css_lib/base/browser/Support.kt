@@ -1,7 +1,7 @@
 package css_lib.base.browser
 
 interface Support {
-    val support: List<Browser>
+    val supportedBrowsers: List<Browser>
 }
 
 class SupportImpl (
@@ -11,10 +11,10 @@ class SupportImpl (
     opera: Opera,
     safari: Safari,
 ): Support {
-    override val support: List<Browser>
+    override val supportedBrowsers: List<Browser>
 
     init {
-        support = listOf(
+        supportedBrowsers = listOf(
             chrome,
             edge,
             firefox,

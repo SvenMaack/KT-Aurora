@@ -1,5 +1,6 @@
 package css_lib.base.browser
 
 fun interface Safari: Browser {
-    override fun browserName(): String = "safari"
+    override val browserName: String
+        get() = "safari"
 }

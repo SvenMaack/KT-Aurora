@@ -9,11 +9,11 @@ class DocumentTest {
     @Mock
     val ruleMock = mock(classOf<Callable<Rule>>())
     @Mock
-    val visitor = mock(classOf<Visitor<String>>())
+    val visitor = mock(classOf<RuleVisitor<String>>())
+    private var document: Document = Document()
 
     @Test
     fun `test property set works`() {
-        val document = Document()
         document["selector"] = ruleMock::test
 
         assertEquals(1, document.rules.size)
@@ -24,7 +24,6 @@ class DocumentTest {
 
     @Test
     fun `test property set works for multiple classes`() {
-        val document = Document()
         document["selector1", "selector2"] = ruleMock::test
 
         assertEquals(2, document.rules.size)
@@ -36,8 +35,7 @@ class DocumentTest {
 
     @Test
     fun `visitor is being called`() {
-        val document = Document()
-        val property = UnsupportedProperty("property", "value")
+        val property = Property.build("property", "value")
         document["selector"] = {
             +property
         }
@@ -49,8 +47,7 @@ class DocumentTest {
 
     @Test
     fun `visitor is being called for every rule`() {
-        val document = Document()
-        val property = UnsupportedProperty("property", "value")
+        val property = Property.build("property", "value")
         document["selector1", "selector2"] = {
             +property
         }

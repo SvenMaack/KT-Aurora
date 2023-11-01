@@ -1,11 +1,11 @@
 package css_lib.base
 
-open class Rule(
-    val selector: String,
-    val properties: MutableList<Property> = mutableListOf()
-) {
+open class Rule(internal val selector: String) {
+    private var _properties : MutableList<Property> = mutableListOf()
+    internal val properties: List<Property> = _properties
+
     open operator fun Property.unaryPlus(): Property {
-        properties.add(this)
+        _properties.add(this)
         return this
     }
 }

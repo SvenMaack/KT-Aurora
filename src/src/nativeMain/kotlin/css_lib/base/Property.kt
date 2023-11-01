@@ -4,22 +4,23 @@ import css_lib.base.browser.Browser
 import css_lib.base.browser.Support
 
 abstract class Property(
-    val property: String,
-    val value: String
+    internal val property: String,
+    internal val value: String
 ): Support {
+    companion object {
+        fun build(
+            property: String,
+            value: String,
+            defaultValue: String? = "",
+            support: List<Browser> = listOf()
+        ): Property = object: Property(property, value) {
+            override val defaultValue: String? = defaultValue
+            override val supportedBrowsers: List<Browser> = support
+        }
+    }
+
     abstract val defaultValue: String?
 
     override fun toString(): String =
         "$property:$value;"
-}
-
-@Deprecated(message = "Use normal property")
-class UnsupportedProperty(
-    property: String,
-    value: String
-): Property(property, value) {
-    override val defaultValue: String?
-        get() = null
-    override val support: List<Browser>
-        get() = listOf()
 }

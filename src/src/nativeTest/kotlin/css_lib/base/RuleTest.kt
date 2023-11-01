@@ -21,7 +21,7 @@ class RuleTest {
 
     @Test
     fun `test add property works`() {
-        val property = UnsupportedProperty("a", "b")
+        val property = Property.build("a", "b")
         val rule: Rule = "selector".rule {
             +property
         }

@@ -1,9 +1,9 @@
 package css_lib.visitors
 
 import css_lib.base.Rule
-import css_lib.base.Visitor
+import css_lib.base.RuleVisitor
 
-class DebugVisitor: Visitor<String> {
+class DebugVisitor: RuleVisitor<String> {
     companion object {
         const val LINE_BREAK = "\n"
         const val INDENTATION = "\t"

@@ -1,7 +1,7 @@
 package css_lib.base
 
-interface Visitor<T> {
-    val result: T
+interface RuleVisitor<RESULT> {
+    val result: RESULT
 
     fun visitRule(rule: Rule)
 }

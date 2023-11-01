@@ -1,13 +1,26 @@
 package css_lib.base
 
+import css_lib.base.browser.Chrome
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertSame
 
 class PropertyTest {
     @Test
-    fun `test property is rendered correctly`() {
-        val property = UnsupportedProperty("value", "property")
+    fun `test builder`() {
+        val browserSupport = listOf(Chrome { 1.0 })
+        val property = Property.build("property", "value", "a", browserSupport)
 
-        assertEquals("value:property;", property.toString())
+        assertEquals("property", property.property)
+        assertEquals("value", property.value)
+        assertEquals("a", property.defaultValue)
+        assertSame(browserSupport, property.supportedBrowsers)
+    }
+
+    @Test
+    fun `test property is rendered correctly`() {
+        val property = Property.build("property", "value")
+
+        assertEquals("property:value;", property.toString())
     }
 }

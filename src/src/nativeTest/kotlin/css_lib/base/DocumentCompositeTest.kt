@@ -7,7 +7,7 @@ import kotlin.test.assertSame
 
 class DocumentCompositeTest {
     @Mock
-    val visitor = mock(classOf<Visitor<String>>())
+    val visitor = mock(classOf<RuleVisitor<String>>())
 
     @Test
     fun `test add document works`() {
@@ -25,10 +25,10 @@ class DocumentCompositeTest {
         val parentDocument = DocumentComposite()
         val childDocument = Document()
         childDocument["selector"] = {
-            +UnsupportedProperty("property", "value")
+            +Property.build("property", "value")
         }
-
         parentDocument.addDocument(childDocument)
+
         parentDocument.traverse(visitor)
 
         verify { visitor.visitRule(any()) }
