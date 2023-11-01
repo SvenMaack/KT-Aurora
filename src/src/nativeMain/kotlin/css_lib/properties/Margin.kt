@@ -1,9 +1,8 @@
-@file:Suppress("FunctionName")
+@file:Suppress("FunctionName", "unused")
 package css_lib.properties
 
 import css_lib.base.Property
 import css_lib.base.Rule
-import css_lib.base.browser.Support
 import css_lib.base.browser.SupportImpl
 
 //https://www.w3schools.com/cssref/css_pr_margin-block.php
@@ -25,187 +24,247 @@ enum class MarginValue(val value: String) {
 
 
 fun Rule.margin(size: Size): Property =
-    +object : Property("margin", size.toString()), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.margin(topBottom: Size, rightLeft: Size): Property =
-    +object : Property("margin", "$topBottom $rightLeft"), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin",
+        value = "$topBottom $rightLeft",
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.margin(top: Size, rightLeft: Size, bottom: Size): Property =
-    +object : Property("margin", "$top $rightLeft $bottom"), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin",
+        value = "$top $rightLeft $bottom",
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.margin(top: Size, right: Size, bottom: Size, left: Size): Property =
-    +object : Property("margin", "$top $right $bottom $left"), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin",
+        value = "$top $right $bottom $left",
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.margin(value: MarginValue): Property =
-    +object : Property("margin", value.value), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
 
 fun Rule.`margin-top`(size: Size): Property =
-    +object : Property("margin-top", size.toString()), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-top",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.`margin-top`(value: MarginValue): Property =
-    +object : Property("margin-top", value.value), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-top",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
 
 fun Rule.`margin-right`(size: Size): Property =
-    +object : Property("margin-right", size.toString()), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-right",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.`margin-right`(value: MarginValue): Property =
-    +object : Property("margin-right", value.value), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-right",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
 
 fun Rule.`margin-bottom`(size: Size): Property =
-    +object : Property("margin-bottom", size.toString()), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-bottom",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.`margin-bottom`(value: MarginValue): Property =
-    +object : Property("margin-bottom", value.value), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-bottom",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
 
 fun Rule.`margin-left`(size: Size): Property =
-    +object : Property("margin-left", size.toString()), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-left",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.`margin-left`(value: MarginValue): Property =
-    +object : Property("margin-left", value.value), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-left",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
+
 
 fun Rule.`margin-block-start`(size: Size): Property =
-    +object : Property("margin-block-start", size.toString()), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-block-start",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
+
 fun Rule.`margin-block-start`(value: MarginValue): Property =
-    +object : Property("margin-block-start", value.value), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-block-start",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
 
 fun Rule.`margin-block-end`(size: Size): Property =
-    +object : Property("margin-block-end", size.toString()), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-block-end",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
+
 fun Rule.`margin-block-end`(value: MarginValue): Property =
-    +object : Property("margin-block-end", value.value), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-block-end",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
 
 fun Rule.`margin-block`(start: MarginValue, end: MarginValue): Property =
-    +object : Property("margin-block", "$start $end"), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 66.0 },
-        safari = { 14.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "auto"
-    }
+    +Property.build(
+        property = "margin-block",
+        value = "$start $end",
+        defaultValue = "auto",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 66.0 },
+            safari = { 14.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
 
 fun Rule.`margin-inline-start`(size: Size): Property =
-    +object : Property("margin-inline-start", size.toString()), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-inline-start",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
+
 fun Rule.`margin-inline-start`(value: MarginValue): Property =
-    +object : Property("margin-inline-start", value.value), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-inline-start",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
 
 fun Rule.`margin-inline-end`(size: Size): Property =
-    +object : Property("margin-inline-end", size.toString()), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-inline-end",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
+
 fun Rule.`margin-inline-end`(value: MarginValue): Property =
-    +object : Property("margin-inline-end", value.value), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "margin-inline-end",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
 
 fun Rule.`margin-inline`(start: MarginValue, end: MarginValue): Property =
-    +object : Property("margin-inline", "$start $end"), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 66.0 },
-        safari = { 14.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "auto"
-    }
+    +Property.build(
+        property = "margin-inline",
+        value = "$start $end",
+        defaultValue = "auto",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 66.0 },
+            safari = { 14.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )

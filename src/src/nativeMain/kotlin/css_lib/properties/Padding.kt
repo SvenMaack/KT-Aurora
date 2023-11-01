@@ -1,9 +1,8 @@
-@file:Suppress("FunctionName")
+@file:Suppress("FunctionName", "unused")
 package css_lib.properties
 
 import css_lib.base.Property
 import css_lib.base.Rule
-import css_lib.base.browser.Support
 import css_lib.base.browser.SupportImpl
 
 //https://www.w3schools.com/cssref/css_pr_padding-block.php
@@ -25,187 +24,247 @@ enum class PaddingValue(val value: String) {
 
 
 fun Rule.padding(size: Size): Property =
-    +object : Property("padding", size.toString()), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.padding(topBottom: Size, rightLeft: Size): Property =
-    +object : Property("padding", "$topBottom $rightLeft"), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding",
+        value = "$topBottom $rightLeft",
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.padding(top: Size, rightLeft: Size, bottom: Size): Property =
-    +object : Property("padding", "$top $rightLeft $bottom"), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding",
+        value = "$top $rightLeft $bottom",
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.padding(top: Size, right: Size, bottom: Size, left: Size): Property =
-    +object : Property("padding", "$top $right $bottom $left"), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding",
+        value = "$top $right $bottom $left",
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.padding(value: PaddingValue): Property =
-    +object : Property("padding", value.value), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
 
 fun Rule.`padding-top`(size: Size): Property =
-    +object : Property("padding-top", size.toString()), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-top",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.`padding-top`(value: PaddingValue): Property =
-    +object : Property("padding-top", value.value), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-top",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
 
 fun Rule.`padding-right`(size: Size): Property =
-    +object : Property("padding-right", size.toString()), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-right",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.`padding-right`(value: PaddingValue): Property =
-    +object : Property("padding-right", value.value), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-right",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
 
 fun Rule.`padding-bottom`(size: Size): Property =
-    +object : Property("padding-bottom", size.toString()), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-bottom",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.`padding-bottom`(value: PaddingValue): Property =
-    +object : Property("padding-bottom", value.value), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-bottom",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
 
 fun Rule.`padding-left`(size: Size): Property =
-    +object : Property("padding-left", size.toString()), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-left",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
 fun Rule.`padding-left`(value: PaddingValue): Property =
-    +object : Property("padding-left", value.value), Support by support {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-left",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = support.supportedBrowsers
+    )
+
+
 
 fun Rule.`padding-block-start`(size: Size): Property =
-    +object : Property("padding-block-start", size.toString()), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-block-start",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
+
 fun Rule.`padding-block-start`(value: PaddingValue): Property =
-    +object : Property("padding-block-start", value.value), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-block-start",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
 
 fun Rule.`padding-block-end`(size: Size): Property =
-    +object : Property("padding-block-end", size.toString()), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-block-end",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
+
 fun Rule.`padding-block-end`(value: PaddingValue): Property =
-    +object : Property("padding-block-end", value.value), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-block-end",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
 
 fun Rule.`padding-block`(start: PaddingValue, end: PaddingValue): Property =
-    +object : Property("padding-block", "$start $end"), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 66.0 },
-        safari = { 14.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "auto"
-    }
+    +Property.build(
+        property = "padding-block",
+        value = "$start $end",
+        defaultValue = "auto",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 66.0 },
+            safari = { 14.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
 
 fun Rule.`padding-inline-start`(size: Size): Property =
-    +object : Property("padding-inline-start", size.toString()), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-inline-start",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
+
 fun Rule.`padding-inline-start`(value: PaddingValue): Property =
-    +object : Property("padding-inline-start", value.value), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-inline-start",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
 
 fun Rule.`padding-inline-end`(size: Size): Property =
-    +object : Property("padding-inline-end", size.toString()), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-inline-end",
+        value = size.toString(),
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
+
 fun Rule.`padding-inline-end`(value: PaddingValue): Property =
-    +object : Property("padding-inline-end", value.value), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 41.0 },
-        safari = { 12.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "0"
-    }
+    +Property.build(
+        property = "padding-inline-end",
+        value = value.value,
+        defaultValue = "0",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 41.0 },
+            safari = { 12.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
 
 fun Rule.`padding-inline`(start: PaddingValue, end: PaddingValue): Property =
-    +object : Property("padding-inline", "$start $end"), Support by SupportImpl(
-        chrome = { 87.0 },
-        edge = { 87.0 },
-        firefox = { 66.0 },
-        safari = { 14.1 },
-        opera = { 73.0 },
-    ) {
-        override val defaultValue: String
-            get() = "auto"
-    }
+    +Property.build(
+        property = "padding-inline",
+        value = "$start $end",
+        defaultValue = "auto",
+        supportedBrowsers = SupportImpl(
+            chrome = { 87.0 },
+            edge = { 87.0 },
+            firefox = { 66.0 },
+            safari = { 14.1 },
+            opera = { 73.0 },
+        ) .supportedBrowsers
+    )
