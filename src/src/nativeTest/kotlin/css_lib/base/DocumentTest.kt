@@ -2,7 +2,6 @@ package css_lib.base
 
 import io.mockative.*
 import template_lib.tags.Callable
-import kotlin.test.BeforeClass
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package template_lib.tags
 
 import template_lib.base.TagContainer
