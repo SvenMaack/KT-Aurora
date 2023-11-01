@@ -2,6 +2,7 @@ package css_lib.base
 
 import io.mockative.*
 import template_lib.tags.Callable
+import kotlin.test.BeforeClass
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -35,6 +36,7 @@ class DocumentTest {
 
     @Test
     fun `visitor is being called`() {
+        every { visitor.visitRule(any()) }.returns(visitor)
         val property = Property.build("property", "value")
         document["selector"] = {
             +property
@@ -47,6 +49,7 @@ class DocumentTest {
 
     @Test
     fun `visitor is being called for every rule`() {
+        every { visitor.visitRule(any()) }.returns(visitor)
         val property = Property.build("property", "value")
         document["selector1", "selector2"] = {
             +property

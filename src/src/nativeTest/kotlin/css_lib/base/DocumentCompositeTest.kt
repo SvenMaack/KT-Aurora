@@ -22,6 +22,7 @@ class DocumentCompositeTest {
 
     @Test
     fun `visitor is being called on child`() {
+        every { visitor.visitRule(any()) }.returns(visitor)
         val parentDocument = DocumentComposite()
         val childDocument = Document()
         childDocument["selector"] = {
