@@ -12,10 +12,10 @@ abstract class Property(
             property: String,
             value: String,
             defaultValue: String? = "",
-            support: List<Browser> = listOf()
+            supportedBrowsers: List<Browser> = listOf()
         ): Property = object: Property(property, value) {
             override val defaultValue: String? = defaultValue
-            override val supportedBrowsers: List<Browser> = support
+            override val supportedBrowsers: List<Browser> = supportedBrowsers
         }
     }
 

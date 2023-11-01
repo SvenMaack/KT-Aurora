@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package css_lib.properties
 
 import css_lib.base.Property
@@ -35,13 +37,15 @@ enum class DisplayTypeValues(val value: String) {
 }
 
 fun Rule.display(style: DisplayTypeValues): Property =
-    +object : Property("display", style.value), Support by SupportImpl(
-        chrome = { 4.0 },
-        edge = { 8.0 },
-        firefox = { 3.0 },
-        safari = { 3.1 },
-        opera = { 7.0 },
-    ) {
-        override val defaultValue: String?
-            get() = null
-    }
+    +Property.build(
+        property = "display",
+        value = style.value,
+        defaultValue = null,
+        supportedBrowsers = SupportImpl(
+            chrome = { 4.0 },
+            edge = { 8.0 },
+            firefox = { 3.0 },
+            safari = { 3.1 },
+            opera = { 7.0 },
+        ).supportedBrowsers
+    )

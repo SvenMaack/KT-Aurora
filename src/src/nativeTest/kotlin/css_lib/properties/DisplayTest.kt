@@ -7,11 +7,16 @@ import kotlin.test.assertEquals
 class DisplayTest {
     @Test
     fun `test display`() {
-        val rule = Rule("selector")
-        rule.display(DisplayTypeValues.`inline-block`)
+        DisplayTypeValues.entries.forEach {
+            val rule = Rule("selector")
+            rule.display(it)
+            check(rule, it)
+        }
+    }
 
+    private fun check(rule: Rule, displayTypeValues: DisplayTypeValues) {
         assertEquals(1, rule.properties.size)
         assertEquals("display", rule.properties[0].property)
-        assertEquals("inline-block", rule.properties[0].value)
+        assertEquals(displayTypeValues.value, rule.properties[0].value)
     }
 }
