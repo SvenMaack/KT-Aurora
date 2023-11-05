@@ -1,11 +1,19 @@
+
 import css_lib.visitors.ProductionVisitor
-import landingpage.LandingPageDto
-import landingpage.landingPage
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.memScoped
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import landingpage.LandingPageDto
+import landingpage.landingPage
 import modules_lib.navigation.NavigationDto
-import page_lib.*
-import platform.posix.*
+import page_lib.HeadDto
+import page_lib.PageSeoDto
+import page_lib.productionContext
+import platform.posix.EOF
+import platform.posix.fclose
+import platform.posix.fopen
+import platform.posix.fputs
 import kotlin.time.measureTime
 
 val seoData: PageSeoDto = PageSeoDto("Hello World", "description", "keyword1, keyword2")
@@ -14,7 +22,7 @@ val navigationDto: NavigationDto = NavigationDto(listOf("Home", "Trends", "New A
 val pageData: LandingPageDto = LandingPageDto(headData, navigationDto)
 
 @OptIn(ExperimentalForeignApi::class)
-inline fun writeAllText(filePath:String, text:String) {
+fun writeAllText(filePath:String, text:String) {
     val file = fopen(filePath, "w") ?:
         throw IllegalArgumentException("Cannot open output file $filePath")
     try {
@@ -26,22 +34,22 @@ inline fun writeAllText(filePath:String, text:String) {
     }
 }
 
-inline fun executeMeasured(block: () -> Unit) {
-    val times = 1000L
+fun main() {
+    val times = 10_000
+    landingPage.renderPage(productionContext, pageData)
+
     var elapsed = measureTime {
-        for (i in 1..times) {
-            block()
+        runBlocking {
+            repeat(times) {
+                launch {
+                    landingPage.renderPage(productionContext, pageData)
+                }
+            }
         }
+        landingPage.renderPage(productionContext, pageData)
     }
     elapsed = elapsed.div(times.toDouble())
     println("Duration ${elapsed.inWholeMilliseconds} Milliseconds, ${elapsed.inWholeMicroseconds} Microseconds, ${elapsed.inWholeNanoseconds} NanoSeconds")
-}
-
-fun main() {
-    landingPage.renderPage(productionContext, pageData)
-    executeMeasured {
-        landingPage.renderPage(productionContext, pageData)
-    }
 
     writeAllText("./out/html/test.html", landingPage.renderPage(productionContext, pageData))
     writeAllText("./out/html/${landingPage.getId()}.css", landingPage.getCss(ProductionVisitor()))

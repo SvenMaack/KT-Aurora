@@ -1,7 +1,6 @@
 package template_lib.visitors
 
 import template_lib.base.*
-import template_lib.base.Tag
 
 class ProductionVisitor: Visitor<String> {
     private val _html = StringBuilder()

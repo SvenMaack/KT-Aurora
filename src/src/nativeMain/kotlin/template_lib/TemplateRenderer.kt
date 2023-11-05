@@ -1,15 +1,17 @@
 package template_lib
 
-object TemplateRenderer {
-    inline fun <DTO>render(context: Context, dynamicTemplate: DynamicTemplate<DTO>, dto: DTO): String {
-        val visitor = context.visitorFactory.create()
-        dynamicTemplate(context, dto).traverse(visitor)
-        return visitor.result
-    }
+import template_lib.base.Element
 
-    inline fun render(context: Context, template: StaticTemplate): String {
-        val visitor = context.visitorFactory.create()
-        template(context).traverse(visitor)
-        return visitor.result
+object TemplateRenderer {
+    inline fun <DTO>render(context: Context, dynamicTemplate: DynamicTemplate<DTO>, dto: DTO): String =
+        dynamicTemplate(context, dto).rendering(context)
+
+    inline fun render(context: Context, template: StaticTemplate): String =
+        template(context).rendering(context)
+
+    inline infix fun Element.rendering(context: Context): String {
+        return context.visitorFactory.create().apply {
+            traverse(this)
+        }.result
     }
 }
