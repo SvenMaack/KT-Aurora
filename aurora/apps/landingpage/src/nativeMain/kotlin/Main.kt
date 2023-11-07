@@ -1,4 +1,3 @@
-import css_lib.visitors.ProductionVisitor
 import io.ktor.http.*
 import io.ktor.server.application.*
 import landingpage.LandingPageDto
@@ -20,19 +19,19 @@ val pageData: LandingPageDto = LandingPageDto(headData, navigationDto)
 fun main() {
     println("Hello, Kotlin/Native!")
     embeddedServer(CIO, configure = {
-        connectionIdleTimeoutSeconds = 45
+        connectionIdleTimeoutSeconds = 30
     }, port = 8085) {
         routing {
-            route("/hello", HttpMethod.Get) {
+            route("", HttpMethod.Get) {
                 handle {
                     call.response.header(HttpHeaders.ContentType, "text/html")
-                    call.respondText(landingPage.renderPage(productionContext, pageData))
+                    call.respondText(landingPage.getHtml(productionContext, pageData))
                 }
             }
-            route("/test.css", HttpMethod.Get) {
+            route("/${landingPage.name}.css", HttpMethod.Get) {
                 handle {
                     call.response.header(HttpHeaders.ContentType, "text/css")
-                    call.respondText(landingPage.getCss(ProductionVisitor()))
+                    call.respondText(landingPage.getCss())
                 }
             }
         }

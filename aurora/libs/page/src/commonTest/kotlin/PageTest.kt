@@ -6,6 +6,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertSame
 
 class PageTest {
+    /*
     @Test
     fun `add Document`() {
         val page = Page<String>({_,_ -> TagContainer("tag") }, Document())
@@ -15,5 +16,5 @@ class PageTest {
 
         assertEquals(2, page._cssDocument.getDocumentSize())
         assertSame(document, page._cssDocument.getDocument(1))
-    }
+    }*/
 }

@@ -5,9 +5,7 @@ import css_lib.properties.margin
 import css_lib.properties.px
 import modules_lib.navigation.NavigationDto
 import modules_lib.navigation.NavigationModule
-import page_lib.HeadDto
-import page_lib.Page
-import page_lib.SimpleHeadTemplate
+import page_lib.*
 import template_lib.DynamicTemplate
 import template_lib.include
 import template_lib.tags.*
@@ -24,15 +22,17 @@ val landingPageTemplate: DynamicTemplate<LandingPageDto> = { context, data ->
     }
 }
 
-val landingPageCssDocument: Document = Document().apply {
+val landingPageDocument: Document = Document().apply {
     this[".logo"] = {
         margin(50.px)
     }
 }
 
-val landingPage = Page(
+val landingPage: IPage<LandingPageDto> = Page(
+    "landingPage",
     landingPageTemplate,
-    landingPageCssDocument
-).addDocument(
-    NavigationModule.document
-)
+    productionRuleVisitor,
+).apply {
+    +landingPageDocument
+    +NavigationModule.document
+}

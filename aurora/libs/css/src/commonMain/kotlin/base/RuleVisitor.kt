@@ -5,3 +5,7 @@ interface RuleVisitor<RESULT> {
 
     fun visitRule(rule: Rule): RuleVisitor<RESULT>
 }
+
+fun interface RuleVisitorFactory<RESULT> {
+    fun create(): RuleVisitor<RESULT>
+}
