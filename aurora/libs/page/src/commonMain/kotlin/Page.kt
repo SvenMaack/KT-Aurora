@@ -1,9 +1,11 @@
 package page_lib
 
-import css_lib.base.Document
-import css_lib.base.DocumentComposite
+import base.CssRenderer
+import css_lib.base.DocumentList
+import css_lib.base.IDocument
 import css_lib.visitors.BrowserVersionVisitor
 import css_lib.base.RuleVisitorFactory
+import template_lib.CSS
 import template_lib.Context
 import template_lib.DynamicTemplate
 import template_lib.TemplateRenderer
@@ -13,7 +15,9 @@ class Page<DTO>(
     private val template: DynamicTemplate<DTO>,
     private val ruleVisitorFactory: RuleVisitorFactory<String>
 ): IPage<DTO> {
-    private val cssDocument: DocumentComposite = DocumentComposite()
+    internal val cssDocument: DocumentList = DocumentList()
+
+    override val cssPath: String = "$name.css"
 
     override fun getHtml(context: PageContext, dto: DTO): String =
         TemplateRenderer.render(
@@ -24,18 +28,16 @@ class Page<DTO>(
 
     override fun getCss(): String {
         val support = getMinimumBrowserVersions()
-        val ruleVisitor = ruleVisitorFactory.create().apply {
-            cssDocument.traverse(this)
-        }
-        return "#$support\n${ruleVisitor.result}"
+        val css = CssRenderer.render(ruleVisitorFactory, cssDocument)
+        return "#$support\n$css"
     }
 
-    override operator fun Document.unaryPlus(): IPage<DTO> {
-        cssDocument.addDocument(this)
+    override operator fun IDocument.unaryPlus(): IPage<DTO> {
+        cssDocument.add(this)
         return this@Page
     }
 
-    fun getMinimumBrowserVersions(): Map<String, Double> {
+    private fun getMinimumBrowserVersions(): Map<String, Double> {
         val browserVersionVisitor = BrowserVersionVisitor()
         cssDocument.traverse(browserVersionVisitor)
         return browserVersionVisitor.result
@@ -44,6 +46,9 @@ class Page<DTO>(
     private fun createContext(pageContext: PageContext): Context =
         Context(
             pageContext.visitorFactory,
-            name
+            CSS(
+               "",
+                cssPath
+            )
         )
 }

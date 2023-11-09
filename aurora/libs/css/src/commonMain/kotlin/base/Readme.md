@@ -10,4 +10,4 @@ Document().apply {
 ```
 `Document`s can be combined using the `DocumentComposite`
 
-`Visitor`s can be used to traverse the `Rules` of a `Document`
+`Visitor`s can be used to traverse the `Rules` of a `Document`. It can be used via the `CssRenderer`.

@@ -1,19 +1,22 @@
 package css_lib.base
 
-open class Document {
-    private var _rules : MutableList<Rule> = mutableListOf()
-    internal val rules: List<Rule> = _rules
+interface IDocument {
+    fun traverse(visitor: RuleVisitor<*>)
+}
+
+open class Document: IDocument {
+    internal val rules : MutableList<Rule> = mutableListOf()
 
     operator fun set(vararg selector: String, init: Rule.() -> Unit) {
         selector.forEach {
-            _rules.add(
+            rules.add(
                 Rule(it).apply(init)
             )
         }
     }
 
-    open fun traverse(visitor: RuleVisitor<*>) {
-        _rules.forEach {
+    override fun traverse(visitor: RuleVisitor<*>) {
+        rules.forEach {
             visitor.visitRule(it)
         }
     }

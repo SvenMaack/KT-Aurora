@@ -26,7 +26,7 @@ class TemplateTest {
         }
 
         parent.apply {
-            include(context=Context({ visitorMock },"1"), template=template, dto="child")
+            include(context=Context({ visitorMock }, CSS()), template=template, dto="child")
         }
 
         assertEquals(1, parent.children.size)
@@ -36,7 +36,7 @@ class TemplateTest {
     @Test
     fun `test include dynamic template calls dynamic template function`() {
         val tag = TagContainer("parent")
-        val context = Context({ visitorMock },"1")
+        val context = Context({ visitorMock }, CSS())
         val dto = "child"
         every { dynamicTemplateMock.test(context, dto) }.returns(tag)
 
@@ -51,7 +51,7 @@ class TemplateTest {
     @Test
     fun `test include static template calls static template function only once`() {
         val tag = TagContainer("parent")
-        val context = Context({ visitorMock },"1")
+        val context = Context({ visitorMock }, CSS())
         every { staticTemplateMock.test(context) }.returns(tag)
         every { visitorMock.result }.returns("")
 

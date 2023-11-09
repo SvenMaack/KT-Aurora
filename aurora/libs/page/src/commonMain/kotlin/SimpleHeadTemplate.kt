@@ -25,7 +25,7 @@ val DynamicHead: DynamicTemplate<HeadDto> = { context, data ->
         title {
             +data.pageSeo.title
         }
-        link(rel="stylesheet", href="${context.id}.css")
+        link(rel="stylesheet", href=context.css.externalStylingPath)
         meta(name="description", content=data.pageSeo.description)
         meta(name="keywords", content=data.pageSeo.keywords)
     }
