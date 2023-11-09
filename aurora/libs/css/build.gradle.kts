@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "maack.aurora"
-version = "1.1.1"
+version = "2.0.4"
 
 repositories {
     mavenCentral()

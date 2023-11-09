@@ -8,3 +8,6 @@ Add inline css rendering to SimpleHeadTemplate
 
 ## 2.0.1
 Add styling caching
+
+## 2.1.0
+Add possibility to remove unused css

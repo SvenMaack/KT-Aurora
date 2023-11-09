@@ -6,6 +6,7 @@ import page_lib.productionRuleVisitor
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
+import kotlin.test.assertSame
 
 class StylingProviderTest {
     @Test
@@ -21,7 +22,7 @@ class StylingProviderTest {
         val document = Document()
         val cachedStyling = CachedStyling(productionRuleVisitor, document)
 
-        assertEquals(applyStylingAndGetOld(document, cachedStyling), cachedStyling.getCss())
+        assertSame(applyStylingAndGetOld(document, cachedStyling), cachedStyling.getCss())
     }
 
     @Test

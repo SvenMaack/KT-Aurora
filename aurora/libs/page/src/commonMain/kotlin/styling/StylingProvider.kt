@@ -14,12 +14,16 @@ interface Styling {
     data class Builder(
         private val visitor: RuleVisitorFactory<String> = RuleVisitorFactory{ ProductionVisitor() },
         private val caching: Boolean = false,
+        private val riggers: List<StylingRigger> = listOf()
     ) {
         fun build(): StylingProvider =
             if(caching)
-                { document -> CachedStyling(visitor, document) }
+                { document -> CachedStyling(visitor, buildRiggers().rig(document)) }
             else
-                { document -> DefaultStyling(visitor, document) }
+                { document -> DefaultStyling(visitor, buildRiggers().rig(document)) }
+
+        private fun buildRiggers(): StylingRigger =
+            RiggerList(riggers)
     }
 }
 

@@ -11,7 +11,7 @@ open class TagWithAttributes(name: String):
                 "empty"
             }
     ) {
-    internal var attributes: Map<String, List<String>> = mapOf()
+    var attributes: Map<String, List<String>> = mapOf()
 
     override fun traverse(visitor: Visitor<*>) {
         visitor.visitTagWithAttributes(this)

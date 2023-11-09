@@ -14,9 +14,16 @@ class RuleTest {
     fun `test rule creation works`() {
         val rule: Rule = "selector".rule(ruleMock::test)
 
-        assertEquals("selector", rule.selector)
+        assertEquals("selector", rule.classSelector)
         verify { ruleMock.test(rule) }
             .wasInvoked(exactly = once)
+    }
+
+    @Test
+    fun `test rule get class works`() {
+        val rule: Rule = "selector".rule(ruleMock::test)
+
+        assertEquals("selector", rule.getClass())
     }
 
     @Test

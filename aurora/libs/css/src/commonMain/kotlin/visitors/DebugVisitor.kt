@@ -16,7 +16,7 @@ class DebugVisitor: RuleVisitor<String> {
 
     override fun visitRule(rule: Rule): DebugVisitor {
         _rules.append(
-"""${rule.selector} {
+""".${rule.classSelector} {
 ${renderProperties(rule.properties)}
 }
 """

@@ -20,6 +20,6 @@ class ProductionVisitorTest {
         productionVisitor.visitRule(document.rules[0])
         productionVisitor.visitRule(document.rules[1])
 
-        assertEquals("selector1{property1:value;}selector2{property2:value;}", productionVisitor.result)
+        assertEquals(".selector1{property1:value;}.selector2{property2:value;}", productionVisitor.result)
     }
 }

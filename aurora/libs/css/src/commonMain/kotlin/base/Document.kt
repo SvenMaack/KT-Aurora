@@ -7,12 +7,16 @@ interface IDocument {
 open class Document: IDocument {
     internal val rules : MutableList<Rule> = mutableListOf()
 
-    operator fun set(vararg selector: String, init: Rule.() -> Unit) {
-        selector.forEach {
+    operator fun set(vararg classSelector: String, init: Rule.() -> Unit) {
+        classSelector.forEach {
             rules.add(
                 Rule(it).apply(init)
             )
         }
+    }
+
+    fun set(rule: Rule) {
+        rules.add(rule)
     }
 
     override fun traverse(visitor: RuleVisitor<*>) {
@@ -20,4 +24,7 @@ open class Document: IDocument {
             visitor.visitRule(it)
         }
     }
+
+    fun getRuleAmount(): Int =
+        rules.size
 }

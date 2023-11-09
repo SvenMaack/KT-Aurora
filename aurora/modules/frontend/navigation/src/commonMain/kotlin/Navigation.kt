@@ -43,14 +43,14 @@ internal val NavigationTemplate: DynamicTemplate<NavigationDto> = { _, data ->
 }
 
 internal val navigationCssDocument: IDocument = Document().apply {
-    this[".navigation"] = {
+    this["navigation"] = {
         position(absolute)
         top(50.percentage)
         left(50.percentage)
         transform(-50.percentage, -50.percentage)
         `list-style-type`(none)
     }
-    this[".navigation__item"] = {
+    this["navigation__item"] = {
         `text-transform`(uppercase)
         display(`inline-block`)
         padding(15.px)

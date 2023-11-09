@@ -16,6 +16,6 @@ class DebugVisitorTest {
 
         debugVisitor.visitRule(document.rules[0])
 
-        assertEquals("selector {${DebugVisitor.LINE_BREAK}${DebugVisitor.INDENTATION}property:value;${DebugVisitor.LINE_BREAK}}${DebugVisitor.LINE_BREAK}", debugVisitor.result)
+        assertEquals(".selector {${DebugVisitor.LINE_BREAK}${DebugVisitor.INDENTATION}property:value;${DebugVisitor.LINE_BREAK}}${DebugVisitor.LINE_BREAK}", debugVisitor.result)
     }
 }

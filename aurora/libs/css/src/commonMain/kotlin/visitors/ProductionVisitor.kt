@@ -10,7 +10,7 @@ class ProductionVisitor: RuleVisitor<String> {
         get() = _rules.toString()
 
     override fun visitRule(rule: Rule): ProductionVisitor {
-        _rules.append("${rule.selector}{${renderProperties(rule.properties)}}")
+        _rules.append(".${rule.classSelector}{${renderProperties(rule.properties)}}")
         return this
     }
 

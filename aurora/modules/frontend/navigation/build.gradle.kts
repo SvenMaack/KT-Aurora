@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "maack.aurora"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -27,7 +27,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("maack.aurora:page:2.0.1")
+                implementation("maack.aurora:page:2.1.0")
             }
         }
         val commonTest by getting

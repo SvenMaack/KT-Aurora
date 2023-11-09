@@ -4,6 +4,7 @@ import Callable
 import io.mockative.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertSame
 
 class DocumentTest {
     @Mock
@@ -17,7 +18,7 @@ class DocumentTest {
         document["selector"] = ruleMock::test
 
         assertEquals(1, document.rules.size)
-        assertEquals("selector", document.rules[0].selector)
+        assertEquals("selector", document.rules[0].classSelector)
         verify { ruleMock.test(any()) }
             .wasInvoked(exactly = once)
     }
@@ -27,10 +28,27 @@ class DocumentTest {
         document["selector1", "selector2"] = ruleMock::test
 
         assertEquals(2, document.rules.size)
-        assertEquals("selector1", document.rules[0].selector)
-        assertEquals("selector2", document.rules[1].selector)
+        assertEquals("selector1", document.rules[0].classSelector)
+        assertEquals("selector2", document.rules[1].classSelector)
         verify { ruleMock.test(any()) }
             .wasInvoked(exactly = twice)
+    }
+
+    @Test
+    fun `test rule set works`() {
+        val rule = Rule("selector")
+        document.set(rule)
+
+        assertEquals(1, document.rules.size)
+        assertSame(rule, document.rules[0])
+    }
+
+    @Test
+    fun `test rule get size works`() {
+        val rule = Rule("selector")
+        document.set(rule)
+
+        assertEquals(1, document.getRuleAmount())
     }
 
     @Test
