@@ -3,6 +3,7 @@
 package modules_lib.navigation
 
 import css_lib.base.Document
+import css_lib.base.IDocument
 import css_lib.properties.*
 import css_lib.properties.DisplayTypeValue.`inline-block`
 import css_lib.properties.ListStyleTypeValue.*
@@ -14,7 +15,7 @@ import template_lib.childs
 import template_lib.tags.Div
 
 val NavigationModule: DynamicModule<NavigationDto> = object : DynamicModule<NavigationDto> {
-    override val document: Document
+    override val document: IDocument
         get() = navigationCssDocument
     override val template: DynamicTemplate<NavigationDto>
         get() = NavigationTemplate
@@ -41,7 +42,7 @@ internal val NavigationTemplate: DynamicTemplate<NavigationDto> = { _, data ->
     }
 }
 
-internal val navigationCssDocument: Document = Document().apply {
+internal val navigationCssDocument: IDocument = Document().apply {
     this[".navigation"] = {
         position(absolute)
         top(50.percentage)
