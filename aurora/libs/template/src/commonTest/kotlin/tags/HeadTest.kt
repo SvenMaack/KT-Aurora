@@ -8,6 +8,8 @@ import kotlin.test.assertEquals
 class HeadTest {
     @Mock
     val blockTitle = mock(classOf<Callable<Title>>())
+    @Mock
+    val blockStyle = mock(classOf<Callable<Style>>())
 
     @Test
     fun `test tag name is head`() {
@@ -21,6 +23,15 @@ class HeadTest {
         val title = head.title(init = blockTitle::test)
 
         verify { blockTitle.test(title) }
+            .wasInvoked(exactly = once)
+    }
+
+    @Test
+    fun `test style function works`() {
+        val head = Head()
+        val style = head.style(init = blockStyle::test)
+
+        verify { blockStyle.test(style) }
             .wasInvoked(exactly = once)
     }
 

@@ -6,6 +6,8 @@ import template_lib.base.get
 class Head: TagContainer("head") {
     inline fun title(init: Title.() -> Unit) = add(Title(), init)
 
+    inline fun style(init: Style.() -> Unit) = add(Style(), init)
+
     inline fun meta(
         name: String,
         content: String,

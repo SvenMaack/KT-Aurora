@@ -28,6 +28,11 @@ val DynamicHead: DynamicTemplate<HeadDto> = { context, data ->
         link(rel="stylesheet", href=context.css.externalStylingPath)
         meta(name="description", content=data.pageSeo.description)
         meta(name="keywords", content=data.pageSeo.keywords)
+        if(context.css.inlineStyling.isNotEmpty()) {
+            style {
+                +context.css.inlineStyling
+            }
+        }
     }
 }
 
