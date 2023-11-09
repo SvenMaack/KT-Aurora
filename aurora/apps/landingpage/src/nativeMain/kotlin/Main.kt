@@ -17,7 +17,6 @@ val navigationDto: NavigationDto = NavigationDto(listOf("Home", "Trends", "New A
 val pageData: LandingPageDto = LandingPageDto(headData, navigationDto)
 
 fun main() {
-    println("Hello, Kotlin/Native!")
     embeddedServer(CIO, configure = {
         connectionIdleTimeoutSeconds = 30
     }, port = 8080) {
