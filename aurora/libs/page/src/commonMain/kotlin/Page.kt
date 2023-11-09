@@ -1,10 +1,10 @@
 package page_lib
 
-import base.CssRenderer
 import css_lib.base.DocumentList
 import css_lib.base.IDocument
 import css_lib.visitors.BrowserVersionVisitor
-import css_lib.base.RuleVisitorFactory
+import page_lib.styling.EmptyStylingProvider
+import page_lib.styling.StylingProvider
 import template_lib.CSS
 import template_lib.Context
 import template_lib.DynamicTemplate
@@ -13,7 +13,8 @@ import template_lib.TemplateRenderer
 class Page<DTO>(
     override val name: String,
     private val template: DynamicTemplate<DTO>,
-    private val ruleVisitorFactory: RuleVisitorFactory<String>
+    private val stylingProvider: StylingProvider,
+    private val inlineStylingProvider: StylingProvider = EmptyStylingProvider
 ): IPage<DTO> {
     internal val cssDocument: DocumentList = DocumentList()
 
@@ -28,7 +29,7 @@ class Page<DTO>(
 
     override fun getCss(): String {
         val support = getMinimumBrowserVersions()
-        val css = CssRenderer.render(ruleVisitorFactory, cssDocument)
+        val css = stylingProvider(cssDocument).getCss()
         return "#$support\n$css"
     }
 
@@ -47,7 +48,7 @@ class Page<DTO>(
         Context(
             pageContext.visitorFactory,
             CSS(
-               "",
+                inlineStylingProvider(cssDocument).getCss(),
                 cssPath
             )
         )

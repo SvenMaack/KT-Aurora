@@ -20,7 +20,7 @@ fun main() {
     println("Hello, Kotlin/Native!")
     embeddedServer(CIO, configure = {
         connectionIdleTimeoutSeconds = 30
-    }, port = 8085) {
+    }, port = 8080) {
         routing {
             route("", HttpMethod.Get) {
                 handle {
@@ -28,7 +28,7 @@ fun main() {
                     call.respondText(landingPage.getHtml(productionContext, pageData))
                 }
             }
-            route("/${landingPage.name}.css", HttpMethod.Get) {
+            route("/${landingPage.cssPath}", HttpMethod.Get) {
                 handle {
                     call.response.header(HttpHeaders.ContentType, "text/css")
                     call.respondText(landingPage.getCss())

@@ -11,7 +11,7 @@ A page can look like this:
 val FooPage: IPage<FooDto> = Page(
         "foo",
         FooTemplate,
-        productionRuleVisitor,
+        Styling.Builder().build()
     ).apply {
         +fooDocument1
         +fooDocument2

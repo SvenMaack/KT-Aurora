@@ -1,10 +1,9 @@
+package page_lib
+
 import css_lib.base.Document
-import css_lib.base.Property
-import css_lib.base.browser.Chrome
-import css_lib.properties.margin
-import css_lib.properties.px
-import css_lib.visitors.ProductionVisitor
-import page_lib.Page
+import io.mockative.classOf
+import io.mockative.mock
+import page_lib.styling.Styling
 import template_lib.base.TagContainer
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -15,7 +14,7 @@ class PageTest {
         val page = Page<String>(
             "test",
             {_,_ -> TagContainer("tag") },
-            { ProductionVisitor() }
+            {_ -> mock(classOf<Styling>()) }
         )
         val document = Document()
 
