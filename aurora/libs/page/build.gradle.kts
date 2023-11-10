@@ -29,7 +29,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("maack.aurora:css:2.0.4")
-                implementation("maack.aurora:template:2.1.1")
+                implementation("maack.aurora:template:2.2.0")
             }
         }
         val commonTest by getting {

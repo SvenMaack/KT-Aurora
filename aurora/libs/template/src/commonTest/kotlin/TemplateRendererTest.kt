@@ -30,6 +30,16 @@ class TemplateRendererTest {
     }
 
     @Test
+    fun `test dynamic template render works for element`() {
+        val tag = TagContainer("parent")
+        val context = Context({ visitorMock },CSS())
+        every { visitorMock.result }.returns("visitorResult")
+
+        val result = TemplateRenderer.render(context, tag)
+        assertEquals("visitorResult", result)
+    }
+
+    @Test
     fun `test static template render works`() {
         val tag = TagContainer("parent")
         val context = Context({ visitorMock },CSS())
