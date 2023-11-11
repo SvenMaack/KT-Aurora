@@ -27,6 +27,9 @@ open class Document: IDocument {
 
     fun getRuleAmount(): Int =
         rules.size
+
+    fun getRules(): List<Rule> =
+        rules
 }
 
 val EmptyDocument: IDocument = Document()

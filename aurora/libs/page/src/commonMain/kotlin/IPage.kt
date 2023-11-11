@@ -1,19 +1,23 @@
 package page_lib
 
 import css_lib.base.IDocument
+import css_lib.base.RuleVisitorFactory
+import template_lib.Context
+import template_lib.base.TagContainer
 import template_lib.base.VisitorFactory
 
-data class PageContext(
-    val visitorFactory: VisitorFactory<String>
-)
+class PageContext
 
-interface IPage<DTO> {
-    val name: String
+interface IPage {
     val cssPath: String
+    val externalDocument: IDocument
+    val internalDocument: IDocument
 
-    fun getHtml(context: PageContext, dto: DTO): String
+    fun getHtml(context: Context, tag: TagContainer): String
 
-    fun getCss(): String
+    fun getExternalCss(ruleVisitorFactory: RuleVisitorFactory<String>): String
 
-    operator fun IDocument.unaryPlus(): IPage<DTO>
+    fun getInternalCss(ruleVisitorFactory: RuleVisitorFactory<String>): String
+
+    fun getContext(pageContext: PageContext, inlineStyling: String, visitorFactory: VisitorFactory<String>): Context
 }

@@ -4,9 +4,10 @@ import io.ktor.server.engine.*
 import io.ktor.server.cio.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import landingpage.landingPage
-import landingpage.pageData
-import page_lib.productionContext
+import landingPage.landingPage
+import landingPage.module.LandingPageModule
+import landingPage.pageData
+import page_lib.PageContext
 
 fun main() {
     embeddedServer(CIO, configure = {
@@ -16,13 +17,13 @@ fun main() {
             route("", HttpMethod.Get) {
                 handle {
                     call.response.header(HttpHeaders.ContentType, "text/html")
-                    call.respondText(landingPage.getHtml(productionContext, pageData))
+                    call.respondText(landingPage.getHtml(PageContext(), LandingPageModule.template, pageData))
                 }
             }
             route("/${landingPage.cssPath}", HttpMethod.Get) {
                 handle {
                     call.response.header(HttpHeaders.ContentType, "text/css")
-                    call.respondText(landingPage.getCss())
+                    call.respondText(landingPage.getExternalCss())
                 }
             }
         }
