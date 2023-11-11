@@ -1,20 +1,21 @@
-package page_lib.styling
+package page_lib.staticRiggers
 
-import css_lib.base.Document
-import css_lib.base.IDocument
-import css_lib.base.Rule
-import css_lib.base.RuleVisitor
+import css_lib.base.*
+import page_lib.StaticPageRiggerData
+import page_lib.StaticPageRigger
 import template_lib.base.*
 
-class RemoveUnusedSelectors(private val element: Element): StylingRigger {
-    override fun rig(document: IDocument): IDocument {
+class RemoveUnusedExternalClasses(private val element: Element): StaticPageRigger {
+    override fun change(data: StaticPageRiggerData): StaticPageRiggerData {
         val usedClass = GetClassTemplateVisitor().apply {
             element.traverse(this)
         }.result
 
-        return DocumentFilterer(usedClass).apply {
-            document.traverse(this)
-        }.result
+        return data.copy(
+            externalDocument = DocumentFilterer(usedClass).apply {
+                data.externalDocument.traverse(this)
+            }.result
+        )
     }
 }
 

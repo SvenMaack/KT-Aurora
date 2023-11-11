@@ -1,4 +1,4 @@
-package landingpage
+package landingPage.module
 
 import modules_lib.navigation.NavigationDto
 import modules_lib.navigation.NavigationModule
@@ -8,13 +8,12 @@ import template_lib.childs
 import template_lib.include
 import template_lib.tags.Body
 
-val BodyModule: DynamicTemplate<NavigationDto> = { context, data ->
+val BodyTemplate: DynamicTemplate<NavigationDto> = { context, data ->
     Body().apply {
         include(template=DynamicBody, context=context, dto=data)
-        include(template=StaticBody, context=context)
+        include(template=StaticBody,  context=context)
     }
 }
-
 
 val DynamicBody: DynamicTemplate<NavigationDto> = { context, data ->
     Body().childs {
