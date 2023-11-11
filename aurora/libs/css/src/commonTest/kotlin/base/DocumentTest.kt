@@ -76,4 +76,9 @@ class DocumentTest {
         verify { visitor.visitRule(any()) }
             .wasInvoked(exactly = twice)
     }
+
+    @Test
+    fun `empty document is empty`() {
+        assertEquals(0, (EmptyDocument as Document).rules.size)
+    }
 }
