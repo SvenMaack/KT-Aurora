@@ -28,3 +28,5 @@ open class Document: IDocument {
     fun getRuleAmount(): Int =
         rules.size
 }
+
+val EmptyDocument: IDocument = Document()
