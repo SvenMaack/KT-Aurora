@@ -1,5 +1,4 @@
 @file:Suppress("WrapUnaryOperator")
-
 package modules_lib.navigation
 
 import css_lib.base.Document
@@ -9,29 +8,20 @@ import css_lib.properties.DisplayTypeValue.`inline-block`
 import css_lib.properties.ListStyleTypeValue.*
 import css_lib.properties.PositionValue.absolute
 import css_lib.properties.TextTransformValues.uppercase
-import page_lib.DynamicModule
 import template_lib.DynamicTemplate
 import template_lib.childs
 import template_lib.tags.Div
+import page_lib.ClassGenerator
 
-val NavigationModule: DynamicModule<NavigationDto> = object : DynamicModule<NavigationDto> {
-    override val document: IDocument
-        get() = navigationCssDocument
-    override val template: DynamicTemplate<NavigationDto>
-        get() = NavigationTemplate
-
-}
-
-data class NavigationDto(
-    val entries: List<String>
-)
+private val NAVIGATION: String = ClassGenerator("nav")
+private val NAVIGATION__ITEM: String = ClassGenerator("nav")
 
 internal val NavigationTemplate: DynamicTemplate<NavigationDto> = { _, data ->
     Div().childs {
         nav {
-            ul(clazz="navigation") {
+            ul(clazz=NAVIGATION) {
                 data.entries.forEach { entry ->
-                    li(clazz="navigation__item") {
+                    li(clazz=NAVIGATION__ITEM) {
                         span {
                             +entry
                         }
@@ -43,14 +33,14 @@ internal val NavigationTemplate: DynamicTemplate<NavigationDto> = { _, data ->
 }
 
 internal val navigationCssDocument: IDocument = Document().apply {
-    this["navigation"] = {
+    this[NAVIGATION] = {
         position(absolute)
         top(50.percentage)
         left(50.percentage)
         transform(-50.percentage, -50.percentage)
         `list-style-type`(none)
     }
-    this["navigation__item"] = {
+    this[NAVIGATION__ITEM] = {
         `text-transform`(uppercase)
         display(`inline-block`)
         padding(15.px)
