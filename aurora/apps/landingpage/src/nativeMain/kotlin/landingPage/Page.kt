@@ -1,10 +1,10 @@
 package landingPage
 
 import landingPage.module.LandingPageModule
-import page_lib.*
+import page_lib.page.Page
 
-val landingPage = PageBuilder(
-    name = "page",
-    externalDocument = LandingPageModule.document,
-    runtimeModifier = BrowserSupport+StylingCache
-).build()
+val landingPage = Page.build(
+    name = "page$UniqueId",
+    template = LandingPageModule.template,
+    externalDocument = LandingPageModule.document
+)

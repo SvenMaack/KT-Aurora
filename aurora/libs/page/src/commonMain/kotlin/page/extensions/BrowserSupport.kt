@@ -1,23 +1,24 @@
-package page_lib.runtimeDecorators
+package page_lib.page.extensions
 
 import css_lib.base.DocumentList
 import css_lib.visitors.BrowserVersionVisitor
-import page_lib.IPage
+import page_lib.page.base.IPageProvider
 import template_lib.Context
 import template_lib.base.TagContainer
 
-class BrowserSupportPageDecorator(private val inner: IPage): IPage by inner  {
+class BrowserSupport<ViewModel>(private val inner: IPageProvider<ViewModel>): IPageProvider<ViewModel> by inner
+{
     private val cachedSupport: Lazy<Map<String, Double>> = lazy {
         BrowserVersionVisitor().apply {
             DocumentList().apply {
-                add(internalDocument)
-                add(externalDocument)
+                add(inner.getInlineCssDocument())
+                add(inner.getExternalCssDocument())
             }.traverse(this)
         }.result
     }
 
-    override fun getHtml(context: Context, tag: TagContainer): String {
-        tag.apply {
+    override fun getHtmlTag(context: Context, viewModel: ViewModel): TagContainer =
+        inner.getHtmlTag(context, viewModel).apply {
             val newAttributes: MutableMap<String, List<String>> = mutableMapOf()
             newAttributes.putAll(attributes)
             cachedSupport.value.forEach {
@@ -25,6 +26,4 @@ class BrowserSupportPageDecorator(private val inner: IPage): IPage by inner  {
             }
             attributes = newAttributes
         }
-        return inner.getHtml(context, tag)
-    }
 }

@@ -6,7 +6,7 @@ import css_lib.base.IDocument
 import landingPage.LandingPageDto
 import modules_lib.navigation.NavigationModule
 import page_lib.DynamicModule
-import page_lib.SimpleHeadTemplate
+import head_lib.SimpleHeadTemplate
 import template_lib.DynamicTemplate
 import template_lib.include
 import template_lib.tags.html

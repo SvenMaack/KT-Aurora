@@ -35,8 +35,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("maack.aurora:page:3.0.0")
-                implementation("maack.aurora:navigation:1.0.1")
+                implementation("maack.aurora:page:1.0.0")
+                implementation("maack.aurora:navigation:1.0.0")
+                implementation("maack.aurora:head:1.0.0")
 
                 implementation("io.ktor:ktor-server-core:2.3.5")
                 implementation("io.ktor:ktor-server-cio:2.3.5")
