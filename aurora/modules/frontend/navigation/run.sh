@@ -8,7 +8,7 @@ fi
 case $1 in
     build)
         echo "Running Gradle build..."
-        ./gradlew build
+        ./gradlew build --refresh-dependencies
         ;;
     publish)
         echo "Publish to Local Repository..."

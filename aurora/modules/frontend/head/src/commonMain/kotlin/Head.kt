@@ -1,4 +1,4 @@
-package page_lib
+package head_lib
 
 import template_lib.*
 import template_lib.tags.Head

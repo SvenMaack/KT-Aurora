@@ -8,10 +8,11 @@ fi
 case $1 in
     build)
         echo "Running Gradle build..."
-        ./gradlew build
+        ./gradlew build --refresh-dependencies
         ;;
     publish)
-      #silence is golden
+        echo "Running Gradle build..."
+        ./gradlew build --refresh-dependencies
         ;;
     test)
         echo "Running Gradle tests..."

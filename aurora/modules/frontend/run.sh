@@ -10,21 +10,25 @@ case $1 in
         echo "Running Gradle build..."
         set -x #echo on
         ( cd navigation && ./run.sh build)
+        ( cd head && ./run.sh build)
         ;;
     publish)
         echo "Publish to Local Repository..."
         set -x #echo on
         ( cd navigation && ./run.sh publish)
+        ( cd head && ./run.sh publish)
         ;;
     test)
         echo "Running Gradle tests..."
         set -x #echo on
         ( cd navigation && ./run.sh test)
+        ( cd head && ./run.sh test)
         ;;
     clean)
         echo "Cleaning Gradle build..."
         set -x #echo on
         ( cd navigation && ./run.sh clean)
+        ( cd head && ./run.sh clean)
         ;;
     *)
         echo "Invalid option: $1. Available options are build, publish, test, and clean."

@@ -1,8 +1,8 @@
 package landingPage
 
 import modules_lib.navigation.NavigationDto
-import page_lib.HeadDto
-import page_lib.PageSeoDto
+import head_lib.HeadDto
+import head_lib.PageSeoDto
 
 data class LandingPageDto(
     val head: HeadDto,
