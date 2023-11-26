@@ -1,4 +1,4 @@
-package template_lib.tags
+package template_lib.tags.enums
 
 public interface MediaType {
     public val value: String
