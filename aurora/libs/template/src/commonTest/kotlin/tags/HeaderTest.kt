@@ -39,4 +39,10 @@ class HeaderTest {
         val tag = H6()
         assertEquals("h6", tag.name)
     }
+
+    @Test
+    fun `tag name is header`() {
+        val tag = Header()
+        assertEquals("header", tag.name)
+    }
 }
