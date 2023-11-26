@@ -21,10 +21,4 @@ public open class TextContainer(name: String): TagWithText(name) {
     public inline fun data(init: Data.() -> Unit): Data = add(Data()) {
         init()
     }
-
-    public inline fun details(open: Boolean, init: Details.() -> Unit): Details = add(Details()) {
-        if(open)
-            setAttributes(AttributeImpl("open"))
-        init()
-    }
 }

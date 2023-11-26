@@ -15,8 +15,6 @@ class TextContainerTest {
     val blockCode = mock(classOf<Callable<Code>>())
     @Mock
     val blockData = mock(classOf<Callable<Data>>())
-    @Mock
-    val blockDetails = mock(classOf<Callable<Details>>())
 
     @Test
     fun `abbr function works`() {
@@ -46,22 +44,6 @@ class TextContainerTest {
         val tag = TextContainer("tag")
         val data = tag.data(init = blockData::test)
         verificationWithClass(data, blockData, mapOf())
-    }
-
-    @Test
-    fun `details function works`() {
-        val tag = TextContainer("tag")
-        val details = tag.details(true, init = blockDetails::test)
-        verificationWithClass(details, blockDetails, mapOf(
-            "open" to listOf(null)
-        ))
-    }
-
-    @Test
-    fun `details function works when not opened`() {
-        val tag = TextContainer("tag")
-        val details = tag.details(false, init = blockDetails::test)
-        verificationWithClass(details, blockDetails, mapOf())
     }
 
     private fun <Tag: TagWithAttributes> verificationWithClass(
