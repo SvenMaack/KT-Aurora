@@ -12,4 +12,8 @@ public open class TextContainer(name: String): TagWithText(name) {
     public inline fun cite(init: Cite.() -> Unit): Cite = add(Cite()) {
         init()
     }
+
+    public inline fun code(init: Code.() -> Unit): Code = add(Code()) {
+        init()
+    }
 }
