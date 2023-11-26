@@ -31,6 +31,8 @@ class TextContainerTest {
     val blockSup= mock(classOf<Callable<Sup>>())
     @Mock
     val blockTime= mock(classOf<Callable<Time>>())
+    @Mock
+    val blockVar = mock(classOf<Callable<Var>>())
 
     @Test
     fun `abbr function works`() {
@@ -116,6 +118,13 @@ class TextContainerTest {
         val tag = TextContainer("tag")
         val time = tag.time(init = blockTime::test)
         verificationWithClass(time, blockTime, mapOf())
+    }
+
+    @Test
+    fun `var function works`() {
+        val tag = TextContainer("tag")
+        val `var` = tag.`var`(init = blockVar::test)
+        verificationWithClass(`var`, blockVar, mapOf())
     }
 
     private fun <Tag: TagWithAttributes> verificationWithClass(
