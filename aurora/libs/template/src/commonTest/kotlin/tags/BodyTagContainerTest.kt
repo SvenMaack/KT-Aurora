@@ -38,6 +38,8 @@ class BodyTagContainerTest {
     @Mock
     val blockArticle = mock(classOf<Callable<Article>>())
     @Mock
+    val blockAside = mock(classOf<Callable<Aside>>())
+    @Mock
     val blockAddress = mock(classOf<Callable<Address>>())
 
     @Test
@@ -188,6 +190,20 @@ class BodyTagContainerTest {
         val tag = BodyTagContainer("tag")
         val article = tag.article("a"["b"], init = blockArticle::test)
         verificationWithoutClass(article, blockArticle)
+    }
+
+    @Test
+    fun `aside function works`() {
+        val tag = BodyTagContainer("tag")
+        val aside = tag.aside("a"["b"], clazz = "clazz", init = blockAside::test)
+        verificationWithClass(aside, blockAside)
+    }
+
+    @Test
+    fun `aside function works without class`() {
+        val tag = BodyTagContainer("tag")
+        val aside = tag.aside("a"["b"], init = blockAside::test)
+        verificationWithoutClass(aside, blockAside)
     }
 
     @Test
