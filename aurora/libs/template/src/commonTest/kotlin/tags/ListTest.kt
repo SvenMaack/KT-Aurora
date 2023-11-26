@@ -24,6 +24,12 @@ class ListTest {
     }
 
     @Test
+    fun `tag name is menu`() {
+        val tag = Menu()
+        assertEquals("menu", tag.name)
+    }
+
+    @Test
     fun `tag name is li`() {
         val tag = Li()
         assertEquals("li", tag.name)
@@ -54,6 +60,20 @@ class ListTest {
     fun `li function works inside of ol without class`() {
         val ol = Ol()
         val li = ol.li("a"["b"], init=blockLi::test)
+        verificationWithoutClass(li, blockLi)
+    }
+
+    @Test
+    fun `li function works inside of menu`() {
+        val menu = Menu()
+        val li = menu.li("a"["b"], clazz="clazz", init=blockLi::test)
+        verificationWithClass(li, blockLi)
+    }
+
+    @Test
+    fun `li function works inside of menu without class`() {
+        val menu = Menu()
+        val li = menu.li("a"["b"], init=blockLi::test)
         verificationWithoutClass(li, blockLi)
     }
 

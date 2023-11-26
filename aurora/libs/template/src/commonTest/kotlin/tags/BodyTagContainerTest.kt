@@ -43,6 +43,8 @@ class BodyTagContainerTest {
     @Mock
     val blockOl = mock(classOf<Callable<Ol>>())
     @Mock
+    val blockMenu = mock(classOf<Callable<Menu>>())
+    @Mock
     val blockDl = mock(classOf<Callable<Dl>>())
     @Mock
     val blockA = mock(classOf<Callable<A>>())
@@ -274,29 +276,43 @@ class BodyTagContainerTest {
     @Test
     fun `ul function works`() {
         val tag = BodyTagContainer("tag")
-        val nav = tag.ul("a"["b"], clazz = "clazz", init = blockUl::test)
-        verificationWithClass(nav, blockUl)
+        val ul = tag.ul("a"["b"], clazz = "clazz", init = blockUl::test)
+        verificationWithClass(ul, blockUl)
     }
 
     @Test
     fun `ul function works without class`() {
         val tag = BodyTagContainer("tag")
-        val nav = tag.ul("a"["b"], init = blockUl::test)
-        verificationWithoutClass(nav, blockUl)
+        val ul = tag.ul("a"["b"], init = blockUl::test)
+        verificationWithoutClass(ul, blockUl)
     }
 
     @Test
     fun `ol function works`() {
         val tag = BodyTagContainer("tag")
-        val nav = tag.ol("a"["b"], clazz = "clazz", init = blockOl::test)
-        verificationWithClass(nav, blockOl)
+        val ol = tag.ol("a"["b"], clazz = "clazz", init = blockOl::test)
+        verificationWithClass(ol, blockOl)
     }
 
     @Test
     fun `ol function works without class`() {
         val tag = BodyTagContainer("tag")
-        val nav = tag.ol("a"["b"], init = blockOl::test)
-        verificationWithoutClass(nav, blockOl)
+        val ol = tag.ol("a"["b"], init = blockOl::test)
+        verificationWithoutClass(ol, blockOl)
+    }
+
+    @Test
+    fun `menu function works`() {
+        val tag = BodyTagContainer("tag")
+        val menu = tag.menu("a"["b"], clazz = "clazz", init = blockMenu::test)
+        verificationWithClass(menu, blockMenu)
+    }
+
+    @Test
+    fun `menu function works without class`() {
+        val tag = BodyTagContainer("tag")
+        val menu = tag.menu("a"["b"], init = blockMenu::test)
+        verificationWithoutClass(menu, blockMenu)
     }
 
     @Test
