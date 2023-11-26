@@ -8,4 +8,8 @@ public open class TextContainer(name: String): TagWithText(name) {
         setAttributes("title"[title])
         init()
     }
+
+    public inline fun cite(init: Cite.() -> Unit): Cite = add(Cite()) {
+        init()
+    }
 }
