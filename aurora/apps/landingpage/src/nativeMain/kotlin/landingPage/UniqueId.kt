@@ -1,3 +1,3 @@
 package landingPage
 
-const val UniqueId = -1700685256
+const val UniqueId = -1701013134

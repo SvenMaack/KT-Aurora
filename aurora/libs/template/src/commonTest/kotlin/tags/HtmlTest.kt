@@ -2,7 +2,7 @@ package template_lib.tags
 
 import io.mockative.*
 import template_lib.Callable
-import template_lib.base.Visitor
+import template_lib.base.HtmlVisitor
 import template_lib.tags.enums.GeneralLanguage
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -13,7 +13,7 @@ class HtmlTest {
     @Mock
     val blockBody = mock(classOf<Callable<Body>>())
     @Mock
-    val visitor = mock(classOf<Visitor<String>>())
+    val htmlVisitor = mock(classOf<HtmlVisitor<String>>())
     @Mock
     val blockHtml = mock(classOf<Callable<Html>>())
 
@@ -45,9 +45,9 @@ class HtmlTest {
     fun `DocType is added`() {
         val html = Html()
 
-        html.traverse(visitor)
+        html.traverse(htmlVisitor)
 
-        verify { visitor.visitTag(DocType) }
+        verify { htmlVisitor.visitTag(DocType) }
             .wasInvoked(exactly = once)
     }
 

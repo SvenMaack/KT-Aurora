@@ -1,7 +1,7 @@
 package template_lib.base
 
 public class TransientTag: TagWithText("") {
-    override fun traverse(visitor: Visitor<*>) {
-        children.forEach { it.traverse(visitor) }
+    override fun traverse(htmlVisitor: HtmlVisitor<*>) {
+        children.forEach { it.traverse(htmlVisitor) }
     }
 }

@@ -5,7 +5,7 @@ public annotation class HtmlTagMarker
 
 @HtmlTagMarker
 public open class Tag(public val name: String) : Element {
-    override fun traverse(visitor: Visitor<*>) {
-        visitor.visitTag(this)
+    override fun traverse(htmlVisitor: HtmlVisitor<*>) {
+        htmlVisitor.visitTag(this)
     }
 }

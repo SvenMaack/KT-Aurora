@@ -8,7 +8,7 @@ import kotlin.test.assertTrue
 
 class TagContainerTest {
     @Mock
-    val visitor = mock(classOf<Visitor<String>>())
+    val htmlVisitor = mock(classOf<HtmlVisitor<String>>())
 
     @Test
     fun `add adds a children`() {
@@ -24,16 +24,16 @@ class TagContainerTest {
     fun `visitor is being called`() {
         val tag = TagContainer("a")
 
-        tag.traverse(visitor)
+        tag.traverse(htmlVisitor)
 
-        verify { visitor.visitTagContainerBegin(tag) }
+        verify { htmlVisitor.visitTagContainerBegin(tag) }
             .wasInvoked(exactly = once)
-        verify { visitor.visitTagContainerEnd(tag) }
+        verify { htmlVisitor.visitTagContainerEnd(tag) }
             .wasInvoked(exactly = once)
 
-        verify { visitor.visitTagWithAttributes(tag) }
+        verify { htmlVisitor.visitTagWithAttributes(tag) }
             .wasNotInvoked()
-        verify { visitor.visitTag(tag) }
+        verify { htmlVisitor.visitTag(tag) }
             .wasNotInvoked()
     }
 
@@ -43,9 +43,9 @@ class TagContainerTest {
         val tagContainer = TagContainer("a")
         tagContainer.add(tag)
 
-        tagContainer.traverse(visitor)
+        tagContainer.traverse(htmlVisitor)
 
-        verify { visitor.visitTag(tag) }
+        verify { htmlVisitor.visitTag(tag) }
             .wasInvoked(exactly = once)
     }
 

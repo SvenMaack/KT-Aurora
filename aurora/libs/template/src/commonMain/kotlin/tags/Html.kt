@@ -3,7 +3,7 @@
 package template_lib.tags
 
 import template_lib.base.TagContainer
-import template_lib.base.Visitor
+import template_lib.base.HtmlVisitor
 import template_lib.base.get
 import template_lib.tags.enums.Language
 
@@ -16,9 +16,9 @@ public class Html: TagContainer("html") {
     public inline fun head(init: Head.() -> Unit): Head = add(Head(), init)
     public inline fun body(init: Body.() -> Unit): Body = add(Body(), init)
 
-    override fun traverse(visitor: Visitor<*>) {
-        DocType.traverse(visitor)
-        super.traverse(visitor)
+    override fun traverse(htmlVisitor: HtmlVisitor<*>) {
+        DocType.traverse(htmlVisitor)
+        super.traverse(htmlVisitor)
     }
 }
 

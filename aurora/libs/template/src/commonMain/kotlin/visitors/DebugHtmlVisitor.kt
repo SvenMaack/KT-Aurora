@@ -3,7 +3,7 @@ package template_lib.visitors
 import template_lib.base.*
 import template_lib.base.Tag
 
-public class DebugVisitor: Visitor<String> {
+public class DebugHtmlVisitor: HtmlVisitor<String> {
     internal companion object {
         const val LINE_BREAK = "\n"
         const val INDENTATION = "\t"
@@ -36,27 +36,13 @@ public class DebugVisitor: Visitor<String> {
         _html.append("$currentIndentation</${tagContainer.name}>$LINE_BREAK")
     }
 
-    override fun visitTagWithText(element: TagWithText) {
-        //silence is golden
-    }
-
     override fun visitTextElement(element: TextElement) {
         _html.append("$currentIndentation${element.text}$LINE_BREAK")
     }
 
-    private fun renderAttributes(attributes: Map<String, List<String?>>): String =
-        attributes.entries.joinToString("") {
-            renderOneAttribute(it)
-        }
-
-    private inline fun renderOneAttribute(entry: Map.Entry<String, List<String?>>): String {
-        val values = entry.value.filter { it != null && it.isNotEmpty() }
-        return if(values.isEmpty())
-            " ${entry.key}"
-        else
-            " ${entry.key}=\"${this.renderValuesOfOneAttribute(values)}\""
+    @PublishedApi
+    internal inline fun renderAttributes(attributes: Map<String, List<String?>>): String {
+        val renderedAttributes = AttributeRenderer.renderAttributes(attributes)
+        return if(renderedAttributes.isEmpty()) "" else " $renderedAttributes"
     }
-
-    private inline fun renderValuesOfOneAttribute(values: List<String?>): String =
-        values.joinToString(" ")
 }

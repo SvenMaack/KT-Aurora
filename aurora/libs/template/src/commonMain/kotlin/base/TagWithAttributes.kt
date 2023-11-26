@@ -13,8 +13,8 @@ public open class TagWithAttributes(name: String):
     ) {
     public var attributes: Map<String, List<String?>> = mapOf()
 
-    override fun traverse(visitor: Visitor<*>) {
-        visitor.visitTagWithAttributes(this)
+    override fun traverse(htmlVisitor: HtmlVisitor<*>) {
+        htmlVisitor.visitTagWithAttributes(this)
     }
 
     public fun setAttributes(vararg attributes: Attribute): TagWithAttributes {

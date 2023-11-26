@@ -16,10 +16,10 @@ public open class TagContainer(name: String) : TagWithAttributes(name) {
         this.mChildren.addAll(childs)
     }
 
-    override fun traverse(visitor: Visitor<*>) {
-        visitor.visitTagContainerBegin(this)
-        children.forEach { it.traverse(visitor) }
-        visitor.visitTagContainerEnd(this)
+    override fun traverse(htmlVisitor: HtmlVisitor<*>) {
+        htmlVisitor.visitTagContainerBegin(this)
+        children.forEach { it.traverse(htmlVisitor) }
+        htmlVisitor.visitTagContainerEnd(this)
     }
 
     public inline operator fun String.not(): Comment =

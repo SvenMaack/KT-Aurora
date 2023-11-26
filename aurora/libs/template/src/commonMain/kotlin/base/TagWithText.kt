@@ -6,15 +6,10 @@ public open class TagWithText(name: String) : TagContainer(name) {
         add(textElement)
         return textElement
     }
-
-    override fun traverse(visitor: Visitor<*>) {
-        super.traverse(visitor)
-        visitor.visitTagWithText(this)
-    }
 }
 
 public class TextElement(public val text: String) : Element {
-    override fun traverse(visitor: Visitor<*>) {
-        visitor.visitTextElement(this)
+    override fun traverse(htmlVisitor: HtmlVisitor<*>) {
+        htmlVisitor.visitTextElement(this)
     }
 }

@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 
 class TagWithAttributesTest {
     @Mock
-    val visitor = mock(classOf<Visitor<String>>())
+    val htmlVisitor = mock(classOf<HtmlVisitor<String>>())
 
     @Test
     fun `tag is set correctly`() {
@@ -69,11 +69,11 @@ class TagWithAttributesTest {
     fun `visitor is being called`() {
         val tagWithAttributes = TagWithAttributes("a")
 
-        tagWithAttributes.traverse(visitor)
+        tagWithAttributes.traverse(htmlVisitor)
 
-        verify { visitor.visitTagWithAttributes(tagWithAttributes) }
+        verify { htmlVisitor.visitTagWithAttributes(tagWithAttributes) }
             .wasInvoked(exactly = once)
-        verify { visitor.visitTag(tagWithAttributes) }
+        verify { htmlVisitor.visitTag(tagWithAttributes) }
             .wasNotInvoked()
     }
 }

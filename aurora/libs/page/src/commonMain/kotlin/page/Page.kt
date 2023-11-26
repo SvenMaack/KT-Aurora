@@ -8,8 +8,8 @@ import page_lib.page.extensions.CachedStyling
 import template_lib.CSS
 import template_lib.Context
 import template_lib.DynamicTemplate
+import template_lib.base.HtmlVisitorFactory
 import template_lib.base.TagContainer
-import template_lib.base.VisitorFactory
 
 class PageContext
 
@@ -54,7 +54,7 @@ class Page<ViewModel> private constructor(
     private inline fun getContext(
         @Suppress("UNUSED_PARAMETER") pageContext: PageContext,
         inlineStyling: String,
-        templateVisitorFactory: VisitorFactory<String>
+        templateVisitorFactory: HtmlVisitorFactory<String>
     ): Context =
         Context(
             templateVisitorFactory,
