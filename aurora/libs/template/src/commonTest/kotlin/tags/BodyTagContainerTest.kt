@@ -34,6 +34,8 @@ class BodyTagContainerTest {
     val blockOl = mock(classOf<Callable<Ol>>())
     @Mock
     val blockA = mock(classOf<Callable<A>>())
+    @Mock
+    val blockAddress = mock(classOf<Callable<Address>>())
 
     @Test
     fun `p function works`() {
@@ -55,12 +57,21 @@ class BodyTagContainerTest {
         val span = tag.span("a"["b"], clazz = "clazz", init = blockSpan::test)
         verificationWithClass(span, blockSpan)
     }
-
     @Test
     fun `span function works without class`() {
         val tag = BodyTagContainer("tag")
         val span = tag.span("a"["b"], init = blockSpan::test)
         verificationWithoutClass(span, blockSpan)
+    }
+
+    @Test
+    fun `address function works`() {
+        val tag = BodyTagContainer("tag")
+        val address = tag.address("a"["b"], title = "title1", init = blockAddress::test)
+        verificationWithClass(address, blockAddress, mapOf(
+            "a" to listOf("b"),
+            "title" to listOf("title1"),
+        ))
     }
 
     @Test
