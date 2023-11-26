@@ -12,7 +12,7 @@ public class SpecificLanguage(
         "${language.value}-${country.value}"
 }
 
-public inline operator fun GeneralLanguage.plus(country: CountryCode): SpecificLanguage =
+public inline operator fun GeneralLanguage.minus(country: CountryCode): SpecificLanguage =
     SpecificLanguage(this, country)
 
 @Suppress("SpellCheckingInspection")

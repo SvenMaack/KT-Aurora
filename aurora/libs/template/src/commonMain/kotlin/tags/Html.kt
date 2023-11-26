@@ -5,6 +5,7 @@ package template_lib.tags
 import template_lib.base.TagContainer
 import template_lib.base.Visitor
 import template_lib.base.get
+import template_lib.tags.enums.Language
 
 public enum class Direction(public val shortCode: String) {
     RTL("rtl"),
@@ -22,11 +23,15 @@ public class Html: TagContainer("html") {
 }
 
 public fun html(
-    lang: String = "",
+    lang: Language,
     dir: Direction = Direction.LTR,
+    xmlns: String? = null,
     init: Html.() -> Unit
 ): Html =
     Html().apply {
         init()
-        setAttributes("lang"[lang], "dir"[dir.shortCode])
+        if(xmlns == null)
+            setAttributes("lang"[lang.value], "dir"[dir.shortCode])
+        else
+            setAttributes("lang"[lang.value], "dir"[dir.shortCode], "xmlns"[xmlns])
     }
