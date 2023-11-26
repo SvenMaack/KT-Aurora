@@ -16,4 +16,8 @@ public open class TextContainer(name: String): TagWithText(name) {
     public inline fun code(init: Code.() -> Unit): Code = add(Code()) {
         init()
     }
+
+    public inline fun data(init: Data.() -> Unit): Data = add(Data()) {
+        init()
+    }
 }
