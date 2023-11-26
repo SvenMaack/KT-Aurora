@@ -67,6 +67,10 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+    public inline fun main(vararg attributes: Attribute, clazz: String? = null, init: Main.() -> Unit): Main = add(Main()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
     public inline fun footer(vararg attributes: Attribute, clazz: String? = null, init: Footer.() -> Unit): Footer = add(Footer()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
