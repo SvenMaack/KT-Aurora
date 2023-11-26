@@ -13,6 +13,10 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+    public inline fun address(vararg attributes: Attribute, title: String? = null, init: Address.() -> Unit): Address = add(Address()) {
+        if(title==null) setAttributes(*attributes) else setAttributes(*attributes, "title"[title])
+        init()
+    }
 
     public inline fun h1(vararg attributes: Attribute, clazz: String? = null, init: H1.() -> Unit): H1 = add(H1()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
