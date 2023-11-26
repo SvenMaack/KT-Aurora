@@ -48,4 +48,8 @@ public open class TextContainer(name: String): TagWithText(name) {
     public inline fun sup(init: Sup.() -> Unit): Sup = add(Sup()) {
         init()
     }
+
+    public inline fun time(init: Time.() -> Unit): Time = add(Time()) {
+        init()
+    }
 }
