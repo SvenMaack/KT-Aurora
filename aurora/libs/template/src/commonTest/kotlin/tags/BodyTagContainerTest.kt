@@ -33,6 +33,8 @@ class BodyTagContainerTest {
     @Mock
     val blockDiv = mock(classOf<Callable<Div>>())
     @Mock
+    val blockTemplate = mock(classOf<Callable<Template>>())
+    @Mock
     val blockSection = mock(classOf<Callable<Section>>())
     @Mock
     val blockNav = mock(classOf<Callable<Nav>>())
@@ -203,6 +205,20 @@ class BodyTagContainerTest {
         val tag = BodyTagContainer("tag")
         val div = tag.div("a"["b"], init = blockDiv::test)
         verificationWithoutClass(div, blockDiv)
+    }
+
+    @Test
+    fun `template function works`() {
+        val tag = BodyTagContainer("tag")
+        val template = tag.template("a"["b"], clazz = "clazz", init = blockTemplate::test)
+        verificationWithClass(template, blockTemplate)
+    }
+
+    @Test
+    fun `template function works without class`() {
+        val tag = BodyTagContainer("tag")
+        val template = tag.template("a"["b"], init = blockTemplate::test)
+        verificationWithoutClass(template, blockTemplate)
     }
 
     @Test
