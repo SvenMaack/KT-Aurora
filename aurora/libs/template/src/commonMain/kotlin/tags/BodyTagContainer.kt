@@ -1,6 +1,7 @@
 package template_lib.tags
 
 import template_lib.base.Attribute
+import template_lib.base.AttributeImpl
 import template_lib.base.get
 import template_lib.base.TagContainer
 import template_lib.tags.enums.Target
@@ -76,6 +77,12 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
     }
     public inline fun dl(vararg attributes: Attribute, clazz: String? = null, init: Dl.() -> Unit): Dl = add(Dl()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+
+    public inline fun details(open: Boolean, init: Details.() -> Unit): Details = add(Details()) {
+        if(open)
+            setAttributes(AttributeImpl("open"))
         init()
     }
 

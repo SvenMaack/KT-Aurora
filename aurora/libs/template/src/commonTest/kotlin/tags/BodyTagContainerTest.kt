@@ -2,6 +2,7 @@ package template_lib.tags
 
 import io.mockative.*
 import template_lib.Callable
+import template_lib.base.TagContainer
 import template_lib.base.TagWithAttributes
 import kotlin.test.Test
 import template_lib.base.get
@@ -47,6 +48,8 @@ class BodyTagContainerTest {
     val blockAside = mock(classOf<Callable<Aside>>())
     @Mock
     val blockAddress = mock(classOf<Callable<Address>>())
+    @Mock
+    val blockDetails = mock(classOf<Callable<Details>>())
 
     @Test
     fun `p function works`() {
@@ -276,6 +279,22 @@ class BodyTagContainerTest {
         val tag = BodyTagContainer("tag")
         val dl = tag.dl("a"["b"], init = blockDl::test)
         verificationWithoutClass(dl, blockDl)
+    }
+
+    @Test
+    fun `details function works`() {
+        val tag = BodyTagContainer("tag")
+        val details = tag.details(true, init = blockDetails::test)
+        verificationWithClass(details, blockDetails, mapOf(
+            "open" to listOf(null)
+        ))
+    }
+
+    @Test
+    fun `details function works when not opened`() {
+        val tag = BodyTagContainer("tag")
+        val details = tag.details(false, init = blockDetails::test)
+        verificationWithClass(details, blockDetails, mapOf())
     }
 
     @Test
