@@ -3,6 +3,7 @@ package template_lib.tags
 import io.mockative.*
 import template_lib.Callable
 import template_lib.base.Visitor
+import template_lib.tags.enums.GeneralLanguage
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -52,7 +53,7 @@ class HtmlTest {
 
     @Test
     fun `html function works`() {
-        val html = html(lang="en", dir=Direction.LTR, blockHtml::test)
+        val html = html(lang=GeneralLanguage.English, dir=Direction.LTR, init = blockHtml::test)
 
         assertEquals("html", html.name)
 
@@ -60,8 +61,24 @@ class HtmlTest {
             .wasInvoked(exactly = once)
 
         assertEquals(mapOf(
-            "lang" to listOf("en"),
+            "lang" to listOf(GeneralLanguage.English.value),
             "dir" to listOf("ltr"),
+        ), html.attributes)
+    }
+
+    @Test
+    fun `html function works with namespace`() {
+        val html = html(lang=GeneralLanguage.English, dir=Direction.LTR, xmlns = "test", blockHtml::test)
+
+        assertEquals("html", html.name)
+
+        verify { blockHtml.test(html) }
+            .wasInvoked(exactly = once)
+
+        assertEquals(mapOf(
+            "lang" to listOf(GeneralLanguage.English.value),
+            "dir" to listOf("ltr"),
+            "xmlns" to listOf("test"),
         ), html.attributes)
     }
 }

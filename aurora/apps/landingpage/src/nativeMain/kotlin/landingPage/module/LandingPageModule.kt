@@ -9,10 +9,13 @@ import page_lib.DynamicModule
 import head_lib.SimpleHeadTemplate
 import template_lib.DynamicTemplate
 import template_lib.include
+import template_lib.tags.enums.CountryCode.*
+import template_lib.tags.enums.GeneralLanguage.English
+import template_lib.tags.enums.minus
 import template_lib.tags.html
 
 private val landingPageTemplate: DynamicTemplate<LandingPageDto> = { context, data ->
-    html(lang="en") {
+    html(lang=English-UNITED_STATES) {
         include(context=context, template=SimpleHeadTemplate, dto=data.head)
         include(context=context, template=BodyTemplate,       dto=data.navigation)
     }
