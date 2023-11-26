@@ -38,4 +38,8 @@ public open class TextContainer(name: String): TagWithText(name) {
     public inline fun em(init: Em.() -> Unit): Em = add(Em()) {
         init()
     }
+
+    public inline fun pre(init: Pre.() -> Unit): Pre = add(Pre()) {
+        init()
+    }
 }
