@@ -25,6 +25,8 @@ class TextContainerTest {
     val blockOutput= mock(classOf<Callable<Output>>())
     @Mock
     val blockPre= mock(classOf<Callable<Pre>>())
+    @Mock
+    val blockSub= mock(classOf<Callable<Sub>>())
 
     @Test
     fun `abbr function works`() {
@@ -89,6 +91,13 @@ class TextContainerTest {
         val tag = TextContainer("tag")
         val pre = tag.pre(init = blockPre::test)
         verificationWithClass(pre, blockPre, mapOf())
+    }
+
+    @Test
+    fun `sub function works`() {
+        val tag = TextContainer("tag")
+        val sub = tag.sub(init = blockSub::test)
+        verificationWithClass(sub, blockSub, mapOf())
     }
 
     private fun <Tag: TagWithAttributes> verificationWithClass(
