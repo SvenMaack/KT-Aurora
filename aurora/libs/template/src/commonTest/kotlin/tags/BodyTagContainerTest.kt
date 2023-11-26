@@ -6,6 +6,7 @@ import template_lib.base.TagWithAttributes
 import kotlin.test.Test
 import template_lib.base.get
 import template_lib.tags.enums.AudioType
+import template_lib.tags.enums.GeneralLanguage
 import kotlin.test.assertEquals
 
 class BodyTagContainerTest {
@@ -251,8 +252,9 @@ class BodyTagContainerTest {
     @Test
     fun `a function works`() {
         val tag = BodyTagContainer("tag")
-        val a = tag.a("link", clazz = "clazz", init = blockA::test)
+        val a = tag.a("a"["b"], href = "link", clazz = "clazz", init = blockA::test)
         verificationWithClass(a, blockA, mapOf(
+            "a" to listOf("b"),
             "href" to listOf("link"),
             "class" to listOf("clazz"),
         ))
@@ -261,7 +263,7 @@ class BodyTagContainerTest {
     @Test
     fun `a function works without class`() {
         val tag = BodyTagContainer("tag")
-        val a = tag.a("link", init = blockA::test)
+        val a = tag.a(href = "link", init = blockA::test)
         verificationWithoutClass(a, blockA, mapOf(
             "href" to listOf("link"),
         ))
@@ -271,24 +273,26 @@ class BodyTagContainerTest {
     fun `a function works with all attributes`() {
         val tag = BodyTagContainer("tag")
         val a = tag.a(
+            "a"["b"],
             href = "link",
             clazz = "clazz",
             type = AudioType.WAV,
             download = true,
             target = Target.SELF,
-            hrefLang = "de",
+            hrefLang = GeneralLanguage.English,
             referrerPolicy = ReferrerPolicy.ORIGIN,
             rel = Rel.TAG,
             pings = listOf("a", "b"),
             init = blockA::test
         )
         verificationWithClass(a, blockA, mapOf(
+            "a" to listOf("b"),
             "href" to listOf("link"),
             "type" to listOf(AudioType.WAV.value),
             "target" to listOf(Target.SELF.value),
             "download" to listOf(null),
             "class" to listOf("clazz"),
-            "hreflang" to listOf("de"),
+            "hreflang" to listOf(GeneralLanguage.English.value),
             "referrerpolicy" to listOf(ReferrerPolicy.ORIGIN.value),
             "rel" to listOf(Rel.TAG.value),
             "ping" to listOf("a b"),

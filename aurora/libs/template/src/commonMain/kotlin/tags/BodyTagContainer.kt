@@ -3,6 +3,7 @@ package template_lib.tags
 import template_lib.base.Attribute
 import template_lib.base.get
 import template_lib.base.TagContainer
+import template_lib.tags.enums.Language
 import template_lib.tags.enums.MediaType
 
 public open class BodyTagContainer(name: String) : TagContainer(name) {
@@ -71,11 +72,12 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
     }
 
     public inline fun a(
+        vararg attributes: Attribute,
         href: String,
         clazz: String? = null,
         init: A.() -> Unit): A = add(A()
     ) {
-        if(clazz==null) setAttributes("href"[href]) else setAttributes("href"[href], "class"[clazz])
+        if(clazz==null) setAttributes(*attributes, "href"[href]) else setAttributes(*attributes, "href"[href], "class"[clazz])
         init()
     }
 
@@ -89,39 +91,40 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
      * @param type Specifies the media type of the linked document
      */
     public inline fun a(
+        vararg attributes: Attribute,
         href: String,
         type: MediaType,
         download: Boolean,
         target: Target = Target.SELF,
         clazz: String? = null,
-        hrefLang: String? = null,
+        hrefLang: Language? = null,
         referrerPolicy: ReferrerPolicy? = null,
         rel: Rel? = null,
         pings: List<String> = listOf(),
         init: A.() -> Unit): A = add(A(),
     ) {
-        val attributes = mutableListOf(
+        val otherAttributes = mutableListOf(
             "href"[href],
             "type"[type.value],
             "target"[target.value]
         )
         if(download)
-            attributes.add(object : Attribute {
+            otherAttributes.add(object : Attribute {
                 override val name: String = "download"
                 override val value: String? = null
             })
         if(clazz != null)
-            attributes.add("class"[clazz])
+            otherAttributes.add("class"[clazz])
         if(hrefLang != null)
-            attributes.add("hreflang"[hrefLang])
+            otherAttributes.add("hreflang"[hrefLang.value])
         if(referrerPolicy != null)
-            attributes.add("referrerpolicy"[referrerPolicy.value])
+            otherAttributes.add("referrerpolicy"[referrerPolicy.value])
         if(rel != null)
-            attributes.add("rel"[rel.value])
+            otherAttributes.add("rel"[rel.value])
         if(pings.isNotEmpty())
-            attributes.add("ping"[pings.joinToString(" ")])
+            otherAttributes.add("ping"[pings.joinToString(" ")])
 
-        setAttributes(*attributes.toTypedArray())
+        setAttributes(*attributes, *otherAttributes.toTypedArray())
         init()
     }
 
