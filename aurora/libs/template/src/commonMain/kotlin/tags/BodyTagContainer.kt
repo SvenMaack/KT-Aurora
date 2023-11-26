@@ -3,6 +3,7 @@ package template_lib.tags
 import template_lib.base.Attribute
 import template_lib.base.get
 import template_lib.base.TagContainer
+import template_lib.tags.enums.MediaType
 
 public open class BodyTagContainer(name: String) : TagContainer(name) {
     public inline fun p(vararg attributes: Attribute, clazz: String? = null, init: P.() -> Unit): P = add(P()) {
@@ -44,6 +45,10 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
     }
 
     public inline fun div(vararg attributes: Attribute, clazz: String? = null, init: Div.() -> Unit): Div = add(Div()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+    public inline fun article(vararg attributes: Attribute, clazz: String? = null, init: Article.() -> Unit): Article = add(Article()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }

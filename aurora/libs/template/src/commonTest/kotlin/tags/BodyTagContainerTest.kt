@@ -5,6 +5,7 @@ import template_lib.Callable
 import template_lib.base.TagWithAttributes
 import kotlin.test.Test
 import template_lib.base.get
+import template_lib.tags.enums.AudioType
 import kotlin.test.assertEquals
 
 class BodyTagContainerTest {
@@ -35,6 +36,8 @@ class BodyTagContainerTest {
     @Mock
     val blockA = mock(classOf<Callable<A>>())
     @Mock
+    val blockArticle = mock(classOf<Callable<Article>>())
+    @Mock
     val blockAddress = mock(classOf<Callable<Address>>())
 
     @Test
@@ -57,6 +60,7 @@ class BodyTagContainerTest {
         val span = tag.span("a"["b"], clazz = "clazz", init = blockSpan::test)
         verificationWithClass(span, blockSpan)
     }
+
     @Test
     fun `span function works without class`() {
         val tag = BodyTagContainer("tag")
@@ -170,6 +174,20 @@ class BodyTagContainerTest {
         val tag = BodyTagContainer("tag")
         val div = tag.div("a"["b"], init = blockDiv::test)
         verificationWithoutClass(div, blockDiv)
+    }
+
+    @Test
+    fun `article function works`() {
+        val tag = BodyTagContainer("tag")
+        val article = tag.article("a"["b"], clazz = "clazz", init = blockArticle::test)
+        verificationWithClass(article, blockArticle)
+    }
+
+    @Test
+    fun `article function works without class`() {
+        val tag = BodyTagContainer("tag")
+        val article = tag.article("a"["b"], init = blockArticle::test)
+        verificationWithoutClass(article, blockArticle)
     }
 
     @Test
