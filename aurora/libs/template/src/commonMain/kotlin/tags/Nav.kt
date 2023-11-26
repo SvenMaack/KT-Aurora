@@ -1,3 +1,3 @@
 package template_lib.tags
 
-class Nav: BodyTagContainer("nav")
+public class Nav: BodyTagContainer("nav")

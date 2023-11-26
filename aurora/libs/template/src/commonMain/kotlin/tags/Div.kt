@@ -1,3 +1,3 @@
 package template_lib.tags
 
-class Div : BodyTagContainer("div")
+public class Div : BodyTagContainer("div")

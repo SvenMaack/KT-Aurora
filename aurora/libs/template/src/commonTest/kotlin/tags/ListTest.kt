@@ -12,44 +12,67 @@ class ListTest {
     val blockLi = mock(classOf<Callable<Li>>())
 
     @Test
-    fun `test tag name is ol`() {
+    fun `tag name is ol`() {
         val tag = Ol()
         assertEquals("ol", tag.name)
     }
 
     @Test
-    fun `test tag name is ul`() {
+    fun `tag name is ul`() {
         val tag = Ul()
         assertEquals("ul", tag.name)
     }
 
     @Test
-    fun `test tag name is li`() {
+    fun `tag name is li`() {
         val tag = Li()
         assertEquals("li", tag.name)
     }
 
     @Test
-    fun `test li function works inside of ul`() {
+    fun `li function works inside of ul`() {
         val ul = Ul()
         val li = ul.li("a"["b"], clazz="clazz", init=blockLi::test)
-        verification(li, blockLi)
+        verificationWithClass(li, blockLi)
     }
 
     @Test
-    fun `test li function works inside of ol`() {
-        val ol = Ol()
-        val li = ol.li("a"["b"], clazz="clazz", init=blockLi::test)
-        verification(li, blockLi)
+    fun `li function works inside of ul without class`() {
+        val ul = Ul()
+        val li = ul.li("a"["b"], init=blockLi::test)
+        verificationWithoutClass(li, blockLi)
     }
 
-    private fun <Tag: TagWithAttributes>verification(tag: Tag, callable: Callable<Tag>) {
+    @Test
+    fun `li function works inside of ol`() {
+        val ol = Ol()
+        val li = ol.li("a"["b"], clazz="clazz", init=blockLi::test)
+        verificationWithClass(li, blockLi)
+    }
+
+    @Test
+    fun `li function works inside of ol without class`() {
+        val ol = Ol()
+        val li = ol.li("a"["b"], init=blockLi::test)
+        verificationWithoutClass(li, blockLi)
+    }
+
+    private fun <Tag: TagWithAttributes>verificationWithClass(tag: Tag, callable: Callable<Tag>) {
         verify { callable.test(tag) }
             .wasInvoked(exactly = once)
 
         assertEquals(mapOf(
             "a" to listOf("b"),
             "class" to listOf("clazz"),
+        ), tag.attributes)
+    }
+
+    private fun <Tag: TagWithAttributes> verificationWithoutClass(tag: Tag, callable: Callable<Tag>) {
+        verify { callable.test(tag) }
+            .wasInvoked(exactly = once)
+
+        assertEquals(mapOf(
+            "a" to listOf("b")
         ), tag.attributes)
     }
 }

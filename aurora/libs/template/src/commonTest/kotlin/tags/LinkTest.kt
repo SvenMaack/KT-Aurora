@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class LinkTest {
     @Test
-    fun `test tag name is link`() {
+    fun `tag name is link`() {
         val tag = Link()
         assertEquals("link", tag.name)
     }

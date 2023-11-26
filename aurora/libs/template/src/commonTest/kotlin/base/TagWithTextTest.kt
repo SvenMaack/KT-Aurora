@@ -39,5 +39,15 @@ class TagWithTextTest {
 
         verify { visitor.visitTextElement(tx!!) }
             .wasInvoked(exactly = once)
+        verify { visitor.visitTagWithText(tag) }
+            .wasInvoked(exactly = once)
+        verify { visitor.visitTag(tag) }
+            .wasNotInvoked()
+        verify { visitor.visitTagWithAttributes(tag) }
+            .wasNotInvoked()
+        verify { visitor.visitTagContainerBegin(tag) }
+            .wasInvoked(exactly = once)
+        verify { visitor.visitTagContainerEnd(tag) }
+            .wasInvoked(exactly = once)
     }
 }

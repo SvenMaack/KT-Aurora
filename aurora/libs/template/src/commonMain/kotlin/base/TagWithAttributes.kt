@@ -1,6 +1,6 @@
 package template_lib.base
 
-open class TagWithAttributes(name: String):
+public open class TagWithAttributes(name: String):
     Tag(
         name.trim()
             .lowercase()
@@ -11,14 +11,14 @@ open class TagWithAttributes(name: String):
                 "empty"
             }
     ) {
-    var attributes: Map<String, List<String>> = mapOf()
+    public var attributes: Map<String, List<String?>> = mapOf()
 
     override fun traverse(visitor: Visitor<*>) {
         visitor.visitTagWithAttributes(this)
     }
 
-    fun setAttributes(vararg attributes: Attribute): TagWithAttributes {
-        this.attributes = attributes.filter { it.value !== null }.groupBy({ it.name }, { it.value!! })
+    public fun setAttributes(vararg attributes: Attribute): TagWithAttributes {
+        this.attributes = attributes.groupBy({ it.name }, { it.value })
         return this
     }
 }

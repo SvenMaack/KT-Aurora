@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class StyleTest {
     @Test
-    fun `test tag name is style`() {
+    fun `tag name is style`() {
         val tag = Style()
         assertEquals("style", tag.name)
     }

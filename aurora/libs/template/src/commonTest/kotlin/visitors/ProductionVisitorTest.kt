@@ -1,6 +1,6 @@
 package template_lib.visitors
 
-import template_lib.base.Attribute
+import template_lib.base.AttributeWithValueImpl
 import template_lib.base.Comment
 import template_lib.base.TagContainer
 import template_lib.base.TagWithAttributes
@@ -51,16 +51,11 @@ class ProductionVisitorTest {
     @Test
     fun `attributes are printed in tagContainer`() {
         val tagContainer = TagContainer("a")
-        tagContainer.setAttributes(object : Attribute {
-            override val name: String = "same"
-            override val value: String = "a"
-        },object : Attribute {
-            override val name: String = "same"
-            override val value: String = "b"
-        },object : Attribute {
-            override val name: String = "other"
-            override val value: String = "c"
-        })
+        tagContainer.setAttributes(
+            AttributeWithValueImpl("same", "a"),
+            AttributeWithValueImpl("same", "b"),
+            AttributeWithValueImpl("other", "c")
+        )
 
         val productionVisitor = ProductionVisitor()
         productionVisitor.visitTagContainerBegin(tagContainer)
@@ -71,16 +66,11 @@ class ProductionVisitorTest {
 
     @Test
     fun `attributes are printed in tag`() {
-        val tagWithAttributes = TagWithAttributes("a").setAttributes(object : Attribute {
-            override val name: String = "same"
-            override val value: String = "a"
-        },object : Attribute {
-            override val name: String = "same"
-            override val value: String = "b"
-        },object : Attribute {
-            override val name: String = "other"
-            override val value: String = "c"
-        })
+        val tagWithAttributes = TagWithAttributes("a").setAttributes(
+            AttributeWithValueImpl("same", "a"),
+            AttributeWithValueImpl("same", "b"),
+            AttributeWithValueImpl("other", "c")
+        )
 
         val productionVisitor = ProductionVisitor()
         productionVisitor.visitTagWithAttributes(tagWithAttributes)
@@ -113,14 +103,8 @@ class ProductionVisitorTest {
     @Test
     fun `allow attributes without value in the tag`() {
         val tagWithAttributes = TagWithAttributes("a").setAttributes(
-            object : Attribute {
-                override val name: String = "attr"
-                override val value: String = ""
-            },
-            object : Attribute {
-                override val name: String = "attr2"
-                override val value: String = "value"
-            }
+            AttributeWithValueImpl("attr", ""),
+            AttributeWithValueImpl("attr2", "value")
         )
 
         val productionVisitor = ProductionVisitor()
@@ -133,14 +117,8 @@ class ProductionVisitorTest {
     fun `allow attributes without value in the tagContainer`() {
         val tagContainer = TagContainer("a")
         tagContainer.setAttributes(
-            object : Attribute {
-                override val name: String = "attr"
-                override val value: String = ""
-            },
-            object : Attribute {
-                override val name: String = "attr2"
-                override val value: String = "value"
-            }
+            AttributeWithValueImpl("attr", ""),
+            AttributeWithValueImpl("attr2", "value")
         )
 
         val productionVisitor = ProductionVisitor()

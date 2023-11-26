@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class TitleTest {
     @Test
-    fun `test tag name is title`() {
+    fun `tag name is title`() {
         val tag = Title()
         assertEquals("title", tag.name)
     }

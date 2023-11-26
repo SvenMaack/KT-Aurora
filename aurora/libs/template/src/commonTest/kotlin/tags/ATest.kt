@@ -3,10 +3,10 @@ package template_lib.tags
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class HrTest {
+class ATest {
     @Test
-    fun `tag name is hr`() {
-        val tag = Hr
-        assertEquals("hr", tag.name)
+    fun `tag name is a`() {
+        val tag = A()
+        assertEquals("a", tag.name)
     }
 }

@@ -6,14 +6,14 @@ import template_lib.base.TagContainer
 import template_lib.base.Visitor
 import template_lib.base.get
 
-enum class Direction(val shortCode: String) {
+public enum class Direction(public val shortCode: String) {
     RTL("rtl"),
     LTR("ltr")
 }
 
-class Html: TagContainer("html") {
-    inline fun head(init: Head.() -> Unit) = add(Head(), init)
-    inline fun body(init: Body.() -> Unit) = add(Body(), init)
+public class Html: TagContainer("html") {
+    public inline fun head(init: Head.() -> Unit): Head = add(Head(), init)
+    public inline fun body(init: Body.() -> Unit): Body = add(Body(), init)
 
     override fun traverse(visitor: Visitor<*>) {
         DocType.traverse(visitor)
@@ -21,7 +21,7 @@ class Html: TagContainer("html") {
     }
 }
 
-fun html(
+public fun html(
     lang: String = "",
     dir: Direction = Direction.LTR,
     init: Html.() -> Unit

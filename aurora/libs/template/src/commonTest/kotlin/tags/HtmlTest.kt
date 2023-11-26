@@ -17,13 +17,13 @@ class HtmlTest {
     val blockHtml = mock(classOf<Callable<Html>>())
 
     @Test
-    fun `test tag name is html`() {
+    fun `tag name is html`() {
         val tag = Html()
         assertEquals("html", tag.name)
     }
 
     @Test
-    fun `test head function works`() {
+    fun `head function works`() {
         val html = Html()
         val title = html.head(init = blockHead::test)
 
@@ -32,7 +32,7 @@ class HtmlTest {
     }
 
     @Test
-    fun `test body function works`() {
+    fun `body function works`() {
         val html = Html()
         val body = html.body(init = blockBody::test)
 

@@ -28,9 +28,13 @@ class TagContainerTest {
 
         verify { visitor.visitTagContainerBegin(tag) }
             .wasInvoked(exactly = once)
-
         verify { visitor.visitTagContainerEnd(tag) }
             .wasInvoked(exactly = once)
+
+        verify { visitor.visitTagWithAttributes(tag) }
+            .wasNotInvoked()
+        verify { visitor.visitTag(tag) }
+            .wasNotInvoked()
     }
 
     @Test
@@ -59,7 +63,7 @@ class TagContainerTest {
     fun `adding children works`() {
         val tagContainer = TagContainer("a")
         val tagContainer2 = TagContainer("a2")
-        tagContainer.addChildren(listOf(tagContainer2))
+        tagContainer.addAll(listOf(tagContainer2))
 
         assertEquals(1, tagContainer.children.size)
         assertSame(tagContainer2, tagContainer.children[0])

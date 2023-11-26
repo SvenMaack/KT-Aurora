@@ -19,7 +19,7 @@ class BrowserSupport<ViewModel>(private val inner: IPageProvider<ViewModel>): IP
 
     override fun getHtmlTag(context: Context, viewModel: ViewModel): TagContainer =
         inner.getHtmlTag(context, viewModel).apply {
-            val newAttributes: MutableMap<String, List<String>> = mutableMapOf()
+            val newAttributes: MutableMap<String, List<String?>> = mutableMapOf()
             newAttributes.putAll(attributes)
             cachedSupport.value.forEach {
                 newAttributes[it.key] = listOf(it.value.toString())
