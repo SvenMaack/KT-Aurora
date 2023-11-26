@@ -38,10 +38,7 @@ class TagWithAttributesTest {
 
     @Test
     fun `attributes are set`() {
-        val attributes = arrayOf(object : Attribute {
-            override val name: String = "a"
-            override val value: String = "b"
-        })
+        val attributes = arrayOf(AttributeWithValueImpl("a", "b"))
         val expectedResult = mapOf(
             "a" to listOf("b")
         )
@@ -50,16 +47,11 @@ class TagWithAttributesTest {
 
     @Test
     fun `attributes are only set once`() {
-        val attributes = arrayOf(object : Attribute {
-            override val name: String = "same"
-            override val value: String = "a"
-        }, object : Attribute {
-            override val name: String = "other"
-            override val value: String = "b"
-        }, object : Attribute {
-            override val name: String = "same"
-            override val value: String = "c"
-        })
+        val attributes = arrayOf(
+            AttributeWithValueImpl("same", "a"),
+            AttributeWithValueImpl("other", "b"),
+            AttributeWithValueImpl("same", "c")
+        )
         val expectedResult = mapOf(
             "same" to listOf("a", "c"),
             "other" to listOf("b")
@@ -81,5 +73,7 @@ class TagWithAttributesTest {
 
         verify { visitor.visitTagWithAttributes(tagWithAttributes) }
             .wasInvoked(exactly = once)
+        verify { visitor.visitTag(tagWithAttributes) }
+            .wasNotInvoked()
     }
 }

@@ -12,6 +12,7 @@ repositories {
 }
 
 kotlin {
+    explicitApi()
     val hostOs = System.getProperty("os.name")
     val isArm64 = System.getProperty("os.arch") == "aarch64"
     val isMingwX64 = hostOs.startsWith("Windows")

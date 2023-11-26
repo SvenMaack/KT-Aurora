@@ -25,5 +25,8 @@ class CommentTest {
 
         verify { visitor.visitComment(comment) }
             .wasInvoked(exactly = once)
+
+        verify { visitor.visitTag(comment) }
+            .wasNotInvoked()
     }
 }

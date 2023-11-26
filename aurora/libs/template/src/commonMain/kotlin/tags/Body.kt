@@ -1,3 +1,3 @@
 package template_lib.tags
 
-class Body: BodyTagContainer("body")
+public class Body: BodyTagContainer("body")

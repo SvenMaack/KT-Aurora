@@ -12,13 +12,13 @@ class HeadTest {
     val blockStyle = mock(classOf<Callable<Style>>())
 
     @Test
-    fun `test tag name is head`() {
+    fun `tag name is head`() {
         val tag = Head()
         assertEquals("head", tag.name)
     }
 
     @Test
-    fun `test title function works`() {
+    fun `title function works`() {
         val head = Head()
         val title = head.title(init = blockTitle::test)
 
@@ -27,7 +27,7 @@ class HeadTest {
     }
 
     @Test
-    fun `test style function works`() {
+    fun `style function works`() {
         val head = Head()
         val style = head.style(init = blockStyle::test)
 
@@ -36,7 +36,7 @@ class HeadTest {
     }
 
     @Test
-    fun `test link function works`() {
+    fun `link function works`() {
         val head = Head()
         val link = head.link(rel="a", href="b")
 
@@ -47,7 +47,7 @@ class HeadTest {
     }
 
     @Test
-    fun `test meta charset function works`() {
+    fun `meta charset function works`() {
         val head = Head()
         val meta = head.meta(charset = "test")
 
@@ -57,7 +57,7 @@ class HeadTest {
     }
 
     @Test
-    fun `test meta name-content function works`() {
+    fun `meta name-content function works`() {
         val head = Head()
         val meta = head.meta(name = "name", content = "content")
 

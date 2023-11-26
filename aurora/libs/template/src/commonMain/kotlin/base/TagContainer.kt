@@ -1,18 +1,18 @@
 package template_lib.base
 
-open class TagContainer(name: String) : TagWithAttributes(name) {
+public open class TagContainer(name: String) : TagWithAttributes(name) {
     @PublishedApi
     internal val mChildren: MutableList<Element> = mutableListOf()
 
-    val children: List<Element>
+    public val children: List<Element>
         get() = mChildren
 
-    inline fun <T : Element> add(tag: T, init: T.() -> Unit = {}): T = tag.apply {
+    public inline fun <T : Element> add(tag: T, init: T.() -> Unit = {}): T = tag.apply {
         init()
         mChildren.add(this)
     }
 
-    internal inline fun addChildren(childs: List<Element>) {
+    internal inline fun addAll(childs: List<Element>) {
         this.mChildren.addAll(childs)
     }
 
@@ -22,5 +22,6 @@ open class TagContainer(name: String) : TagWithAttributes(name) {
         visitor.visitTagContainerEnd(this)
     }
 
-    inline operator fun String.not() = add(Comment(this))
+    public inline operator fun String.not(): Comment =
+        add(Comment(this))
 }

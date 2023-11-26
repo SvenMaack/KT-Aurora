@@ -3,18 +3,18 @@ package template_lib.tags
 import template_lib.base.Attribute
 import template_lib.base.get
 
-class Ul: BodyTagContainer("ul") {
-    inline fun li(vararg attributes: Attribute, clazz: String? = null, init: Li.() -> Unit): Li = add(Li()) {
-        setAttributes(*attributes, "class"[clazz])
+public class Ul: BodyTagContainer("ul") {
+    public inline fun li(vararg attributes: Attribute, clazz: String? = null, init: Li.() -> Unit): Li = add(Li()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
 }
 
-class Ol: BodyTagContainer("ol") {
-    inline fun li(vararg attributes: Attribute, clazz: String? = null, init: Li.() -> Unit): Li = add(Li()) {
-        setAttributes(*attributes, "class"[clazz])
+public class Ol: BodyTagContainer("ol") {
+    public inline fun li(vararg attributes: Attribute, clazz: String? = null, init: Li.() -> Unit): Li = add(Li()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
 }
 
-class Li: BodyTagContainer("li")
+public class Li: BodyTagContainer("li")

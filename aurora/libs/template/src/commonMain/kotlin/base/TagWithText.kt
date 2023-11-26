@@ -1,14 +1,19 @@
 package template_lib.base
 
-open class TagWithText(name: String) : TagContainer(name) {
-    inline operator fun String.unaryPlus(): TextElement {
+public open class TagWithText(name: String) : TagContainer(name) {
+    public inline operator fun String.unaryPlus(): TextElement {
         val textElement = TextElement(this)
         add(textElement)
         return textElement
     }
+
+    override fun traverse(visitor: Visitor<*>) {
+        super.traverse(visitor)
+        visitor.visitTagWithText(this)
+    }
 }
 
-class TextElement(val text: String) : Element {
+public class TextElement(public val text: String) : Element {
     override fun traverse(visitor: Visitor<*>) {
         visitor.visitTextElement(this)
     }

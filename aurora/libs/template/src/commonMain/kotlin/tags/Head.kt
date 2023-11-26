@@ -3,28 +3,28 @@ package template_lib.tags
 import template_lib.base.TagContainer
 import template_lib.base.get
 
-class Head: TagContainer("head") {
-    inline fun title(init: Title.() -> Unit) = add(Title(), init)
+public class Head: TagContainer("head") {
+    public inline fun title(init: Title.() -> Unit): Title = add(Title(), init)
 
-    inline fun style(init: Style.() -> Unit) = add(Style(), init)
+    public inline fun style(init: Style.() -> Unit): Style = add(Style(), init)
 
-    inline fun meta(
+    public inline fun meta(
         name: String,
         content: String,
-    ) = add(Meta()) {
+    ): Meta = add(Meta()) {
         setAttributes("name"[name], "content"[content])
     }
 
-    inline fun meta(
+    public inline fun meta(
         charset: String
-    ) = add(Meta()) {
+    ): Meta = add(Meta()) {
         setAttributes("charset"[charset])
     }
 
-    inline fun link(
+    public inline fun link(
         rel: String,
         href: String,
-    ) = add(Link()) {
+    ): Link = add(Link()) {
         setAttributes("rel"[rel], "href"[href])
     }
 }

@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class NavTest {
     @Test
-    fun `test tag name is nav`() {
+    fun `tag name is nav`() {
         val tag = Nav()
         assertEquals("nav", tag.name)
     }

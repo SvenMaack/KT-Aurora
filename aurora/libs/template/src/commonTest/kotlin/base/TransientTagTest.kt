@@ -15,9 +15,13 @@ class TransientTagTest {
 
         verify { visitor.visitTag(tag) }
             .wasNotInvoked()
+        verify { visitor.visitTagWithAttributes(tag) }
+            .wasNotInvoked()
         verify { visitor.visitTagContainerBegin(tag) }
             .wasNotInvoked()
         verify { visitor.visitTagContainerEnd(tag) }
+            .wasNotInvoked()
+        verify { visitor.visitTagWithText(tag) }
             .wasNotInvoked()
     }
 }
