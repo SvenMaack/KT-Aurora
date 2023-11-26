@@ -6,6 +6,7 @@ import template_lib.base.TagWithAttributes
 import kotlin.test.Test
 import template_lib.base.get
 import template_lib.tags.enums.AudioType
+import template_lib.tags.enums.Target
 import template_lib.tags.enums.GeneralLanguage
 import kotlin.test.assertEquals
 

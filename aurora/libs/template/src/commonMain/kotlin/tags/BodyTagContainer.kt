@@ -3,6 +3,7 @@ package template_lib.tags
 import template_lib.base.Attribute
 import template_lib.base.get
 import template_lib.base.TagContainer
+import template_lib.tags.enums.Target
 import template_lib.tags.enums.Language
 import template_lib.tags.enums.MediaType
 

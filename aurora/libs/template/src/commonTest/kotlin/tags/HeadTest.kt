@@ -2,6 +2,7 @@ package template_lib.tags
 
 import io.mockative.*
 import template_lib.Callable
+import template_lib.tags.enums.Target
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -15,6 +16,17 @@ class HeadTest {
     fun `tag name is head`() {
         val tag = Head()
         assertEquals("head", tag.name)
+    }
+
+    @Test
+    fun `base function works`() {
+        val head = Head()
+        val base = head.base(href = "link", target = Target.SELF)
+
+        assertEquals(mapOf(
+            "href" to listOf("link"),
+            "target" to listOf(Target.SELF.value),
+        ), base.attributes)
     }
 
     @Test
