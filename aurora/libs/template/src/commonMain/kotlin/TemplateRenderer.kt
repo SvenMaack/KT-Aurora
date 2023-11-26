@@ -10,11 +10,12 @@ public object TemplateRenderer {
     public inline fun render(context: Context, tagContainer: TagContainer): String =
         tagContainer.render(context)
 
-    public inline fun render(context: Context, template: StaticTemplate): String =
-        template(context).render(context)
+    public inline fun render(context: Context, staticTemplate: StaticTemplate): String =
+        staticTemplate(context).render(context)
 
-    public inline infix fun Element.render(context: Context): String {
-        return context.visitorFactory.create().apply {
+    @PublishedApi
+    internal inline infix fun Element.render(context: Context): String {
+        return context.htmlVisitorFactory.create().apply {
             traverse(this)
         }.result
     }

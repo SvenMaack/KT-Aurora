@@ -17,7 +17,7 @@ public fun TagContainer.include(context: Context, template: StaticTemplate): Tag
         val timestamp = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
         !"Rendering starts at - $timestamp"
         +TemplateCache.getOrSet(context, template)
-        !"Rendering ends      - $timestamp"
+        !"Rendering of $timestamp ended"
     })
 
 public fun <T: TagContainer>T.childs(block: T.() -> Unit): TransientTag {

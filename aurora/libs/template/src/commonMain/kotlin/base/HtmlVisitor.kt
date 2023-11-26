@@ -1,6 +1,6 @@
 package template_lib.base
 
-public interface Visitor<RESULT> {
+public interface HtmlVisitor<RESULT> {
     public val result: RESULT
 
     public fun visitTag(tag: Tag)
@@ -8,10 +8,9 @@ public interface Visitor<RESULT> {
     public fun visitTagWithAttributes(tag: TagWithAttributes)
     public fun visitTagContainerBegin(tagContainer: TagContainer)
     public fun visitTagContainerEnd(tagContainer: TagContainer)
-    public fun visitTagWithText(element: TagWithText)
     public fun visitTextElement(element: TextElement)
 }
 
-public fun interface VisitorFactory<RESULT> {
-    public fun create(): Visitor<RESULT>
+public fun interface HtmlVisitorFactory<RESULT> {
+    public fun create(): HtmlVisitor<RESULT>
 }

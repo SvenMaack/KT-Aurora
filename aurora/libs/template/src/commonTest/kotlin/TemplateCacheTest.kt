@@ -2,21 +2,21 @@ package template_lib
 
 import io.mockative.*
 import template_lib.base.TagContainer
-import template_lib.base.Visitor
+import template_lib.base.HtmlVisitor
 import kotlin.test.Test
 
 class TemplateCacheTest {
     @Mock
-    val visitorMock = mock(classOf<Visitor<String>>())
+    val htmlVisitorMock = mock(classOf<HtmlVisitor<String>>())
     @Mock
     val staticTemplateMock = mock(classOf<Callable1R<Context, TagContainer>>())
 
     @Test
     fun `test cache works`() {
         val tag = TagContainer("parent")
-        val context = Context({ visitorMock }, CSS())
+        val context = Context({ htmlVisitorMock }, CSS())
         every { staticTemplateMock.test(context) }.returns(tag)
-        every { visitorMock.result }.returns("")
+        every { htmlVisitorMock.result }.returns("")
 
         TemplateCache.clear()
 

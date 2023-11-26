@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 
 class CommentTest {
     @Mock
-    val visitor = mock(classOf<Visitor<String>>())
+    val htmlVisitor = mock(classOf<HtmlVisitor<String>>())
 
     @Test
     fun `comment is set correctly`() {
@@ -21,12 +21,12 @@ class CommentTest {
     @Test
     fun `visitor is being called`() {
         val comment = Comment("comment")
-        comment.traverse(visitor)
+        comment.traverse(htmlVisitor)
 
-        verify { visitor.visitComment(comment) }
+        verify { htmlVisitor.visitComment(comment) }
             .wasInvoked(exactly = once)
 
-        verify { visitor.visitTag(comment) }
+        verify { htmlVisitor.visitTag(comment) }
             .wasNotInvoked()
     }
 }

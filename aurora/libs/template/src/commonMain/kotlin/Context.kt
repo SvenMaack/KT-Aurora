@@ -1,6 +1,6 @@
 package template_lib
 
-import template_lib.base.VisitorFactory
+import template_lib.base.HtmlVisitorFactory
 
 public data class CSS (
     val inlineStyling: String = "",
@@ -8,6 +8,6 @@ public data class CSS (
 )
 
 public data class Context(
-    val visitorFactory: VisitorFactory<String>,
+    val htmlVisitorFactory: HtmlVisitorFactory<String>,
     val css: CSS,
 )

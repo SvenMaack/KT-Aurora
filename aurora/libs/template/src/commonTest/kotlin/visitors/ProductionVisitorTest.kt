@@ -11,7 +11,7 @@ class ProductionVisitorTest {
     @Test
     fun `visit tag prints tag`() {
         val tagWithAttributes = TagWithAttributes("a")
-        val productionVisitor = ProductionVisitor()
+        val productionVisitor = ProductionHtmlVisitor()
 
         productionVisitor.visitTagWithAttributes(tagWithAttributes)
 
@@ -21,7 +21,7 @@ class ProductionVisitorTest {
     @Test
     fun `visit comment prints not comment`() {
         val comment = Comment("comment")
-        val productionVisitor = ProductionVisitor()
+        val productionVisitor = ProductionHtmlVisitor()
 
         productionVisitor.visitComment(comment)
 
@@ -31,7 +31,7 @@ class ProductionVisitorTest {
     @Test
     fun `visit tag container begin prints open tag`() {
         val tagContainer = TagContainer("a")
-        val productionVisitor = ProductionVisitor()
+        val productionVisitor = ProductionHtmlVisitor()
 
         productionVisitor.visitTagContainerBegin(tagContainer)
 
@@ -41,7 +41,7 @@ class ProductionVisitorTest {
     @Test
     fun `visit tag container end prints close tag`() {
         val tagContainer = TagContainer("a")
-        val productionVisitor = ProductionVisitor()
+        val productionVisitor = ProductionHtmlVisitor()
 
         productionVisitor.visitTagContainerEnd(tagContainer)
 
@@ -57,7 +57,7 @@ class ProductionVisitorTest {
             AttributeWithValueImpl("other", "c")
         )
 
-        val productionVisitor = ProductionVisitor()
+        val productionVisitor = ProductionHtmlVisitor()
         productionVisitor.visitTagContainerBegin(tagContainer)
         productionVisitor.visitTagContainerEnd(tagContainer)
 
@@ -72,7 +72,7 @@ class ProductionVisitorTest {
             AttributeWithValueImpl("other", "c")
         )
 
-        val productionVisitor = ProductionVisitor()
+        val productionVisitor = ProductionHtmlVisitor()
         productionVisitor.visitTagWithAttributes(tagWithAttributes)
 
         assertEquals("<a same=\"a b\" other=\"c\">", productionVisitor.result)
@@ -82,7 +82,7 @@ class ProductionVisitorTest {
     fun `empty attributes doesn't change the tag`() {
         val tagWithAttributes = TagWithAttributes("a").setAttributes()
 
-        val productionVisitor = ProductionVisitor()
+        val productionVisitor = ProductionHtmlVisitor()
         productionVisitor.visitTagWithAttributes(tagWithAttributes)
 
         assertEquals("<a>", productionVisitor.result)
@@ -93,7 +93,7 @@ class ProductionVisitorTest {
         val tagContainer = TagContainer("a")
         tagContainer.setAttributes()
 
-        val productionVisitor = ProductionVisitor()
+        val productionVisitor = ProductionHtmlVisitor()
         productionVisitor.visitTagContainerBegin(tagContainer)
         productionVisitor.visitTagContainerEnd(tagContainer)
 
@@ -107,7 +107,7 @@ class ProductionVisitorTest {
             AttributeWithValueImpl("attr2", "value")
         )
 
-        val productionVisitor = ProductionVisitor()
+        val productionVisitor = ProductionHtmlVisitor()
         productionVisitor.visitTagWithAttributes(tagWithAttributes)
 
         assertEquals("<a attr attr2=\"value\">", productionVisitor.result)
@@ -121,7 +121,7 @@ class ProductionVisitorTest {
             AttributeWithValueImpl("attr2", "value")
         )
 
-        val productionVisitor = ProductionVisitor()
+        val productionVisitor = ProductionHtmlVisitor()
         productionVisitor.visitTagContainerBegin(tagContainer)
         productionVisitor.visitTagContainerEnd(tagContainer)
 
@@ -131,7 +131,7 @@ class ProductionVisitorTest {
     @Test
     fun `indentation is not added`() {
         val tagContainer = TagContainer("a")
-        val productionVisitor = ProductionVisitor()
+        val productionVisitor = ProductionHtmlVisitor()
 
         productionVisitor.visitTagContainerBegin(tagContainer)
         productionVisitor.visitTagContainerBegin(tagContainer)

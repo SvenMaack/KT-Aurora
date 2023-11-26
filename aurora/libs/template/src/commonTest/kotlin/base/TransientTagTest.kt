@@ -5,23 +5,21 @@ import kotlin.test.Test
 
 class TransientTagTest {
     @Mock
-    val visitor = mock(classOf<Visitor<String>>())
+    val htmlVisitor = mock(classOf<HtmlVisitor<String>>())
 
     @Test
     fun `visitor is not called`() {
         val tag = TransientTag()
 
-        tag.traverse(visitor)
+        tag.traverse(htmlVisitor)
 
-        verify { visitor.visitTag(tag) }
+        verify { htmlVisitor.visitTag(tag) }
             .wasNotInvoked()
-        verify { visitor.visitTagWithAttributes(tag) }
+        verify { htmlVisitor.visitTagWithAttributes(tag) }
             .wasNotInvoked()
-        verify { visitor.visitTagContainerBegin(tag) }
+        verify { htmlVisitor.visitTagContainerBegin(tag) }
             .wasNotInvoked()
-        verify { visitor.visitTagContainerEnd(tag) }
-            .wasNotInvoked()
-        verify { visitor.visitTagWithText(tag) }
+        verify { htmlVisitor.visitTagContainerEnd(tag) }
             .wasNotInvoked()
     }
 }

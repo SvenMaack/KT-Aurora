@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 
 class TagWithTextTest {
     @Mock
-    val visitor = mock(classOf<Visitor<String>>())
+    val htmlVisitor = mock(classOf<HtmlVisitor<String>>())
 
     @Test
     fun `text is saved correctly`() {
@@ -35,19 +35,18 @@ class TagWithTextTest {
             tx = +"Lorem"
         }
 
-        tag.traverse(visitor)
+        tag.traverse(htmlVisitor)
 
-        verify { visitor.visitTextElement(tx!!) }
+        verify { htmlVisitor.visitTextElement(tx!!) }
             .wasInvoked(exactly = once)
-        verify { visitor.visitTagWithText(tag) }
+        verify { htmlVisitor.visitTagContainerBegin(tag) }
             .wasInvoked(exactly = once)
-        verify { visitor.visitTag(tag) }
+        verify { htmlVisitor.visitTagContainerEnd(tag) }
+            .wasInvoked(exactly = once)
+
+        verify { htmlVisitor.visitTag(tag) }
             .wasNotInvoked()
-        verify { visitor.visitTagWithAttributes(tag) }
+        verify { htmlVisitor.visitTagWithAttributes(tag) }
             .wasNotInvoked()
-        verify { visitor.visitTagContainerBegin(tag) }
-            .wasInvoked(exactly = once)
-        verify { visitor.visitTagContainerEnd(tag) }
-            .wasInvoked(exactly = once)
     }
 }

@@ -3,7 +3,7 @@ package template_lib
 import io.mockative.*
 import template_lib.base.Tag
 import template_lib.base.TagContainer
-import template_lib.base.Visitor
+import template_lib.base.HtmlVisitor
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -11,7 +11,7 @@ import kotlin.test.assertSame
 
 class TemplateTest {
     @Mock
-    val visitorMock = mock(classOf<Visitor<String>>())
+    val htmlVisitorMock = mock(classOf<HtmlVisitor<String>>())
     @Mock
     val dynamicTemplateMock = mock(classOf<Callable2R<Context, String, TagContainer>>())
     @Mock
@@ -26,7 +26,7 @@ class TemplateTest {
         }
 
         parent.apply {
-            include(context=Context({ visitorMock }, CSS()), template=template, dto="child")
+            include(context=Context({ htmlVisitorMock }, CSS()), template=template, dto="child")
         }
 
         assertEquals(1, parent.children.size)
@@ -36,7 +36,7 @@ class TemplateTest {
     @Test
     fun `test include dynamic template calls dynamic template function`() {
         val tag = TagContainer("parent")
-        val context = Context({ visitorMock }, CSS())
+        val context = Context({ htmlVisitorMock }, CSS())
         val dto = "child"
         every { dynamicTemplateMock.test(context, dto) }.returns(tag)
 
@@ -51,9 +51,9 @@ class TemplateTest {
     @Test
     fun `test include static template calls static template function only once`() {
         val tag = TagContainer("parent")
-        val context = Context({ visitorMock }, CSS())
+        val context = Context({ htmlVisitorMock }, CSS())
         every { staticTemplateMock.test(context) }.returns(tag)
-        every { visitorMock.result }.returns("")
+        every { htmlVisitorMock.result }.returns("")
 
         tag.apply {
             include(context=context, template=staticTemplateMock::test)
