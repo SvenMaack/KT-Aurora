@@ -16,6 +16,8 @@ class BodyTagContainerTest {
     @Mock
     val blockSpan = mock(classOf<Callable<Span>>())
     @Mock
+    val blockBlockQuote = mock(classOf<Callable<BlockQuote>>())
+    @Mock
     val blockH1 = mock(classOf<Callable<H1>>())
     @Mock
     val blockH2 = mock(classOf<Callable<H2>>())
@@ -70,6 +72,16 @@ class BodyTagContainerTest {
         val tag = BodyTagContainer("tag")
         val span = tag.span("a"["b"], init = blockSpan::test)
         verificationWithoutClass(span, blockSpan)
+    }
+
+    @Test
+    fun `blockQuote function works`() {
+        val tag = BodyTagContainer("tag")
+        val blockQuote = tag.blockQuote("a"["b"], cite = "link", init = blockBlockQuote::test)
+        verificationWithoutClass(blockQuote, blockBlockQuote, mapOf(
+            "a" to listOf("b"),
+            "cite" to listOf("link"),
+        ))
     }
 
     @Test
