@@ -1,5 +1,6 @@
 package template_lib.tags
 
+import kotlinx.datetime.LocalDateTime
 import template_lib.base.TagWithText
 import template_lib.base.get
 
@@ -49,7 +50,9 @@ public open class TextContainer(name: String): TagWithText(name) {
         init()
     }
 
-    public inline fun time(init: Time.() -> Unit): Time = add(Time()) {
+    public inline fun time(dateTime: LocalDateTime? ,init: Time.() -> Unit): Time = add(Time()) {
+        if(dateTime != null)
+            setAttributes("datetime"[dateTime.toString()])
         init()
     }
 }
