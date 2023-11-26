@@ -38,6 +38,8 @@ class BodyTagContainerTest {
     @Mock
     val blockOl = mock(classOf<Callable<Ol>>())
     @Mock
+    val blockDl = mock(classOf<Callable<Dl>>())
+    @Mock
     val blockA = mock(classOf<Callable<A>>())
     @Mock
     val blockArticle = mock(classOf<Callable<Article>>())
@@ -260,6 +262,20 @@ class BodyTagContainerTest {
         val tag = BodyTagContainer("tag")
         val nav = tag.ol("a"["b"], init = blockOl::test)
         verificationWithoutClass(nav, blockOl)
+    }
+
+    @Test
+    fun `dl function works`() {
+        val tag = BodyTagContainer("tag")
+        val dl = tag.dl("a"["b"], clazz = "clazz", init = blockDl::test)
+        verificationWithClass(dl, blockDl)
+    }
+
+    @Test
+    fun `dl function works without class`() {
+        val tag = BodyTagContainer("tag")
+        val dl = tag.dl("a"["b"], init = blockDl::test)
+        verificationWithoutClass(dl, blockDl)
     }
 
     @Test
