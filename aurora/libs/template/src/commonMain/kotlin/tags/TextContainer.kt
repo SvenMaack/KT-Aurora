@@ -44,4 +44,8 @@ public open class TextContainer(name: String): TagWithText(name) {
     public inline fun sub(init: Sub.() -> Unit): Sub = add(Sub()) {
         init()
     }
+
+    public inline fun sup(init: Sup.() -> Unit): Sup = add(Sup()) {
+        init()
+    }
 }
