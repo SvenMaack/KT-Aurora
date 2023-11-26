@@ -16,6 +16,10 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+    public inline fun blockQuote(vararg attributes: Attribute, cite: String, init: BlockQuote.() -> Unit): BlockQuote = add(BlockQuote()) {
+        if(cite==null) setAttributes(*attributes) else setAttributes(*attributes, "cite"[cite])
+        init()
+    }
     public inline fun address(vararg attributes: Attribute, title: String? = null, init: Address.() -> Unit): Address = add(Address()) {
         if(title==null) setAttributes(*attributes) else setAttributes(*attributes, "title"[title])
         init()
