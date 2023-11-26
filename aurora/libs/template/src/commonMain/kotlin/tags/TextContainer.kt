@@ -21,4 +21,8 @@ public open class TextContainer(name: String): TagWithText(name) {
     public inline fun data(init: Data.() -> Unit): Data = add(Data()) {
         init()
     }
+
+    public inline fun dfn(init: Dfn.() -> Unit): Dfn = add(Dfn()) {
+        init()
+    }
 }
