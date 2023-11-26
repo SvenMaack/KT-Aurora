@@ -35,6 +35,8 @@ class BodyTagContainerTest {
     @Mock
     val blockNav = mock(classOf<Callable<Nav>>())
     @Mock
+    val blockFooter = mock(classOf<Callable<Footer>>())
+    @Mock
     val blockUl = mock(classOf<Callable<Ul>>())
     @Mock
     val blockOl = mock(classOf<Callable<Ol>>())
@@ -237,6 +239,20 @@ class BodyTagContainerTest {
         val tag = BodyTagContainer("tag")
         val nav = tag.nav("a"["b"], init = blockNav::test)
         verificationWithoutClass(nav, blockNav)
+    }
+
+    @Test
+    fun `footer function works`() {
+        val tag = BodyTagContainer("tag")
+        val footer = tag.footer("a"["b"], clazz = "clazz", init = blockFooter::test)
+        verificationWithClass(footer, blockFooter)
+    }
+
+    @Test
+    fun `footer function works without class`() {
+        val tag = BodyTagContainer("tag")
+        val footer = tag.footer("a"["b"], init = blockFooter::test)
+        verificationWithoutClass(footer, blockFooter)
     }
 
     @Test
