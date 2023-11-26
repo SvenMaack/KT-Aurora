@@ -50,9 +50,15 @@ public open class TextContainer(name: String): TagWithText(name) {
         init()
     }
 
-    public inline fun time(dateTime: LocalDateTime? ,init: Time.() -> Unit): Time = add(Time()) {
+    public inline fun `var`(init: Var.() -> Unit): Var = add(Var()) {
+        init()
+    }
+
+    public inline fun time(dateTime: LocalDateTime? = null, init: Time.() -> Unit): Time = add(Time()) {
         if(dateTime != null)
             setAttributes("datetime"[dateTime.toString()])
         init()
     }
+
+    public inline fun wbr(): Wbr = add(Wbr)
 }
