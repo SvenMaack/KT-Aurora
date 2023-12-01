@@ -3,8 +3,8 @@ import io.gitlab.arturbosch.detekt.Detekt
 plugins {
     kotlin("multiplatform") version "1.9.10"
     id("com.google.devtools.ksp") version "1.9.10-1.0.13"
-    id("maven-publish")
     id("io.gitlab.arturbosch.detekt") version "1.23.4"
+    id("maven-publish")
 }
 
 group = "maack.aurora"
@@ -53,12 +53,13 @@ dependencies {
 }
 
 detekt {
-    source = files("src/commonMain/kotlin")
-    allRules = true // activate all available (even unstable) rules.
-    config.setFrom("$projectDir/config/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+    source.setFrom("src/commonMain/kotlin")
+    allRules = true
+    config.setFrom("$projectDir/config/detekt.yml")
+    parallel = true
 }
 tasks.withType<Detekt>().configureEach {
     reports {
-        html.required.set(true) // observe findings in your browser with structure and code snippets
+        html.required.set(true)
     }
 }
