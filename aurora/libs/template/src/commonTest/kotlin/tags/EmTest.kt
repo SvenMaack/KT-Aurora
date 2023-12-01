@@ -7,6 +7,7 @@ class EmTest {
     @Test
     fun `tag name is em`() {
         val tag = Em()
+
         assertEquals("em", tag.name)
     }
 }

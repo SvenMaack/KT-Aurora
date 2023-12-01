@@ -7,6 +7,7 @@ class VarTest {
     @Test
     fun `tag name is var`() {
         val tag = Var()
+
         assertEquals("var", tag.name)
     }
 }

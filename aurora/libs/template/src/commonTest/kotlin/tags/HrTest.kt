@@ -7,6 +7,7 @@ class HrTest {
     @Test
     fun `tag name is hr`() {
         val tag = Hr
+
         assertEquals("hr", tag.name)
     }
 }

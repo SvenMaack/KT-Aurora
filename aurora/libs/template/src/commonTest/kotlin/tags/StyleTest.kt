@@ -7,6 +7,7 @@ class StyleTest {
     @Test
     fun `tag name is style`() {
         val tag = Style()
+
         assertEquals("style", tag.name)
     }
 }

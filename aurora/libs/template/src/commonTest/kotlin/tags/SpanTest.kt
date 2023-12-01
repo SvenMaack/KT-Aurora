@@ -7,6 +7,7 @@ class SpanTest {
     @Test
     fun `tag name is span`() {
         val tag = Span()
+
         assertEquals("span", tag.name)
     }
 }

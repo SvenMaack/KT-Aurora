@@ -9,65 +9,80 @@ import kotlin.test.assertEquals
 
 class DescriptionListTest {
     @Mock
-    val blockDt = mock(classOf<Callable<Dt>>())
+    val blockDt = mock(classOf<Fun1<Dt, Unit>>())
     @Mock
-    val blockDd = mock(classOf<Callable<Dd>>())
+    val blockDd = mock(classOf<Fun1<Dd, Unit>>())
 
     @Test
     fun `tag name is dl`() {
         val tag = Dl()
+
         assertEquals("dl", tag.name)
     }
 
     @Test
     fun `tag name is dt`() {
         val tag = Dt()
+
         assertEquals("dt", tag.name)
     }
 
     @Test
     fun `tag name is dd`() {
         val tag = Dd()
+
         assertEquals("dd", tag.name)
     }
 
     @Test
     fun `dt function works`() {
         val tag = Dl()
-        val dt = tag.dt("a"["b"], clazz = "clazz", init = blockDt::test)
+        every { blockDt.invoke(any()) }.returns(Unit)
+
+        val dt = tag.dt("a"["b"], clazz = "clazz", init = blockDt::invoke)
+
         verificationWithClass(dt, blockDt)
     }
 
     @Test
     fun `dt function works without class`() {
         val tag = Dl()
-        val dt = tag.dt("a"["b"], init = blockDt::test)
+        every { blockDt.invoke(any()) }.returns(Unit)
+
+        val dt = tag.dt("a"["b"], init = blockDt::invoke)
+
         verificationWithoutClass(dt, blockDt)
     }
 
     @Test
     fun `dd function works`() {
         val tag = Dl()
-        val dd = tag.dd("a"["b"], clazz = "clazz", init = blockDd::test)
+        every { blockDd.invoke(any()) }.returns(Unit)
+
+        val dd = tag.dd("a"["b"], clazz = "clazz", init = blockDd::invoke)
+
         verificationWithClass(dd, blockDd)
     }
 
     @Test
     fun `dd function works without class`() {
         val tag = Dl()
-        val dd = tag.dd("a"["b"], init = blockDd::test)
+        every { blockDd.invoke(any()) }.returns(Unit)
+
+        val dd = tag.dd("a"["b"], init = blockDd::invoke)
+
         verificationWithoutClass(dd, blockDd)
     }
 
     private fun <Tag: TagWithAttributes> verificationWithClass(
         tag: Tag,
-        callable: Callable<Tag>,
+        callable: Fun1<Tag, Unit>,
         expectedMap: Map<String, List<String?>> = mapOf(
             "a" to listOf("b"),
             "class" to listOf("clazz"),
         )
     ) {
-        verify { callable.test(tag) }
+        verify { callable.invoke(tag) }
             .wasInvoked(exactly = once)
 
         assertEquals(expectedMap, tag.attributes)
@@ -75,12 +90,12 @@ class DescriptionListTest {
 
     private fun <Tag: TagWithAttributes> verificationWithoutClass(
         tag: Tag,
-        callable: Callable<Tag>,
+        callable: Fun1<Tag, Unit>,
         expectedMap: Map<String, List<String?>> = mapOf(
             "a" to listOf("b")
         )
     ) {
-        verify { callable.test(tag) }
+        verify { callable.invoke(tag) }
             .wasInvoked(exactly = once)
 
         assertEquals(expectedMap, tag.attributes)

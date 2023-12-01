@@ -7,6 +7,7 @@ class PTest {
     @Test
     fun `tag name is p`() {
         val tag = P()
+
         assertEquals("p", tag.name)
     }
 }

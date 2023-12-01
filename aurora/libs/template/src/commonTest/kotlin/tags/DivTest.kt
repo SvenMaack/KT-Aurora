@@ -7,6 +7,7 @@ class DivTest {
     @Test
     fun `tag name is div`() {
         val tag = Div()
+
         assertEquals("div", tag.name)
     }
 }

@@ -7,6 +7,7 @@ class BrTest {
     @Test
     fun `tag name is br`() {
         val tag = Br
+
         assertEquals("br", tag.name)
     }
 }

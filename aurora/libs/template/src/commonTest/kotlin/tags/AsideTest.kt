@@ -7,6 +7,7 @@ class AsideTest {
     @Test
     fun `tag name is aside`() {
         val tag = Aside()
+
         assertEquals("aside", tag.name)
     }
 }

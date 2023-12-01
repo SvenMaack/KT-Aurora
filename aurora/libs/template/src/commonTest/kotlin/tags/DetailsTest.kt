@@ -9,43 +9,51 @@ import kotlin.test.assertEquals
 
 class DetailsTest {
     @Mock
-    val blockSummary = mock(classOf<Callable<Summary>>())
+    val blockSummary = mock(classOf<Fun1<Summary, Unit>>())
 
     @Test
     fun `tag name is details`() {
         val tag = Details()
+
         assertEquals("details", tag.name)
     }
 
     @Test
     fun `tag name is summary`() {
         val tag = Summary()
+
         assertEquals("summary", tag.name)
     }
 
     @Test
     fun `summary function works`() {
         val tag = Details()
-        val summary = tag.summary("a"["b"], clazz = "clazz", init = blockSummary::test)
+        every { blockSummary.invoke(any()) }.returns(Unit)
+
+        val summary = tag.summary("a"["b"], clazz = "clazz", init = blockSummary::invoke)
+
         verificationWithClass(summary, blockSummary)
     }
 
     @Test
     fun `summary function works without class`() {
         val tag = Details()
-        val summary = tag.summary("a"["b"], init = blockSummary::test)
+        every { blockSummary.invoke(any()) }.returns(Unit)
+
+        val summary = tag.summary("a"["b"], init = blockSummary::invoke)
+
         verificationWithoutClass(summary, blockSummary)
     }
 
     private fun <Tag: TagWithAttributes> verificationWithClass(
         tag: Tag,
-        callable: Callable<Tag>,
+        callable: Fun1<Tag, Unit>,
         expectedMap: Map<String, List<String?>> = mapOf(
             "a" to listOf("b"),
             "class" to listOf("clazz"),
         )
     ) {
-        verify { callable.test(tag) }
+        verify { callable.invoke(tag) }
             .wasInvoked(exactly = once)
 
         assertEquals(expectedMap, tag.attributes)
@@ -53,12 +61,12 @@ class DetailsTest {
 
     private fun <Tag: TagWithAttributes> verificationWithoutClass(
         tag: Tag,
-        callable: Callable<Tag>,
+        callable: Fun1<Tag, Unit>,
         expectedMap: Map<String, List<String?>> = mapOf(
             "a" to listOf("b")
         )
     ) {
-        verify { callable.test(tag) }
+        verify { callable.invoke(tag) }
             .wasInvoked(exactly = once)
 
         assertEquals(expectedMap, tag.attributes)

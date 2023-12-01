@@ -7,6 +7,7 @@ class BodyTest {
     @Test
     fun `tag name is body`() {
         val tag = Body()
+
         assertEquals("body", tag.name)
     }
 }

@@ -9,76 +9,98 @@ import kotlin.test.assertEquals
 
 class ListTest {
     @Mock
-    val blockLi = mock(classOf<Callable<Li>>())
+    val blockLi = mock(classOf<Fun1<Li, Unit>>())
 
     @Test
     fun `tag name is ol`() {
         val tag = Ol()
+
         assertEquals("ol", tag.name)
     }
 
     @Test
     fun `tag name is ul`() {
         val tag = Ul()
+
         assertEquals("ul", tag.name)
     }
 
     @Test
     fun `tag name is menu`() {
         val tag = Menu()
+
         assertEquals("menu", tag.name)
     }
 
     @Test
     fun `tag name is li`() {
         val tag = Li()
+
         assertEquals("li", tag.name)
     }
 
     @Test
     fun `li function works inside of ul`() {
         val ul = Ul()
-        val li = ul.li("a"["b"], clazz="clazz", init=blockLi::test)
+        every { blockLi.invoke(any()) }.returns(Unit)
+
+        val li = ul.li("a"["b"], clazz="clazz", init=blockLi::invoke)
+
         verificationWithClass(li, blockLi)
     }
 
     @Test
     fun `li function works inside of ul without class`() {
         val ul = Ul()
-        val li = ul.li("a"["b"], init=blockLi::test)
+        every { blockLi.invoke(any()) }.returns(Unit)
+
+        val li = ul.li("a"["b"], init=blockLi::invoke)
+
         verificationWithoutClass(li, blockLi)
     }
 
     @Test
     fun `li function works inside of ol`() {
         val ol = Ol()
-        val li = ol.li("a"["b"], clazz="clazz", init=blockLi::test)
+        every { blockLi.invoke(any()) }.returns(Unit)
+
+        val li = ol.li("a"["b"], clazz="clazz", init=blockLi::invoke)
+
         verificationWithClass(li, blockLi)
     }
 
     @Test
     fun `li function works inside of ol without class`() {
         val ol = Ol()
-        val li = ol.li("a"["b"], init=blockLi::test)
+        every { blockLi.invoke(any()) }.returns(Unit)
+
+        val li = ol.li("a"["b"], init=blockLi::invoke)
+
         verificationWithoutClass(li, blockLi)
     }
 
     @Test
     fun `li function works inside of menu`() {
         val menu = Menu()
-        val li = menu.li("a"["b"], clazz="clazz", init=blockLi::test)
+        every { blockLi.invoke(any()) }.returns(Unit)
+
+        val li = menu.li("a"["b"], clazz="clazz", init=blockLi::invoke)
+
         verificationWithClass(li, blockLi)
     }
 
     @Test
     fun `li function works inside of menu without class`() {
         val menu = Menu()
-        val li = menu.li("a"["b"], init=blockLi::test)
+        every { blockLi.invoke(any()) }.returns(Unit)
+
+        val li = menu.li("a"["b"], init=blockLi::invoke)
+
         verificationWithoutClass(li, blockLi)
     }
 
-    private fun <Tag: TagWithAttributes>verificationWithClass(tag: Tag, callable: Callable<Tag>) {
-        verify { callable.test(tag) }
+    private fun <Tag: TagWithAttributes>verificationWithClass(tag: Tag, callable: Fun1<Tag, Unit>) {
+        verify { callable.invoke(tag) }
             .wasInvoked(exactly = once)
 
         assertEquals(mapOf(
@@ -87,8 +109,8 @@ class ListTest {
         ), tag.attributes)
     }
 
-    private fun <Tag: TagWithAttributes> verificationWithoutClass(tag: Tag, callable: Callable<Tag>) {
-        verify { callable.test(tag) }
+    private fun <Tag: TagWithAttributes> verificationWithoutClass(tag: Tag, callable: Fun1<Tag, Unit>) {
+        verify { callable.invoke(tag) }
             .wasInvoked(exactly = once)
 
         assertEquals(mapOf(

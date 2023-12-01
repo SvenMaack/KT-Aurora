@@ -1,15 +1,13 @@
 package template_lib.tags
 
 import io.mockative.*
-import template_lib.Callable
-import template_lib.base.TagWithAttributes
 import template_lib.base.get
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ArticleTest {
     @Mock
-    val blockHeader = mock(classOf<Callable<Header>>())
+    val blockHeader = mock(classOf<Fun1<Header, Unit>>())
 
     @Test
     fun `tag name is article`() {
@@ -20,41 +18,30 @@ class ArticleTest {
     @Test
     fun `p function works`() {
         val tag = Article()
-        val header = tag.header("a"["b"], clazz = "clazz", init = blockHeader::test)
-        verificationWithClass(header, blockHeader)
+        every { blockHeader.invoke(any()) }.returns(Unit)
+
+        val header = tag.header("a"["b"], clazz="clazz", init=blockHeader::invoke)
+
+        verify { blockHeader.invoke(header) }
+            .wasInvoked(exactly = once)
+        assertEquals(mapOf(
+            "a" to listOf("b"),
+            "class" to listOf("clazz"),
+        ), header.attributes)
     }
 
     @Test
     fun `p function works without class`() {
         val tag = Article()
-        val header = tag.header("a"["b"], init = blockHeader::test)
-        verificationWithoutClass(header, blockHeader)
-    }
+        every { blockHeader.invoke(any()) }.returns(Unit)
 
-    private fun <Tag: TagWithAttributes> verificationWithClass(
-        tag: Tag,
-        callable: Callable<Tag>,
-        expectedMap: Map<String, List<String?>> = mapOf(
-            "a" to listOf("b"),
-            "class" to listOf("clazz"),
-        )
-    ) {
-        verify { callable.test(tag) }
+        val header = tag.header("a"["b"], init=blockHeader::invoke)
+
+        verify { blockHeader.invoke(header) }
             .wasInvoked(exactly = once)
 
-        assertEquals(expectedMap, tag.attributes)
-    }
-
-    private fun <Tag: TagWithAttributes> verificationWithoutClass(
-        tag: Tag,
-        callable: Callable<Tag>,
-        expectedMap: Map<String, List<String?>> = mapOf(
+        assertEquals(mapOf(
             "a" to listOf("b")
-        )
-    ) {
-        verify { callable.test(tag) }
-            .wasInvoked(exactly = once)
-
-        assertEquals(expectedMap, tag.attributes)
+        ), header.attributes)
     }
 }

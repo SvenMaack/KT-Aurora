@@ -7,6 +7,7 @@ class FooterTest {
     @Test
     fun `tag name is footer`() {
         val tag = Footer()
+
         assertEquals("footer", tag.name)
     }
 }

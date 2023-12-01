@@ -7,6 +7,7 @@ class CiteTest {
     @Test
     fun `tag name is cite`() {
         val tag = Cite()
+
         assertEquals("cite", tag.name)
     }
 }

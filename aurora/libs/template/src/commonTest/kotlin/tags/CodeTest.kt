@@ -7,6 +7,7 @@ class CodeTest {
     @Test
     fun `tag name is code`() {
         val tag = Code()
+
         assertEquals("code", tag.name)
     }
 }

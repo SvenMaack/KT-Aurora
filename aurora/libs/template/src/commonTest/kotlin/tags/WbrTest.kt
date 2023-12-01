@@ -7,6 +7,7 @@ class WbrTest {
     @Test
     fun `tag name is wbr`() {
         val tag = Wbr
+
         assertEquals("wbr", tag.name)
     }
 }

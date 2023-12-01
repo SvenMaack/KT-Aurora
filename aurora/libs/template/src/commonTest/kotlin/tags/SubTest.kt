@@ -7,6 +7,7 @@ class SubTest {
     @Test
     fun `tag name is sub`() {
         val tag = Sub()
+
         assertEquals("sub", tag.name)
     }
 }

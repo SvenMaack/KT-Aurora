@@ -7,6 +7,7 @@ class PreTest {
     @Test
     fun `tag name is pre`() {
         val tag = Pre()
+
         assertEquals("pre", tag.name)
     }
 }

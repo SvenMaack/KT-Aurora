@@ -7,6 +7,7 @@ class AbbrTest {
     @Test
     fun `tag name is abbr`() {
         val tag = Abbr()
+
         assertEquals("abbr", tag.name)
     }
 }

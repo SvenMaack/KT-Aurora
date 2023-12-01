@@ -7,6 +7,7 @@ class TimeTest {
     @Test
     fun `tag name is time`() {
         val tag = Time()
+
         assertEquals("time", tag.name)
     }
 }

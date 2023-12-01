@@ -7,6 +7,7 @@ class TitleTest {
     @Test
     fun `tag name is title`() {
         val tag = Title()
+
         assertEquals("title", tag.name)
     }
 }

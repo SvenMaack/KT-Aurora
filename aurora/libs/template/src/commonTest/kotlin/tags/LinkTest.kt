@@ -7,6 +7,7 @@ class LinkTest {
     @Test
     fun `tag name is link`() {
         val tag = Link()
+
         assertEquals("link", tag.name)
     }
 }

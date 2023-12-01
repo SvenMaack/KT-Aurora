@@ -7,6 +7,7 @@ class BlockQuoteTest {
     @Test
     fun `tag name is blockquote`() {
         val tag = BlockQuote()
+
         assertEquals("blockquote", tag.name)
     }
 }

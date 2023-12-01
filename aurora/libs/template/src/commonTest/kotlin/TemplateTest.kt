@@ -18,9 +18,9 @@ class TemplateTest {
     @Mock
     val templateRendererMock = mock(classOf<ITemplateRenderer>())
     @Mock
-    val dynamicTemplateMock = mock(classOf<Callable2R<Context, String, TagContainer>>())
+    val dynamicTemplateMock = mock(classOf<Fun2<Context, String, TagContainer>>())
     @Mock
-    val staticTemplateMock = mock(classOf<Callable2R<Context, Unit, TagContainer>>())
+    val staticTemplateMock = mock(classOf<Fun2<Context, Unit, TagContainer>>())
 
 
     @Test
@@ -45,13 +45,13 @@ class TemplateTest {
         val tag = TagContainer("parent")
         val vm = "child"
         val context = Context(htmlVisitorStrategyMock, templateRendererMock)
-        every { dynamicTemplateMock.test(context, vm) }.returns(tag)
+        every { dynamicTemplateMock.invoke(context, vm) }.returns(tag)
 
         tag.apply {
-            include(context=context, template=dynamicTemplateMock::test, vm=vm)
+            include(context=context, template=dynamicTemplateMock::invoke, vm=vm)
         }
 
-        verify { dynamicTemplateMock.test(context, vm) }
+        verify { dynamicTemplateMock.invoke(context, vm) }
             .wasInvoked(exactly = once)
     }
 
@@ -59,29 +59,29 @@ class TemplateTest {
     fun `include static template several times calls static template function only once`() {
         val tag = TagContainer("parent")
         val context = Context(htmlVisitorStrategyMock, templateRendererMock)
-        every { staticTemplateMock.test(context, Unit) }.returns(tag)
+        every { staticTemplateMock.invoke(context, Unit) }.returns(tag)
         every { htmlVisitorMock.result }.returns("")
         every { templateRendererMock.render<Unit>(any(), any(), any()) }.returns("test")
 
         tag.apply {
-            include(context=context, template=staticTemplateMock::test)
-            include(context=context, template=staticTemplateMock::test)
+            include(context=context, template=staticTemplateMock::invoke)
+            include(context=context, template=staticTemplateMock::invoke)
         }
 
-        verify { templateRendererMock.render(context, staticTemplateMock::test, Unit) }
+        verify { templateRendererMock.render(context, staticTemplateMock::invoke, Unit) }
             .wasInvoked(exactly = once)
     }
 
     @Test
     fun `include static template several times calls static template function only once with equal context`() {
         val tag = TagContainer("parent")
-        every { staticTemplateMock.test(any(), any()) }.returns(tag)
+        every { staticTemplateMock.invoke(any(), any()) }.returns(tag)
         every { htmlVisitorMock.result }.returns("")
         every { templateRendererMock.render<Unit>(any(), any(), any()) }.returns("test")
 
         tag.apply {
-            include(context=Context(htmlVisitorStrategyMock, templateRendererMock), template=staticTemplateMock::test)
-            include(context=Context(htmlVisitorStrategyMock, templateRendererMock), template=staticTemplateMock::test)
+            include(context=Context(htmlVisitorStrategyMock, templateRendererMock), template=staticTemplateMock::invoke)
+            include(context=Context(htmlVisitorStrategyMock, templateRendererMock), template=staticTemplateMock::invoke)
         }
 
         verify { templateRendererMock.render<Unit>(any(), any(), any()) }

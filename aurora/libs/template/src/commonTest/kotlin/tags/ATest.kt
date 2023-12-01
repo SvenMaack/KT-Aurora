@@ -7,6 +7,7 @@ class ATest {
     @Test
     fun `tag name is a`() {
         val tag = A()
+
         assertEquals("a", tag.name)
     }
 }

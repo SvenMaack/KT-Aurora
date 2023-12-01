@@ -9,35 +9,40 @@ import kotlin.test.assertEquals
 
 class HtmlTest {
     @Mock
-    val blockHead = mock(classOf<Callable<Head>>())
+    val blockHead = mock(classOf<Fun1<Head, Unit>>())
     @Mock
-    val blockBody = mock(classOf<Callable<Body>>())
+    val blockBody = mock(classOf<Fun1<Body, Unit>>())
     @Mock
     val htmlVisitor = mock(classOf<HtmlVisitor<String>>())
     @Mock
-    val blockHtml = mock(classOf<Callable<Html>>())
+    val blockHtml = mock(classOf<Fun1<Html, Unit>>())
 
     @Test
     fun `tag name is html`() {
         val tag = Html()
+
         assertEquals("html", tag.name)
     }
 
     @Test
     fun `head function works`() {
         val html = Html()
-        val title = html.head(init = blockHead::test)
+        every { blockHead.invoke(any()) }.returns(Unit)
 
-        verify { blockHead.test(title) }
+        val title = html.head(init = blockHead::invoke)
+
+        verify { blockHead.invoke(title) }
             .wasInvoked(exactly = once)
     }
 
     @Test
     fun `body function works`() {
         val html = Html()
-        val body = html.body(init = blockBody::test)
+        every { blockBody.invoke(any()) }.returns(Unit)
 
-        verify { blockBody.test(body) }
+        val body = html.body(init = blockBody::invoke)
+
+        verify { blockBody.invoke(body) }
             .wasInvoked(exactly = once)
     }
 
@@ -53,13 +58,13 @@ class HtmlTest {
 
     @Test
     fun `html function works`() {
-        val html = html(lang=GeneralLanguage.English, dir=Direction.LTR, init = blockHtml::test)
+        every { blockHtml.invoke(any()) }.returns(Unit)
+
+        val html = html(lang=GeneralLanguage.English, dir=Direction.LTR, init = blockHtml::invoke)
 
         assertEquals("html", html.name)
-
-        verify { blockHtml.test(html) }
+        verify { blockHtml.invoke(html) }
             .wasInvoked(exactly = once)
-
         assertEquals(mapOf(
             "lang" to listOf(GeneralLanguage.English.value),
             "dir" to listOf("ltr"),
@@ -68,11 +73,13 @@ class HtmlTest {
 
     @Test
     fun `html function works with namespace`() {
-        val html = html(lang=GeneralLanguage.English, dir=Direction.LTR, xmlns = "test", blockHtml::test)
+        every { blockHtml.invoke(any()) }.returns(Unit)
+
+        val html = html(lang=GeneralLanguage.English, dir=Direction.LTR, xmlns = "test", blockHtml::invoke)
 
         assertEquals("html", html.name)
 
-        verify { blockHtml.test(html) }
+        verify { blockHtml.invoke(html) }
             .wasInvoked(exactly = once)
 
         assertEquals(mapOf(

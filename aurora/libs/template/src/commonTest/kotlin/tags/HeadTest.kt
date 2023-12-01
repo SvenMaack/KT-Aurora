@@ -8,19 +8,21 @@ import kotlin.test.assertEquals
 
 class HeadTest {
     @Mock
-    val blockTitle = mock(classOf<Callable<Title>>())
+    val blockTitle = mock(classOf<Fun1<Title, Unit>>())
     @Mock
-    val blockStyle = mock(classOf<Callable<Style>>())
+    val blockStyle = mock(classOf<Fun1<Style, Unit>>())
 
     @Test
     fun `tag name is head`() {
         val tag = Head()
+
         assertEquals("head", tag.name)
     }
 
     @Test
     fun `base function works`() {
         val head = Head()
+
         val base = head.base(href = "link", target = Target.SELF)
 
         assertEquals(mapOf(
@@ -32,18 +34,22 @@ class HeadTest {
     @Test
     fun `title function works`() {
         val head = Head()
-        val title = head.title(init = blockTitle::test)
+        every { blockTitle.invoke(any()) }.returns(Unit)
 
-        verify { blockTitle.test(title) }
+        val title = head.title(init = blockTitle::invoke)
+
+        verify { blockTitle.invoke(title) }
             .wasInvoked(exactly = once)
     }
 
     @Test
     fun `style function works`() {
         val head = Head()
-        val style = head.style(init = blockStyle::test)
+        every { blockStyle.invoke(any()) }.returns(Unit)
 
-        verify { blockStyle.test(style) }
+        val style = head.style(init = blockStyle::invoke)
+
+        verify { blockStyle.invoke(style) }
             .wasInvoked(exactly = once)
     }
 

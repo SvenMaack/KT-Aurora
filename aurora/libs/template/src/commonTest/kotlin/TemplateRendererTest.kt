@@ -1,9 +1,6 @@
 package template_lib
 
-import io.mockative.Mock
-import io.mockative.classOf
-import io.mockative.every
-import io.mockative.mock
+import io.mockative.*
 import template_lib.base.TagContainer
 import template_lib.base.HtmlVisitor
 import template_lib.base.HtmlVisitorStrategy
@@ -14,9 +11,9 @@ class TemplateRendererTest {
     @Mock
     val htmlVisitorMock = mock(classOf<HtmlVisitor<String>>())
     @Mock
-    val dynamicTemplateMock = mock(classOf<Callable2R<Context, String, TagContainer>>())
+    val dynamicTemplateMock = mock(classOf<Fun2<Context, String, TagContainer>>())
     @Mock
-    val staticTemplateMock = mock(classOf<Callable2R<Context, Unit, TagContainer>>())
+    val staticTemplateMock = mock(classOf<Fun2<Context, Unit, TagContainer>>())
     @Mock
     val htmlVisitorStrategyMock = mock(classOf<HtmlVisitorStrategy<String>>())
     @Mock
@@ -29,9 +26,9 @@ class TemplateRendererTest {
         val vm = "test1"
         every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
         every { htmlVisitorMock.result }.returns("visitorResult")
-        every { dynamicTemplateMock.test(context, vm) }.returns(tag)
+        every { dynamicTemplateMock.invoke(context, vm) }.returns(tag)
 
-        val result = TemplateRenderer().render(context, dynamicTemplateMock::test, vm)
+        val result = TemplateRenderer().render(context, dynamicTemplateMock::invoke, vm)
         assertEquals("visitorResult", result)
     }
 
@@ -41,9 +38,9 @@ class TemplateRendererTest {
         val context = Context(htmlVisitorStrategyMock, templateRendererMock)
         every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
         every { htmlVisitorMock.result }.returns("visitorResult")
-        every { staticTemplateMock.test(context, Unit) }.returns(tag)
+        every { staticTemplateMock.invoke(context, Unit) }.returns(tag)
 
-        val result = TemplateRenderer().render(context, staticTemplateMock::test)
+        val result = TemplateRenderer().render(context, staticTemplateMock::invoke)
         assertEquals("visitorResult", result)
     }
 
