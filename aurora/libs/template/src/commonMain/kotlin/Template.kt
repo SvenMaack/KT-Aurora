@@ -6,11 +6,11 @@ import kotlinx.datetime.toLocalDateTime
 import template_lib.base.TagContainer
 import template_lib.base.TransientTag
 
-public typealias Template<DTO> = (context: Context, data: DTO) -> TagContainer
+public typealias Template<VM> = (context: Context, data: VM) -> TagContainer
 public typealias StaticTemplate = Template<Unit>
 
-public fun <DTO>TagContainer.include(context: Context, template: Template<DTO>, dto: DTO): TagContainer =
-    add(template(context, dto))
+public fun <VM>TagContainer.include(context: Context, template: Template<VM>, vm: VM): TagContainer =
+    add(template(context, vm))
 
 public fun TagContainer.include(context: Context, template: Template<Unit>): TagContainer =
     add(TransientTag().apply {

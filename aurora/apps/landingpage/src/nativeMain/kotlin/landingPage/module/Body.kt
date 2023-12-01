@@ -10,14 +10,14 @@ import template_lib.tags.Body
 
 val BodyTemplate: Template<NavigationVM> = { context, data ->
     Body().apply {
-        include(template=DynamicBody, context=context, dto=data)
+        include(template=DynamicBody, context=context, vm=data)
         include(template=StaticBody,  context=context)
     }
 }
 
 private val DynamicBody: Template<NavigationVM> = { context, data ->
     Body().apply {
-        include(template = NavigationModule.template, context = context, dto = data)
+        include(template=NavigationModule.template, context=context, vm=data)
     }.childs()
 }
 

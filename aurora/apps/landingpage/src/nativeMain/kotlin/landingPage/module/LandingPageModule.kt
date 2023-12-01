@@ -16,8 +16,8 @@ import template_lib.tags.html
 
 private val landingPageTemplate: Template<LandingPageDto> = { context, data ->
     html(lang=English-UNITED_STATES) {
-        include(context=context, template=SimpleHeadTemplate, dto=data.head)
-        include(context=context, template=BodyTemplate,       dto=data.navigation)
+        include(context=context, template=SimpleHeadTemplate, vm=data.head)
+        include(context=context, template=BodyTemplate,       vm=data.navigation)
     }
 }
 

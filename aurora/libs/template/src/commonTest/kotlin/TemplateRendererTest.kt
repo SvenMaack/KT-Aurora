@@ -26,12 +26,12 @@ class TemplateRendererTest {
     fun `test dynamic template render works`() {
         val tag = TagContainer("parent")
         val context = Context(htmlVisitorStrategyMock, templateRendererMock)
-        val dto = "test1"
+        val vm = "test1"
         every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
         every { htmlVisitorMock.result }.returns("visitorResult")
-        every { dynamicTemplateMock.test(context, dto) }.returns(tag)
+        every { dynamicTemplateMock.test(context, vm) }.returns(tag)
 
-        val result = TemplateRenderer().render(context, dynamicTemplateMock::test, dto)
+        val result = TemplateRenderer().render(context, dynamicTemplateMock::test, vm)
         assertEquals("visitorResult", result)
     }
 

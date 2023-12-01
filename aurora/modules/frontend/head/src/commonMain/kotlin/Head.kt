@@ -22,7 +22,7 @@ data class HeadDto(
 val SimpleHeadTemplate: Template<HeadDto> = { context, data ->
     Head().apply {
         include(context=context, template=StaticHead)
-        include(context=context, template=DynamicHead, dto=data)
+        include(context=context, template=DynamicHead, vm=data)
     }
 }
 

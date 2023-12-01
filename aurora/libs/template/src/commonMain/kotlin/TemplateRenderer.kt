@@ -6,8 +6,8 @@ public class TemplateRenderer : ITemplateRenderer {
     public override fun render(context: Context, template: Template<Unit>): String =
         render(context, template(context, Unit))
 
-    public override fun <DTO>render(context: Context, template: Template<DTO>, dto: DTO): String =
-        render(context, template(context, dto))
+    public override fun <VM>render(context: Context, template: Template<VM>, vm: VM): String =
+        render(context, template(context, vm))
 
     public override fun render(context: Context, element: Element): String =
         context.htmlVisitorStrategy.create().apply {

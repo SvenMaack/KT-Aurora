@@ -33,7 +33,7 @@ class TemplateTest {
         }
 
         parent.apply {
-            include(context=context, template=template, dto="child")
+            include(context=context, template=template, vm="child")
         }
 
         assertEquals(1, parent.children.size)
@@ -43,15 +43,15 @@ class TemplateTest {
     @Test
     fun `include template calls template function`() {
         val tag = TagContainer("parent")
-        val dto = "child"
+        val vm = "child"
         val context = Context(htmlVisitorStrategyMock, templateRendererMock)
-        every { dynamicTemplateMock.test(context, dto) }.returns(tag)
+        every { dynamicTemplateMock.test(context, vm) }.returns(tag)
 
         tag.apply {
-            include(context=context, template=dynamicTemplateMock::test, dto=dto)
+            include(context=context, template=dynamicTemplateMock::test, vm=vm)
         }
 
-        verify { dynamicTemplateMock.test(context, dto) }
+        verify { dynamicTemplateMock.test(context, vm) }
             .wasInvoked(exactly = once)
     }
 
