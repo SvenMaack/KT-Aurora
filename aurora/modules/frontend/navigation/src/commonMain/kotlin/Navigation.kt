@@ -8,7 +8,7 @@ import css_lib.properties.DisplayTypeValue.`inline-block`
 import css_lib.properties.ListStyleTypeValue.*
 import css_lib.properties.PositionValue.absolute
 import css_lib.properties.TextTransformValues.uppercase
-import template_lib.DynamicTemplate
+import template_lib.Template
 import template_lib.childs
 import template_lib.tags.Div
 import page_lib.ClassGenerator
@@ -16,8 +16,8 @@ import page_lib.ClassGenerator
 private val NAVIGATION: String = ClassGenerator("nav")
 private val NAVIGATION__ITEM: String = ClassGenerator("nav")
 
-internal val NavigationTemplate: DynamicTemplate<NavigationDto> = { _, data ->
-    Div().childs {
+internal val NavigationTemplate: Template<NavigationVM> = { _, data ->
+    Div().apply {
         nav {
             ul(clazz=NAVIGATION) {
                 data.entries.forEach { entry ->
@@ -29,7 +29,7 @@ internal val NavigationTemplate: DynamicTemplate<NavigationDto> = { _, data ->
                 }
             }
         }
-    }
+    }.childs()
 }
 
 internal val navigationCssDocument: IDocument = Document().apply {

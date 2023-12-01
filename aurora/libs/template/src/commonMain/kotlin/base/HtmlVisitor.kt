@@ -11,6 +11,6 @@ public interface HtmlVisitor<RESULT> {
     public fun visitTextElement(element: TextElement)
 }
 
-public fun interface HtmlVisitorFactory<RESULT> {
+public fun interface HtmlVisitorStrategy<RESULT> {
     public fun create(): HtmlVisitor<RESULT>
 }

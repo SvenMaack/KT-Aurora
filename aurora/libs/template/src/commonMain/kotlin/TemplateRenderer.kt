@@ -1,22 +1,16 @@
 package template_lib
 
 import template_lib.base.Element
-import template_lib.base.TagContainer
 
-public object TemplateRenderer {
-    public inline fun <DTO>render(context: Context, dynamicTemplate: DynamicTemplate<DTO>, dto: DTO): String =
-        dynamicTemplate(context, dto).render(context)
+public class TemplateRenderer : ITemplateRenderer {
+    public override fun render(context: Context, template: Template<Unit>): String =
+        render(context, template(context, Unit))
 
-    public inline fun render(context: Context, tagContainer: TagContainer): String =
-        tagContainer.render(context)
+    public override fun <DTO>render(context: Context, template: Template<DTO>, dto: DTO): String =
+        render(context, template(context, dto))
 
-    public inline fun render(context: Context, staticTemplate: StaticTemplate): String =
-        staticTemplate(context).render(context)
-
-    @PublishedApi
-    internal inline infix fun Element.render(context: Context): String {
-        return context.htmlVisitorFactory.create().apply {
-            traverse(this)
+    public override fun render(context: Context, element: Element): String =
+        context.htmlVisitorStrategy.create().apply {
+            element.traverse(this)
         }.result
-    }
 }

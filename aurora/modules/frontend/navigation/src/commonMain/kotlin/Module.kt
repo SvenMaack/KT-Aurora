@@ -1,14 +1,14 @@
 package modules_lib.navigation
 
 import css_lib.base.IDocument
-import page_lib.DynamicModule
-import template_lib.DynamicTemplate
+import page_lib.Module
+import template_lib.Template
 
-val NavigationModule: DynamicModule<NavigationDto> = object : DynamicModule<NavigationDto> {
+val NavigationModule: Module<NavigationVM> = object : Module<NavigationVM> {
     override val document: IDocument = navigationCssDocument
-    override val template: DynamicTemplate<NavigationDto> = NavigationTemplate
+    override val template: Template<NavigationVM> = NavigationTemplate
 }
 
-data class NavigationDto(
+data class NavigationVM(
     val entries: List<String>
 )

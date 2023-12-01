@@ -16,7 +16,7 @@ interface IPageRenderer {
 
 object DefaultRenderer: IPageRenderer {
     override fun renderHtml(context: Context, tagContainer: TagContainer): String =
-        TemplateRenderer.render(context, tagContainer)
+        context.templateRenderer.render(context, tagContainer)
 
     override fun renderInlineCss(ruleVisitorFactory: RuleVisitorFactory<String>, document: IDocument): String =
         CssRenderer.render(ruleVisitorFactory, document)

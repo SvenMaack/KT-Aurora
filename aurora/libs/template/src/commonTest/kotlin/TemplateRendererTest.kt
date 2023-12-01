@@ -6,6 +6,7 @@ import io.mockative.every
 import io.mockative.mock
 import template_lib.base.TagContainer
 import template_lib.base.HtmlVisitor
+import template_lib.base.HtmlVisitorStrategy
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -15,38 +16,45 @@ class TemplateRendererTest {
     @Mock
     val dynamicTemplateMock = mock(classOf<Callable2R<Context, String, TagContainer>>())
     @Mock
-    val staticTemplateMock = mock(classOf<Callable1R<Context, TagContainer>>())
+    val staticTemplateMock = mock(classOf<Callable2R<Context, Unit, TagContainer>>())
+    @Mock
+    val htmlVisitorStrategyMock = mock(classOf<HtmlVisitorStrategy<String>>())
+    @Mock
+    val templateRendererMock = mock(classOf<ITemplateRenderer>())
 
     @Test
     fun `test dynamic template render works`() {
         val tag = TagContainer("parent")
-        val context = Context({ htmlVisitorMock },CSS())
+        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
         val dto = "test1"
-        every { dynamicTemplateMock.test(context, dto) }.returns(tag)
+        every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
         every { htmlVisitorMock.result }.returns("visitorResult")
+        every { dynamicTemplateMock.test(context, dto) }.returns(tag)
 
-        val result = TemplateRenderer.render(context, dynamicTemplateMock::test, dto)
+        val result = TemplateRenderer().render(context, dynamicTemplateMock::test, dto)
+        assertEquals("visitorResult", result)
+    }
+
+    @Test
+    fun `test dynamic template render works for static template`() {
+        val tag = TagContainer("parent")
+        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
+        every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
+        every { htmlVisitorMock.result }.returns("visitorResult")
+        every { staticTemplateMock.test(context, Unit) }.returns(tag)
+
+        val result = TemplateRenderer().render(context, staticTemplateMock::test)
         assertEquals("visitorResult", result)
     }
 
     @Test
     fun `test dynamic template render works for element`() {
         val tag = TagContainer("parent")
-        val context = Context({ htmlVisitorMock },CSS())
+        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
         every { htmlVisitorMock.result }.returns("visitorResult")
+        every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
 
-        val result = TemplateRenderer.render(context, tag)
-        assertEquals("visitorResult", result)
-    }
-
-    @Test
-    fun `test static template render works`() {
-        val tag = TagContainer("parent")
-        val context = Context({ htmlVisitorMock },CSS())
-        every { staticTemplateMock.test(context) }.returns(tag)
-        every { htmlVisitorMock.result }.returns("visitorResult")
-
-        val result = TemplateRenderer.render(context, staticTemplateMock::test)
+        val result = TemplateRenderer().render(context, tag)
         assertEquals("visitorResult", result)
     }
 }

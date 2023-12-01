@@ -3,44 +3,50 @@ package head_lib
 import template_lib.*
 import template_lib.tags.Head
 
-data class PageSeoDto(
+data class PageSeoVM(
     val title: String,
     val description: String,
     val keywords: String
 )
 
-data class HeadDto(
-    val pageSeo: PageSeoDto
+data class CssVM(
+    val externalStylingPath: String,
+    val inlineStyling: String,
 )
 
-val SimpleHeadTemplate: DynamicTemplate<HeadDto> = { context, data ->
+data class HeadDto(
+    val pageSeo: PageSeoVM,
+    val css: CssVM
+)
+
+val SimpleHeadTemplate: Template<HeadDto> = { context, data ->
     Head().apply {
         include(context=context, template=StaticHead)
         include(context=context, template=DynamicHead, dto=data)
     }
 }
 
-val DynamicHead: DynamicTemplate<HeadDto> = { context, data ->
-    Head().childs {
+val DynamicHead: Template<HeadDto> = { _, data ->
+    Head().apply {
         title {
             +data.pageSeo.title
         }
         meta(name="description", content=data.pageSeo.description)
         meta(name="keywords", content=data.pageSeo.keywords)
-        if(context.css.externalStylingPath.isNotEmpty()) {
-            link(rel="stylesheet", href=context.css.externalStylingPath)
+        if(data.css.externalStylingPath.isNotEmpty()) {
+            link(rel="stylesheet", href=data.css.externalStylingPath)
         }
-        if(context.css.inlineStyling.isNotEmpty()) {
+        if(data.css.inlineStyling.isNotEmpty()) {
             style {
-                +context.css.inlineStyling
+                +data.css.inlineStyling
             }
         }
-    }
+    }.childs()
 }
 
-val StaticHead: StaticTemplate = { _ ->
-    Head().childs {
+val StaticHead: StaticTemplate = { _, _ ->
+    Head().apply {
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1")
-    }
+    }.childs()
 }

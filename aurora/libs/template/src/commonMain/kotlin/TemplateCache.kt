@@ -3,17 +3,18 @@ package template_lib
 internal object TemplateCache {
     private val cachedResult: MutableMap<String, String> = mutableMapOf()
 
-    fun getOrSet(context: Context, template: StaticTemplate) =
+    operator fun get(context: Context, template: Template<Unit>): String =
         cachedResult.getOrElse(getCacheKey(context, template)) {
-            val result = TemplateRenderer.render(context, template)
+            val result = context.templateRenderer.render(context, template, Unit)
             cachedResult[getCacheKey(context, template)] = result
             result
         }
+
 
     fun clear() {
         cachedResult.clear()
     }
 
-    private fun getCacheKey(context: Context, template: StaticTemplate): String =
+    private fun getCacheKey(context: Context, template: Template<Unit>): String =
         context.hashCode().toString() + template.hashCode().toString()
 }

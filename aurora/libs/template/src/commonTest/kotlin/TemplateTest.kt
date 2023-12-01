@@ -4,6 +4,7 @@ import io.mockative.*
 import template_lib.base.Tag
 import template_lib.base.TagContainer
 import template_lib.base.HtmlVisitor
+import template_lib.base.HtmlVisitorStrategy
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -13,20 +14,26 @@ class TemplateTest {
     @Mock
     val htmlVisitorMock = mock(classOf<HtmlVisitor<String>>())
     @Mock
+    val htmlVisitorStrategyMock = mock(classOf<HtmlVisitorStrategy<String>>())
+    @Mock
+    val templateRendererMock = mock(classOf<ITemplateRenderer>())
+    @Mock
     val dynamicTemplateMock = mock(classOf<Callable2R<Context, String, TagContainer>>())
     @Mock
-    val staticTemplateMock = mock(classOf<Callable1R<Context, TagContainer>>())
+    val staticTemplateMock = mock(classOf<Callable2R<Context, Unit, TagContainer>>())
+
 
     @Test
-    fun `test include dynamic template adds children`() {
+    fun `include template adds children`() {
         val child = TagContainer("child")
         val parent = TagContainer("parent")
-        val template: DynamicTemplate<String> = { _, _ ->
+        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
+        val template: Template<String> = { _, _ ->
             child
         }
 
         parent.apply {
-            include(context=Context({ htmlVisitorMock }, CSS()), template=template, dto="child")
+            include(context=context, template=template, dto="child")
         }
 
         assertEquals(1, parent.children.size)
@@ -34,10 +41,10 @@ class TemplateTest {
     }
 
     @Test
-    fun `test include dynamic template calls dynamic template function`() {
+    fun `include template calls template function`() {
         val tag = TagContainer("parent")
-        val context = Context({ htmlVisitorMock }, CSS())
         val dto = "child"
+        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
         every { dynamicTemplateMock.test(context, dto) }.returns(tag)
 
         tag.apply {
@@ -49,30 +56,48 @@ class TemplateTest {
     }
 
     @Test
-    fun `test include static template calls static template function only once`() {
+    fun `include static template several times calls static template function only once`() {
         val tag = TagContainer("parent")
-        val context = Context({ htmlVisitorMock }, CSS())
-        every { staticTemplateMock.test(context) }.returns(tag)
+        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
+        every { staticTemplateMock.test(context, Unit) }.returns(tag)
         every { htmlVisitorMock.result }.returns("")
+        every { templateRendererMock.render<Unit>(any(), any(), any()) }.returns("test")
 
         tag.apply {
             include(context=context, template=staticTemplateMock::test)
             include(context=context, template=staticTemplateMock::test)
         }
 
-        verify { staticTemplateMock.test(context) }
+        verify { templateRendererMock.render(context, staticTemplateMock::test, Unit) }
+            .wasInvoked(exactly = once)
+    }
+
+    @Test
+    fun `include static template several times calls static template function only once with equal context`() {
+        val tag = TagContainer("parent")
+        every { staticTemplateMock.test(any(), any()) }.returns(tag)
+        every { htmlVisitorMock.result }.returns("")
+        every { templateRendererMock.render<Unit>(any(), any(), any()) }.returns("test")
+
+        tag.apply {
+            include(context=Context(htmlVisitorStrategyMock, templateRendererMock), template=staticTemplateMock::test)
+            include(context=Context(htmlVisitorStrategyMock, templateRendererMock), template=staticTemplateMock::test)
+        }
+
+        verify { templateRendererMock.render<Unit>(any(), any(), any()) }
             .wasInvoked(exactly = once)
     }
 
     @Test
     fun `test childs function of tagContainer`() {
-        val tag = TagContainer("parent")
+        val parent = TagContainer("parent")
         val child = Tag("child")
-        val toTest = tag.childs {
+        parent.apply {
             add(child)
         }
+        val toTest = parent.childs()
 
-        assertNotEquals(toTest, tag)
+        assertNotEquals(toTest, parent)
         assertEquals(1, toTest.children.size)
         assertSame(child, toTest.children[0])
     }

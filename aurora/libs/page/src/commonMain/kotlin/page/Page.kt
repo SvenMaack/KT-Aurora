@@ -5,10 +5,11 @@ import css_lib.base.IDocument
 import page_lib.page.base.*
 import page_lib.page.extensions.BrowserSupport
 import page_lib.page.extensions.CachedStyling
-import template_lib.CSS
 import template_lib.Context
-import template_lib.DynamicTemplate
-import template_lib.base.HtmlVisitorFactory
+import template_lib.ITemplateRenderer
+import template_lib.Template
+import template_lib.TemplateRenderer
+import template_lib.base.HtmlVisitorStrategy
 import template_lib.base.TagContainer
 
 class PageContext
@@ -18,6 +19,8 @@ interface IPage<ViewModel> {
 
     fun getExternalCssPath(): String
 
+    fun getInlineCss(): String
+
     fun getHtml(pageContext: PageContext, viewModel: ViewModel): String
 }
 
@@ -25,7 +28,8 @@ class Page<ViewModel> private constructor(
     private val name: String,
     private var provider: IPageProvider<ViewModel>,
     private var renderer: IPageRenderer,
-    private val visitors: Visitors<String>
+    private val visitors: Visitors<String>,
+    private val templateRenderer: ITemplateRenderer
 ): IPage<ViewModel> {
     override fun getExternalCss(): String =
         renderer.renderExternalCss(
@@ -39,13 +43,13 @@ class Page<ViewModel> private constructor(
     override fun getHtml(pageContext: PageContext, viewModel: ViewModel): String {
         val context = getContext(
             pageContext,
-            getInlineCss(),
-            visitors.htmlVisitor
+            visitors.htmlVisitor,
+            templateRenderer
         )
         return renderer.renderHtml(context, provider.getHtmlTag(context, viewModel))
     }
 
-    private inline fun getInlineCss() =
+    override fun getInlineCss() =
         renderer.renderInlineCss(
             visitors.cssVisitor,
             provider.getInlineCssDocument()
@@ -53,25 +57,23 @@ class Page<ViewModel> private constructor(
 
     private inline fun getContext(
         @Suppress("UNUSED_PARAMETER") pageContext: PageContext,
-        inlineStyling: String,
-        templateVisitorFactory: HtmlVisitorFactory<String>
+        templateVisitorFactory: HtmlVisitorStrategy<String>,
+        templateRenderer: ITemplateRenderer
     ): Context =
         Context(
             templateVisitorFactory,
-            CSS(
-                inlineStyling,
-                getExternalCssPath()
-            )
+            templateRenderer
         )
 
     companion object {
         fun <ViewModel> build(
             name: String,
-            template: DynamicTemplate<ViewModel>,
+            template: Template<ViewModel>,
             renderer: IPageRenderer = DefaultRenderer,
             visitors: Visitors<String> = ProductionVisitors,
             inlineDocument: IDocument = Document(),
             externalDocument: IDocument = Document(),
+            templateRenderer: ITemplateRenderer = TemplateRenderer()
         ) : IPage<ViewModel> {
             val provider = object : IPageProvider<ViewModel> {
                 override fun getHtmlTag(context: Context, viewModel: ViewModel): TagContainer =
@@ -88,7 +90,8 @@ class Page<ViewModel> private constructor(
                 name,
                 BrowserSupport(provider),
                 CachedStyling(renderer),
-                visitors
+                visitors,
+                templateRenderer
             )
         }
     }

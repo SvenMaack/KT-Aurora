@@ -1,15 +1,9 @@
 package page_lib
 
 import css_lib.base.IDocument
-import template_lib.DynamicTemplate
-import template_lib.StaticTemplate
+import template_lib.Template
 
-interface StaticModule {
+interface Module<DTO> {
     val document: IDocument
-    val template: StaticTemplate
-}
-
-interface DynamicModule<DTO> {
-    val document: IDocument
-    val template: DynamicTemplate<DTO>
+    val template: Template<DTO>
 }

@@ -1,13 +1,8 @@
 package template_lib
 
-import template_lib.base.HtmlVisitorFactory
-
-public data class CSS (
-    val inlineStyling: String = "",
-    val externalStylingPath: String = "",
-)
+import template_lib.base.HtmlVisitorStrategy
 
 public data class Context(
-    val htmlVisitorFactory: HtmlVisitorFactory<String>,
-    val css: CSS,
+    val htmlVisitorStrategy: HtmlVisitorStrategy<String>,
+    val templateRenderer: ITemplateRenderer
 )
