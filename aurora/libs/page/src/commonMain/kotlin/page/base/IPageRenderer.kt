@@ -3,9 +3,8 @@ package page_lib.page.base
 import base.CssRenderer
 import css_lib.base.IDocument
 import css_lib.base.RuleVisitorFactory
-import template_lib.Context
-import template_lib.TemplateRenderer
-import template_lib.base.TagContainer
+import template.Context
+import template.base.TagContainer
 
 interface IPageRenderer {
     fun renderHtml(context: Context, tagContainer: TagContainer): String

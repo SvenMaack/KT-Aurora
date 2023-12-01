@@ -5,12 +5,12 @@ import css_lib.base.IDocument
 import page_lib.page.base.*
 import page_lib.page.extensions.BrowserSupport
 import page_lib.page.extensions.CachedStyling
-import template_lib.Context
-import template_lib.ITemplateRenderer
-import template_lib.Template
-import template_lib.TemplateRenderer
-import template_lib.base.HtmlVisitorStrategy
-import template_lib.base.TagContainer
+import template.Context
+import template.ITemplateRenderer
+import template.TemplateRenderer
+import template.Template
+import template.base.HtmlVisitorStrategy
+import template.base.TagContainer
 
 class PageContext
 

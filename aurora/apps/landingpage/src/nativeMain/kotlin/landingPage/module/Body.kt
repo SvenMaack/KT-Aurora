@@ -2,11 +2,11 @@ package landingPage.module
 
 import modules_lib.navigation.NavigationVM
 import modules_lib.navigation.NavigationModule
-import template_lib.Template
-import template_lib.StaticTemplate
-import template_lib.childs
-import template_lib.include
-import template_lib.tags.Body
+import template.Template
+import template.StaticTemplate
+import template.childs
+import template.include
+import template.tags.Body
 
 val BodyTemplate: Template<NavigationVM> = { context, data ->
     Body().apply {

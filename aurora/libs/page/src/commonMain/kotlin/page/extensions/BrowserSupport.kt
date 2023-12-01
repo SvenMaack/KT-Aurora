@@ -3,8 +3,8 @@ package page_lib.page.extensions
 import css_lib.base.DocumentList
 import css_lib.visitors.BrowserVersionVisitor
 import page_lib.page.base.IPageProvider
-import template_lib.Context
-import template_lib.base.TagContainer
+import template.Context
+import template.base.TagContainer
 
 class BrowserSupport<ViewModel>(private val inner: IPageProvider<ViewModel>): IPageProvider<ViewModel> by inner
 {

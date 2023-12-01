@@ -1,7 +1,7 @@
 package head_lib
 
-import template_lib.*
-import template_lib.tags.Head
+import template.*
+import template.tags.Head
 
 data class PageSeoVM(
     val title: String,

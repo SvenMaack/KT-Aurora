@@ -2,7 +2,7 @@ package modules_lib.navigation
 
 import css_lib.base.IDocument
 import page_lib.Module
-import template_lib.Template
+import template.Template
 
 val NavigationModule: Module<NavigationVM> = object : Module<NavigationVM> {
     override val document: IDocument = navigationCssDocument

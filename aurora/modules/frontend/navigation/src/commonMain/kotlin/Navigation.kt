@@ -8,9 +8,9 @@ import css_lib.properties.DisplayTypeValue.`inline-block`
 import css_lib.properties.ListStyleTypeValue.*
 import css_lib.properties.PositionValue.absolute
 import css_lib.properties.TextTransformValues.uppercase
-import template_lib.Template
-import template_lib.childs
-import template_lib.tags.Div
+import template.Template
+import template.childs
+import template.tags.Div
 import page_lib.ClassGenerator
 
 private val NAVIGATION: String = ClassGenerator("nav")

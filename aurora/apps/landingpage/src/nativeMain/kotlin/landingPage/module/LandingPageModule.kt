@@ -7,12 +7,12 @@ import landingPage.LandingPageDto
 import modules_lib.navigation.NavigationModule
 import page_lib.Module
 import head_lib.SimpleHeadTemplate
-import template_lib.Template
-import template_lib.include
-import template_lib.tags.enums.CountryCode.*
-import template_lib.tags.enums.GeneralLanguage.English
-import template_lib.tags.enums.minus
-import template_lib.tags.html
+import template.Template
+import template.include
+import template.tags.enums.CountryCode.*
+import template.tags.enums.GeneralLanguage.English
+import template.tags.enums.minus
+import template.tags.html
 
 private val landingPageTemplate: Template<LandingPageDto> = { context, data ->
     html(lang=English-UNITED_STATES) {

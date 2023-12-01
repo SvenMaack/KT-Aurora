@@ -1,7 +1,7 @@
 package page_lib
 
 import css_lib.base.IDocument
-import template_lib.Template
+import template.Template
 
 interface Module<DTO> {
     val document: IDocument

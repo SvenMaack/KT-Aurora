@@ -1,8 +1,8 @@
 package page_lib.page.base
 
 import css_lib.base.IDocument
-import template_lib.Context
-import template_lib.base.TagContainer
+import template.Context
+import template.base.TagContainer
 
 interface InlineCssProvider {
     fun getInlineCssDocument(): IDocument
