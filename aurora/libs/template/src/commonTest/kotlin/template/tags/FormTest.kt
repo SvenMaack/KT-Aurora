@@ -143,14 +143,17 @@ class FormTest {
     @Test
     fun `label function works`() {
         val form = Form("id1")
+        val formElement = object : FormElement {
+            override val id: String = "f1"
+        }
         every { blockLabel.invoke(any()) }.returns(Unit)
 
-        val label = form.label("a"["b"], `for` = "foo", clazz = "clazz", init = blockLabel::invoke)
+        val label = form.label("a"["b"], `for` = formElement, clazz = "clazz", init = blockLabel::invoke)
 
         verification(label, blockLabel, mapOf(
             "a" to listOf("b"),
             "form" to listOf(form.id),
-            "for" to listOf("foo"),
+            "for" to listOf("f1"),
             "class" to listOf("clazz")
         ))
     }
@@ -158,14 +161,17 @@ class FormTest {
     @Test
     fun `label function works without class`() {
         val form = Form("id1")
+        val formElement = object : FormElement {
+            override val id: String = "f1"
+        }
         every { blockLabel.invoke(any()) }.returns(Unit)
 
-        val label = form.label("a"["b"], `for` = "foo", init = blockLabel::invoke)
+        val label = form.label("a"["b"], `for` = formElement, init = blockLabel::invoke)
 
         verification(label, blockLabel, mapOf(
             "a" to listOf("b"),
             "form" to listOf(form.id),
-            "for" to listOf("foo"),
+            "for" to listOf("f1"),
         ))
     }
 

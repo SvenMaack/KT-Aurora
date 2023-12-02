@@ -79,13 +79,13 @@ public class Form(public val id: String): BodyTagContainer("form") {
     public inline fun label(
         vararg attributes: Attribute,
         clazz: String? = null,
-        `for`: String,
+        `for`: FormElement,
         init: Label.() -> Unit): Label = add(Label())
     {
         if(clazz==null)
-            setAttributes(*attributes, "form"[this@Form.id], "for"[`for`])
+            setAttributes(*attributes, "form"[this@Form.id], "for"[`for`.id])
         else
-            setAttributes(*attributes, "class"[clazz],"form"[this@Form.id], "for"[`for`])
+            setAttributes(*attributes, "class"[clazz],"form"[this@Form.id], "for"[`for`.id])
         init()
     }
 
