@@ -527,24 +527,11 @@ class BodyTagContainerTest {
         val tag = BodyTagContainer("tag")
         every { blockA.invoke(any()) }.returns(Unit)
 
-        val a = tag.a("a"["b"], href = "link", clazz = "clazz", init = blockA::invoke)
+        val a = tag.a("a"["b"], href = "link", init = blockA::invoke)
 
         verificationWithClass(a, blockA, mapOf(
             "a" to listOf("b"),
-            "href" to listOf("link"),
-            "class" to listOf("clazz"),
-        ))
-    }
-
-    @Test
-    fun `a function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockA.invoke(any()) }.returns(Unit)
-
-        val a = tag.a(href = "link", init = blockA::invoke)
-
-        verificationWithoutClass(a, blockA, mapOf(
-            "href" to listOf("link"),
+            "href" to listOf("link")
         ))
     }
 
@@ -575,37 +562,6 @@ class BodyTagContainerTest {
             "download" to listOf(null),
             "class" to listOf("clazz"),
             "hreflang" to listOf(GeneralLanguage.English.value),
-            "referrerpolicy" to listOf(ReferrerPolicy.ORIGIN.value),
-            "rel" to listOf(Rel.TAG.value),
-            "ping" to listOf("a b"),
-        ))
-    }
-
-    @Test
-    fun `a function works with all attributes if one is null`() {
-        val tag = BodyTagContainer("tag")
-        every { blockA.invoke(any()) }.returns(Unit)
-
-        val a = tag.a(
-            href = "link",
-            clazz = "clazz",
-            type = AudioType.WAV,
-            download = true,
-            target = Target.SELF,
-            hrefLang = null, //<--
-            referrerPolicy = ReferrerPolicy.ORIGIN,
-            rel = Rel.TAG,
-            pings = listOf("a", "b"),
-            init = blockA::invoke
-        )
-
-        verificationWithClass(a, blockA, mapOf(
-            "href" to listOf("link"),
-            "type" to listOf(AudioType.WAV.value),
-            "target" to listOf(Target.SELF.value),
-            "download" to listOf(null),
-            "class" to listOf("clazz"),
-            //"hreflang" to listOf("de"),
             "referrerpolicy" to listOf(ReferrerPolicy.ORIGIN.value),
             "rel" to listOf(Rel.TAG.value),
             "ping" to listOf("a b"),

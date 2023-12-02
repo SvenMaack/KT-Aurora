@@ -116,18 +116,8 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         init()
     }
 
-    @Suppress("LongParameterList")
-    public inline fun a(
-        vararg attributes: Attribute,
-        href: String,
-        clazz: String? = null,
-        init: A.() -> Unit): A = add(A())
-    {
-        if(clazz==null) setAttributes(*attributes, "href"[href]) else setAttributes(*attributes, "href"[href], "class"[clazz])
-        init()
-    }
-
     /**
+     * The "a"-tag defines a hyperlink, which is used to link from one page to another.
      * @param download Specifies that the target will be downloaded when a user clicks on the hyperlink
      * @param hrefLang Specifies the language of the linked document
      * @param pings    Specifies a list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
@@ -136,13 +126,13 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
      * @param target Specifies where to open the linked document
      * @param type Specifies the media type of the linked document
      */
-    @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+    @Suppress("LongParameterList", "SpreadOperator")
     public inline fun a(
         vararg attributes: Attribute,
         href: String,
-        type: MediaType,
-        download: Boolean,
-        target: Target = Target.SELF,
+        type: MediaType? = null,
+        download: Boolean = false,
+        target: Target? = null,
         clazz: String? = null,
         hrefLang: Language? = null,
         referrerPolicy: ReferrerPolicy? = null,
@@ -150,25 +140,26 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         pings: List<String> = listOf(),
         init: A.() -> Unit): A = add(A())
     {
-        val otherAttributes = mutableListOf(
+        setAttributes(
+            *attributes,
             "href"[href],
-            "type"[type.value],
-            "target"[target.value]
+            *AttributeFilter.filterTrue(
+                BoolAttribute("download", download),
+            ),
+            *AttributeFilter.filterNotNull(
+                "type"[type?.value],
+                "target"[target?.value],
+                "class"[clazz],
+                "hreflang"[hrefLang?.value],
+                "referrerpolicy"[referrerPolicy?.value],
+                "rel"[rel?.value],
+                if(pings.isEmpty())
+                    "ping"[null]
+                else
+                    "ping"[pings.joinToString(" ")],
+            )
         )
-        if(download)
-            otherAttributes.add(AttributeImpl(name = "download"))
-        if(clazz != null)
-            otherAttributes.add("class"[clazz])
-        if(hrefLang != null)
-            otherAttributes.add("hreflang"[hrefLang.value])
-        if(referrerPolicy != null)
-            otherAttributes.add("referrerpolicy"[referrerPolicy.value])
-        if(rel != null)
-            otherAttributes.add("rel"[rel.value])
-        if(pings.isNotEmpty())
-            otherAttributes.add("ping"[pings.joinToString(" ")])
 
-        setAttributes(*attributes, *otherAttributes.toTypedArray())
         init()
     }
 
