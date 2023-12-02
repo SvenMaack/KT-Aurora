@@ -117,10 +117,10 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
     }
 
     /**
-     * The "a"-tag defines a hyperlink, which is used to link from one page to another.
+     * The a-tag defines a hyperlink, which is used to link from one page to another.
      * @param download Specifies that the target will be downloaded when a user clicks on the hyperlink
      * @param hrefLang Specifies the language of the linked document
-     * @param pings    Specifies a list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
+     * @param pings Specifies a list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
      * @param referrerPolicy Specifies which referrer information to send with the link
      * @param rel Specifies the relationship between the current document and the linked document
      * @param target Specifies where to open the linked document

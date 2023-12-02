@@ -7,7 +7,7 @@ import template.base.get
 @Suppress("TooManyFunctions")
 public open class TextContainer(name: String): TagWithText(name) {
     /**
-     * The tag defines an abbreviation or an acronym, like "HTML", "CSS", "Mr.", "Dr.", "ASAP", "ATM".
+     * The abbr-tag defines an abbreviation or an acronym, like "HTML", "CSS", "Mr.", "Dr.", "ASAP", "ATM".
      */
     public inline fun abbr(title: String, init: Abbr.() -> Unit): Abbr = add(Abbr()) {
         setAttributes("title"[title])
