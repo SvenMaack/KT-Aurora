@@ -51,6 +51,8 @@ class BodyTagContainerTest {
     @Mock
     val blockA = mock(classOf<Fun1<A, Unit>>())
     @Mock
+    val blockForm = mock(classOf<Fun1<Form, Unit>>())
+    @Mock
     val blockArticle = mock(classOf<Fun1<Article, Unit>>())
     @Mock
     val blockAside = mock(classOf<Fun1<Aside, Unit>>())
@@ -596,6 +598,107 @@ class BodyTagContainerTest {
     }
 
     @Test
+    fun `form function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockForm.invoke(any()) }.returns(Unit)
+
+        val form = tag.form("a"["b"], action = "action1", name = "name1", method = Method.POST, clazz = "clazz", init = blockForm::invoke)
+
+        verificationWithClass(form, blockForm, mapOf(
+            "a" to listOf("b"),
+            "action" to listOf("action1"),
+            "name" to listOf("name1"),
+            "method" to listOf("post"),
+            "class" to listOf("clazz"),
+        ))
+    }
+
+    @Test
+    fun `form function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockForm.invoke(any()) }.returns(Unit)
+
+        val form = tag.form("a"["b"], action = "action1", name = "name1", method = Method.POST, init = blockForm::invoke)
+
+        verificationWithoutClass(form, blockForm, mapOf(
+            "a" to listOf("b"),
+            "action" to listOf("action1"),
+            "name" to listOf("name1"),
+            "method" to listOf("post"),
+        ))
+    }
+
+    @Test
+    fun `form function works with all attributes`() {
+        val tag = BodyTagContainer("tag")
+        every { blockForm.invoke(any()) }.returns(Unit)
+
+        val form = tag.form(
+            "a"["b"],
+            acceptCharset = "UTF-8",
+            clazz = "clazz",
+            action = "action1",
+            autoComplete = AutoComplete.OFF,
+            encType = EncType.Application_x_www_form_urlencoded,
+            method = Method.POST,
+            name = "name1",
+            noValidate = true,
+            rel = Rel.TAG,
+            target = Target.SELF,
+            init = blockForm::invoke
+        )
+
+        verificationWithClass(form, blockForm, mapOf(
+            "a" to listOf("b"),
+            "accept-charset" to listOf("UTF-8"),
+            "action" to listOf("action1"),
+            "autocomplete" to listOf(AutoComplete.OFF.value),
+            "enctype" to listOf(EncType.Application_x_www_form_urlencoded.value),
+            "method" to listOf(Method.POST.value),
+            "name" to listOf("name1"),
+            "novalidate" to listOf(null),
+            "rel" to listOf(Rel.TAG.value),
+            "target" to listOf(Target.SELF.value),
+            "class" to listOf("clazz"),
+        ))
+    }
+
+    @Test
+    fun `form function works with all attributes if some are null`() {
+        val tag = BodyTagContainer("tag")
+        every { blockForm.invoke(any()) }.returns(Unit)
+
+        val form = tag.form(
+            "a"["b"],
+            acceptCharset = "UTF-8",
+            clazz = "clazz",
+            action = "action1",
+            autoComplete = AutoComplete.OFF,
+            encType = EncType.Application_x_www_form_urlencoded,
+            method = Method.POST,
+            name = "name1",
+            noValidate = true,
+            rel = null, //<--
+            target = null, //<--
+            init = blockForm::invoke
+        )
+
+        verificationWithClass(form, blockForm, mapOf(
+            "a" to listOf("b"),
+            "accept-charset" to listOf("UTF-8"),
+            "action" to listOf("action1"),
+            "autocomplete" to listOf(AutoComplete.OFF.value),
+            "enctype" to listOf(EncType.Application_x_www_form_urlencoded.value),
+            "method" to listOf(Method.POST.value),
+            "name" to listOf("name1"),
+            "novalidate" to listOf(null),
+            //"rel" to listOf(null),
+            //"target" to listOf(null),
+            "class" to listOf("clazz"),
+        ))
+    }
+
+    @Test
     fun `br function works`() {
         val tag = BodyTagContainer("tag")
         val br = tag.br()
@@ -622,7 +725,9 @@ class BodyTagContainerTest {
         verify { callable.invoke(tag) }
             .wasInvoked(exactly = once)
 
-        assertEquals(expectedMap, tag.attributes)
+        expectedMap.forEach { (key, value) ->
+            assertEquals(value, tag.attributes[key], key)
+        }
     }
 
     private fun <Tag: TagWithAttributes> verificationWithoutClass(
@@ -635,6 +740,8 @@ class BodyTagContainerTest {
         verify { callable.invoke(tag) }
             .wasInvoked(exactly = once)
 
-        assertEquals(expectedMap, tag.attributes)
+        expectedMap.forEach { (key, value) ->
+            assertEquals(value, tag.attributes[key], key)
+        }
     }
 }

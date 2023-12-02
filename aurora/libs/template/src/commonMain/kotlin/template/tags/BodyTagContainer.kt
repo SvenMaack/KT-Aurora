@@ -1,12 +1,14 @@
 package template.tags
 
 import template.base.Attribute
+import template.base.AttributeWithValueImpl
 import template.base.get
 import template.base.TagContainer
 import template.base.AttributeImpl
 import template.tags.enums.Target
 import template.tags.enums.Language
 import template.tags.enums.MediaType
+import template.tags.enums.Rel
 
 @Suppress("TooManyFunctions", "LargeClass")
 public open class BodyTagContainer(name: String) : TagContainer(name) {
@@ -112,8 +114,8 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         vararg attributes: Attribute,
         href: String,
         clazz: String? = null,
-        init: A.() -> Unit): A = add(A()
-    ) {
+        init: A.() -> Unit): A = add(A())
+    {
         if(clazz==null) setAttributes(*attributes, "href"[href]) else setAttributes(*attributes, "href"[href], "class"[clazz])
         init()
     }
@@ -139,8 +141,8 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         referrerPolicy: ReferrerPolicy? = null,
         rel: Rel? = null,
         pings: List<String> = listOf(),
-        init: A.() -> Unit): A = add(A(),
-    ) {
+        init: A.() -> Unit): A = add(A())
+    {
         val otherAttributes = mutableListOf(
             "href"[href],
             "type"[type.value],
@@ -158,6 +160,58 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
             otherAttributes.add("rel"[rel.value])
         if(pings.isNotEmpty())
             otherAttributes.add("ping"[pings.joinToString(" ")])
+
+        setAttributes(*attributes, *otherAttributes.toTypedArray())
+        init()
+    }
+
+    @Suppress("LongParameterList")
+    public inline fun form(
+        vararg attributes: Attribute,
+        action: String,
+        name: String,
+        method: Method = Method.POST,
+        clazz: String? = null,
+        init: Form.() -> Unit): Form = add(Form())
+    {
+        if(clazz==null)
+            setAttributes(*attributes, "action"[action], "name"[name], "method"[method.value])
+        else
+            setAttributes(*attributes, "action"[action], "name"[name], "method"[method.value], "class"[clazz])
+        init()
+    }
+
+    @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+    public inline fun form(
+        vararg attributes: Attribute,
+        acceptCharset: String = "UTF-8",
+        action: String,
+        autoComplete: AutoComplete = AutoComplete.ON,
+        encType: EncType = EncType.Application_x_www_form_urlencoded,
+        method: Method = Method.POST,
+        name: String,
+        noValidate: Boolean = false,
+        rel: Rel? = null,
+        target: Target? = null,
+        clazz: String? = null,
+        init: Form.() -> Unit): Form = add(Form())
+    {
+        val otherAttributes = mutableListOf(
+            "accept-charset"[acceptCharset],
+            "action"[action],
+            "autocomplete"[autoComplete.value],
+            "enctype"[encType.value],
+            "method"[method.value],
+            "name"[name]
+        )
+        if(noValidate)
+            otherAttributes.add(AttributeImpl(name = "novalidate"))
+        if(rel != null)
+            otherAttributes.add(AttributeWithValueImpl(name = "rel", value = rel.value))
+        if(target != null)
+            otherAttributes.add(AttributeWithValueImpl(name = "target", value = target.value))
+        if(clazz != null)
+            otherAttributes.add(AttributeWithValueImpl(name = "class", value = clazz))
 
         setAttributes(*attributes, *otherAttributes.toTypedArray())
         init()
