@@ -5,13 +5,28 @@ import template.base.get
 import template.tags.enums.Target
 
 public class Head: TagContainer("head") {
-    public inline fun title(init: Title.() -> Unit): Title = add(Title(), init)
-
-    public inline fun style(init: Style.() -> Unit): Style = add(Style(), init)
-
+    /**
+     * The base-tag specifies the base URL and/or target for all relative URLs in a document. The base-tag must have either an href or a target attribute present, or both.
+     */
     public inline fun base(href: String, target: Target): Base = add(Base()) {
         setAttributes("href"[href], "target"[target.value])
     }
+    /**
+     * The base-tag specifies the base URL and/or target for all relative URLs in a document. The base-tag must have either an href or a target attribute present, or both.
+     */
+    public inline fun base(href: String): Base = add(Base()) {
+        setAttributes("href"[href])
+    }
+    /**
+     * The base-tag specifies the base URL and/or target for all relative URLs in a document. The base-tag must have either an href or a target attribute present, or both.
+     */
+    public inline fun base(target: Target): Base = add(Base()) {
+        setAttributes("target"[target.value])
+    }
+
+    public inline fun title(init: Title.() -> Unit): Title = add(Title(), init)
+
+    public inline fun style(init: Style.() -> Unit): Style = add(Style(), init)
 
     public inline fun meta(name: String, content: String): Meta = add(Meta()) {
         setAttributes("name"[name], "content"[content])

@@ -11,6 +11,78 @@ import template.tags.enums.Target
 
  @Suppress("LargeClass", "LongParameterList", "TooManyFunctions")
 public open class Form(public val id: String, tagName: String = "form"): BodyTagContainer(tagName) {
+     /**
+      * The button-tag defines a clickable button.
+      */
+     @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+     public inline fun button(
+         vararg attributes: Attribute,
+         clazz: String? = null,
+         autoFocus: Boolean = false,
+         disabled: Boolean = false,
+         name: String,
+         value: String? = null,
+         type: ButtonType = ButtonType.Button,
+         init: Button.() -> Unit): Button = add(Button())
+     {
+         setAttributes(
+             *attributes,
+             "name"[name],
+             "form"[this@Form.id],
+             "type"[type.value],
+             *AttributeFilter.filterTrue(
+                 BoolAttribute("autofocus", autoFocus),
+                 BoolAttribute("disabled", disabled),
+             ),
+             *AttributeFilter.filterNotNull(
+                 "class"[clazz],
+                 "value"[value],
+             )
+         )
+         init()
+     }
+
+     /**
+      * The button-tag with type submit defines a clickable button for submitting a form.
+      */
+     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
+     public inline fun submit(
+         vararg attributes: Attribute,
+         name: String,
+         formAction: String,
+         clazz: String? = null,
+         autoFocus: Boolean = false,
+         disabled: Boolean = false,
+         formEnctype: EncType = EncType.Application_x_www_form_urlencoded,
+         formMethod: Method = Method.POST,
+         formNoValidate: Boolean = false,
+         formTarget: Target = Target.SELF,
+         value: String? = null,
+         init: Button.() -> Unit): Button = add(Button())
+     {
+         setAttributes(
+             *attributes,
+             "name"[name],
+             "form"[this@Form.id],
+             "type"["submit"],
+             "formenctype"[formEnctype.value],
+             "formmethod"[formMethod.value],
+             "formtarget"[formTarget.value],
+             "formaction"[formAction],
+             *AttributeFilter.filterTrue(
+                 BoolAttribute("formnovalidate", formNoValidate),
+                 BoolAttribute("autofocus", autoFocus),
+                 BoolAttribute("disabled", disabled),
+             ),
+             *AttributeFilter.filterNotNull(
+                 "class"[clazz],
+                 "value"[value],
+             )
+         )
+         init()
+     }
+
+
      public inline fun input(
          vararg attributes: Attribute,
          clazz: String? = null,
@@ -234,103 +306,6 @@ public open class Form(public val id: String, tagName: String = "form"): BodyTag
             setAttributes(*attributes, "form"[this@Form.id], "for"[`for`.id])
         else
             setAttributes(*attributes, "class"[clazz],"form"[this@Form.id], "for"[`for`.id])
-        init()
-    }
-
-    @Suppress("LongParameterList")
-    public inline fun button(
-        vararg attributes: Attribute,
-        clazz: String? = null,
-        name: String,
-        type: ButtonType = ButtonType.Button,
-        init: Button.() -> Unit): Button = add(Button())
-    {
-        if(clazz==null)
-            setAttributes(*attributes, "form"[this@Form.id], "name"[name], "type"[type.value])
-        else
-            setAttributes(*attributes, "class"[clazz], "form"[this@Form.id], "name"[name], "type"[type.value])
-        init()
-    }
-
-    @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
-    public inline fun button(
-        vararg attributes: Attribute,
-        clazz: String? = null,
-        autoFocus: Boolean = false,
-        disabled: Boolean = false,
-        name: String,
-        value: String? = null,
-        type: ButtonType = ButtonType.Button,
-        init: Button.() -> Unit): Button = add(Button())
-    {
-        val otherAttributes = mutableListOf(
-            "form"[this@Form.id],
-            "name"[name],
-            "type"[type.value]
-        )
-        if (autoFocus)
-            otherAttributes.add(AttributeImpl(name = "autofocus"))
-        if (disabled)
-            otherAttributes.add(AttributeImpl(name = "disabled"))
-        if (value != null)
-            otherAttributes.add(AttributeWithValueImpl(name = "value", value = value))
-        if (clazz != null)
-            otherAttributes.add(AttributeWithValueImpl(name = "class", value = clazz))
-
-        setAttributes(*attributes, *otherAttributes.toTypedArray())
-        init()
-    }
-
-    @Suppress("LongParameterList")
-    public inline fun submit(
-        vararg attributes: Attribute,
-        clazz: String? = null,
-        name: String,
-        init: Button.() -> Unit): Button = add(Button())
-    {
-        if(clazz==null)
-            setAttributes(*attributes, "form"[this@Form.id], "name"[name], "type"["submit"])
-        else
-            setAttributes(*attributes, "class"[clazz], "form"[this@Form.id], "name"[name], "type"["submit"])
-        init()
-    }
-
-    @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
-    public inline fun submit(
-        vararg attributes: Attribute,
-        clazz: String? = null,
-        autoFocus: Boolean = false,
-        disabled: Boolean = false,
-        formAction: String,
-        formEnctype: EncType,
-        formMethod: Method,
-        formNoValidate: Boolean = false,
-        formTarget: Target,
-        name: String,
-        value: String? = null,
-        init: Button.() -> Unit): Button = add(Button())
-    {
-        val otherAttributes = mutableListOf(
-            "form"[this@Form.id],
-            "name"[name],
-            "formaction"[formAction],
-            "formenctype"[formEnctype.value],
-            "formmethod"[formMethod.value],
-            "type"["submit"],
-            "formtarget"[formTarget.value]
-        )
-        if (autoFocus)
-            otherAttributes.add(AttributeImpl(name = "autofocus"))
-        if (disabled)
-            otherAttributes.add(AttributeImpl(name = "disabled"))
-        if (value != null)
-            otherAttributes.add(AttributeWithValueImpl(name = "value", value = value))
-        if (formNoValidate)
-            otherAttributes.add(AttributeImpl(name = "formnovalidate"))
-        if (clazz != null)
-            otherAttributes.add(AttributeWithValueImpl(name = "class", value = clazz))
-
-        setAttributes(*attributes, *otherAttributes.toTypedArray())
         init()
     }
 }

@@ -76,16 +76,28 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         init()
     }
 
+    /**
+     * The blockquote-tag specifies a section that is quoted from another source.
+     */
+    public inline fun blockQuote(vararg attributes: Attribute, cite: String, init: BlockQuote.() -> Unit): BlockQuote = add(BlockQuote()) {
+        setAttributes(*attributes, "cite"[cite])
+        init()
+    }
+
+    /**
+     * The br-tag inserts a single line break.
+     */
+    @Deprecated("Use css instead", ReplaceWith("css"))
+    public inline fun br(): Br = add(Br)
+
+
+
     public inline fun p(vararg attributes: Attribute, clazz: String? = null, init: P.() -> Unit): P = add(P()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
     public inline fun span(vararg attributes: Attribute, clazz: String? = null, init: Span.() -> Unit): Span = add(Span()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-    public inline fun blockQuote(vararg attributes: Attribute, cite: String, init: BlockQuote.() -> Unit): BlockQuote = add(BlockQuote()) {
-        setAttributes(*attributes, "cite"[cite])
         init()
     }
 
@@ -258,7 +270,5 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         init()
     }
 
-
-    public inline fun br(): Br = add(Br)
     public inline fun hr(): Hr = add(Hr)
 }

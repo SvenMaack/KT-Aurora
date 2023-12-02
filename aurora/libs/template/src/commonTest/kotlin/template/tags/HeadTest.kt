@@ -19,13 +19,35 @@ class HeadTest {
     }
 
     @Test
-    fun `base function works`() {
+    fun `base function works with both parameters`() {
         val head = Head()
 
         val base = head.base(href = "link", target = Target.SELF)
 
         assertEquals(mapOf(
             "href" to listOf("link"),
+            "target" to listOf(Target.SELF.value),
+        ), base.attributes)
+    }
+
+    @Test
+    fun `base function works with href`() {
+        val head = Head()
+
+        val base = head.base(href = "link")
+
+        assertEquals(mapOf(
+            "href" to listOf("link"),
+        ), base.attributes)
+    }
+
+    @Test
+    fun `base function works with target`() {
+        val head = Head()
+
+        val base = head.base(target = Target.SELF)
+
+        assertEquals(mapOf(
             "target" to listOf(Target.SELF.value),
         ), base.attributes)
     }

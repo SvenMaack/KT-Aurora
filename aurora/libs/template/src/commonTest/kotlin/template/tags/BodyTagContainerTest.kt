@@ -757,6 +757,7 @@ class BodyTagContainerTest {
         ))
     }
 
+    @Suppress("DEPRECATION")
     @Test
     fun `br function works`() {
         val tag = BodyTagContainer("tag")
