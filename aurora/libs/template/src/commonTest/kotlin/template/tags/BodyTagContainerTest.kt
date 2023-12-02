@@ -602,7 +602,7 @@ class BodyTagContainerTest {
         val tag = BodyTagContainer("tag")
         every { blockForm.invoke(any()) }.returns(Unit)
 
-        val form = tag.form("a"["b"], action = "action1", name = "name1", method = Method.POST, clazz = "clazz", init = blockForm::invoke)
+        val form = tag.form("a"["b"], action = "action1", name = "name1", method = Method.POST, clazz = "clazz", id="id1", init = blockForm::invoke)
 
         verificationWithClass(form, blockForm, mapOf(
             "a" to listOf("b"),
@@ -610,6 +610,7 @@ class BodyTagContainerTest {
             "name" to listOf("name1"),
             "method" to listOf("post"),
             "class" to listOf("clazz"),
+            "id" to listOf("id1"),
         ))
     }
 
@@ -618,13 +619,14 @@ class BodyTagContainerTest {
         val tag = BodyTagContainer("tag")
         every { blockForm.invoke(any()) }.returns(Unit)
 
-        val form = tag.form("a"["b"], action = "action1", name = "name1", method = Method.POST, init = blockForm::invoke)
+        val form = tag.form("a"["b"], action = "action1", name = "name1", method = Method.POST, id="id1", init = blockForm::invoke)
 
         verificationWithoutClass(form, blockForm, mapOf(
             "a" to listOf("b"),
             "action" to listOf("action1"),
             "name" to listOf("name1"),
             "method" to listOf("post"),
+            "id" to listOf("id1"),
         ))
     }
 
@@ -645,6 +647,7 @@ class BodyTagContainerTest {
             noValidate = true,
             rel = Rel.TAG,
             target = Target.SELF,
+            id = "id1",
             init = blockForm::invoke
         )
 
@@ -660,6 +663,7 @@ class BodyTagContainerTest {
             "rel" to listOf(Rel.TAG.value),
             "target" to listOf(Target.SELF.value),
             "class" to listOf("clazz"),
+            "id" to listOf("id1"),
         ))
     }
 
@@ -680,6 +684,7 @@ class BodyTagContainerTest {
             noValidate = true,
             rel = null, //<--
             target = null, //<--
+            id = "id1",
             init = blockForm::invoke
         )
 
@@ -695,6 +700,7 @@ class BodyTagContainerTest {
             //"rel" to listOf(null),
             //"target" to listOf(null),
             "class" to listOf("clazz"),
+            "id" to listOf("id1"),
         ))
     }
 

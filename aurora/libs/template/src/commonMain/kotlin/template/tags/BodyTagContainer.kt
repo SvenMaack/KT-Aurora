@@ -170,14 +170,15 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         vararg attributes: Attribute,
         action: String,
         name: String,
+        id: String,
         method: Method = Method.POST,
         clazz: String? = null,
         init: Form.() -> Unit): Form = add(Form())
     {
         if(clazz==null)
-            setAttributes(*attributes, "action"[action], "name"[name], "method"[method.value])
+            setAttributes(*attributes, "action"[action], "name"[name], "method"[method.value], "id"[id])
         else
-            setAttributes(*attributes, "action"[action], "name"[name], "method"[method.value], "class"[clazz])
+            setAttributes(*attributes, "action"[action], "name"[name], "method"[method.value], "id"[id], "class"[clazz])
         init()
     }
 
@@ -190,6 +191,7 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         encType: EncType = EncType.Application_x_www_form_urlencoded,
         method: Method = Method.POST,
         name: String,
+        id: String,
         noValidate: Boolean = false,
         rel: Rel? = null,
         target: Target? = null,
@@ -202,7 +204,8 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
             "autocomplete"[autoComplete.value],
             "enctype"[encType.value],
             "method"[method.value],
-            "name"[name]
+            "name"[name],
+            "id"[id]
         )
         if(noValidate)
             otherAttributes.add(AttributeImpl(name = "novalidate"))
