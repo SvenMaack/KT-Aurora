@@ -12,6 +12,9 @@ public typealias StaticTemplate = Template<Unit>
 public fun <VM>TagContainer.include(context: Context, template: Template<VM>, vm: VM): TagContainer =
     add(template(context, vm))
 
+/**
+ * Caches the included tags
+ */
 public fun TagContainer.include(context: Context, template: Template<Unit>): TagContainer =
     add(TransientTag().apply {
         val timestamp = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
