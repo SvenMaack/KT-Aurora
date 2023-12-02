@@ -1,6 +1,6 @@
 package page_lib
 
-import css_lib.base.IDocument
+import css.base.IDocument
 import template.Template
 
 interface Module<DTO> {

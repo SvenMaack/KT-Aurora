@@ -1,8 +1,8 @@
 package landingPage.module
 
-import css_lib.base.DocumentList
-import css_lib.base.EmptyDocument
-import css_lib.base.IDocument
+import css.base.DocumentList
+import css.base.EmptyDocument
+import css.base.IDocument
 import landingPage.LandingPageDto
 import modules_lib.navigation.NavigationModule
 import page_lib.Module

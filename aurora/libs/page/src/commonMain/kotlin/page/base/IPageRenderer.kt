@@ -1,8 +1,8 @@
 package page_lib.page.base
 
-import base.CssRenderer
-import css_lib.base.IDocument
-import css_lib.base.RuleVisitorFactory
+import css.base.CssRenderer
+import css.base.IDocument
+import css.base.RuleVisitorFactory
 import template.Context
 import template.base.TagContainer
 

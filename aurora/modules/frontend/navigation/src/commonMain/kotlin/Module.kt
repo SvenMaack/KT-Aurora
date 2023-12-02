@@ -1,6 +1,6 @@
 package modules_lib.navigation
 
-import css_lib.base.IDocument
+import css.base.IDocument
 import page_lib.Module
 import template.Template
 

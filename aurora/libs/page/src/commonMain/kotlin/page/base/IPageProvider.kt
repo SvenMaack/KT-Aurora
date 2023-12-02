@@ -1,6 +1,6 @@
 package page_lib.page.base
 
-import css_lib.base.IDocument
+import css.base.IDocument
 import template.Context
 import template.base.TagContainer
 

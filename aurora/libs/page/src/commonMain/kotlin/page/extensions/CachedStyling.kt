@@ -1,7 +1,7 @@
 package page_lib.page.extensions
 
-import css_lib.base.IDocument
-import css_lib.base.RuleVisitorFactory
+import css.base.IDocument
+import css.base.RuleVisitorFactory
 import page_lib.page.base.IPageRenderer
 
 class CachedStyling(private val inner: IPageRenderer): IPageRenderer by inner {

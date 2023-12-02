@@ -1,9 +1,9 @@
 package page_lib.page.base
 
-import css_lib.base.RuleVisitorFactory
+import css.base.RuleVisitorFactory
 import template.base.HtmlVisitorStrategy
-import css_lib.visitors.ProductionVisitor as CssProductionVisitor
-import css_lib.visitors.DebugVisitor as CssDebugVisitor
+import css.visitors.ProductionVisitor as CssProductionVisitor
+import css.visitors.DebugVisitor as CssDebugVisitor
 import template.visitors.DebugHtmlVisitor
 import template.visitors.ProductionHtmlVisitor
 

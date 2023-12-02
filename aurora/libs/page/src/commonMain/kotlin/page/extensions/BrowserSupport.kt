@@ -1,7 +1,7 @@
 package page_lib.page.extensions
 
-import css_lib.base.DocumentList
-import css_lib.visitors.BrowserVersionVisitor
+import css.base.DocumentList
+import css.visitors.BrowserVersionVisitor
 import page_lib.page.base.IPageProvider
 import template.Context
 import template.base.TagContainer

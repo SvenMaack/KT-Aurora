@@ -1,7 +1,7 @@
 package page_lib.page
 
-import css_lib.base.Document
-import css_lib.base.IDocument
+import css.base.Document
+import css.base.IDocument
 import page_lib.page.base.*
 import page_lib.page.extensions.BrowserSupport
 import page_lib.page.extensions.CachedStyling

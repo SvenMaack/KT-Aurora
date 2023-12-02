@@ -1,13 +1,13 @@
 @file:Suppress("WrapUnaryOperator")
 package modules_lib.navigation
 
-import css_lib.base.Document
-import css_lib.base.IDocument
-import css_lib.properties.*
-import css_lib.properties.DisplayTypeValue.`inline-block`
-import css_lib.properties.ListStyleTypeValue.*
-import css_lib.properties.PositionValue.absolute
-import css_lib.properties.TextTransformValues.uppercase
+import css.base.Document
+import css.base.IDocument
+import css.properties.*
+import css.properties.DisplayTypeValue.`inline-block`
+import css.properties.ListStyleTypeValue.*
+import css.properties.PositionValue.absolute
+import css.properties.TextTransformValues.uppercase
 import template.Template
 import template.childs
 import template.tags.Div
