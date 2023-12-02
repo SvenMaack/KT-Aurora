@@ -71,6 +71,7 @@ public class Form(public val id: String): BodyTagContainer("form") {
          name: String,
          init: TextArea.() -> Unit): TextArea = add(TextArea(id))
      {
+         @Suppress("DuplicatedCode")
          if(clazz==null)
              setAttributes(*attributes, "form"[this@Form.id], "id"[id], "name"[name])
          else
