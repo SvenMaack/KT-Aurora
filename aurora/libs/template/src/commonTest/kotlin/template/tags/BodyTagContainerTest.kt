@@ -734,6 +734,7 @@ class BodyTagContainerTest {
         expectedMap.forEach { (key, value) ->
             assertEquals(value, tag.attributes[key], key)
         }
+        assertEquals(expectedMap.keys.sorted(), tag.attributes.keys.sorted())
     }
 
     private fun <Tag: TagWithAttributes> verificationWithoutClass(
@@ -749,5 +750,6 @@ class BodyTagContainerTest {
         expectedMap.forEach { (key, value) ->
             assertEquals(value, tag.attributes[key], key)
         }
+        assertEquals(expectedMap.keys.sorted(), tag.attributes.keys.sorted())
     }
 }

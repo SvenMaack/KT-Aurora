@@ -5,9 +5,11 @@ import template.base.AttributeWithValueImpl
 import template.base.get
 import template.base.TagContainer
 import template.base.AttributeImpl
+import template.tags.enums.EncType
 import template.tags.enums.Target
-import template.tags.enums.Language
+import template.tags.enums.Method
 import template.tags.enums.MediaType
+import template.tags.enums.Language
 import template.tags.enums.Rel
 
 @Suppress("TooManyFunctions", "LargeClass")
