@@ -65,6 +65,113 @@ class BodyTagContainerTest {
     @Mock
     val blockDetails = mock(classOf<Fun1<Details, Unit>>())
 
+    //<editor-fold desc="a function">
+    @Test
+    fun `a function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockA.invoke(any()) }.returns(Unit)
+
+        val a = tag.a("a"["b"], href = "link", init = blockA::invoke)
+
+        verificationWithClass(a, blockA, mapOf(
+            "a" to listOf("b"),
+            "href" to listOf("link")
+        ))
+    }
+
+    @Test
+    fun `a function works with all attributes`() {
+        val tag = BodyTagContainer("tag")
+        every { blockA.invoke(any()) }.returns(Unit)
+
+        val a = tag.a(
+            "a"["b"],
+            href = "link",
+            clazz = "clazz",
+            type = AudioType.WAV,
+            download = true,
+            target = Target.SELF,
+            hrefLang = GeneralLanguage.English,
+            referrerPolicy = ReferrerPolicy.ORIGIN,
+            rel = Rel.TAG,
+            pings = listOf("a", "b"),
+            init = blockA::invoke
+        )
+
+        verificationWithClass(a, blockA, mapOf(
+            "a" to listOf("b"),
+            "href" to listOf("link"),
+            "type" to listOf(AudioType.WAV.value),
+            "target" to listOf(Target.SELF.value),
+            "download" to listOf(null),
+            "class" to listOf("clazz"),
+            "hreflang" to listOf(GeneralLanguage.English.value),
+            "referrerpolicy" to listOf(ReferrerPolicy.ORIGIN.value),
+            "rel" to listOf(Rel.TAG.value),
+            "ping" to listOf("a b"),
+        ))
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="address function">
+    @Test
+    fun `address function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockAddress.invoke(any()) }.returns(Unit)
+
+        val address = tag.address("a"["b"], title = "title1", init = blockAddress::invoke)
+
+        verificationWithClass(address, blockAddress, mapOf(
+            "a" to listOf("b"),
+            "title" to listOf("title1"),
+        ))
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="article function">
+    @Test
+    fun `article function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockArticle.invoke(any()) }.returns(Unit)
+
+        val article = tag.article("a"["b"], clazz = "clazz", init = blockArticle::invoke)
+
+        verificationWithClass(article, blockArticle)
+    }
+
+    @Test
+    fun `article function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockArticle.invoke(any()) }.returns(Unit)
+
+        val article = tag.article("a"["b"], init = blockArticle::invoke)
+
+        verificationWithoutClass(article, blockArticle)
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="aside function">
+    @Test
+    fun `aside function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockAside.invoke(any()) }.returns(Unit)
+
+        val aside = tag.aside("a"["b"], clazz = "clazz", init = blockAside::invoke)
+
+        verificationWithClass(aside, blockAside)
+    }
+
+    @Test
+    fun `aside function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockAside.invoke(any()) }.returns(Unit)
+
+        val aside = tag.aside("a"["b"], init = blockAside::invoke)
+
+        verificationWithoutClass(aside, blockAside)
+    }
+    //</editor-fold>
+
     @Test
     fun `p function works`() {
         val tag = BodyTagContainer("tag")
@@ -114,19 +221,6 @@ class BodyTagContainerTest {
         verificationWithoutClass(blockQuote, blockBlockQuote, mapOf(
             "a" to listOf("b"),
             "cite" to listOf("link"),
-        ))
-    }
-
-    @Test
-    fun `address function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockAddress.invoke(any()) }.returns(Unit)
-
-        val address = tag.address("a"["b"], title = "title1", init = blockAddress::invoke)
-
-        verificationWithClass(address, blockAddress, mapOf(
-            "a" to listOf("b"),
-            "title" to listOf("title1"),
         ))
     }
 
@@ -311,46 +405,6 @@ class BodyTagContainerTest {
     }
 
     @Test
-    fun `article function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockArticle.invoke(any()) }.returns(Unit)
-
-        val article = tag.article("a"["b"], clazz = "clazz", init = blockArticle::invoke)
-
-        verificationWithClass(article, blockArticle)
-    }
-
-    @Test
-    fun `article function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockArticle.invoke(any()) }.returns(Unit)
-
-        val article = tag.article("a"["b"], init = blockArticle::invoke)
-
-        verificationWithoutClass(article, blockArticle)
-    }
-
-    @Test
-    fun `aside function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockAside.invoke(any()) }.returns(Unit)
-
-        val aside = tag.aside("a"["b"], clazz = "clazz", init = blockAside::invoke)
-
-        verificationWithClass(aside, blockAside)
-    }
-
-    @Test
-    fun `aside function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockAside.invoke(any()) }.returns(Unit)
-
-        val aside = tag.aside("a"["b"], init = blockAside::invoke)
-
-        verificationWithoutClass(aside, blockAside)
-    }
-
-    @Test
     fun `nav function works`() {
         val tag = BodyTagContainer("tag")
         every { blockNav.invoke(any()) }.returns(Unit)
@@ -520,52 +574,6 @@ class BodyTagContainerTest {
         val details = tag.details(false, init = blockDetails::invoke)
 
         verificationWithClass(details, blockDetails, mapOf())
-    }
-
-    @Test
-    fun `a function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockA.invoke(any()) }.returns(Unit)
-
-        val a = tag.a("a"["b"], href = "link", init = blockA::invoke)
-
-        verificationWithClass(a, blockA, mapOf(
-            "a" to listOf("b"),
-            "href" to listOf("link")
-        ))
-    }
-
-    @Test
-    fun `a function works with all attributes`() {
-        val tag = BodyTagContainer("tag")
-        every { blockA.invoke(any()) }.returns(Unit)
-
-        val a = tag.a(
-            "a"["b"],
-            href = "link",
-            clazz = "clazz",
-            type = AudioType.WAV,
-            download = true,
-            target = Target.SELF,
-            hrefLang = GeneralLanguage.English,
-            referrerPolicy = ReferrerPolicy.ORIGIN,
-            rel = Rel.TAG,
-            pings = listOf("a", "b"),
-            init = blockA::invoke
-        )
-
-        verificationWithClass(a, blockA, mapOf(
-            "a" to listOf("b"),
-            "href" to listOf("link"),
-            "type" to listOf(AudioType.WAV.value),
-            "target" to listOf(Target.SELF.value),
-            "download" to listOf(null),
-            "class" to listOf("clazz"),
-            "hreflang" to listOf(GeneralLanguage.English.value),
-            "referrerpolicy" to listOf(ReferrerPolicy.ORIGIN.value),
-            "rel" to listOf(Rel.TAG.value),
-            "ping" to listOf("a b"),
-        ))
     }
 
     @Test

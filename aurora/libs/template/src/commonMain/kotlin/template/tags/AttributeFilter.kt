@@ -2,7 +2,8 @@ package template.tags
 
 import template.base.Attribute
 
-public data class BoolAttribute(
+@PublishedApi
+internal data class BoolAttribute(
     override val name: String,
     val use: Boolean,
 ): Attribute {
@@ -10,13 +11,16 @@ public data class BoolAttribute(
         null
 }
 
-public object AttributeFilter {
-    public inline fun filterNotNull(
+@PublishedApi
+internal object AttributeFilter {
+    @PublishedApi
+    internal inline fun filterNotNull(
         vararg attribute: Attribute
     ): Array<Attribute> =
         attribute.filter { it.value != null }.toTypedArray()
 
-    public inline fun filterTrue(
+    @PublishedApi
+    internal inline fun filterTrue(
         vararg attribute: BoolAttribute
     ): Array<Attribute> =
         attribute.filter { it.use }.toTypedArray()

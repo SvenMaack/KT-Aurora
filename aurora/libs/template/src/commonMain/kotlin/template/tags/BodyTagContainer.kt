@@ -16,6 +16,66 @@ import template.tags.enums.ReferrerPolicy
 
 @Suppress("TooManyFunctions", "LargeClass")
 public open class BodyTagContainer(name: String) : TagContainer(name) {
+    /**
+     * The a-tag defines a hyperlink, which is used to link from one page to another.
+     * @param download Specifies that the target will be downloaded when a user clicks on the hyperlink
+     * @param hrefLang Specifies the language of the linked document
+     * @param pings Specifies a list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
+     * @param referrerPolicy Specifies which referrer information to send with the link
+     * @param rel Specifies the relationship between the current document and the linked document
+     * @param target Specifies where to open the linked document
+     * @param type Specifies the media type of the linked document
+     */
+    @Suppress("LongParameterList", "SpreadOperator")
+    public inline fun a(
+        vararg attributes: Attribute,
+        href: String,
+        type: MediaType? = null,
+        download: Boolean = false,
+        target: Target? = null,
+        clazz: String? = null,
+        hrefLang: Language? = null,
+        referrerPolicy: ReferrerPolicy? = null,
+        rel: Rel? = null,
+        pings: List<String> = listOf(),
+        init: A.() -> Unit): A = A.addATagWithAttributes(
+            this,
+            href,
+            type,
+            download,
+            target,
+            clazz,
+            hrefLang,
+            referrerPolicy,
+            rel,
+            pings,
+            *attributes
+        ).apply(init)
+
+    /**
+     * The address-tag defines contact information for the author/owner of a document or an article. The contact information can be an email address, URL, physical address, phone number, social media handle, etc.
+     */
+    public inline fun address(vararg attributes: Attribute, title: String? = null, init: Address.() -> Unit): Address = add(Address()) {
+        if(title==null) setAttributes(*attributes) else setAttributes(*attributes, "title"[title])
+        init()
+    }
+
+    /**
+     * The article-tag specifies independent, self-contained content. An article should make sense on its own and it should be possible to distribute it independently from the rest of the site.
+     */
+    public inline fun article(vararg attributes: Attribute, clazz: String? = null, init: Article.() -> Unit): Article = add(Article()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+
+    /**
+     * The aside-tag defines some content aside from the content it is placed in. The aside content should be indirectly related to the surrounding content.
+     */
+    public inline fun aside(vararg attributes: Attribute, clazz: String? = null, init: Aside.() -> Unit): Aside = add(Aside()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+
     public inline fun p(vararg attributes: Attribute, clazz: String? = null, init: P.() -> Unit): P = add(P()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
@@ -26,10 +86,6 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
     }
     public inline fun blockQuote(vararg attributes: Attribute, cite: String, init: BlockQuote.() -> Unit): BlockQuote = add(BlockQuote()) {
         setAttributes(*attributes, "cite"[cite])
-        init()
-    }
-    public inline fun address(vararg attributes: Attribute, title: String? = null, init: Address.() -> Unit): Address = add(Address()) {
-        if(title==null) setAttributes(*attributes) else setAttributes(*attributes, "title"[title])
         init()
     }
 
@@ -70,14 +126,6 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
-    public inline fun article(vararg attributes: Attribute, clazz: String? = null, init: Article.() -> Unit): Article = add(Article()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-    public inline fun aside(vararg attributes: Attribute, clazz: String? = null, init: Aside.() -> Unit): Aside = add(Aside()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
     public inline fun nav(vararg attributes: Attribute, clazz: String? = null, init: Nav.() -> Unit): Nav = add(Nav()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
@@ -113,53 +161,6 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
     public inline fun details(open: Boolean, init: Details.() -> Unit): Details = add(Details()) {
         if(open)
             setAttributes(AttributeImpl("open"))
-        init()
-    }
-
-    /**
-     * The a-tag defines a hyperlink, which is used to link from one page to another.
-     * @param download Specifies that the target will be downloaded when a user clicks on the hyperlink
-     * @param hrefLang Specifies the language of the linked document
-     * @param pings Specifies a list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
-     * @param referrerPolicy Specifies which referrer information to send with the link
-     * @param rel Specifies the relationship between the current document and the linked document
-     * @param target Specifies where to open the linked document
-     * @param type Specifies the media type of the linked document
-     */
-    @Suppress("LongParameterList", "SpreadOperator")
-    public inline fun a(
-        vararg attributes: Attribute,
-        href: String,
-        type: MediaType? = null,
-        download: Boolean = false,
-        target: Target? = null,
-        clazz: String? = null,
-        hrefLang: Language? = null,
-        referrerPolicy: ReferrerPolicy? = null,
-        rel: Rel? = null,
-        pings: List<String> = listOf(),
-        init: A.() -> Unit): A = add(A())
-    {
-        setAttributes(
-            *attributes,
-            "href"[href],
-            *AttributeFilter.filterTrue(
-                BoolAttribute("download", download),
-            ),
-            *AttributeFilter.filterNotNull(
-                "type"[type?.value],
-                "target"[target?.value],
-                "class"[clazz],
-                "hreflang"[hrefLang?.value],
-                "referrerpolicy"[referrerPolicy?.value],
-                "rel"[rel?.value],
-                if(pings.isEmpty())
-                    "ping"[null]
-                else
-                    "ping"[pings.joinToString(" ")],
-            )
-        )
-
         init()
     }
 
