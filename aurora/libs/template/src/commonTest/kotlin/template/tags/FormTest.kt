@@ -16,6 +16,8 @@ class FormTest {
     val blockLabel = mock(classOf<Fun1<Label, Unit>>())
     @Mock
     val blockTextArea = mock(classOf<Fun1<TextArea, Unit>>())
+    @Mock
+    val blockSelect = mock(classOf<Fun1<Select, Unit>>())
 
     @Test
     fun `tag name is form`() {
@@ -23,6 +25,102 @@ class FormTest {
 
         assertEquals("form", form.name)
         assertEquals("id1", form.id)
+    }
+
+
+    @Test
+    fun `select function works`() {
+        val form = Form("id1")
+        every { blockSelect.invoke(any()) }.returns(Unit)
+
+        val select = form.select("a"["b"], name = "name1", id = "id1", clazz = "clazz", init = blockSelect::invoke)
+
+        verification(select, blockSelect, mapOf(
+            "a" to listOf("b"),
+            "form" to listOf(form.id),
+            "name" to listOf("name1"),
+            "id" to listOf("id1"),
+            "class" to listOf("clazz")
+        ))
+    }
+
+    @Test
+    fun `select function works without class`() {
+        val form = Form("id1")
+        every { blockSelect.invoke(any()) }.returns(Unit)
+
+        val select = form.select("a"["b"], name = "name1", id = "id1", init = blockSelect::invoke)
+
+        verification(select, blockSelect, mapOf(
+            "a" to listOf("b"),
+            "form" to listOf(form.id),
+            "name" to listOf("name1"),
+            "id" to listOf("id1")
+        ))
+    }
+
+    @Test
+    fun `select function works with all attributes`() {
+        val form = Form("id1")
+        every { blockSelect.invoke(any()) }.returns(Unit)
+
+        val select = form.select(
+            "a"["b"],
+            clazz = "class1",
+            id = "id1",
+            autoFocus = true,
+            disabled = true,
+            multiple = true,
+            required = true,
+            name = "name1",
+            size = 42,
+            init = blockSelect::invoke
+        )
+
+        verification(select, blockSelect, mapOf(
+            "a" to listOf("b"),
+            "class" to listOf("class1"),
+            "id" to listOf("id1"),
+            "form" to listOf(form.id),
+            "autofocus" to listOf(null),
+            "disabled" to listOf(null),
+            "multiple" to listOf(null),
+            "required" to listOf(null),
+            "name" to listOf("name1"),
+            "size" to listOf("42"),
+        ))
+    }
+
+    @Test
+    fun `select function works with all attributes if one is null`() {
+        val form = Form("id1")
+        every { blockSelect.invoke(any()) }.returns(Unit)
+
+        val select = form.select(
+            "a"["b"],
+            clazz = "class1",
+            id = "id1",
+            autoFocus = false, //<--
+            disabled = false, //<--
+            multiple = false, //<--
+            required = false, //<--
+            name = "name1",
+            size = 42,
+            init = blockSelect::invoke
+        )
+
+        verification(select, blockSelect, mapOf(
+            "a" to listOf("b"),
+            "class" to listOf("class1"),
+            "id" to listOf("id1"),
+            "form" to listOf(form.id),
+            //"autofocus" to listOf(null),
+            //"disabled" to listOf(null),
+            //"multiple" to listOf(null),
+            //"required" to listOf(null),
+            "name" to listOf("name1"),
+            "size" to listOf("42"),
+        ))
     }
 
     @Test

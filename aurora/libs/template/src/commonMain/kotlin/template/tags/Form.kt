@@ -15,6 +15,55 @@ public enum class AutoComplete(public val value: String) {
 
  @Suppress("LargeClass", "LongParameterList")
 public class Form(public val id: String): BodyTagContainer("form") {
+     public inline fun select(
+         vararg attributes: Attribute,
+         clazz: String? = null,
+         id: String,
+         name: String,
+         init: Select.() -> Unit): Select = add(Select(id))
+     {
+         @Suppress("DuplicatedCode")
+         if(clazz==null)
+             setAttributes(*attributes, "form"[this@Form.id], "id"[id], "name"[name])
+         else
+             setAttributes(*attributes, "class"[clazz],"form"[this@Form.id], "id"[id], "name"[name])
+         init()
+     }
+
+     @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+     public inline fun select(
+         vararg attributes: Attribute,
+         clazz: String? = null,
+         id: String,
+         autoFocus: Boolean = false,
+         disabled: Boolean = false,
+         multiple: Boolean = false,
+         required: Boolean,
+         name: String,
+         size: Int = 4,
+         init: Select.() -> Unit): Select = add(Select(id))
+     {
+         val otherAttributes = mutableListOf(
+             "form"[this@Form.id],
+             "id"[id],
+             "name"[name],
+             "size"[size.toString()],
+         )
+         if (required)
+             otherAttributes.add(AttributeImpl(name = "required"))
+         if (autoFocus)
+             otherAttributes.add(AttributeImpl(name = "autofocus"))
+         if (multiple)
+             otherAttributes.add(AttributeImpl(name = "multiple"))
+         if (disabled)
+             otherAttributes.add(AttributeImpl(name = "disabled"))
+         if (clazz != null)
+             otherAttributes.add(AttributeWithValueImpl(name = "class", value = clazz))
+
+         setAttributes(*attributes, *otherAttributes.toTypedArray())
+         init()
+     }
+
      public inline fun textArea(
          vararg attributes: Attribute,
          clazz: String? = null,
