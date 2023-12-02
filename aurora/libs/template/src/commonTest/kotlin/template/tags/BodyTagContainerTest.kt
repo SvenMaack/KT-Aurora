@@ -15,6 +15,8 @@ class BodyTagContainerTest {
     @Mock
     val blockSpan = mock(classOf<Fun1<Span, Unit>>())
     @Mock
+    val blockIFrame = mock(classOf<Fun1<IFrame, Unit>>())
+    @Mock
     val blockBlockQuote = mock(classOf<Fun1<BlockQuote, Unit>>())
     @Mock
     val blockH1 = mock(classOf<Fun1<H1, Unit>>())
@@ -714,6 +716,80 @@ class BodyTagContainerTest {
             //"target" to listOf(null),
             "class" to listOf("clazz"),
             "id" to listOf("id1"),
+        ))
+    }
+
+    @Test
+    fun `iFrame function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockIFrame.invoke(any()) }.returns(Unit)
+
+        val iFrame = tag.iFrame(
+            "a"["b"],
+            clazz = "clazz",
+            allow = true,
+            allowFullScreen = true,
+            allowPaymentRequest = true,
+            height = 1,
+            width = 2,
+            loading = IFrameLoading.LAZY,
+            name = "n1",
+            referrerPolicy = ReferrerPolicy.ORIGIN,
+            sandBox = listOf(IFrameSandbox.AllowForms, IFrameSandbox.AllowPopups),
+            src = "src1",
+            init = blockIFrame::invoke
+        )
+
+        verificationWithClass(iFrame, blockIFrame, mapOf(
+            "a" to listOf("b"),
+            "class" to listOf("clazz"),
+            "allow" to listOf(null),
+            "allowfullscreen" to listOf(null),
+            "allowpaymentrequest" to listOf(null),
+            "height" to listOf("1"),
+            "width" to listOf("2"),
+            "loading" to listOf(IFrameLoading.LAZY.value),
+            "name" to listOf("n1"),
+            "referrerpolicy" to listOf(ReferrerPolicy.ORIGIN.value),
+            "sandbox" to listOf("${IFrameSandbox.AllowForms.value} ${IFrameSandbox.AllowPopups.value}"),
+            "src" to listOf("src1"),
+        ))
+    }
+
+    @Test
+    fun `iFrame function works with optionals`() {
+        val tag = BodyTagContainer("tag")
+        every { blockIFrame.invoke(any()) }.returns(Unit)
+
+        val iFrame = tag.iFrame(
+            "a"["b"],
+            clazz = "clazz",
+            allow = false,
+            allowFullScreen = false,
+            allowPaymentRequest = false,
+            height = 1,
+            width = 2,
+            loading = IFrameLoading.LAZY,
+            name = "n1",
+            referrerPolicy = null,
+            sandBox = listOf(),
+            src = "src1",
+            init = blockIFrame::invoke
+        )
+
+        verificationWithClass(iFrame, blockIFrame, mapOf(
+            "a" to listOf("b"),
+            "class" to listOf("clazz"),
+            //"allow" to listOf(null),
+            //"allowfullscreen" to listOf(null),
+            //"allowpaymentrequest" to listOf(null),
+            "height" to listOf("1"),
+            "width" to listOf("2"),
+            "loading" to listOf(IFrameLoading.LAZY.value),
+            "name" to listOf("n1"),
+            //"referrerpolicy" to listOf(ReferrerPolicy.ORIGIN.value),
+            //"sandbox" to listOf(""),
+            "src" to listOf("src1"),
         ))
     }
 

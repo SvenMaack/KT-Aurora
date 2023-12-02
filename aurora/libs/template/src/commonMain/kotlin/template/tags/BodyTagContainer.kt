@@ -12,6 +12,7 @@ import template.tags.enums.MediaType
 import template.tags.enums.Language
 import template.tags.enums.Rel
 import template.tags.enums.AutoComplete
+import template.tags.enums.ReferrerPolicy
 
 @Suppress("TooManyFunctions", "LargeClass")
 public open class BodyTagContainer(name: String) : TagContainer(name) {
@@ -225,6 +226,46 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         setAttributes(*attributes, *otherAttributes.toTypedArray())
         init()
     }
+    @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+    public inline fun iFrame(
+        vararg attributes: Attribute,
+        allow: Boolean = true,
+        allowFullScreen: Boolean = true,
+        allowPaymentRequest: Boolean = true,
+        height: Int,
+        width: Int,
+        loading: IFrameLoading = IFrameLoading.LAZY,
+        name: String,
+        referrerPolicy: ReferrerPolicy? = null,
+        sandBox: List<IFrameSandbox> = listOf(),
+        src: String,
+        clazz: String? = null,
+        init: IFrame.() -> Unit): IFrame = add(IFrame())
+    {
+        val otherAttributes = mutableListOf(
+            "height"[height.toString()],
+            "width"[width.toString()],
+            "loading"[loading.value],
+            "name"[name],
+            "src"[src]
+        )
+        if(allow)
+            otherAttributes.add(AttributeImpl("allow"))
+        if(allowFullScreen)
+            otherAttributes.add(AttributeImpl("allowfullscreen"))
+        if(allowPaymentRequest)
+            otherAttributes.add(AttributeImpl("allowpaymentrequest"))
+        if(referrerPolicy != null)
+            otherAttributes.add(AttributeWithValueImpl("referrerpolicy", referrerPolicy.value))
+        if(sandBox.isNotEmpty())
+            otherAttributes.add(AttributeWithValueImpl("sandbox", sandBox.joinToString(" ") { it.value }))
+        if(clazz != null)
+            otherAttributes.add(AttributeWithValueImpl("class", clazz))
+
+        setAttributes(*attributes, *otherAttributes.toTypedArray())
+        init()
+    }
+
 
     public inline fun br(): Br = add(Br)
     public inline fun hr(): Hr = add(Hr)
