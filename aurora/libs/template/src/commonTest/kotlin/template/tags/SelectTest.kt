@@ -9,6 +9,8 @@ import kotlin.test.assertEquals
 class SelectTest {
     @Mock
     val blockOptGroup = mock(classOf<Fun1<OptGroup, Unit>>())
+    @Mock
+    val blockOption = mock(classOf<Fun1<Option, Unit>>())
 
     @Test
     fun `tag name is select`() {
@@ -61,6 +63,37 @@ class SelectTest {
                 "label" to listOf("l1"),
             )
         )
+    }
+
+    @Test
+    fun `option function works`() {
+        val select = Select("id1")
+        every { blockOption.invoke(any()) }.returns(Unit)
+
+        val option = select.option("a"["b"], disabled = true, selected = true, label = "l1",  value = "v1", clazz = "clazz", init = blockOption::invoke)
+
+        verification(option, blockOption, mapOf(
+            "a" to listOf("b"),
+            "disabled" to listOf(null),
+            "selected" to listOf(null),
+            "label" to listOf("l1"),
+            "value" to listOf("v1"),
+            "class" to listOf("clazz")
+        ))
+    }
+
+    @Test
+    fun `option function works without optionals`() {
+        val select = Select("id1")
+        every { blockOption.invoke(any()) }.returns(Unit)
+
+        val option = select.option("a"["b"], disabled = false, selected = false, label = "l1", value = "v1", init = blockOption::invoke)
+
+        verification(option, blockOption, mapOf(
+            "a" to listOf("b"),
+            "label" to listOf("l1"),
+            "value" to listOf("v1"),
+        ))
     }
 
     private fun <Tag : TagWithAttributes> verification(
