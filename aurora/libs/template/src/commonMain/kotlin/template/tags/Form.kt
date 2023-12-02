@@ -13,7 +13,22 @@ public enum class AutoComplete(public val value: String) {
     OFF("off")
 }
 
+ @Suppress("LargeClass", "LongParameterList")
 public class Form(public val id: String): BodyTagContainer("form") {
+     @Suppress("Naming", "FunctionParameterNaming")
+    public inline fun label(
+        vararg attributes: Attribute,
+        clazz: String? = null,
+        `for`: String,
+        init: Label.() -> Unit): Label = add(Label())
+    {
+        if(clazz==null)
+            setAttributes(*attributes, "form"[this@Form.id], "for"[`for`])
+        else
+            setAttributes(*attributes, "class"[clazz],"form"[this@Form.id], "for"[`for`])
+        init()
+    }
+
     @Suppress("LongParameterList")
     public inline fun button(
         vararg attributes: Attribute,

@@ -5,7 +5,6 @@ import template.base.TagWithAttributes
 import template.base.get
 import template.tags.enums.EncType
 import template.tags.enums.Method
-import template.tags.enums.Rel
 import template.tags.enums.Target
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -13,6 +12,8 @@ import kotlin.test.assertEquals
 class FormTest {
     @Mock
     val blockButton = mock(classOf<Fun1<Button, Unit>>())
+    @Mock
+    val blockLabel = mock(classOf<Fun1<Label, Unit>>())
 
     @Test
     fun `tag name is form`() {
@@ -20,6 +21,35 @@ class FormTest {
 
         assertEquals("form", form.name)
         assertEquals("id1", form.id)
+    }
+
+    @Test
+    fun `label function works`() {
+        val form = Form("id1")
+        every { blockLabel.invoke(any()) }.returns(Unit)
+
+        val label = form.label("a"["b"], `for` = "foo", clazz = "clazz", init = blockLabel::invoke)
+
+        verification(label, blockLabel, mapOf(
+            "a" to listOf("b"),
+            "form" to listOf(form.id),
+            "for" to listOf("foo"),
+            "class" to listOf("clazz")
+        ))
+    }
+
+    @Test
+    fun `label function works without class`() {
+        val form = Form("id1")
+        every { blockLabel.invoke(any()) }.returns(Unit)
+
+        val label = form.label("a"["b"], `for` = "foo", init = blockLabel::invoke)
+
+        verification(label, blockLabel, mapOf(
+            "a" to listOf("b"),
+            "form" to listOf(form.id),
+            "for" to listOf("foo"),
+        ))
     }
 
     @Test
@@ -31,7 +61,7 @@ class FormTest {
 
         verification(button, blockButton, mapOf(
             "a" to listOf("b"),
-            "form" to listOf("id1"),
+            "form" to listOf(form.id),
             "name" to listOf("name1"),
             "type" to listOf(ButtonType.Button.value),
             "class" to listOf("clazz")
@@ -47,7 +77,7 @@ class FormTest {
 
         verification(button, blockButton, mapOf(
             "a" to listOf("b"),
-            "form" to listOf("id1"),
+            "form" to listOf(form.id),
             "name" to listOf("name1"),
             "type" to listOf(ButtonType.Button.value)
         ))
@@ -70,7 +100,7 @@ class FormTest {
 
         verification(button, blockButton, mapOf(
             "a" to listOf("b"),
-            "form" to listOf("id1"),
+            "form" to listOf(form.id),
             "name" to listOf("name1"),
             "autofocus" to listOf(null),
             "disabled" to listOf(null),
@@ -96,7 +126,7 @@ class FormTest {
 
         verification(button, blockButton, mapOf(
             "a" to listOf("b"),
-            "form" to listOf("id1"),
+            "form" to listOf(form.id),
             "name" to listOf("name1"),
             "autofocus" to listOf(null),
             "disabled" to listOf(null),
@@ -114,7 +144,7 @@ class FormTest {
 
         verification(button, blockButton, mapOf(
             "a" to listOf("b"),
-            "form" to listOf("id1"),
+            "form" to listOf(form.id),
             "name" to listOf("name1"),
             "type" to listOf("submit"),
             "class" to listOf("clazz")
@@ -130,7 +160,7 @@ class FormTest {
 
         verification(button, blockButton, mapOf(
             "a" to listOf("b"),
-            "form" to listOf("id1"),
+            "form" to listOf(form.id),
             "name" to listOf("name1"),
             "type" to listOf("submit"),
         ))
@@ -168,7 +198,7 @@ class FormTest {
             "formtarget" to listOf(Target.BLANK.value),
             "name" to listOf("name1"),
             "value" to listOf("value1"),
-            "form" to listOf("id1"),
+            "form" to listOf(form.id),
             "type" to listOf("submit"),
         ))
     }
@@ -206,7 +236,7 @@ class FormTest {
             "name" to listOf("name1"),
             //"value" to listOf("value"),
             "type" to listOf("submit"),
-            "form" to listOf("id1"),
+            "form" to listOf(form.id),
         ))
     }
 
