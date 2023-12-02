@@ -211,7 +211,7 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         acceptCharset: String = "UTF-8",
         action: String,
         autoComplete: AutoComplete = AutoComplete.ON,
-        encType: EncType = EncType.Application_x_www_form_urlencoded,
+        encType: EncType = EncType.APPLICATION_X_WWW_FORM_URLENCODED,
         method: Method = Method.POST,
         name: String,
         id: String,
