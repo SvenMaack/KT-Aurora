@@ -14,6 +14,8 @@ class FormTest {
     val blockButton = mock(classOf<Fun1<Button, Unit>>())
     @Mock
     val blockLabel = mock(classOf<Fun1<Label, Unit>>())
+    @Mock
+    val blockTextArea = mock(classOf<Fun1<TextArea, Unit>>())
 
     @Test
     fun `tag name is form`() {
@@ -21,6 +23,121 @@ class FormTest {
 
         assertEquals("form", form.name)
         assertEquals("id1", form.id)
+    }
+
+    @Test
+    fun `textArea function works`() {
+        val form = Form("id1")
+        every { blockTextArea.invoke(any()) }.returns(Unit)
+
+        val textArea = form.textArea("a"["b"], name = "name1", id = "id1", clazz = "clazz", init = blockTextArea::invoke)
+
+        verification(textArea, blockTextArea, mapOf(
+            "a" to listOf("b"),
+            "form" to listOf(form.id),
+            "name" to listOf("name1"),
+            "id" to listOf("id1"),
+            "class" to listOf("clazz")
+        ))
+    }
+
+    @Test
+    fun `textArea function works without class`() {
+        val form = Form("id1")
+        every { blockTextArea.invoke(any()) }.returns(Unit)
+
+        val textArea = form.textArea("a"["b"], name = "name1", id = "id1", init = blockTextArea::invoke)
+
+        verification(textArea, blockTextArea, mapOf(
+            "a" to listOf("b"),
+            "form" to listOf(form.id),
+            "name" to listOf("name1"),
+            "id" to listOf("id1")
+        ))
+    }
+
+    @Test
+    fun `textArea function works with all attributes`() {
+        val form = Form("id1")
+        every { blockTextArea.invoke(any()) }.returns(Unit)
+
+        val textArea = form.textArea(
+            "a"["b"],
+            clazz = "class1",
+            id = "id1",
+            autoFocus = true,
+            cols = 41,
+            rows = 42,
+            dirName = true,
+            disabled = true,
+            wrap = Wrap.Soft,
+            maxLength = 50,
+            name = "name1",
+            placeHolder = "ph",
+            readOnly = true,
+            required = true,
+            init = blockTextArea::invoke
+        )
+
+        verification(textArea, blockTextArea, mapOf(
+            "a" to listOf("b"),
+            "class" to listOf("class1"),
+            "id" to listOf("id1"),
+            "form" to listOf(form.id),
+            "autofocus" to listOf(null),
+            "cols" to listOf("41"),
+            "rows" to listOf("42"),
+            "dirname" to listOf("name1.dir"),
+            "disabled" to listOf(null),
+            "wrap" to listOf(Wrap.Soft.value),
+            "maxlength" to listOf("50"),
+            "name" to listOf("name1"),
+            "placeholder" to listOf("ph"),
+            "readonly" to listOf(null),
+            "required" to listOf(null),
+        ))
+    }
+
+    @Test
+    fun `textArea function works with all attributes if one is null`() {
+        val form = Form("id1")
+        every { blockTextArea.invoke(any()) }.returns(Unit)
+
+        val textArea = form.textArea(
+            "a"["b"],
+            clazz = "class1",
+            id = "id1",
+            autoFocus = true,
+            cols = 41,
+            rows = 42,
+            dirName = true,
+            disabled = true,
+            wrap = Wrap.Soft,
+            maxLength = 50,
+            name = "name1",
+            placeHolder = null, //<--
+            readOnly = true,
+            required = true,
+            init = blockTextArea::invoke
+        )
+
+        verification(textArea, blockTextArea, mapOf(
+            "a" to listOf("b"),
+            "class" to listOf("class1"),
+            "id" to listOf("id1"),
+            "form" to listOf(form.id),
+            "autofocus" to listOf(null),
+            "cols" to listOf("41"),
+            "rows" to listOf("42"),
+            "dirname" to listOf("name1.dir"),
+            "disabled" to listOf(null),
+            "wrap" to listOf(Wrap.Soft.value),
+            "maxlength" to listOf("50"),
+            "name" to listOf("name1"),
+            //"placeholder" to listOf("ph"),
+            "readonly" to listOf(null),
+            "required" to listOf(null),
+        ))
     }
 
     @Test

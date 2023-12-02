@@ -15,7 +15,67 @@ public enum class AutoComplete(public val value: String) {
 
  @Suppress("LargeClass", "LongParameterList")
 public class Form(public val id: String): BodyTagContainer("form") {
-     @Suppress("Naming", "FunctionParameterNaming")
+     public inline fun textArea(
+         vararg attributes: Attribute,
+         clazz: String? = null,
+         id: String,
+         name: String,
+         init: TextArea.() -> Unit): TextArea = add(TextArea(id))
+     {
+         if(clazz==null)
+             setAttributes(*attributes, "form"[this@Form.id], "id"[id], "name"[name])
+         else
+             setAttributes(*attributes, "class"[clazz],"form"[this@Form.id], "id"[id], "name"[name])
+         init()
+     }
+
+     @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+     public inline fun textArea(
+         vararg attributes: Attribute,
+         clazz: String? = null,
+         id: String,
+         autoFocus: Boolean = false,
+         cols: Int = 20,
+         rows: Int = 2,
+         dirName: Boolean = false,
+         disabled: Boolean = false,
+         wrap: Wrap = Wrap.Soft,
+         maxLength: Int,
+         name: String,
+         placeHolder: String? = null,
+         readOnly: Boolean = false,
+         required: Boolean = false,
+         init: TextArea.() -> Unit): TextArea = add(TextArea(id))
+     {
+         val otherAttributes = mutableListOf(
+             "form"[this@Form.id],
+             "id"[id],
+             "name"[name],
+             "cols"[cols.toString()],
+             "rows"[rows.toString()],
+             "wrap"[wrap.value],
+             "maxlength"[maxLength.toString()],
+         )
+         if (readOnly)
+             otherAttributes.add(AttributeImpl(name = "readonly"))
+         if (required)
+             otherAttributes.add(AttributeImpl(name = "required"))
+         if (autoFocus)
+             otherAttributes.add(AttributeImpl(name = "autofocus"))
+         if (disabled)
+             otherAttributes.add(AttributeImpl(name = "disabled"))
+         if (dirName)
+             otherAttributes.add(AttributeWithValueImpl(name = "dirname", value = "$name.dir"))
+         if (clazz != null)
+             otherAttributes.add(AttributeWithValueImpl(name = "class", value = clazz))
+         if (placeHolder != null)
+             otherAttributes.add(AttributeWithValueImpl(name = "placeholder", value = placeHolder))
+
+         setAttributes(*attributes, *otherAttributes.toTypedArray())
+         init()
+     }
+
+    @Suppress("Naming", "FunctionParameterNaming")
     public inline fun label(
         vararg attributes: Attribute,
         clazz: String? = null,
