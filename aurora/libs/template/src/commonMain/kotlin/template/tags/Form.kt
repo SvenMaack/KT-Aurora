@@ -4,17 +4,96 @@ import template.base.Attribute
 import template.base.AttributeImpl
 import template.base.AttributeWithValueImpl
 import template.base.get
+import template.tags.enums.AutoComplete
 import template.tags.enums.EncType
 import template.tags.enums.Method
 import template.tags.enums.Target
 
-public enum class AutoComplete(public val value: String) {
-    ON("on"),
-    OFF("off")
-}
-
  @Suppress("LargeClass", "LongParameterList", "TooManyFunctions")
 public open class Form(public val id: String, tagName: String = "form"): BodyTagContainer(tagName) {
+     public inline fun input(
+         vararg attributes: Attribute,
+         clazz: String? = null,
+         name: String,
+         type: InputType,
+         value: String,
+         init: Input.() -> Unit): Input = add(Input())
+     {
+         if(clazz==null)
+             setAttributes(*attributes, "form"[this@Form.id], "name"[name], "type"[type.value], "value"[value])
+         else
+             setAttributes(*attributes, "class"[clazz], "form"[this@Form.id], "name"[name], "type"[type.value], "value"[value])
+         init()
+     }
+
+     @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+     public inline fun input(
+         vararg attributes: Attribute,
+         clazz: String? = null,
+         name: String,
+         type: InputType,
+         value: String,
+         autocomplete: AutoComplete = AutoComplete.ON,
+         autoFocus: Boolean = false,
+         disabled: Boolean = false,
+         checked: Boolean = false,
+         dirName: Boolean = false,
+         formEnctype: EncType = EncType.Application_x_www_form_urlencoded,
+         formNoValidate: Boolean = false,
+         max: Int = 0,
+         maxLength: Int = 0,
+         min: Int = 0,
+         minLength: Int = 0,
+         multiple: Boolean = false,
+         pattern: String? = null,
+         placeHolder: String? = null,
+         readOnly: Boolean = false,
+         required: Boolean = false,
+         size: Int = 0,
+         step: Int = 0,
+         init: Input.() -> Unit): Input = add(Input())
+     {
+         val otherAttributes = mutableListOf(
+             "form"[this@Form.id],
+             "name"[name],
+             "type"[type.value],
+             "value"[value],
+             "autocomplete"[autocomplete.value],
+             "formenctype"[formEnctype.value],
+             "max"[max.toString()],
+             "maxlength"[maxLength.toString()],
+             "min"[min.toString()],
+             "minlength"[minLength.toString()],
+             "size"[size.toString()],
+             "step"[step.toString()],
+         )
+         if (placeHolder != null)
+             otherAttributes.add(AttributeWithValueImpl("placeholder", placeHolder))
+         if (pattern != null)
+             otherAttributes.add(AttributeWithValueImpl("pattern", pattern))
+         if (formNoValidate)
+             otherAttributes.add(AttributeImpl(name = "formnovalidate"))
+         if (checked)
+             otherAttributes.add(AttributeImpl(name = "checked"))
+         if (readOnly)
+             otherAttributes.add(AttributeImpl(name = "readonly"))
+         if (dirName)
+             otherAttributes.add(AttributeWithValueImpl("dirname", "$name.dir"))
+         if (required)
+             otherAttributes.add(AttributeImpl(name = "required"))
+         if (multiple)
+             otherAttributes.add(AttributeImpl(name = "multiple"))
+         if (autoFocus)
+             otherAttributes.add(AttributeImpl(name = "autofocus"))
+         if (disabled)
+             otherAttributes.add(AttributeImpl(name = "disabled"))
+         if (clazz != null)
+             otherAttributes.add(AttributeWithValueImpl(name = "class", value = clazz))
+
+         setAttributes(*attributes, *otherAttributes.toTypedArray())
+         init()
+     }
+
      @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
      public inline fun fieldSet(
          vararg attributes: Attribute,

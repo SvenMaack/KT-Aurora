@@ -11,6 +11,7 @@ import template.tags.enums.Method
 import template.tags.enums.MediaType
 import template.tags.enums.Language
 import template.tags.enums.Rel
+import template.tags.enums.AutoComplete
 
 @Suppress("TooManyFunctions", "LargeClass")
 public open class BodyTagContainer(name: String) : TagContainer(name) {

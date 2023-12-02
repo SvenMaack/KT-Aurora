@@ -3,6 +3,7 @@ package template.tags
 import io.mockative.*
 import template.base.TagWithAttributes
 import template.base.get
+import template.tags.enums.AutoComplete
 import template.tags.enums.EncType
 import template.tags.enums.Method
 import template.tags.enums.Target
@@ -20,6 +21,8 @@ class FormTest {
     val blockSelect = mock(classOf<Fun1<Select, Unit>>())
     @Mock
     val blockFieldset = mock(classOf<Fun1<Fieldset, Unit>>())
+    @Mock
+    val blockInput= mock(classOf<Fun1<Input, Unit>>())
 
     @Test
     fun `tag name is form`() {
@@ -27,6 +30,143 @@ class FormTest {
 
         assertEquals("form", form.name)
         assertEquals("id1", form.id)
+    }
+
+    @Test
+    fun `input function works`() {
+        val form = Form("id1")
+        every { blockInput.invoke(any()) }.returns(Unit)
+
+        val input = form.input("a"["b"], name = "name1", type = InputType.Email, value="v1", clazz = "clazz", init = blockInput::invoke)
+
+        verification(input, blockInput, mapOf(
+            "a" to listOf("b"),
+            "form" to listOf(form.id),
+            "name" to listOf("name1"),
+            "value" to listOf("v1"),
+            "type" to listOf(InputType.Email.value),
+            "class" to listOf("clazz")
+        ))
+    }
+
+    @Test
+    fun `input function works with all attributes`() {
+        val form = Form("id1")
+        every { blockInput.invoke(any()) }.returns(Unit)
+
+        val input = form.input(
+            "a"["b"],
+            name = "name1",
+            type = InputType.Email,
+            value="v1",
+            autocomplete = AutoComplete.ON,
+            autoFocus = true,
+            disabled = true,
+            checked = true,
+            dirName = true,
+            formEnctype = EncType.Application_x_www_form_urlencoded,
+            formNoValidate = true,
+            max = 10,
+            maxLength = 11,
+            min = 12,
+            minLength = 13,
+            multiple = true,
+            pattern = "pattern1",
+            placeHolder = "ph1",
+            readOnly = true,
+            required = true,
+            size = 4,
+            step = 5,
+            clazz = "clazz",
+            init = blockInput::invoke
+        )
+
+        verification(input, blockInput, mapOf(
+            "a" to listOf("b"),
+            "form" to listOf(form.id),
+            "name" to listOf("name1"),
+            "value" to listOf("v1"),
+            "type" to listOf(InputType.Email.value),
+            "autocomplete" to listOf(AutoComplete.ON.value),
+            "autofocus" to listOf(null),
+            "disabled" to listOf(null),
+            "checked" to listOf(null),
+            "dirname" to listOf("name1.dir"),
+            "formenctype" to listOf(EncType.Application_x_www_form_urlencoded.value),
+            "formnovalidate" to listOf(null),
+            "max" to listOf("10"),
+            "maxlength" to listOf("11"),
+            "min" to listOf("12"),
+            "minlength" to listOf("13"),
+            "multiple" to listOf(null),
+            "pattern" to listOf("pattern1"),
+            "placeholder" to listOf("ph1"),
+            "readonly" to listOf(null),
+            "required" to listOf(null),
+            "size" to listOf("4"),
+            "step" to listOf("5"),
+            "class" to listOf("clazz")
+        ))
+    }
+
+    @Test
+    fun `input function works with all attributes with optionals`() {
+        val form = Form("id1")
+        every { blockInput.invoke(any()) }.returns(Unit)
+
+        val input = form.input(
+            "a"["b"],
+            name = "name1",
+            type = InputType.Email,
+            value="v1",
+            autocomplete = AutoComplete.ON,
+            autoFocus = false,
+            disabled = false,
+            checked = false,
+            dirName = false,
+            formEnctype = EncType.Application_x_www_form_urlencoded,
+            formNoValidate = false,
+            max = 10,
+            maxLength = 11,
+            min = 12,
+            minLength = 13,
+            multiple = false,
+            pattern = null,
+            placeHolder = null,
+            readOnly = false,
+            required = false,
+            size = 4,
+            step = 5,
+            clazz = "clazz",
+            init = blockInput::invoke
+        )
+
+        verification(input, blockInput, mapOf(
+            "a" to listOf("b"),
+            "form" to listOf(form.id),
+            "name" to listOf("name1"),
+            "value" to listOf("v1"),
+            "type" to listOf(InputType.Email.value),
+            "autocomplete" to listOf(AutoComplete.ON.value),
+            //"autofocus" to listOf(null),
+            //"disabled" to listOf(null),
+            //"checked" to listOf(null),
+            //"dirname" to listOf("name1.dir"),
+            "formenctype" to listOf(EncType.Application_x_www_form_urlencoded.value),
+            //"formnovalidate" to listOf(null),
+            "max" to listOf("10"),
+            "maxlength" to listOf("11"),
+            "min" to listOf("12"),
+            "minlength" to listOf("13"),
+            //"multiple" to listOf(null),
+            //"pattern" to listOf("pattern1"),
+            //"placeholder" to listOf("ph1"),
+            //"readonly" to listOf(null),
+            //"required" to listOf(null),
+            "size" to listOf("4"),
+            "step" to listOf("5"),
+            "class" to listOf("clazz")
+        ))
     }
 
     @Test
