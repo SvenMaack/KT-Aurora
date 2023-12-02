@@ -47,6 +47,8 @@ class BodyTagContainerTest {
     @Mock
     val blockMenu = mock(classOf<Fun1<Menu, Unit>>())
     @Mock
+    val blockSearch = mock(classOf<Fun1<Search, Unit>>())
+    @Mock
     val blockDl = mock(classOf<Fun1<Dl, Unit>>())
     @Mock
     val blockA = mock(classOf<Fun1<A, Unit>>())
@@ -463,6 +465,17 @@ class BodyTagContainerTest {
         val menu = tag.menu("a"["b"], init = blockMenu::invoke)
 
         verificationWithoutClass(menu, blockMenu)
+    }
+
+    @Test
+    fun `search function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockSearch.invoke(any()) }.returns(Unit)
+
+        val search = tag.search(init = blockSearch::invoke)
+
+        verify { blockSearch.invoke(search) }
+            .wasInvoked(exactly = once)
     }
 
     @Test

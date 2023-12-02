@@ -100,6 +100,9 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+    public inline fun search(init: Search.() -> Unit): Search = add(Search()) {
+        init()
+    }
     public inline fun dl(vararg attributes: Attribute, clazz: String? = null, init: Dl.() -> Unit): Dl = add(Dl()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()

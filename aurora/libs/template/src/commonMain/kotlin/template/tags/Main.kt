@@ -1,5 +1,3 @@
 package template.tags
 
-import template.base.TagContainer
-
-public class Main: TagContainer("main")
+public class Main: BodyTagContainer("main")
