@@ -1,5 +1,6 @@
 package template.tags
 
-import template.base.TagContainer
-
-public class Dfn: TagContainer("dfn")
+/**
+ * The dfn-tag stands for the "definition element", and it specifies a term that is going to be defined within the content.
+ */
+public class Dfn: TextContainer("dfn")

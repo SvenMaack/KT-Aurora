@@ -70,22 +70,29 @@ public open class TextContainer(name: String): TagWithText(name) {
         init()
     }
 
-
-
-
     /**
-     * The tag is used to add a machine-readable translation of a given content.
+     * The data-tag is used to add a machine-readable translation of a given content.
      */
     public inline fun data(init: Data.() -> Unit): Data = add(Data()) {
         init()
     }
 
     /**
-     * The tag stands for the "definition element", and it specifies a term that is going to be defined within the content.
+     * The dfn-tag stands for the "definition element", and it specifies a term that is going to be defined within the content.
      */
     public inline fun dfn(init: Dfn.() -> Unit): Dfn = add(Dfn()) {
         init()
     }
+
+    /**
+     * The <em> tag is used to define emphasized text. The content inside is typically displayed in italic.
+     */
+    public inline fun em(init: Em.() -> Unit): Em = add(Em()) {
+        init()
+    }
+
+
+
 
     /**
      * The tag defines text that should be marked or highlighted.
@@ -98,13 +105,6 @@ public open class TextContainer(name: String): TagWithText(name) {
      * The tag is used to represent the result of a calculation (like one performed by a script).
      */
     public inline fun output(init: Output.() -> Unit): Output = add(Output()) {
-        init()
-    }
-
-    /**
-     * The tag is used to define emphasized text. The content inside is typically displayed in italic. A screen reader will pronounce the words in em with an emphasis, using verbal stress.
-     */
-    public inline fun em(init: Em.() -> Unit): Em = add(Em()) {
         init()
     }
 

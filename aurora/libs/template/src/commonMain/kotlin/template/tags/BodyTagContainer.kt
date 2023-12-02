@@ -90,6 +90,32 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
     @Deprecated("Use css instead", ReplaceWith("css"))
     public inline fun br(): Br = add(Br)
 
+    /**
+     * A description list, with terms and descriptions:
+     */
+    public inline fun dl(vararg attributes: Attribute, clazz: String? = null, init: Dl.() -> Unit): Dl = add(Dl()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+
+    /**
+     * A description list, with terms and descriptions:
+     */
+    public inline fun details(open: Boolean, init: Details.() -> Unit): Details = add(Details()) {
+        if(open)
+            setAttributes(AttributeImpl("open"))
+        init()
+    }
+
+    /**
+     * The div-tag defines a division or a section in an HTML document.
+     */
+    public inline fun div(vararg attributes: Attribute, clazz: String? = null, init: Div.() -> Unit): Div = add(Div()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+
+
 
 
     public inline fun p(vararg attributes: Attribute, clazz: String? = null, init: P.() -> Unit): P = add(P()) {
@@ -126,10 +152,6 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         init()
     }
 
-    public inline fun div(vararg attributes: Attribute, clazz: String? = null, init: Div.() -> Unit): Div = add(Div()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
     public inline fun template(vararg attributes: Attribute, clazz: String? = null, init: Template.() -> Unit): Template = add(Template()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
@@ -163,16 +185,6 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         init()
     }
     public inline fun search(init: Search.() -> Unit): Search = add(Search()) {
-        init()
-    }
-    public inline fun dl(vararg attributes: Attribute, clazz: String? = null, init: Dl.() -> Unit): Dl = add(Dl()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-
-    public inline fun details(open: Boolean, init: Details.() -> Unit): Details = add(Details()) {
-        if(open)
-            setAttributes(AttributeImpl("open"))
         init()
     }
 
