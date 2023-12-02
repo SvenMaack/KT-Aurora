@@ -57,18 +57,21 @@ public open class TextContainer(name: String): TagWithText(name) {
     }
 
     /**
-     * The tag defines the title of a creative work (e.g. a book, a poem, a song, a movie, a painting, a sculpture, etc.).
+     * The cite-tag defines the title of a creative work (e.g. a book, a poem, a song, a movie, a painting, a sculpture, etc.).
      */
     public inline fun cite(init: Cite.() -> Unit): Cite = add(Cite()) {
         init()
     }
 
     /**
-     * The tag is used to define a piece of computer code. The content inside is displayed in the browser's default monospace font.
+     * The code-tag is used to define a piece of computer code. The content inside is displayed in the browser's default monospace font.
      */
     public inline fun code(init: Code.() -> Unit): Code = add(Code()) {
         init()
     }
+
+
+
 
     /**
      * The tag is used to add a machine-readable translation of a given content.
