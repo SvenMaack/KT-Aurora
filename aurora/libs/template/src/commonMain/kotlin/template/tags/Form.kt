@@ -13,20 +13,19 @@ public enum class AutoComplete(public val value: String) {
     OFF("off")
 }
 
-public class Form: BodyTagContainer("form") {
+public class Form(public val id: String): BodyTagContainer("form") {
     @Suppress("LongParameterList")
     public inline fun button(
         vararg attributes: Attribute,
         clazz: String? = null,
-        form: String,
         name: String,
         type: ButtonType = ButtonType.Button,
         init: Button.() -> Unit): Button = add(Button())
     {
         if(clazz==null)
-            setAttributes(*attributes, "form"[form], "name"[name], "type"[type.value])
+            setAttributes(*attributes, "form"[this@Form.id], "name"[name], "type"[type.value])
         else
-            setAttributes(*attributes, "class"[clazz], "form"[form], "name"[name], "type"[type.value])
+            setAttributes(*attributes, "class"[clazz], "form"[this@Form.id], "name"[name], "type"[type.value])
         init()
     }
 
@@ -36,14 +35,13 @@ public class Form: BodyTagContainer("form") {
         clazz: String? = null,
         autoFocus: Boolean = false,
         disabled: Boolean = false,
-        form: String,
         name: String,
         value: String? = null,
         type: ButtonType = ButtonType.Button,
         init: Button.() -> Unit): Button = add(Button())
     {
         val otherAttributes = mutableListOf(
-            "form"[form],
+            "form"[this@Form.id],
             "name"[name],
             "type"[type.value]
         )
@@ -64,14 +62,13 @@ public class Form: BodyTagContainer("form") {
     public inline fun submit(
         vararg attributes: Attribute,
         clazz: String? = null,
-        form: String,
         name: String,
         init: Button.() -> Unit): Button = add(Button())
     {
         if(clazz==null)
-            setAttributes(*attributes, "form"[form], "name"[name], "type"["submit"])
+            setAttributes(*attributes, "form"[this@Form.id], "name"[name], "type"["submit"])
         else
-            setAttributes(*attributes, "class"[clazz], "form"[form], "name"[name], "type"["submit"])
+            setAttributes(*attributes, "class"[clazz], "form"[this@Form.id], "name"[name], "type"["submit"])
         init()
     }
 
@@ -81,7 +78,6 @@ public class Form: BodyTagContainer("form") {
         clazz: String? = null,
         autoFocus: Boolean = false,
         disabled: Boolean = false,
-        form: String,
         formAction: String,
         formEnctype: EncType,
         formMethod: Method,
@@ -92,7 +88,7 @@ public class Form: BodyTagContainer("form") {
         init: Button.() -> Unit): Button = add(Button())
     {
         val otherAttributes = mutableListOf(
-            "form"[form],
+            "form"[this@Form.id],
             "name"[name],
             "formaction"[formAction],
             "formenctype"[formEnctype.value],

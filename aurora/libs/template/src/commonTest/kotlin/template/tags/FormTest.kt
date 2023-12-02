@@ -16,21 +16,22 @@ class FormTest {
 
     @Test
     fun `tag name is form`() {
-        val tag = Form()
+        val form = Form("id1")
 
-        assertEquals("form", tag.name)
+        assertEquals("form", form.name)
+        assertEquals("id1", form.id)
     }
 
     @Test
     fun `button function works`() {
-        val form = Form()
+        val form = Form("id1")
         every { blockButton.invoke(any()) }.returns(Unit)
 
-        val button = form.button("a"["b"], form = "form1", name = "name1", type = ButtonType.Button, clazz = "clazz", init = blockButton::invoke)
+        val button = form.button("a"["b"], name = "name1", type = ButtonType.Button, clazz = "clazz", init = blockButton::invoke)
 
         verification(button, blockButton, mapOf(
             "a" to listOf("b"),
-            "form" to listOf("form1"),
+            "form" to listOf("id1"),
             "name" to listOf("name1"),
             "type" to listOf(ButtonType.Button.value),
             "class" to listOf("clazz")
@@ -39,14 +40,14 @@ class FormTest {
 
     @Test
     fun `button function works without class`() {
-        val form = Form()
+        val form = Form("id1")
         every { blockButton.invoke(any()) }.returns(Unit)
 
-        val button = form.button("a"["b"], form = "form1", name = "name1", type = ButtonType.Button, init = blockButton::invoke)
+        val button = form.button("a"["b"], name = "name1", type = ButtonType.Button, init = blockButton::invoke)
 
         verification(button, blockButton, mapOf(
             "a" to listOf("b"),
-            "form" to listOf("form1"),
+            "form" to listOf("id1"),
             "name" to listOf("name1"),
             "type" to listOf(ButtonType.Button.value)
         ))
@@ -54,12 +55,11 @@ class FormTest {
 
     @Test
     fun `form function works with all attributes`() {
-        val form = Form()
+        val form = Form("id1")
         every { blockButton.invoke(any()) }.returns(Unit)
 
         val button = form.button(
             "a"["b"],
-            form = "form1",
             name = "name1",
             value = "value1",
             autoFocus = true,
@@ -70,7 +70,7 @@ class FormTest {
 
         verification(button, blockButton, mapOf(
             "a" to listOf("b"),
-            "form" to listOf("form1"),
+            "form" to listOf("id1"),
             "name" to listOf("name1"),
             "autofocus" to listOf(null),
             "disabled" to listOf(null),
@@ -81,12 +81,11 @@ class FormTest {
 
     @Test
     fun `form function works with all attributes if one is null`() {
-        val form = Form()
+        val form = Form("id1")
         every { blockButton.invoke(any()) }.returns(Unit)
 
         val button = form.button(
             "a"["b"],
-            form = "form1",
             name = "name1",
             value = null, //<--
             autoFocus = true,
@@ -97,7 +96,7 @@ class FormTest {
 
         verification(button, blockButton, mapOf(
             "a" to listOf("b"),
-            "form" to listOf("form1"),
+            "form" to listOf("id1"),
             "name" to listOf("name1"),
             "autofocus" to listOf(null),
             "disabled" to listOf(null),
@@ -108,14 +107,14 @@ class FormTest {
 
     @Test
     fun `submit function works`() {
-        val form = Form()
+        val form = Form("id1")
         every { blockButton.invoke(any()) }.returns(Unit)
 
-        val button = form.submit("a"["b"], form = "form1", name = "name1", clazz = "clazz", init = blockButton::invoke)
+        val button = form.submit("a"["b"], name = "name1", clazz = "clazz", init = blockButton::invoke)
 
         verification(button, blockButton, mapOf(
             "a" to listOf("b"),
-            "form" to listOf("form1"),
+            "form" to listOf("id1"),
             "name" to listOf("name1"),
             "type" to listOf("submit"),
             "class" to listOf("clazz")
@@ -124,14 +123,14 @@ class FormTest {
 
     @Test
     fun `submit function works without class`() {
-        val form = Form()
+        val form = Form("id1")
         every { blockButton.invoke(any()) }.returns(Unit)
 
-        val button = form.submit("a"["b"], form = "form1", name = "name1", init = blockButton::invoke)
+        val button = form.submit("a"["b"], name = "name1", init = blockButton::invoke)
 
         verification(button, blockButton, mapOf(
             "a" to listOf("b"),
-            "form" to listOf("form1"),
+            "form" to listOf("id1"),
             "name" to listOf("name1"),
             "type" to listOf("submit"),
         ))
@@ -139,7 +138,7 @@ class FormTest {
 
     @Test
     fun `submit function works with all attributes`() {
-        val form = Form()
+        val form = Form("id1")
         every { blockButton.invoke(any()) }.returns(Unit)
 
         val button = form.submit(
@@ -147,7 +146,6 @@ class FormTest {
             clazz = "clazz",
             autoFocus = true,
             disabled = true,
-            form = "form1",
             formAction = "formAction",
             formEnctype = EncType.Text_plain,
             formMethod = Method.GET,
@@ -170,14 +168,14 @@ class FormTest {
             "formtarget" to listOf(Target.BLANK.value),
             "name" to listOf("name1"),
             "value" to listOf("value1"),
-            "form" to listOf("form1"),
+            "form" to listOf("id1"),
             "type" to listOf("submit"),
         ))
     }
 
     @Test
     fun `submit function works with all attributes if some are false`() {
-        val form = Form()
+        val form = Form("id1")
         every { blockButton.invoke(any()) }.returns(Unit)
 
         val button = form.submit(
@@ -185,7 +183,6 @@ class FormTest {
             clazz = "clazz",
             autoFocus = false, //<--
             disabled = false, //<--
-            form = "form1",
             formAction = "formAction",
             formEnctype = EncType.Text_plain,
             formMethod = Method.GET,
@@ -209,7 +206,7 @@ class FormTest {
             "name" to listOf("name1"),
             //"value" to listOf("value"),
             "type" to listOf("submit"),
-            "form" to listOf("form1"),
+            "form" to listOf("id1"),
         ))
     }
 

@@ -175,7 +175,7 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         id: String,
         method: Method = Method.POST,
         clazz: String? = null,
-        init: Form.() -> Unit): Form = add(Form())
+        init: Form.() -> Unit): Form = add(Form(id))
     {
         if(clazz==null)
             setAttributes(*attributes, "action"[action], "name"[name], "method"[method.value], "id"[id])
@@ -198,7 +198,7 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         rel: Rel? = null,
         target: Target? = null,
         clazz: String? = null,
-        init: Form.() -> Unit): Form = add(Form())
+        init: Form.() -> Unit): Form = add(Form(id))
     {
         val otherAttributes = mutableListOf(
             "accept-charset"[acceptCharset],
