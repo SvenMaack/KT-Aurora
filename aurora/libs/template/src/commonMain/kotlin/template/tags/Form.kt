@@ -13,8 +13,27 @@ public enum class AutoComplete(public val value: String) {
     OFF("off")
 }
 
- @Suppress("LargeClass", "LongParameterList")
-public class Form(public val id: String): BodyTagContainer("form") {
+ @Suppress("LargeClass", "LongParameterList", "TooManyFunctions")
+public open class Form(public val id: String, tagName: String = "form"): BodyTagContainer(tagName) {
+     @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+     public inline fun fieldSet(
+         vararg attributes: Attribute,
+         clazz: String? = null,
+         disabled: Boolean,
+         name: String,
+         init: Fieldset.() -> Unit): Fieldset = add(Fieldset(id))
+     {
+         if(clazz==null && disabled)
+             setAttributes(*attributes, "form"[this@Form.id], AttributeImpl("disabled"), "name"[name])
+         else if(!disabled)
+             setAttributes(*attributes, "form"[this@Form.id], "name"[name])
+         else if(clazz != null && disabled)
+             setAttributes(*attributes, "class"[clazz], "form"[this@Form.id], AttributeImpl("disabled"), "name"[name])
+         else
+             setAttributes(*attributes, "class"[clazz], "form"[this@Form.id], "name"[name])
+         init()
+     }
+
      public inline fun select(
          vararg attributes: Attribute,
          clazz: String? = null,

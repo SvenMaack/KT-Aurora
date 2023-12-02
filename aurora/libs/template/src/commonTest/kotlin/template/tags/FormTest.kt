@@ -18,6 +18,8 @@ class FormTest {
     val blockTextArea = mock(classOf<Fun1<TextArea, Unit>>())
     @Mock
     val blockSelect = mock(classOf<Fun1<Select, Unit>>())
+    @Mock
+    val blockFieldset = mock(classOf<Fun1<Fieldset, Unit>>())
 
     @Test
     fun `tag name is form`() {
@@ -25,6 +27,36 @@ class FormTest {
 
         assertEquals("form", form.name)
         assertEquals("id1", form.id)
+    }
+
+    @Test
+    fun `fieldSet function works`() {
+        val form = Form("id1")
+        every { blockFieldset.invoke(any()) }.returns(Unit)
+
+        val fieldSet = form.fieldSet("a"["b"], name = "name1", disabled = true, clazz = "clazz", init = blockFieldset::invoke)
+
+        verification(fieldSet, blockFieldset, mapOf(
+            "a" to listOf("b"),
+            "form" to listOf(form.id),
+            "name" to listOf("name1"),
+            "disabled" to listOf(null),
+            "class" to listOf("clazz")
+        ))
+    }
+
+    @Test
+    fun `select function works without optionals`() {
+        val form = Form("id1")
+        every { blockFieldset.invoke(any()) }.returns(Unit)
+
+        val fieldSet = form.fieldSet("a"["b"], name = "name1", disabled = false, init = blockFieldset::invoke)
+
+        verification(fieldSet, blockFieldset, mapOf(
+            "a" to listOf("b"),
+            "form" to listOf(form.id),
+            "name" to listOf("name1"),
+        ))
     }
 
 
