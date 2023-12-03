@@ -264,38 +264,7 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
 
 
 
-
-    public inline fun p(vararg attributes: Attribute, clazz: String? = null, init: P.() -> Unit): P = add(P()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-    public inline fun span(vararg attributes: Attribute, clazz: String? = null, init: Span.() -> Unit): Span = add(Span()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-
-    public inline fun template(vararg attributes: Attribute, clazz: String? = null, init: Template.() -> Unit): Template = add(Template()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-    public inline fun section(vararg attributes: Attribute, clazz: String? = null, init: Section.() -> Unit): Section = add(Section()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-    public inline fun nav(vararg attributes: Attribute, clazz: String? = null, init: Nav.() -> Unit): Nav = add(Nav()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
     public inline fun main(vararg attributes: Attribute, clazz: String? = null, init: Main.() -> Unit): Main = add(Main()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-
-    public inline fun ul(vararg attributes: Attribute, clazz: String? = null, init: Ul.() -> Unit): Ul = add(Ul()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-    public inline fun ol(vararg attributes: Attribute, clazz: String? = null, init: Ol.() -> Unit): Ol = add(Ol()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
@@ -303,7 +272,35 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+    public inline fun nav(vararg attributes: Attribute, clazz: String? = null, init: Nav.() -> Unit): Nav = add(Nav()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+    public inline fun ol(vararg attributes: Attribute, clazz: String? = null, init: Ol.() -> Unit): Ol = add(Ol()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+    public inline fun p(vararg attributes: Attribute, clazz: String? = null, init: P.() -> Unit): P = add(P()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
     public inline fun search(init: Search.() -> Unit): Search = add(Search()) {
+        init()
+    }
+    public inline fun section(vararg attributes: Attribute, clazz: String? = null, init: Section.() -> Unit): Section = add(Section()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+    public inline fun span(vararg attributes: Attribute, clazz: String? = null, init: Span.() -> Unit): Span = add(Span()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+    public inline fun template(vararg attributes: Attribute, clazz: String? = null, init: Template.() -> Unit): Template = add(Template()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+    public inline fun ul(vararg attributes: Attribute, clazz: String? = null, init: Ul.() -> Unit): Ul = add(Ul()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
 }

@@ -17,7 +17,7 @@ public open class Form internal constructor(public val id: String, tagName: Stri
 
      public constructor(id: String): this(id, "form")
 
-    /**
+     /**
       * The button-tag defines a clickable button.
       */
      @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
@@ -37,46 +37,6 @@ public open class Form internal constructor(public val id: String, tagName: Stri
              "form"[this@Form.id],
              "type"[type.value],
              *AttributeFilter.filterTrue(
-                 BoolAttribute("autofocus", autoFocus),
-                 BoolAttribute("disabled", disabled),
-             ),
-             *AttributeFilter.filterNotNull(
-                 "class"[clazz],
-                 "value"[value],
-             )
-         )
-         init()
-     }
-
-     /**
-      * The button-tag with type submit defines a clickable button for submitting a form.
-      */
-     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
-     public inline fun submit(
-         vararg attributes: Attribute,
-         name: String,
-         formAction: String,
-         clazz: String? = null,
-         autoFocus: Boolean = false,
-         disabled: Boolean = false,
-         formEnctype: EncType = EncType.APPLICATION_X_WWW_FORM_URLENCODED,
-         formMethod: Method = Method.POST,
-         formNoValidate: Boolean = false,
-         formTarget: Target = Target.SELF,
-         value: String? = null,
-         init: Button.() -> Unit): Button = add(Button())
-     {
-         setAttributes(
-             *attributes,
-             "name"[name],
-             "form"[this@Form.id],
-             "type"["submit"],
-             "formenctype"[formEnctype.value],
-             "formmethod"[formMethod.value],
-             "formtarget"[formTarget.value],
-             "formaction"[formAction],
-             *AttributeFilter.filterTrue(
-                 BoolAttribute("formnovalidate", formNoValidate),
                  BoolAttribute("autofocus", autoFocus),
                  BoolAttribute("disabled", disabled),
              ),
@@ -113,6 +73,62 @@ public open class Form internal constructor(public val id: String, tagName: Stri
          init()
      }
 
+    /**
+     * The label-tag defines a label for several form elements:
+     */
+    @Suppress("Naming", "FunctionParameterNaming")
+    public inline fun label(
+        vararg attributes: Attribute,
+        clazz: String? = null,
+        `for`: FormElement,
+        init: Label.() -> Unit): Label = add(Label())
+    {
+        if(clazz==null)
+            setAttributes(*attributes, "form"[this@Form.id], "for"[`for`.id])
+        else
+            setAttributes(*attributes, "class"[clazz],"form"[this@Form.id], "for"[`for`.id])
+        init()
+    }
+
+    /**
+     * The button-tag with type submit defines a clickable button for submitting a form.
+     */
+    @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
+    public inline fun submit(
+        vararg attributes: Attribute,
+        name: String,
+        formAction: String,
+        clazz: String? = null,
+        autoFocus: Boolean = false,
+        disabled: Boolean = false,
+        formEnctype: EncType = EncType.APPLICATION_X_WWW_FORM_URLENCODED,
+        formMethod: Method = Method.POST,
+        formNoValidate: Boolean = false,
+        formTarget: Target = Target.SELF,
+        value: String? = null,
+        init: Button.() -> Unit): Button = add(Button())
+    {
+        setAttributes(
+            *attributes,
+            "name"[name],
+            "form"[this@Form.id],
+            "type"["submit"],
+            "formenctype"[formEnctype.value],
+            "formmethod"[formMethod.value],
+            "formtarget"[formTarget.value],
+            "formaction"[formAction],
+            *AttributeFilter.filterTrue(
+                BoolAttribute("formnovalidate", formNoValidate),
+                BoolAttribute("autofocus", autoFocus),
+                BoolAttribute("disabled", disabled),
+            ),
+            *AttributeFilter.filterNotNull(
+                "class"[clazz],
+                "value"[value],
+            )
+        )
+        init()
+    }
 
 
 
@@ -310,18 +326,4 @@ public open class Form internal constructor(public val id: String, tagName: Stri
          setAttributes(*attributes, *otherAttributes.toTypedArray())
          init()
      }
-
-    @Suppress("Naming", "FunctionParameterNaming")
-    public inline fun label(
-        vararg attributes: Attribute,
-        clazz: String? = null,
-        `for`: FormElement,
-        init: Label.() -> Unit): Label = add(Label())
-    {
-        if(clazz==null)
-            setAttributes(*attributes, "form"[this@Form.id], "for"[`for`.id])
-        else
-            setAttributes(*attributes, "class"[clazz],"form"[this@Form.id], "for"[`for`.id])
-        init()
-    }
 }

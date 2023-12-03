@@ -573,6 +573,84 @@ class BodyTagContainerTest {
 
 
 
+    @Test
+    fun `main function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockMain.invoke(any()) }.returns(Unit)
+
+        val main = tag.main("a"["b"], clazz = "clazz", init = blockMain::invoke)
+        verificationWithClass(main, blockMain)
+    }
+
+    @Test
+    fun `main function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockMain.invoke(any()) }.returns(Unit)
+
+        val main = tag.main("a"["b"], init = blockMain::invoke)
+
+        verificationWithoutClass(main, blockMain)
+    }
+
+    @Test
+    fun `menu function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockMenu.invoke(any()) }.returns(Unit)
+
+        val menu = tag.menu("a"["b"], clazz = "clazz", init = blockMenu::invoke)
+
+        verificationWithClass(menu, blockMenu)
+    }
+
+    @Test
+    fun `menu function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockMenu.invoke(any()) }.returns(Unit)
+
+        val menu = tag.menu("a"["b"], init = blockMenu::invoke)
+
+        verificationWithoutClass(menu, blockMenu)
+    }
+
+    @Test
+    fun `nav function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockNav.invoke(any()) }.returns(Unit)
+
+        val nav = tag.nav("a"["b"], clazz = "clazz", init = blockNav::invoke)
+
+        verificationWithClass(nav, blockNav)
+    }
+
+    @Test
+    fun `nav function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockNav.invoke(any()) }.returns(Unit)
+
+        val nav = tag.nav("a"["b"], init = blockNav::invoke)
+
+        verificationWithoutClass(nav, blockNav)
+    }
+
+    @Test
+    fun `ol function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockOl.invoke(any()) }.returns(Unit)
+
+        val ol = tag.ol("a"["b"], clazz = "clazz", init = blockOl::invoke)
+
+        verificationWithClass(ol, blockOl)
+    }
+
+    @Test
+    fun `ol function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockOl.invoke(any()) }.returns(Unit)
+
+        val ol = tag.ol("a"["b"], init = blockOl::invoke)
+
+        verificationWithoutClass(ol, blockOl)
+    }
 
     @Test
     fun `p function works`() {
@@ -592,6 +670,37 @@ class BodyTagContainerTest {
         val p = tag.p("a"["b"], init = blockP::invoke)
 
         verificationWithoutClass(p, blockP)
+    }
+
+    @Test
+    fun `search function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockSearch.invoke(any()) }.returns(Unit)
+
+        val search = tag.search(init = blockSearch::invoke)
+
+        verify { blockSearch.invoke(search) }
+            .wasInvoked(exactly = once)
+    }
+
+    @Test
+    fun `section function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockSection.invoke(any()) }.returns(Unit)
+
+        val section = tag.section("a"["b"], clazz = "clazz", init = blockSection::invoke)
+
+        verificationWithClass(section, blockSection)
+    }
+
+    @Test
+    fun `section function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockSection.invoke(any()) }.returns(Unit)
+
+        val section = tag.section("a"["b"], init = blockSection::invoke)
+
+        verificationWithoutClass(section, blockSection)
     }
 
     @Test
@@ -634,65 +743,6 @@ class BodyTagContainerTest {
     }
 
     @Test
-    fun `section function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockSection.invoke(any()) }.returns(Unit)
-
-        val section = tag.section("a"["b"], clazz = "clazz", init = blockSection::invoke)
-
-        verificationWithClass(section, blockSection)
-    }
-
-    @Test
-    fun `section function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockSection.invoke(any()) }.returns(Unit)
-
-        val section = tag.section("a"["b"], init = blockSection::invoke)
-
-        verificationWithoutClass(section, blockSection)
-    }
-
-    @Test
-    fun `nav function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockNav.invoke(any()) }.returns(Unit)
-
-        val nav = tag.nav("a"["b"], clazz = "clazz", init = blockNav::invoke)
-
-        verificationWithClass(nav, blockNav)
-    }
-
-    @Test
-    fun `nav function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockNav.invoke(any()) }.returns(Unit)
-
-        val nav = tag.nav("a"["b"], init = blockNav::invoke)
-
-        verificationWithoutClass(nav, blockNav)
-    }
-
-    @Test
-    fun `main function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockMain.invoke(any()) }.returns(Unit)
-
-        val main = tag.main("a"["b"], clazz = "clazz", init = blockMain::invoke)
-        verificationWithClass(main, blockMain)
-    }
-
-    @Test
-    fun `main function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockMain.invoke(any()) }.returns(Unit)
-
-        val main = tag.main("a"["b"], init = blockMain::invoke)
-
-        verificationWithoutClass(main, blockMain)
-    }
-
-    @Test
     fun `ul function works`() {
         val tag = BodyTagContainer("tag")
         every { blockUl.invoke(any()) }.returns(Unit)
@@ -710,57 +760,6 @@ class BodyTagContainerTest {
         val ul = tag.ul("a"["b"], init = blockUl::invoke)
 
         verificationWithoutClass(ul, blockUl)
-    }
-
-    @Test
-    fun `ol function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockOl.invoke(any()) }.returns(Unit)
-
-        val ol = tag.ol("a"["b"], clazz = "clazz", init = blockOl::invoke)
-
-        verificationWithClass(ol, blockOl)
-    }
-
-    @Test
-    fun `ol function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockOl.invoke(any()) }.returns(Unit)
-
-        val ol = tag.ol("a"["b"], init = blockOl::invoke)
-
-        verificationWithoutClass(ol, blockOl)
-    }
-
-    @Test
-    fun `menu function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockMenu.invoke(any()) }.returns(Unit)
-
-        val menu = tag.menu("a"["b"], clazz = "clazz", init = blockMenu::invoke)
-
-        verificationWithClass(menu, blockMenu)
-    }
-
-    @Test
-    fun `menu function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockMenu.invoke(any()) }.returns(Unit)
-
-        val menu = tag.menu("a"["b"], init = blockMenu::invoke)
-
-        verificationWithoutClass(menu, blockMenu)
-    }
-
-    @Test
-    fun `search function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockSearch.invoke(any()) }.returns(Unit)
-
-        val search = tag.search(init = blockSearch::invoke)
-
-        verify { blockSearch.invoke(search) }
-            .wasInvoked(exactly = once)
     }
 
     private fun <Tag: TagWithAttributes> verificationWithClass(
