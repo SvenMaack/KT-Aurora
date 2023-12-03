@@ -97,42 +97,42 @@ public open class TextContainer(name: String): TagWithText(name) {
 
 
     /**
-     * The tag defines text that should be marked or highlighted.
+     * The mark-tag defines text that should be marked or highlighted.
      */
     public inline fun mark(init: Mark.() -> Unit): Mark = add(Mark()) {
         init()
     }
 
     /**
-     * The tag is used to represent the result of a calculation (like one performed by a script).
+     * The output-tag is used to represent the result of a calculation (like one performed by a script).
      */
     public inline fun output(init: Output.() -> Unit): Output = add(Output()) {
         init()
     }
 
     /**
-     * The tag defines preformatted text.
+     * The pre-tag defines preformatted text.
      */
     public inline fun pre(init: Pre.() -> Unit): Pre = add(Pre()) {
         init()
     }
 
     /**
-     * The tag defines subscript text. Subscript text appears half a character below the normal line, and is sometimes rendered in a smaller font. Subscript text can be used for chemical formulas, like H2O.
+     * The sub-tag defines subscript text. Subscript text appears half a character below the normal line, and is sometimes rendered in a smaller font. Subscript text can be used for chemical formulas, like H2O.
      */
     public inline fun sub(init: Sub.() -> Unit): Sub = add(Sub()) {
         init()
     }
 
     /**
-     * The tag defines superscript text. Superscript text appears half a character above the normal line, and is sometimes rendered in a smaller font. Superscript text can be used for footnotes, like WWW[1].
+     * The sup-tag defines superscript text. Superscript text appears half a character above the normal line, and is sometimes rendered in a smaller font. Superscript text can be used for footnotes, like WWW[1].
      */
     public inline fun sup(init: Sup.() -> Unit): Sup = add(Sup()) {
         init()
     }
 
     /**
-     * The tag is used to defines a variable in programming or in a mathematical expression. The content inside is typically displayed in italic.
+     * The var-tag is used to defines a variable in programming or in a mathematical expression. The content inside is typically displayed in italic.
      */
     @Suppress("FunctionNaming")
     public inline fun `var`(init: Var.() -> Unit): Var = add(Var()) {
@@ -140,7 +140,7 @@ public open class TextContainer(name: String): TagWithText(name) {
     }
 
     /**
-     * The tag defines a specific time (or datetime).
+     * The time-tag defines a specific time (or datetime).
      */
     public inline fun time(dateTime: LocalDateTime? = null, init: Time.() -> Unit): Time = add(Time()) {
         if(dateTime != null)

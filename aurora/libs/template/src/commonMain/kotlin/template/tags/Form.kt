@@ -138,6 +138,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputFile(
         vararg attributes: Attribute,
@@ -173,6 +176,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputCheckbox(
         vararg attributes: Attribute,
@@ -208,6 +214,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputColor(
         vararg attributes: Attribute,
@@ -239,6 +248,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator", "CognitiveComplexMethod")
     public inline fun inputDate(
         vararg attributes: Attribute,
@@ -280,6 +292,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputEmail(
         vararg attributes: Attribute,
@@ -325,6 +340,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputHidden(
         vararg attributes: Attribute,
@@ -348,6 +366,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator", "CognitiveComplexMethod")
     public inline fun inputMonth(
         vararg attributes: Attribute,
@@ -389,6 +410,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputNumber(
         vararg attributes: Attribute,
@@ -432,6 +456,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputPassword(
         vararg attributes: Attribute,
@@ -475,6 +502,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputRange(
         vararg attributes: Attribute,
@@ -512,6 +542,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputRadio(
         vararg attributes: Attribute,
@@ -545,6 +578,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputReset(
         vararg attributes: Attribute,
@@ -574,6 +610,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputSearch(
         vararg attributes: Attribute,
@@ -617,6 +656,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputText(
         vararg attributes: Attribute,
@@ -660,6 +702,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator", "CognitiveComplexMethod")
     public inline fun inputTime(
         vararg attributes: Attribute,
@@ -701,6 +746,9 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
+    /**
+     * The input-tag specifies an input field where the user can enter data.
+     */
     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun inputUrl(
         vararg attributes: Attribute,

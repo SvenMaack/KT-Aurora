@@ -259,46 +259,80 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         init()
     }
 
-
-
-
-
-
+    /**
+     * The main-tag specifies the main content of a document.
+     */
     public inline fun main(vararg attributes: Attribute, clazz: String? = null, init: Main.() -> Unit): Main = add(Main()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+
+    /**
+     * The menu-tag defines an unordered list of content. an alternative to the ul-tag and browsers will treat these two lists equally.
+     */
     public inline fun menu(vararg attributes: Attribute, clazz: String? = null, init: Menu.() -> Unit): Menu = add(Menu()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+
+    /**
+     * The nav-tag defines a set of navigation links.
+     */
     public inline fun nav(vararg attributes: Attribute, clazz: String? = null, init: Nav.() -> Unit): Nav = add(Nav()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+
+    /**
+     * The ol-tag defines an ordered list. An ordered list can be numerical or alphabetical.
+     */
     public inline fun ol(vararg attributes: Attribute, clazz: String? = null, init: Ol.() -> Unit): Ol = add(Ol()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+
+    /**
+     * The p-tag defines a paragraph.
+     */
     public inline fun p(vararg attributes: Attribute, clazz: String? = null, init: P.() -> Unit): P = add(P()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+
+    /**
+     * The search-tag is used to specify that here comes a set of elements that is related to search.
+     */
     public inline fun search(init: Search.() -> Unit): Search = add(Search()) {
         init()
     }
+
+    /**
+     * The section-tag defines a section in a document.
+     */
     public inline fun section(vararg attributes: Attribute, clazz: String? = null, init: Section.() -> Unit): Section = add(Section()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+
+    /**
+     * The span-tag is an inline container used to mark up a part of a text, or a part of a document.
+     */
     public inline fun span(vararg attributes: Attribute, clazz: String? = null, init: Span.() -> Unit): Span = add(Span()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+
+    /**
+     * The template-tag is used as a container to hold some HTML content hidden from the user when the page loads.
+     */
     public inline fun template(vararg attributes: Attribute, clazz: String? = null, init: Template.() -> Unit): Template = add(Template()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
+
+    /**
+     * The ul-tag defines an unordered (bulleted) list.
+     */
     public inline fun ul(vararg attributes: Attribute, clazz: String? = null, init: Ul.() -> Unit): Ul = add(Ul()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
