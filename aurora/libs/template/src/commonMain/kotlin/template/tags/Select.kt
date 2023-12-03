@@ -5,6 +5,9 @@ import template.base.AttributeImpl
 import template.base.AttributeWithValueImpl
 import template.base.get
 
+/**
+ * The select-element is used to create a drop-down list.
+ */
 public class Select(public override val id: String): BodyTagContainer("select"), FormElement {
     @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
     public inline fun optGroup(

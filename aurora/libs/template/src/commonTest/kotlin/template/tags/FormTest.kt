@@ -5,7 +5,6 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import template.base.TagWithAttributes
 import template.base.get
-import template.tags.enums.AutoComplete
 import template.tags.enums.EncType
 import template.tags.enums.Method
 import template.tags.enums.Target
@@ -73,6 +72,24 @@ class FormTest {
             "disabled" to listOf(null),
             "value" to listOf("value1"),
             "type" to listOf(ButtonType.Button.value)
+        ))
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="fieldSet">
+    @Test
+    fun `fieldSet function works`() {
+        val form = Form("id1")
+        every { blockFieldset.invoke(any()) }.returns(Unit)
+
+        val fieldSet = form.fieldSet("a"["b"], name = "name1", disabled = true, clazz = "clazz", init = blockFieldset::invoke)
+
+        verification(fieldSet, blockFieldset, mapOf(
+            "a" to listOf("b"),
+            "form" to listOf(form.id),
+            "name" to listOf("name1"),
+            "disabled" to listOf(null),
+            "class" to listOf("clazz")
         ))
     }
     //</editor-fold>
@@ -1066,60 +1083,46 @@ class FormTest {
     }
     //</editor-fold>
 
-
-
-
-
-
+    //<editor-fold desc="label">
     @Test
-    fun `fieldSet function works`() {
+    fun `label function works`() {
         val form = Form("id1")
-        every { blockFieldset.invoke(any()) }.returns(Unit)
+        val formElement = object : FormElement {
+            override val id: String = "f1"
+        }
+        every { blockLabel.invoke(any()) }.returns(Unit)
 
-        val fieldSet = form.fieldSet("a"["b"], name = "name1", disabled = true, clazz = "clazz", init = blockFieldset::invoke)
+        val label = form.label("a"["b"], `for` = formElement, clazz = "clazz", init = blockLabel::invoke)
 
-        verification(fieldSet, blockFieldset, mapOf(
+        verification(label, blockLabel, mapOf(
             "a" to listOf("b"),
             "form" to listOf(form.id),
-            "name" to listOf("name1"),
-            "disabled" to listOf(null),
+            "for" to listOf("f1"),
             "class" to listOf("clazz")
         ))
     }
 
     @Test
-    fun `select function works without optionals`() {
+    fun `label function works without class`() {
         val form = Form("id1")
-        every { blockFieldset.invoke(any()) }.returns(Unit)
+        val formElement = object : FormElement {
+            override val id: String = "f1"
+        }
+        every { blockLabel.invoke(any()) }.returns(Unit)
 
-        val fieldSet = form.fieldSet("a"["b"], name = "name1", disabled = false, init = blockFieldset::invoke)
+        val label = form.label("a"["b"], `for` = formElement, init = blockLabel::invoke)
 
-        verification(fieldSet, blockFieldset, mapOf(
+        verification(label, blockLabel, mapOf(
             "a" to listOf("b"),
             "form" to listOf(form.id),
-            "name" to listOf("name1"),
+            "for" to listOf("f1"),
         ))
     }
+    //</editor-fold>
 
-
+    //<editor-fold desc="select">
     @Test
     fun `select function works`() {
-        val form = Form("id1")
-        every { blockSelect.invoke(any()) }.returns(Unit)
-
-        val select = form.select("a"["b"], name = "name1", id = "id1", clazz = "clazz", init = blockSelect::invoke)
-
-        verification(select, blockSelect, mapOf(
-            "a" to listOf("b"),
-            "form" to listOf(form.id),
-            "name" to listOf("name1"),
-            "id" to listOf("id1"),
-            "class" to listOf("clazz")
-        ))
-    }
-
-    @Test
-    fun `select function works without class`() {
         val form = Form("id1")
         every { blockSelect.invoke(any()) }.returns(Unit)
 
@@ -1132,6 +1135,7 @@ class FormTest {
             "id" to listOf("id1")
         ))
     }
+
 
     @Test
     fun `select function works with all attributes`() {
@@ -1164,57 +1168,11 @@ class FormTest {
             "size" to listOf("42"),
         ))
     }
+    //</editor-fold>
 
-    @Test
-    fun `select function works with all attributes if one is null`() {
-        val form = Form("id1")
-        every { blockSelect.invoke(any()) }.returns(Unit)
-
-        val select = form.select(
-            "a"["b"],
-            clazz = "class1",
-            id = "id1",
-            autoFocus = false, //<--
-            disabled = false, //<--
-            multiple = false, //<--
-            required = false, //<--
-            name = "name1",
-            size = 42,
-            init = blockSelect::invoke
-        )
-
-        verification(select, blockSelect, mapOf(
-            "a" to listOf("b"),
-            "class" to listOf("class1"),
-            "id" to listOf("id1"),
-            "form" to listOf(form.id),
-            //"autofocus" to listOf(null),
-            //"disabled" to listOf(null),
-            //"multiple" to listOf(null),
-            //"required" to listOf(null),
-            "name" to listOf("name1"),
-            "size" to listOf("42"),
-        ))
-    }
-
+    //<editor-fold desc="textArea">
     @Test
     fun `textArea function works`() {
-        val form = Form("id1")
-        every { blockTextArea.invoke(any()) }.returns(Unit)
-
-        val textArea = form.textArea("a"["b"], name = "name1", id = "id1", clazz = "clazz", init = blockTextArea::invoke)
-
-        verification(textArea, blockTextArea, mapOf(
-            "a" to listOf("b"),
-            "form" to listOf(form.id),
-            "name" to listOf("name1"),
-            "id" to listOf("id1"),
-            "class" to listOf("clazz")
-        ))
-    }
-
-    @Test
-    fun `textArea function works without class`() {
         val form = Form("id1")
         every { blockTextArea.invoke(any()) }.returns(Unit)
 
@@ -1224,7 +1182,7 @@ class FormTest {
             "a" to listOf("b"),
             "form" to listOf(form.id),
             "name" to listOf("name1"),
-            "id" to listOf("id1")
+            "id" to listOf("id1"),
         ))
     }
 
@@ -1269,83 +1227,7 @@ class FormTest {
             "required" to listOf(null),
         ))
     }
-
-    @Test
-    fun `textArea function works with all attributes if one is null`() {
-        val form = Form("id1")
-        every { blockTextArea.invoke(any()) }.returns(Unit)
-
-        val textArea = form.textArea(
-            "a"["b"],
-            clazz = "class1",
-            id = "id1",
-            autoFocus = true,
-            cols = 41,
-            rows = 42,
-            dirName = true,
-            disabled = true,
-            wrap = Wrap.Soft,
-            maxLength = 50,
-            name = "name1",
-            placeHolder = null, //<--
-            readOnly = true,
-            required = true,
-            init = blockTextArea::invoke
-        )
-
-        verification(textArea, blockTextArea, mapOf(
-            "a" to listOf("b"),
-            "class" to listOf("class1"),
-            "id" to listOf("id1"),
-            "form" to listOf(form.id),
-            "autofocus" to listOf(null),
-            "cols" to listOf("41"),
-            "rows" to listOf("42"),
-            "dirname" to listOf("name1.dir"),
-            "disabled" to listOf(null),
-            "wrap" to listOf(Wrap.Soft.value),
-            "maxlength" to listOf("50"),
-            "name" to listOf("name1"),
-            //"placeholder" to listOf("ph"),
-            "readonly" to listOf(null),
-            "required" to listOf(null),
-        ))
-    }
-
-    @Test
-    fun `label function works`() {
-        val form = Form("id1")
-        val formElement = object : FormElement {
-            override val id: String = "f1"
-        }
-        every { blockLabel.invoke(any()) }.returns(Unit)
-
-        val label = form.label("a"["b"], `for` = formElement, clazz = "clazz", init = blockLabel::invoke)
-
-        verification(label, blockLabel, mapOf(
-            "a" to listOf("b"),
-            "form" to listOf(form.id),
-            "for" to listOf("f1"),
-            "class" to listOf("clazz")
-        ))
-    }
-
-    @Test
-    fun `label function works without class`() {
-        val form = Form("id1")
-        val formElement = object : FormElement {
-            override val id: String = "f1"
-        }
-        every { blockLabel.invoke(any()) }.returns(Unit)
-
-        val label = form.label("a"["b"], `for` = formElement, init = blockLabel::invoke)
-
-        verification(label, blockLabel, mapOf(
-            "a" to listOf("b"),
-            "form" to listOf(form.id),
-            "for" to listOf("f1"),
-        ))
-    }
+    //</editor-fold>
 
     private fun <Tag: TagWithAttributes> verification(
         tag: Tag,

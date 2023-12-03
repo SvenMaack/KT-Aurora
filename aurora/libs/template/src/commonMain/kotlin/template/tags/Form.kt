@@ -3,8 +3,6 @@ package template.tags
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import template.base.Attribute
-import template.base.AttributeImpl
-import template.base.AttributeWithValueImpl
 import template.base.get
 import template.tags.enums.EncType
 import template.tags.enums.Method
@@ -792,120 +790,83 @@ public open class Form internal constructor(public val id: String, tagName: Stri
         init()
     }
 
-
-
-
-
-
-
-
-    public inline fun select(
-         vararg attributes: Attribute,
-         clazz: String? = null,
-         id: String,
-         name: String,
-         init: Select.() -> Unit): Select = add(Select(id))
-     {
-         @Suppress("DuplicatedCode")
-         if(clazz==null)
-             setAttributes(*attributes, "form"[this@Form.id], "id"[id], "name"[name])
-         else
-             setAttributes(*attributes, "class"[clazz],"form"[this@Form.id], "id"[id], "name"[name])
-         init()
-     }
-
-     @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+    /**
+     * The select-element is used to create a drop-down list.
+     */
+     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
      public inline fun select(
          vararg attributes: Attribute,
          clazz: String? = null,
          id: String,
+         name: String,
          autoFocus: Boolean = false,
          disabled: Boolean = false,
          multiple: Boolean = false,
-         required: Boolean,
-         name: String,
-         size: Int = 4,
+         required: Boolean = false,
+         size: Int? = null,
          init: Select.() -> Unit): Select = add(Select(id))
      {
-         val otherAttributes = mutableListOf(
-             "form"[this@Form.id],
-             "id"[id],
+         setAttributes(
+             *attributes,
              "name"[name],
-             "size"[size.toString()],
+             "id"[id],
+             "form"[this@Form.id],
+             *AttributeFilter.filterTrue(
+                 BoolAttribute("autofocus", autoFocus),
+                 BoolAttribute("disabled", disabled),
+                 BoolAttribute("multiple", multiple),
+                 BoolAttribute("required", required),
+             ),
+             *AttributeFilter.filterNotNull(
+                 "class"[clazz],
+                 "size"[size?.toString()],
+             )
          )
-         if (required)
-             otherAttributes.add(AttributeImpl(name = "required"))
-         if (autoFocus)
-             otherAttributes.add(AttributeImpl(name = "autofocus"))
-         if (multiple)
-             otherAttributes.add(AttributeImpl(name = "multiple"))
-         if (disabled)
-             otherAttributes.add(AttributeImpl(name = "disabled"))
-         if (clazz != null)
-             otherAttributes.add(AttributeWithValueImpl(name = "class", value = clazz))
-
-         setAttributes(*attributes, *otherAttributes.toTypedArray())
          init()
      }
 
+    /**
+     * The textarea-tag defines a multi-line text input control.
+     */
+     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
      public inline fun textArea(
          vararg attributes: Attribute,
          clazz: String? = null,
          id: String,
          name: String,
-         init: TextArea.() -> Unit): TextArea = add(TextArea(id))
-     {
-         @Suppress("DuplicatedCode")
-         if(clazz==null)
-             setAttributes(*attributes, "form"[this@Form.id], "id"[id], "name"[name])
-         else
-             setAttributes(*attributes, "class"[clazz],"form"[this@Form.id], "id"[id], "name"[name])
-         init()
-     }
-
-     @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
-     public inline fun textArea(
-         vararg attributes: Attribute,
-         clazz: String? = null,
-         id: String,
+         maxLength: Int? = null,
          autoFocus: Boolean = false,
-         cols: Int = 20,
-         rows: Int = 2,
+         cols: Int? = null,
+         rows: Int? = null,
          dirName: Boolean = false,
          disabled: Boolean = false,
-         wrap: Wrap = Wrap.Soft,
-         maxLength: Int,
-         name: String,
+         wrap: Wrap? = null,
          placeHolder: String? = null,
          readOnly: Boolean = false,
          required: Boolean = false,
          init: TextArea.() -> Unit): TextArea = add(TextArea(id))
      {
-         val otherAttributes = mutableListOf(
-             "form"[this@Form.id],
-             "id"[id],
+         setAttributes(
+             *attributes,
              "name"[name],
-             "cols"[cols.toString()],
-             "rows"[rows.toString()],
-             "wrap"[wrap.value],
-             "maxlength"[maxLength.toString()],
+             "id"[id],
+             "form"[this@Form.id],
+             *AttributeFilter.filterTrue(
+                 BoolAttribute("autofocus", autoFocus),
+                 BoolAttribute("disabled", disabled),
+                 BoolAttribute("readonly", readOnly),
+                 BoolAttribute("required", required),
+             ),
+             *AttributeFilter.filterNotNull(
+                 "dirname"[if(dirName) "$name.dir" else null],
+                 "class"[clazz],
+                 "cols"[cols?.toString()],
+                 "rows"[rows?.toString()],
+                 "wrap"[wrap?.value],
+                 "placeholder"[placeHolder],
+                 "maxlength"[maxLength?.toString()],
+             )
          )
-         if (readOnly)
-             otherAttributes.add(AttributeImpl(name = "readonly"))
-         if (required)
-             otherAttributes.add(AttributeImpl(name = "required"))
-         if (autoFocus)
-             otherAttributes.add(AttributeImpl(name = "autofocus"))
-         if (disabled)
-             otherAttributes.add(AttributeImpl(name = "disabled"))
-         if (dirName)
-             otherAttributes.add(AttributeWithValueImpl(name = "dirname", value = "$name.dir"))
-         if (clazz != null)
-             otherAttributes.add(AttributeWithValueImpl(name = "class", value = clazz))
-         if (placeHolder != null)
-             otherAttributes.add(AttributeWithValueImpl(name = "placeholder", value = placeHolder))
-
-         setAttributes(*attributes, *otherAttributes.toTypedArray())
          init()
      }
 }
