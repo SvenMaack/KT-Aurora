@@ -172,45 +172,7 @@ class BodyTagContainerTest {
     }
     //</editor-fold>
 
-    @Test
-    fun `p function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockP.invoke(any()) }.returns(Unit)
-
-        val p = tag.p("a"["b"], clazz = "clazz", init = blockP::invoke)
-
-        verificationWithClass(p, blockP)
-    }
-
-    @Test
-    fun `p function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockP.invoke(any()) }.returns(Unit)
-
-        val p = tag.p("a"["b"], init = blockP::invoke)
-
-        verificationWithoutClass(p, blockP)
-    }
-
-    @Test
-    fun `span function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockSpan.invoke(any()) }.returns(Unit)
-
-        val span = tag.span("a"["b"], clazz = "clazz", init = blockSpan::invoke)
-        verificationWithClass(span, blockSpan)
-    }
-
-    @Test
-    fun `span function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockSpan.invoke(any()) }.returns(Unit)
-
-        val span = tag.span("a"["b"], init = blockSpan::invoke)
-
-        verificationWithoutClass(span, blockSpan)
-    }
-
+    //<editor-fold desc="blockQuote function">
     @Test
     fun `blockQuote function works`() {
         val tag = BodyTagContainer("tag")
@@ -223,7 +185,165 @@ class BodyTagContainerTest {
             "cite" to listOf("link"),
         ))
     }
+    //</editor-fold>
 
+    //<editor-fold desc="br function">
+    @Suppress("DEPRECATION")
+    @Test
+    fun `br function works`() {
+        val tag = BodyTagContainer("tag")
+        val br = tag.br()
+
+        assertEquals("br", br.name)
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="details function">
+    @Test
+    fun `details function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockDetails.invoke(any()) }.returns(Unit)
+
+        val details = tag.details(true, init = blockDetails::invoke)
+
+        verificationWithClass(details, blockDetails, mapOf(
+            "open" to listOf(null)
+        ))
+    }
+
+    @Test
+    fun `details function works when not opened`() {
+        val tag = BodyTagContainer("tag")
+        every { blockDetails.invoke(any()) }.returns(Unit)
+
+        val details = tag.details(false, init = blockDetails::invoke)
+
+        verificationWithClass(details, blockDetails, mapOf())
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="div function">
+    @Test
+    fun `div function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockDiv.invoke(any()) }.returns(Unit)
+
+        val div = tag.div("a"["b"], clazz = "clazz", init = blockDiv::invoke)
+
+        verificationWithClass(div, blockDiv)
+    }
+
+    @Test
+    fun `div function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockDiv.invoke(any()) }.returns(Unit)
+
+        val div = tag.div("a"["b"], init = blockDiv::invoke)
+
+        verificationWithoutClass(div, blockDiv)
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="dl function">
+    @Test
+    fun `dl function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockDl.invoke(any()) }.returns(Unit)
+
+        val dl = tag.dl("a"["b"], clazz = "clazz", init = blockDl::invoke)
+
+        verificationWithClass(dl, blockDl)
+    }
+
+    @Test
+    fun `dl function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockDl.invoke(any()) }.returns(Unit)
+
+        val dl = tag.dl("a"["b"], init = blockDl::invoke)
+
+        verificationWithoutClass(dl, blockDl)
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="footer function">
+    @Test
+    fun `footer function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockFooter.invoke(any()) }.returns(Unit)
+
+        val footer = tag.footer("a"["b"], clazz = "clazz", init = blockFooter::invoke)
+
+        verificationWithClass(footer, blockFooter)
+    }
+
+    @Test
+    fun `footer function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockFooter.invoke(any()) }.returns(Unit)
+
+        val footer = tag.footer("a"["b"], init = blockFooter::invoke)
+
+        verificationWithoutClass(footer, blockFooter)
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="form function">
+    @Test
+    fun `form function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockForm.invoke(any()) }.returns(Unit)
+
+        val form = tag.form("a"["b"], action = "action1", name = "name1", method = Method.POST, id="id1", init = blockForm::invoke)
+
+        verificationWithClass(form, blockForm, mapOf(
+            "a" to listOf("b"),
+            "action" to listOf("action1"),
+            "name" to listOf("name1"),
+            "method" to listOf("post"),
+            "id" to listOf("id1"),
+        ))
+    }
+
+    @Test
+    fun `form function works with all attributes`() {
+        val tag = BodyTagContainer("tag")
+        every { blockForm.invoke(any()) }.returns(Unit)
+
+        val form = tag.form(
+            "a"["b"],
+            acceptCharset = "UTF-8",
+            clazz = "clazz",
+            action = "action1",
+            autoComplete = AutoComplete.OFF,
+            encType = EncType.APPLICATION_X_WWW_FORM_URLENCODED,
+            method = Method.POST,
+            name = "name1",
+            noValidate = true,
+            rel = Rel.TAG,
+            target = Target.SELF,
+            id = "id1",
+            init = blockForm::invoke
+        )
+
+        verificationWithClass(form, blockForm, mapOf(
+            "a" to listOf("b"),
+            "accept-charset" to listOf("UTF-8"),
+            "action" to listOf("action1"),
+            "autocomplete" to listOf(AutoComplete.OFF.value),
+            "enctype" to listOf(EncType.APPLICATION_X_WWW_FORM_URLENCODED.value),
+            "method" to listOf(Method.POST.value),
+            "name" to listOf("name1"),
+            "novalidate" to listOf(null),
+            "rel" to listOf(Rel.TAG.value),
+            "target" to listOf(Target.SELF.value),
+            "class" to listOf("clazz"),
+            "id" to listOf("id1"),
+        ))
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="header function">
     @Test
     fun `h1 function works`() {
         val tag = BodyTagContainer("tag")
@@ -343,25 +463,154 @@ class BodyTagContainerTest {
 
         verificationWithoutClass(h6, blockH6)
     }
+    //</editor-fold>
 
+    //<editor-fold desc="hr function">
     @Test
-    fun `div function works`() {
+    fun `hr function works`() {
         val tag = BodyTagContainer("tag")
-        every { blockDiv.invoke(any()) }.returns(Unit)
+        val hr = tag.hr()
 
-        val div = tag.div("a"["b"], clazz = "clazz", init = blockDiv::invoke)
+        assertEquals("hr", hr.name)
+    }
+    //</editor-fold>
 
-        verificationWithClass(div, blockDiv)
+    //<editor-fold desc="iframe function">
+    @Test
+    fun `iFrame function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockIFrame.invoke(any()) }.returns(Unit)
+
+        val iFrame = tag.iFrame(
+            "a"["b"],
+            height = 1,
+            width = 2,
+            loading = IFrameLoading.LAZY,
+            name = "n1",
+            src = "src1",
+            init = blockIFrame::invoke
+        )
+
+        verificationWithClass(iFrame, blockIFrame, mapOf(
+            "a" to listOf("b"),
+            "height" to listOf("1"),
+            "width" to listOf("2"),
+            "loading" to listOf(IFrameLoading.LAZY.value),
+            "name" to listOf("n1"),
+            "src" to listOf("src1"),
+        ))
     }
 
     @Test
-    fun `div function works without class`() {
+    fun `iFrame function works with all attributes`() {
         val tag = BodyTagContainer("tag")
-        every { blockDiv.invoke(any()) }.returns(Unit)
+        every { blockIFrame.invoke(any()) }.returns(Unit)
 
-        val div = tag.div("a"["b"], init = blockDiv::invoke)
+        val iFrame = tag.iFrame(
+            "a"["b"],
+            clazz = "clazz",
+            allow = true,
+            allowFullScreen = true,
+            allowPaymentRequest = true,
+            height = 1,
+            width = 2,
+            loading = IFrameLoading.LAZY,
+            name = "n1",
+            referrerPolicy = ReferrerPolicy.ORIGIN,
+            sandBox = mutableListOf(IFrameSandbox.AllowForms, IFrameSandbox.AllowPopups),
+            src = "src1",
+            init = blockIFrame::invoke
+        )
 
-        verificationWithoutClass(div, blockDiv)
+        verificationWithClass(iFrame, blockIFrame, mapOf(
+            "a" to listOf("b"),
+            "class" to listOf("clazz"),
+            "allow" to listOf(null),
+            "allowfullscreen" to listOf(null),
+            "allowpaymentrequest" to listOf(null),
+            "height" to listOf("1"),
+            "width" to listOf("2"),
+            "loading" to listOf(IFrameLoading.LAZY.value),
+            "name" to listOf("n1"),
+            "referrerpolicy" to listOf(ReferrerPolicy.ORIGIN.value),
+            "sandbox" to listOf("${IFrameSandbox.AllowForms.value} ${IFrameSandbox.AllowPopups.value}"),
+            "src" to listOf("src1"),
+        ))
+    }
+
+    @Test
+    fun `iFrame function works with all sandbox values`() {
+        val tag = BodyTagContainer("tag")
+        every { blockIFrame.invoke(any()) }.returns(Unit)
+
+        val iFrame = tag.iFrame(
+            "a"["b"],
+            height = 1,
+            width = 2,
+            loading = IFrameLoading.LAZY,
+            name = "n1",
+            src = "src1",
+            init = blockIFrame::invoke,
+            sandBox = mutableListOf(IFrameSandbox.All, IFrameSandbox.AllowForms),
+        )
+
+        verificationWithClass(iFrame, blockIFrame, mapOf(
+            "a" to listOf("b"),
+            "height" to listOf("1"),
+            "width" to listOf("2"),
+            "loading" to listOf(IFrameLoading.LAZY.value),
+            "name" to listOf("n1"),
+            "src" to listOf("src1"),
+            "sandbox" to listOf(""),
+        ))
+    }
+    //</editor-fold>
+
+
+
+
+
+
+
+
+
+    @Test
+    fun `p function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockP.invoke(any()) }.returns(Unit)
+
+        val p = tag.p("a"["b"], clazz = "clazz", init = blockP::invoke)
+
+        verificationWithClass(p, blockP)
+    }
+
+    @Test
+    fun `p function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockP.invoke(any()) }.returns(Unit)
+
+        val p = tag.p("a"["b"], init = blockP::invoke)
+
+        verificationWithoutClass(p, blockP)
+    }
+
+    @Test
+    fun `span function works`() {
+        val tag = BodyTagContainer("tag")
+        every { blockSpan.invoke(any()) }.returns(Unit)
+
+        val span = tag.span("a"["b"], clazz = "clazz", init = blockSpan::invoke)
+        verificationWithClass(span, blockSpan)
+    }
+
+    @Test
+    fun `span function works without class`() {
+        val tag = BodyTagContainer("tag")
+        every { blockSpan.invoke(any()) }.returns(Unit)
+
+        val span = tag.span("a"["b"], init = blockSpan::invoke)
+
+        verificationWithoutClass(span, blockSpan)
     }
 
     @Test
@@ -444,26 +693,6 @@ class BodyTagContainerTest {
     }
 
     @Test
-    fun `footer function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockFooter.invoke(any()) }.returns(Unit)
-
-        val footer = tag.footer("a"["b"], clazz = "clazz", init = blockFooter::invoke)
-
-        verificationWithClass(footer, blockFooter)
-    }
-
-    @Test
-    fun `footer function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockFooter.invoke(any()) }.returns(Unit)
-
-        val footer = tag.footer("a"["b"], init = blockFooter::invoke)
-
-        verificationWithoutClass(footer, blockFooter)
-    }
-
-    @Test
     fun `ul function works`() {
         val tag = BodyTagContainer("tag")
         every { blockUl.invoke(any()) }.returns(Unit)
@@ -532,194 +761,6 @@ class BodyTagContainerTest {
 
         verify { blockSearch.invoke(search) }
             .wasInvoked(exactly = once)
-    }
-
-    @Test
-    fun `dl function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockDl.invoke(any()) }.returns(Unit)
-
-        val dl = tag.dl("a"["b"], clazz = "clazz", init = blockDl::invoke)
-
-        verificationWithClass(dl, blockDl)
-    }
-
-    @Test
-    fun `dl function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockDl.invoke(any()) }.returns(Unit)
-
-        val dl = tag.dl("a"["b"], init = blockDl::invoke)
-
-        verificationWithoutClass(dl, blockDl)
-    }
-
-    @Test
-    fun `details function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockDetails.invoke(any()) }.returns(Unit)
-
-        val details = tag.details(true, init = blockDetails::invoke)
-
-        verificationWithClass(details, blockDetails, mapOf(
-            "open" to listOf(null)
-        ))
-    }
-
-    @Test
-    fun `details function works when not opened`() {
-        val tag = BodyTagContainer("tag")
-        every { blockDetails.invoke(any()) }.returns(Unit)
-
-        val details = tag.details(false, init = blockDetails::invoke)
-
-        verificationWithClass(details, blockDetails, mapOf())
-    }
-
-    //<editor-fold desc="form function">
-    @Test
-    fun `form function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockForm.invoke(any()) }.returns(Unit)
-
-        val form = tag.form("a"["b"], action = "action1", name = "name1", method = Method.POST, id="id1", init = blockForm::invoke)
-
-        verificationWithClass(form, blockForm, mapOf(
-            "a" to listOf("b"),
-            "action" to listOf("action1"),
-            "name" to listOf("name1"),
-            "method" to listOf("post"),
-            "id" to listOf("id1"),
-        ))
-    }
-
-    @Test
-    fun `form function works with all attributes`() {
-        val tag = BodyTagContainer("tag")
-        every { blockForm.invoke(any()) }.returns(Unit)
-
-        val form = tag.form(
-            "a"["b"],
-            acceptCharset = "UTF-8",
-            clazz = "clazz",
-            action = "action1",
-            autoComplete = AutoComplete.OFF,
-            encType = EncType.APPLICATION_X_WWW_FORM_URLENCODED,
-            method = Method.POST,
-            name = "name1",
-            noValidate = true,
-            rel = Rel.TAG,
-            target = Target.SELF,
-            id = "id1",
-            init = blockForm::invoke
-        )
-
-        verificationWithClass(form, blockForm, mapOf(
-            "a" to listOf("b"),
-            "accept-charset" to listOf("UTF-8"),
-            "action" to listOf("action1"),
-            "autocomplete" to listOf(AutoComplete.OFF.value),
-            "enctype" to listOf(EncType.APPLICATION_X_WWW_FORM_URLENCODED.value),
-            "method" to listOf(Method.POST.value),
-            "name" to listOf("name1"),
-            "novalidate" to listOf(null),
-            "rel" to listOf(Rel.TAG.value),
-            "target" to listOf(Target.SELF.value),
-            "class" to listOf("clazz"),
-            "id" to listOf("id1"),
-        ))
-    }
-    //</editor-fold>
-
-    @Test
-    fun `iFrame function works`() {
-        val tag = BodyTagContainer("tag")
-        every { blockIFrame.invoke(any()) }.returns(Unit)
-
-        val iFrame = tag.iFrame(
-            "a"["b"],
-            clazz = "clazz",
-            allow = true,
-            allowFullScreen = true,
-            allowPaymentRequest = true,
-            height = 1,
-            width = 2,
-            loading = IFrameLoading.LAZY,
-            name = "n1",
-            referrerPolicy = ReferrerPolicy.ORIGIN,
-            sandBox = listOf(IFrameSandbox.AllowForms, IFrameSandbox.AllowPopups),
-            src = "src1",
-            init = blockIFrame::invoke
-        )
-
-        verificationWithClass(iFrame, blockIFrame, mapOf(
-            "a" to listOf("b"),
-            "class" to listOf("clazz"),
-            "allow" to listOf(null),
-            "allowfullscreen" to listOf(null),
-            "allowpaymentrequest" to listOf(null),
-            "height" to listOf("1"),
-            "width" to listOf("2"),
-            "loading" to listOf(IFrameLoading.LAZY.value),
-            "name" to listOf("n1"),
-            "referrerpolicy" to listOf(ReferrerPolicy.ORIGIN.value),
-            "sandbox" to listOf("${IFrameSandbox.AllowForms.value} ${IFrameSandbox.AllowPopups.value}"),
-            "src" to listOf("src1"),
-        ))
-    }
-
-    @Test
-    fun `iFrame function works with optionals`() {
-        val tag = BodyTagContainer("tag")
-        every { blockIFrame.invoke(any()) }.returns(Unit)
-
-        val iFrame = tag.iFrame(
-            "a"["b"],
-            clazz = "clazz",
-            allow = false,
-            allowFullScreen = false,
-            allowPaymentRequest = false,
-            height = 1,
-            width = 2,
-            loading = IFrameLoading.LAZY,
-            name = "n1",
-            referrerPolicy = null,
-            sandBox = listOf(),
-            src = "src1",
-            init = blockIFrame::invoke
-        )
-
-        verificationWithClass(iFrame, blockIFrame, mapOf(
-            "a" to listOf("b"),
-            "class" to listOf("clazz"),
-            //"allow" to listOf(null),
-            //"allowfullscreen" to listOf(null),
-            //"allowpaymentrequest" to listOf(null),
-            "height" to listOf("1"),
-            "width" to listOf("2"),
-            "loading" to listOf(IFrameLoading.LAZY.value),
-            "name" to listOf("n1"),
-            //"referrerpolicy" to listOf(ReferrerPolicy.ORIGIN.value),
-            //"sandbox" to listOf(""),
-            "src" to listOf("src1"),
-        ))
-    }
-
-    @Suppress("DEPRECATION")
-    @Test
-    fun `br function works`() {
-        val tag = BodyTagContainer("tag")
-        val br = tag.br()
-
-        assertEquals("br", br.name)
-    }
-
-    @Test
-    fun `hr function works`() {
-        val tag = BodyTagContainer("tag")
-        val hr = tag.hr()
-
-        assertEquals("hr", hr.name)
     }
 
     private fun <Tag: TagWithAttributes> verificationWithClass(
