@@ -9,6 +9,9 @@ import template.base.TransientTag
 public typealias Template<VM> = (context: Context, data: VM) -> TagContainer
 public typealias StaticTemplate = Template<Unit>
 
+/**
+ * Includes the tags without caching
+ */
 public fun <VM>TagContainer.include(context: Context, template: Template<VM>, vm: VM): TagContainer =
     add(template(context, vm))
 
@@ -23,6 +26,9 @@ public fun TagContainer.include(context: Context, template: Template<Unit>): Tag
         !"Rendering of $timestamp ended"
     })
 
+/**
+ * Wraps the child in a transient tag
+ */
 public fun <T: TagContainer>T.childs(): TransientTag =
     TransientTag().apply {
         this.addAll(this@childs.children)
