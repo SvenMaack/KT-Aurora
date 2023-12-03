@@ -218,7 +218,7 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
     /**
      * The iframe-tag specifies an inline frame.
      */
-    @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+    @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun iFrame(
         vararg attributes: Attribute,
         src: String,
