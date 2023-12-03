@@ -9,9 +9,15 @@ import template.tags.enums.EncType
 import template.tags.enums.Method
 import template.tags.enums.Target
 
- @Suppress("LargeClass", "LongParameterList", "TooManyFunctions")
-public open class Form(public val id: String, tagName: String = "form"): BodyTagContainer(tagName) {
-     /**
+/**
+ * The form-tag is used to create an HTML form for user input.
+ */
+@Suppress("LargeClass", "LongParameterList", "TooManyFunctions")
+public open class Form internal constructor(public val id: String, tagName: String): BodyTagContainer(tagName) {
+
+     public constructor(id: String): this(id, "form")
+
+    /**
       * The button-tag defines a clickable button.
       */
      @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
@@ -81,6 +87,35 @@ public open class Form(public val id: String, tagName: String = "form"): BodyTag
          )
          init()
      }
+
+     /**
+      * The fieldset-tag is used to group related elements in a form. It draws a box around the related elements.
+      */
+     @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
+     public inline fun fieldSet(
+         vararg attributes: Attribute,
+         clazz: String? = null,
+         disabled: Boolean,
+         name: String,
+         init: Fieldset.() -> Unit): Fieldset = add(Fieldset(id))
+     {
+         setAttributes(
+             *attributes,
+             "name"[name],
+             "form"[this@Form.id],
+             *AttributeFilter.filterTrue(
+                 BoolAttribute("disabled", disabled),
+             ),
+             *AttributeFilter.filterNotNull(
+                 "class"[clazz],
+             )
+         )
+         init()
+     }
+
+
+
+
 
 
      public inline fun input(
@@ -163,25 +198,6 @@ public open class Form(public val id: String, tagName: String = "form"): BodyTag
              otherAttributes.add(AttributeWithValueImpl(name = "class", value = clazz))
 
          setAttributes(*attributes, *otherAttributes.toTypedArray())
-         init()
-     }
-
-     @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
-     public inline fun fieldSet(
-         vararg attributes: Attribute,
-         clazz: String? = null,
-         disabled: Boolean,
-         name: String,
-         init: Fieldset.() -> Unit): Fieldset = add(Fieldset(id))
-     {
-         if(clazz==null && disabled)
-             setAttributes(*attributes, "form"[this@Form.id], AttributeImpl("disabled"), "name"[name])
-         else if(!disabled)
-             setAttributes(*attributes, "form"[this@Form.id], "name"[name])
-         else if(clazz != null && disabled)
-             setAttributes(*attributes, "class"[clazz], "form"[this@Form.id], AttributeImpl("disabled"), "name"[name])
-         else
-             setAttributes(*attributes, "class"[clazz], "form"[this@Form.id], "name"[name])
          init()
      }
 

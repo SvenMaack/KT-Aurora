@@ -22,7 +22,7 @@ public open class TextContainer(name: String): TagWithText(name) {
      * @param target Specifies where to open the linked document
      * @param type Specifies the media type of the linked document
      */
-    @Suppress("LongParameterList", "SpreadOperator")
+    @Suppress("LongParameterList", "SpreadOperator", "LongMethod")
     public inline fun a(
         vararg attributes: Attribute,
         href: String,

@@ -26,7 +26,7 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
      * @param target Specifies where to open the linked document
      * @param type Specifies the media type of the linked document
      */
-    @Suppress("LongParameterList", "SpreadOperator")
+    @Suppress("LongParameterList", "SpreadOperator", "LongMethod")
     public inline fun a(
         vararg attributes: Attribute,
         href: String,
@@ -115,6 +115,56 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         init()
     }
 
+    /**
+     * The footer-tag defines a footer for a document or section.
+     */
+    public inline fun footer(vararg attributes: Attribute, clazz: String? = null, init: Footer.() -> Unit): Footer = add(Footer()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+
+    /**
+     * The form-tag is used to create an HTML form for user input.
+     */
+    @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
+    public inline fun form(
+        vararg attributes: Attribute,
+        method: Method = Method.POST,
+        name: String,
+        id: String,
+        action: String,
+        acceptCharset: String? = null,
+        autoComplete: AutoComplete? = null,
+        encType: EncType? = null,
+        noValidate: Boolean = false,
+        rel: Rel? = null,
+        target: Target? = null,
+        clazz: String? = null,
+        init: Form.() -> Unit): Form = add(Form(id))
+    {
+        setAttributes(
+            *attributes,
+            "name"[name],
+            "method"[method.value],
+            "id"[id],
+            "action"[action],
+            *AttributeFilter.filterTrue(
+                BoolAttribute("novalidate", noValidate),
+            ),
+            *AttributeFilter.filterNotNull(
+                "class"[clazz],
+                "accept-charset"[acceptCharset],
+                "autocomplete"[autoComplete?.value],
+                "enctype"[encType?.value],
+                "rel"[rel?.value],
+                "target"[target?.value],
+            )
+        )
+        init()
+    }
+
+
+
 
 
 
@@ -168,10 +218,7 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
-    public inline fun footer(vararg attributes: Attribute, clazz: String? = null, init: Footer.() -> Unit): Footer = add(Footer()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
+
     public inline fun ul(vararg attributes: Attribute, clazz: String? = null, init: Ul.() -> Unit): Ul = add(Ul()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
@@ -188,60 +235,6 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         init()
     }
 
-    @Suppress("LongParameterList")
-    public inline fun form(
-        vararg attributes: Attribute,
-        action: String,
-        name: String,
-        id: String,
-        method: Method = Method.POST,
-        clazz: String? = null,
-        init: Form.() -> Unit): Form = add(Form(id))
-    {
-        if(clazz==null)
-            setAttributes(*attributes, "action"[action], "name"[name], "method"[method.value], "id"[id])
-        else
-            setAttributes(*attributes, "action"[action], "name"[name], "method"[method.value], "id"[id], "class"[clazz])
-        init()
-    }
-
-    @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
-    public inline fun form(
-        vararg attributes: Attribute,
-        acceptCharset: String = "UTF-8",
-        action: String,
-        autoComplete: AutoComplete = AutoComplete.ON,
-        encType: EncType = EncType.APPLICATION_X_WWW_FORM_URLENCODED,
-        method: Method = Method.POST,
-        name: String,
-        id: String,
-        noValidate: Boolean = false,
-        rel: Rel? = null,
-        target: Target? = null,
-        clazz: String? = null,
-        init: Form.() -> Unit): Form = add(Form(id))
-    {
-        val otherAttributes = mutableListOf(
-            "accept-charset"[acceptCharset],
-            "action"[action],
-            "autocomplete"[autoComplete.value],
-            "enctype"[encType.value],
-            "method"[method.value],
-            "name"[name],
-            "id"[id]
-        )
-        if(noValidate)
-            otherAttributes.add(AttributeImpl(name = "novalidate"))
-        if(rel != null)
-            otherAttributes.add(AttributeWithValueImpl(name = "rel", value = rel.value))
-        if(target != null)
-            otherAttributes.add(AttributeWithValueImpl(name = "target", value = target.value))
-        if(clazz != null)
-            otherAttributes.add(AttributeWithValueImpl(name = "class", value = clazz))
-
-        setAttributes(*attributes, *otherAttributes.toTypedArray())
-        init()
-    }
     @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
     public inline fun iFrame(
         vararg attributes: Attribute,

@@ -576,31 +576,15 @@ class BodyTagContainerTest {
         verificationWithClass(details, blockDetails, mapOf())
     }
 
+    //<editor-fold desc="form function">
     @Test
     fun `form function works`() {
         val tag = BodyTagContainer("tag")
         every { blockForm.invoke(any()) }.returns(Unit)
 
-        val form = tag.form("a"["b"], action = "action1", name = "name1", method = Method.POST, clazz = "clazz", id="id1", init = blockForm::invoke)
-
-        verificationWithClass(form, blockForm, mapOf(
-            "a" to listOf("b"),
-            "action" to listOf("action1"),
-            "name" to listOf("name1"),
-            "method" to listOf("post"),
-            "class" to listOf("clazz"),
-            "id" to listOf("id1"),
-        ))
-    }
-
-    @Test
-    fun `form function works without class`() {
-        val tag = BodyTagContainer("tag")
-        every { blockForm.invoke(any()) }.returns(Unit)
-
         val form = tag.form("a"["b"], action = "action1", name = "name1", method = Method.POST, id="id1", init = blockForm::invoke)
 
-        verificationWithoutClass(form, blockForm, mapOf(
+        verificationWithClass(form, blockForm, mapOf(
             "a" to listOf("b"),
             "action" to listOf("action1"),
             "name" to listOf("name1"),
@@ -645,43 +629,7 @@ class BodyTagContainerTest {
             "id" to listOf("id1"),
         ))
     }
-
-    @Test
-    fun `form function works with all attributes if some are null`() {
-        val tag = BodyTagContainer("tag")
-        every { blockForm.invoke(any()) }.returns(Unit)
-
-        val form = tag.form(
-            "a"["b"],
-            acceptCharset = "UTF-8",
-            clazz = "clazz",
-            action = "action1",
-            autoComplete = AutoComplete.OFF,
-            encType = EncType.APPLICATION_X_WWW_FORM_URLENCODED,
-            method = Method.POST,
-            name = "name1",
-            noValidate = true,
-            rel = null, //<--
-            target = null, //<--
-            id = "id1",
-            init = blockForm::invoke
-        )
-
-        verificationWithClass(form, blockForm, mapOf(
-            "a" to listOf("b"),
-            "accept-charset" to listOf("UTF-8"),
-            "action" to listOf("action1"),
-            "autocomplete" to listOf(AutoComplete.OFF.value),
-            "enctype" to listOf(EncType.APPLICATION_X_WWW_FORM_URLENCODED.value),
-            "method" to listOf(Method.POST.value),
-            "name" to listOf("name1"),
-            "novalidate" to listOf(null),
-            //"rel" to listOf(null),
-            //"target" to listOf(null),
-            "class" to listOf("clazz"),
-            "id" to listOf("id1"),
-        ))
-    }
+    //</editor-fold>
 
     @Test
     fun `iFrame function works`() {
