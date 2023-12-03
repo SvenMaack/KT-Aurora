@@ -1,7 +1,6 @@
 package template.tags
 
 import template.base.Attribute
-import template.base.AttributeWithValueImpl
 import template.base.get
 import template.base.TagContainer
 import template.base.AttributeImpl
@@ -163,6 +162,104 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         init()
     }
 
+    /**
+     * The h1- to h6-tags are used to define HTML headings.
+     */
+    public inline fun h1(vararg attributes: Attribute, clazz: String? = null, init: H1.() -> Unit): H1 = add(H1()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+
+    /**
+     * The h1- to h6-tags are used to define HTML headings.
+     */
+    public inline fun h2(vararg attributes: Attribute, clazz: String? = null, init: H2.() -> Unit): H2 = add(H2()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+
+    /**
+     * The h1- to h6-tags are used to define HTML headings.
+     */
+    public inline fun h3(vararg attributes: Attribute, clazz: String? = null, init: H3.() -> Unit): H3 = add(H3()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+
+    /**
+     * The h1- to h6-tags are used to define HTML headings.
+     */
+    public inline fun h4(vararg attributes: Attribute, clazz: String? = null, init: H4.() -> Unit): H4 = add(H4()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+
+    /**
+     * The h1- to h6-tags are used to define HTML headings.
+     */
+    public inline fun h5(vararg attributes: Attribute, clazz: String? = null, init: H5.() -> Unit): H5 = add(H5()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+
+    /**
+     * The h1- to h6-tags are used to define HTML headings.
+     */
+    public inline fun h6(vararg attributes: Attribute, clazz: String? = null, init: H6.() -> Unit): H6 = add(H6()) {
+        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
+        init()
+    }
+
+    /**
+     * The hr-tag defines a thematic break in an HTML page (e.g. a shift of topic).
+     */
+    public inline fun hr(): Hr = add(Hr)
+
+    /**
+     * The iframe-tag specifies an inline frame.
+     */
+    @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+    public inline fun iFrame(
+        vararg attributes: Attribute,
+        src: String,
+        height: Int,
+        width: Int,
+        name: String,
+        loading: IFrameLoading = IFrameLoading.LAZY,
+        allow: Boolean = false,
+        allowFullScreen: Boolean = false,
+        allowPaymentRequest: Boolean = false,
+        referrerPolicy: ReferrerPolicy? = null,
+        sandBox: MutableList<IFrameSandbox>? = null,
+        clazz: String? = null,
+        init: IFrame.() -> Unit): IFrame = add(IFrame())
+    {
+        if(sandBox?.contains(IFrameSandbox.All) == true) {
+            sandBox.clear()
+            sandBox.add(IFrameSandbox.All)
+        }
+        setAttributes(
+            *attributes,
+            "height"[height.toString()],
+            "width"[width.toString()],
+            "loading"[loading.value],
+            "name"[name],
+            "src"[src],
+            *AttributeFilter.filterTrue(
+                BoolAttribute("allow", allow),
+                BoolAttribute("allowfullscreen", allowFullScreen),
+                BoolAttribute("allowpaymentrequest", allowPaymentRequest),
+            ),
+            *AttributeFilter.filterNotNull(
+                "class"[clazz],
+                "referrerpolicy"[referrerPolicy?.value],
+                "sandbox"[sandBox?.joinToString(" ") { it.value }],
+            )
+        )
+        init()
+    }
+
+
 
 
 
@@ -173,31 +270,6 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
         init()
     }
     public inline fun span(vararg attributes: Attribute, clazz: String? = null, init: Span.() -> Unit): Span = add(Span()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-
-    public inline fun h1(vararg attributes: Attribute, clazz: String? = null, init: H1.() -> Unit): H1 = add(H1()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-    public inline fun h2(vararg attributes: Attribute, clazz: String? = null, init: H2.() -> Unit): H2 = add(H2()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-    public inline fun h3(vararg attributes: Attribute, clazz: String? = null, init: H3.() -> Unit): H3 = add(H3()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-    public inline fun h4(vararg attributes: Attribute, clazz: String? = null, init: H4.() -> Unit): H4 = add(H4()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-    public inline fun h5(vararg attributes: Attribute, clazz: String? = null, init: H5.() -> Unit): H5 = add(H5()) {
-        if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
-        init()
-    }
-    public inline fun h6(vararg attributes: Attribute, clazz: String? = null, init: H6.() -> Unit): H6 = add(H6()) {
         if(clazz==null) setAttributes(*attributes) else setAttributes(*attributes, "class"[clazz])
         init()
     }
@@ -234,46 +306,4 @@ public open class BodyTagContainer(name: String) : TagContainer(name) {
     public inline fun search(init: Search.() -> Unit): Search = add(Search()) {
         init()
     }
-
-    @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
-    public inline fun iFrame(
-        vararg attributes: Attribute,
-        allow: Boolean = true,
-        allowFullScreen: Boolean = true,
-        allowPaymentRequest: Boolean = true,
-        height: Int,
-        width: Int,
-        loading: IFrameLoading = IFrameLoading.LAZY,
-        name: String,
-        referrerPolicy: ReferrerPolicy? = null,
-        sandBox: List<IFrameSandbox> = listOf(),
-        src: String,
-        clazz: String? = null,
-        init: IFrame.() -> Unit): IFrame = add(IFrame())
-    {
-        val otherAttributes = mutableListOf(
-            "height"[height.toString()],
-            "width"[width.toString()],
-            "loading"[loading.value],
-            "name"[name],
-            "src"[src]
-        )
-        if(allow)
-            otherAttributes.add(AttributeImpl("allow"))
-        if(allowFullScreen)
-            otherAttributes.add(AttributeImpl("allowfullscreen"))
-        if(allowPaymentRequest)
-            otherAttributes.add(AttributeImpl("allowpaymentrequest"))
-        if(referrerPolicy != null)
-            otherAttributes.add(AttributeWithValueImpl("referrerpolicy", referrerPolicy.value))
-        if(sandBox.isNotEmpty())
-            otherAttributes.add(AttributeWithValueImpl("sandbox", sandBox.joinToString(" ") { it.value }))
-        if(clazz != null)
-            otherAttributes.add(AttributeWithValueImpl("class", clazz))
-
-        setAttributes(*attributes, *otherAttributes.toTypedArray())
-        init()
-    }
-
-    public inline fun hr(): Hr = add(Hr)
 }

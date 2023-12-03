@@ -15,4 +15,7 @@ public enum class IFrameSandbox(public val value: String) {
     AllowTopNavigation("allow-top-navigation"),
 }
 
+/**
+ * The iframe-tag specifies an inline frame.
+ */
 public class IFrame: BodyTagContainer("iframe")

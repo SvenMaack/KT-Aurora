@@ -10,8 +10,15 @@ public enum class Direction(public val shortCode: String) {
     LTR("ltr")
 }
 
+/**
+ * The html-tag represents the root of an HTML document.
+ */
 public class Html: TagContainer("html") {
+    /**
+     * The head-element is a container for metadata (data about data) and is placed between the html-tag and the body-tag.
+     */
     public inline fun head(init: Head.() -> Unit): Head = add(Head(), init)
+
     /**
      * The body-tag defines the document's body. The body-element contains all the contents of an HTML document, such as headings, paragraphs, images, hyperlinks, tables, lists, etc.
      */
@@ -23,6 +30,9 @@ public class Html: TagContainer("html") {
     }
 }
 
+/**
+ * The html-tag represents the root of an HTML document.
+ */
 @Suppress("LongParameterList")
 public fun html(
     lang: Language,
