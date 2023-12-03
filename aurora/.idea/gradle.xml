@@ -13,6 +13,24 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/extensions/frontend/head" />
+        <option name="gradleJvm" value="temurin-17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/extensions/frontend/head" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/extensions/frontend/navigation" />
+        <option name="gradleJvm" value="temurin-17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/extensions/frontend/navigation" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/libs/css" />
         <option name="gradleJvm" value="temurin-17" />
         <option name="modules">
@@ -36,24 +54,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/libs/template" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/modules/frontend/head" />
-        <option name="gradleJvm" value="temurin-17" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/modules/frontend/head" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/modules/frontend/navigation" />
-        <option name="gradleJvm" value="temurin-17" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/modules/frontend/navigation" />
           </set>
         </option>
       </GradleProjectSettings>
