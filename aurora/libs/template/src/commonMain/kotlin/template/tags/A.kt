@@ -15,7 +15,6 @@ import template.tags.enums.Target
 public class A: BodyTagContainer("a") {
     @PublishedApi
     internal companion object {
-
         @Suppress("LongParameterList", "SpreadOperator", "LongMethod")
         inline fun <T: TagContainer> addATagWithAttributes(
             parent: T,

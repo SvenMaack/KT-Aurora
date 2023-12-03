@@ -22,6 +22,20 @@ class OptGroupTest {
         val optGroup = OptGroup()
         every { blockOption.invoke(any()) }.returns(Unit)
 
+        val option = optGroup.option("a"["b"], label = "l1", value = "v1", init = blockOption::invoke)
+
+        verification(option, blockOption, mapOf(
+            "a" to listOf("b"),
+            "label" to listOf("l1"),
+            "value" to listOf("v1"),
+        ))
+    }
+
+    @Test
+    fun `option function works without optionals`() {
+        val optGroup = OptGroup()
+        every { blockOption.invoke(any()) }.returns(Unit)
+
         val option = optGroup.option("a"["b"], disabled = true, selected = true, label = "l1",  value = "v1", clazz = "clazz", init = blockOption::invoke)
 
         verification(option, blockOption, mapOf(
@@ -31,20 +45,6 @@ class OptGroupTest {
             "label" to listOf("l1"),
             "value" to listOf("v1"),
             "class" to listOf("clazz")
-        ))
-    }
-
-    @Test
-    fun `option function works without optionals`() {
-        val optGroup = OptGroup()
-        every { blockOption.invoke(any()) }.returns(Unit)
-
-        val option = optGroup.option("a"["b"], disabled = false, selected = false, label = "l1", value = "v1", init = blockOption::invoke)
-
-        verification(option, blockOption, mapOf(
-            "a" to listOf("b"),
-            "label" to listOf("l1"),
-            "value" to listOf("v1"),
         ))
     }
 

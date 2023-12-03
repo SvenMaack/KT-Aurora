@@ -1,15 +1,16 @@
 package template.tags
 
 import template.base.Attribute
-import template.base.AttributeImpl
-import template.base.AttributeWithValueImpl
 import template.base.get
 
 /**
  * The select-element is used to create a drop-down list.
  */
 public class Select(public override val id: String): BodyTagContainer("select"), FormElement {
-    @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+    /**
+     * The optgroup-tag is used to group related options in a select-element (drop-down list).
+     */
+    @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun optGroup(
         vararg attributes: Attribute,
         clazz: String? = null,
@@ -17,18 +18,23 @@ public class Select(public override val id: String): BodyTagContainer("select"),
         disabled: Boolean = false,
         init: OptGroup.() -> Unit): OptGroup = add(OptGroup())
     {
-        if(clazz==null && disabled)
-            setAttributes(*attributes, "label"[label], AttributeImpl("disabled"))
-        else if(clazz==null && !disabled)
-                setAttributes(*attributes, "label"[label])
-        else if(disabled)
-            setAttributes(*attributes, "class"[clazz], "label"[label], AttributeImpl("disabled"))
-        else
-            setAttributes(*attributes, "class"[clazz], "label"[label])
+        setAttributes(
+            *attributes,
+            "label"[label],
+            *AttributeFilter.filterTrue(
+                BoolAttribute("disabled", disabled),
+            ),
+            *AttributeFilter.filterNotNull(
+                "class"[clazz],
+            )
+        )
         init()
     }
 
-    @Suppress("LongParameterList", "CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod", "SpreadOperator")
+    /**
+     * The option-tag defines an option in a select list.
+     */
+    @Suppress("LongParameterList", "LongMethod", "SpreadOperator")
     public inline fun option(
         vararg attributes: Attribute,
         clazz: String? = null,
@@ -36,20 +42,13 @@ public class Select(public override val id: String): BodyTagContainer("select"),
         value: String,
         disabled: Boolean = false,
         selected: Boolean = false,
-        init: Option.() -> Unit): Option = add(Option())
-    {
-        val otherAttributes = mutableListOf(
-            "label"[label],
-            "value"[value],
-        )
-        if (selected)
-            otherAttributes.add(AttributeImpl(name = "selected"))
-        if (disabled)
-            otherAttributes.add(AttributeImpl(name = "disabled"))
-        if (clazz != null)
-            otherAttributes.add(AttributeWithValueImpl(name = "class", value = clazz))
-
-        setAttributes(*attributes, *otherAttributes.toTypedArray())
-        init()
-    }
+        init: Option.() -> Unit): Option = Option.addOptionTagWithAttributes(
+            this,
+                clazz,
+                label,
+                value,
+                disabled,
+                selected,
+                *attributes,
+            ).apply(init)
 }

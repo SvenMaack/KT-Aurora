@@ -25,19 +25,17 @@ class SelectTest {
         val select = Select("id1")
         every { blockOptGroup.invoke(any()) }.returns(Unit)
 
-        val optGroup = select.optGroup("a"["b"], disabled = true, label = "l1", clazz = "clazz", init = blockOptGroup::invoke)
+        val optGroup = select.optGroup("a"["b"], label = "l1", init = blockOptGroup::invoke)
 
         verification(optGroup, blockOptGroup, mapOf(
                 "a" to listOf("b"),
-                "disabled" to listOf(null),
                 "label" to listOf("l1"),
-                "class" to listOf("clazz")
             )
         )
     }
 
     @Test
-    fun `optGroup function works without class`() {
+    fun `optGroup function works with all attributes`() {
         val select = Select("id1")
         every { blockOptGroup.invoke(any()) }.returns(Unit)
 
@@ -52,21 +50,21 @@ class SelectTest {
     }
 
     @Test
-    fun `optGroup function works without disabled`() {
+    fun `option function works`() {
         val select = Select("id1")
-        every { blockOptGroup.invoke(any()) }.returns(Unit)
+        every { blockOption.invoke(any()) }.returns(Unit)
 
-        val optGroup = select.optGroup("a"["b"], label = "l1", disabled = false, init = blockOptGroup::invoke)
+        val option = select.option("a"["b"], label = "l1", value = "v1", init = blockOption::invoke)
 
-        verification(optGroup, blockOptGroup, mapOf(
-                "a" to listOf("b"),
-                "label" to listOf("l1"),
-            )
-        )
+        verification(option, blockOption, mapOf(
+            "a" to listOf("b"),
+            "label" to listOf("l1"),
+            "value" to listOf("v1"),
+        ))
     }
 
     @Test
-    fun `option function works`() {
+    fun `option function works with all attributes`() {
         val select = Select("id1")
         every { blockOption.invoke(any()) }.returns(Unit)
 
@@ -79,20 +77,6 @@ class SelectTest {
             "label" to listOf("l1"),
             "value" to listOf("v1"),
             "class" to listOf("clazz")
-        ))
-    }
-
-    @Test
-    fun `option function works without optionals`() {
-        val select = Select("id1")
-        every { blockOption.invoke(any()) }.returns(Unit)
-
-        val option = select.option("a"["b"], disabled = false, selected = false, label = "l1", value = "v1", init = blockOption::invoke)
-
-        verification(option, blockOption, mapOf(
-            "a" to listOf("b"),
-            "label" to listOf("l1"),
-            "value" to listOf("v1"),
         ))
     }
 
