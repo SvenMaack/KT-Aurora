@@ -6,7 +6,7 @@ import css.base.IDocument
 import landingPage.LandingPageDto
 import modules_lib.navigation.NavigationModule
 import page_lib.Module
-import head_lib.SimpleHeadTemplate
+import head.HeadModule
 import template.Template
 import template.include
 import template.tags.enums.CountryCode.*
@@ -16,8 +16,8 @@ import template.tags.html
 
 private val landingPageTemplate: Template<LandingPageDto> = { context, data ->
     html(lang=English-UNITED_STATES) {
-        include(context=context, template=SimpleHeadTemplate, vm=data.head)
-        include(context=context, template=BodyTemplate,       vm=data.navigation)
+        include(context=context, template=HeadModule.template, vm=data.head)
+        include(context=context, template=BodyTemplate,        vm=data.navigation)
     }
 }
 
@@ -27,6 +27,7 @@ val LandingPageModule: Module<LandingPageDto> = object : Module<LandingPageDto> 
     override val document: IDocument = DocumentList()
         .add(landingPageDocument)
         .add(NavigationModule.document)
+        .add(HeadModule.document)
 
     override val template: Template<LandingPageDto> =
         landingPageTemplate

@@ -1,5 +1,8 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
 plugins {
     kotlin("multiplatform") version "1.9.10"
+    id("io.gitlab.arturbosch.detekt") version "1.23.4"
     id("maven-publish")
 }
 
@@ -12,6 +15,7 @@ repositories {
 }
 
 kotlin {
+    explicitApi()
     val hostOs = System.getProperty("os.name")
     val isArm64 = System.getProperty("os.arch") == "aarch64"
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -33,5 +37,17 @@ kotlin {
         val commonTest by getting
         val nativeMain by getting
         val nativeTest by getting
+    }
+}
+
+detekt {
+    source.setFrom("src/commonMain/kotlin")
+    allRules = true
+    config.setFrom("$projectDir/config/detekt.yml")
+    parallel = true
+}
+tasks.withType<Detekt>().configureEach {
+    reports {
+        html.required.set(true)
     }
 }
