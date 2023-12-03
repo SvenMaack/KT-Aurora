@@ -5,8 +5,22 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
+identify(){
+    echo " ██▓     ██▓ ▄▄▄▄    ██▀███   ▄▄▄       ██▀███ ▓██   ██▓";
+    echo "▓██▒    ▓██▒▓█████▄ ▓██ ▒ ██▒▒████▄    ▓██ ▒ ██▒▒██  ██▒";
+    echo "▒██░    ▒██▒▒██▒ ▄██▓██ ░▄█ ▒▒██  ▀█▄  ▓██ ░▄█ ▒ ▒██ ██░";
+    echo "▒██░    ░██░▒██░█▀  ▒██▀▀█▄  ░██▄▄▄▄██ ▒██▀▀█▄   ░ ▐██▓░";
+    echo "░██████▒░██░░▓█  ▀█▓░██▓ ▒██▒ ▓█   ▓██▒░██▓ ▒██▒ ░ ██▒▓░";
+    echo "░ ▒░▓  ░░▓  ░▒▓███▀▒░ ▒▓ ░▒▓░ ▒▒   ▓▒█░░ ▒▓ ░▒▓░  ██▒▒▒ ";
+    echo "░ ░ ▒  ░ ▒ ░▒░▒   ░   ░▒ ░ ▒░  ▒   ▒▒ ░  ░▒ ░ ▒░▓██ ░▒░ ";
+    echo "  ░ ░    ▒ ░ ░    ░   ░░   ░   ░   ▒     ░░   ░ ▒ ▒ ░░  ";
+    echo "    ░  ░ ░   ░         ░           ░  ░   ░     ░ ░     ";
+    echo "                  ░                             ░ ░     ";
+}
+
 case $1 in
     build)
+        identify
         echo "Running Gradle build..."
         set -x #echo on
         ( cd css && ./run.sh build)
@@ -14,6 +28,7 @@ case $1 in
         ( cd page && ./run.sh build)
         ;;
     create)
+        identify
         echo "Creates files..."
         set -x #echo on
         ( cd css && ./run.sh create)
@@ -21,6 +36,7 @@ case $1 in
         ( cd page && ./run.sh create)
         ;;
     test)
+        identify
         echo "Running Gradle tests..."
         set -x #echo on
         ( cd css && ./run.sh test)
@@ -28,6 +44,7 @@ case $1 in
         ( cd page && ./run.sh test)
         ;;
     clean)
+        identif
         echo "Cleaning Gradle build..."
         set -x #echo on
         ( cd css && ./run.sh clean)
@@ -35,6 +52,7 @@ case $1 in
         ( cd page && ./run.sh clean)
         ;;
     *)
+        identify
         echo "Invalid option: $1. Available options are build, create, test, and clean."
         exit 1
         ;;

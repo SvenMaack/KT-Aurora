@@ -10,28 +10,28 @@ case $1 in
         echo "Running Gradle build..."
         set -x #echo on
         ( cd libs && ./run.sh build)
-        ( cd modules && ./run.sh build)
+        ( cd extensions && ./run.sh build)
         ( cd apps && ./run.sh build)
         ;;
     create)
         echo "Creates files..."
         set -x #echo on
         ( cd libs && ./run.sh create)
-        ( cd modules && ./run.sh create)
+        ( cd extensions && ./run.sh create)
         ( cd apps && ./run.sh create)
         ;;
     test)
         echo "Running Gradle tests..."
         set -x #echo on
         ( cd libs && ./run.sh test)
-        ( cd modules && ./run.sh test)
+        ( cd extensions && ./run.sh test)
         ( cd apps && ./run.sh test)
         ;;
     clean)
         echo "Cleaning Gradle build..."
         set -x #echo on
         ( cd libs && ./run.sh clean)
-        ( cd modules && ./run.sh clean)
+        ( cd extensions && ./run.sh clean)
         ( cd apps && ./run.sh clean)
         ;;
     *)
