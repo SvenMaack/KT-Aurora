@@ -1,25 +1,24 @@
-package head.code
+package head
 
 import template.StaticTemplateExtension
 import template.TemplateExtension
 import template.include
-import template.tags.Head
+import template.tags.Head as HeadTag
 import template.tags.Html
-import head.Head as HeadVM
 
-internal val SimpleHeadTemplate: TemplateExtension<Html, HeadVM> = { context, data ->
+internal val SimpleHeadTemplate: TemplateExtension<Html, TechnicalData> = { context, data ->
     head {
         include(context=context, template=StaticHead)
         include(context=context, template=DynamicHead, vm=data)
     }
 }
 
-internal val DynamicHead: TemplateExtension<Head, HeadVM> = { _, data ->
+internal val DynamicHead: TemplateExtension<HeadTag, TechnicalData> = { _, data ->
     title {
-        +data.pageSeo.title
+        +data.seo.title
     }
-    meta(name="description", content=data.pageSeo.description)
-    meta(name="keywords", content=data.pageSeo.keywords)
+    meta(name="description", content=data.seo.description)
+    meta(name="keywords", content=data.seo.keywords)
     if(data.css.externalStylingPath.isNotEmpty())
         link(rel="stylesheet", href=data.css.externalStylingPath)
     if(data.css.inlineStyling.isNotEmpty())
@@ -28,7 +27,7 @@ internal val DynamicHead: TemplateExtension<Head, HeadVM> = { _, data ->
         }
 }
 
-internal val StaticHead: StaticTemplateExtension<Head> =  { _, data ->
+internal val StaticHead: StaticTemplateExtension<HeadTag> =  { _, _ ->
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1")
 }

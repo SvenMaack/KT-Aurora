@@ -1,15 +1,15 @@
 package landingPage
 
 import head.Css
-import head.Head
-import head.PageSeo
+import head.Seo
+import head.TechnicalData
 import landingPage.module.landingPageModule
 import modules_lib.navigation.NavigationVM
 import page_lib.page.Page
 import page_lib.page.base.DebugVisitors
 
 data class LandingPageDto(
-    val head: Head,
+    val technicalData: TechnicalData,
     val navigation: NavigationVM
 )
 
@@ -21,7 +21,7 @@ val landingPage = Page.build(
 )
 
 val css = Css(externalStylingPath = landingPage.getExternalCssPath(), inlineStyling = landingPage.getInlineCss())
-val seoData = PageSeo("Hello World", "description", "keyword1, keyword2")
-val headData = Head(seoData, css)
+val seo = Seo("Hello World", "description", "keyword1, keyword2")
+val technicalData = TechnicalData(seo, css)
 val navigationDto: NavigationVM = NavigationVM(listOf("Home", "Trends", "New Arrival", "Sales"))
-val pageData: LandingPageDto = LandingPageDto(headData, navigationDto)
+val pageData: LandingPageDto = LandingPageDto(technicalData, navigationDto)

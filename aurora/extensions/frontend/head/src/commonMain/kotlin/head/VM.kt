@@ -1,6 +1,6 @@
 package head
 
-public data class PageSeo(
+public data class Seo(
     val title: String,
     val description: String,
     val keywords: String
@@ -11,7 +11,7 @@ public data class Css(
     val inlineStyling: String,
 )
 
-public data class Head(
-    val pageSeo: PageSeo,
+public data class TechnicalData(
+    val seo: Seo,
     val css: Css
 )

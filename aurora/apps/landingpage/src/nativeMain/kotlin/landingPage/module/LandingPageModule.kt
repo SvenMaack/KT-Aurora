@@ -11,15 +11,12 @@ import page_lib.PageModule
 
 private val landingPageTemplate: Template<LandingPageDto> = { context, data ->
     html(lang=context.language) {
-        include(context=context, template=HeadModule.template, vm=data.head)
+        include(context=context, template=HeadModule.template, vm=data.technicalData)
         include(context=context, template=BodyTemplate, vm=data.navigation)
     }
 }
 
 private val landingPageDocument: IDocument = NavigationModule.document
 
-internal val landingPageModule: PageModule<LandingPageDto> = object : PageModule<LandingPageDto> {
-    override val document: IDocument = landingPageDocument
-    override val template: Template<LandingPageDto> = landingPageTemplate
-}
-
+internal val landingPageModule: PageModule<LandingPageDto> =
+    PageModule(landingPageDocument, landingPageTemplate)
