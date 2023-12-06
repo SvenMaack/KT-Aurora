@@ -51,6 +51,13 @@ public class Head: TagContainer("head") {
     }
 
     /**
+     * A meta http-equiv attribute simulates an HTTP response header. It is used to provide information about the document type and character set used in the document.
+     */
+    public inline fun metaHttpEquiv(content: String): Meta = add(Meta()) {
+        setAttributes("http-equiv"["content-type"], "content"[content])
+    }
+
+    /**
      * The style-tag is used to define style information (CSS) for a document.
      */
     public inline fun style(init: Style.() -> Unit): Style = add(Style(), init)

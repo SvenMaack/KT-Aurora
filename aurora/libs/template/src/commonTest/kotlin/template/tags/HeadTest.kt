@@ -105,4 +105,15 @@ class HeadTest {
             "content" to listOf("content")
         ), meta.attributes)
     }
+
+    @Test
+    fun `meta name-HttpEquiv function works`() {
+        val head = Head()
+        val meta = head.metaHttpEquiv(content = "a")
+
+        assertEquals(mapOf(
+            "http-equiv" to listOf("content-type"),
+            "content" to listOf("a")
+        ), meta.attributes)
+    }
 }

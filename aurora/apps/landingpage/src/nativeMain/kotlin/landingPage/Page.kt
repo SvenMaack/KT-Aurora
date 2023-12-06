@@ -21,7 +21,7 @@ val landingPage = Page.build(
 )
 
 val css = Css(externalStylingPath = landingPage.getExternalCssPath(), inlineStyling = landingPage.getInlineCss())
-val seo = Seo("Hello World", "description", "keyword1, keyword2")
+val seo = Seo("Hello World", "description", "keyword1, keyword2", "https://www.example.com")
 val technicalData = TechnicalData(seo, css)
 val navigationDto: NavigationVM = NavigationVM(listOf("Home", "Trends", "New Arrival", "Sales"))
 val pageData: LandingPageDto = LandingPageDto(technicalData, navigationDto)
