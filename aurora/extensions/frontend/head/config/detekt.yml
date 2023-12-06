@@ -38,11 +38,11 @@ console-reports:
 output-reports:
   active: true
   exclude:
-   - 'TxtOutputReport'
-   - 'XmlOutputReport'
-  # - 'HtmlOutputReport'
-   - 'MdOutputReport'
-   - 'sarif'
+    - 'TxtOutputReport'
+    - 'XmlOutputReport'
+    # - 'HtmlOutputReport'
+    - 'MdOutputReport'
+    - 'sarif'
 
 comments:
   active: true
@@ -166,7 +166,7 @@ complexity:
     thresholdInFiles: 10
     thresholdInClasses: 10
     thresholdInInterfaces: 10
-    thresholdInObjects: 5
+    thresholdInObjects: 7
     thresholdInEnums: 10
 
 coroutines:

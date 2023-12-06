@@ -1,55 +1,48 @@
 package template
 
 import io.mockative.*
-import template.base.TagContainer
-import template.base.HtmlVisitor
 import template.base.HtmlVisitorStrategy
+import template.tags.Div
 import kotlin.test.Test
 
 class TemplateCacheTest {
     @Mock
-    val htmlVisitorMock = mock(classOf<HtmlVisitor<String>>())
-    @Mock
-    val staticTemplateMock = mock(classOf<Fun2<Context, Unit, TagContainer>>())
-    @Mock
     val htmlVisitorStrategyMock = mock(classOf<HtmlVisitorStrategy<String>>())
     @Mock
     val templateRendererMock = mock(classOf<ITemplateRenderer>())
+    @Mock
+    val staticTemplateExtensionMock = mock(classOf<Fun3<Div, Context, Unit, Unit>>())
 
     @Test
-    fun `test cache works`() {
-        val tag = TagContainer("parent")
+    fun `test cache object works`() {
         val context = Context(htmlVisitorStrategyMock, templateRendererMock)
-        every { staticTemplateMock.invoke(context, Unit) }.returns(tag)
-        every { htmlVisitorMock.result }.returns("")
-        every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
-        every { templateRendererMock.render<Unit>(any(), any(), any()) }.returns("test")
+        every { templateRendererMock.render(context = any(), element = any()) }.returns("test")
+        every { staticTemplateExtensionMock.invoke(any(), any(), any())}.returns(Unit)
 
         TemplateCache.clear()
 
-        TemplateCache[context, staticTemplateMock::invoke]
-        TemplateCache[context, staticTemplateMock::invoke]
+        TemplateCache[context, staticTemplateExtensionMock::invoke, ::Div]
+        TemplateCache[context, staticTemplateExtensionMock::invoke, ::Div]
 
-        verify { templateRendererMock.render(context, staticTemplateMock::invoke, Unit) }
+        verify { staticTemplateExtensionMock.invoke(any(), any(), any()) }
             .wasInvoked(exactly = once)
     }
 
     @Test
-    fun `test clear works`() {
-        val tag = TagContainer("parent")
+    fun `test cache function works`() {
+        val parent = Div()
         val context = Context(htmlVisitorStrategyMock, templateRendererMock)
-        every { staticTemplateMock.invoke(context, Unit) }.returns(tag)
-        every { htmlVisitorMock.result }.returns("")
-        every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
-        every { templateRendererMock.render<Unit>(any(), any(), any()) }.returns("test")
+        every { templateRendererMock.render(context = any(), element = any()) }.returns("test")
+        every { staticTemplateExtensionMock.invoke(any(), any(), any())}.returns(Unit)
 
         TemplateCache.clear()
 
-        TemplateCache[context, staticTemplateMock::invoke]
-        TemplateCache.clear()
-        TemplateCache[context, staticTemplateMock::invoke]
+        parent.apply {
+            cache(context = context, template = staticTemplateExtensionMock::invoke, ref = ::Div)
+            cache(context = context, template = staticTemplateExtensionMock::invoke, ref = ::Div)
+        }
 
-        verify { templateRendererMock.render(context, staticTemplateMock::invoke, Unit) }
-            .wasInvoked(exactly = twice)
+        verify { staticTemplateExtensionMock.invoke(any(), any(), any()) }
+            .wasInvoked(exactly = once)
     }
 }

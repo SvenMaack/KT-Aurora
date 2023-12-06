@@ -2,11 +2,12 @@ package modules_lib.navigation
 
 import css.base.IDocument
 import page_lib.Module
-import template.Template
+import template.TemplateExtension
+import template.tags.BodyTagContainer
 
-val NavigationModule: Module<NavigationVM> = object : Module<NavigationVM> {
+public val NavigationModule: Module<BodyTagContainer, NavigationVM> = object : Module<BodyTagContainer, NavigationVM> {
     override val document: IDocument = navigationCssDocument
-    override val template: Template<NavigationVM> = NavigationTemplate
+    override val template: TemplateExtension<BodyTagContainer, NavigationVM> = NavigationTemplate
 }
 
 data class NavigationVM(

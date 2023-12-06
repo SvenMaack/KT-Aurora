@@ -3,7 +3,7 @@ package landingPage
 import head.Css
 import head.Head
 import head.PageSeo
-import landingPage.module.LandingPageModule
+import landingPage.module.landingPageModule
 import modules_lib.navigation.NavigationVM
 import page_lib.page.Page
 import page_lib.page.base.DebugVisitors
@@ -15,8 +15,8 @@ data class LandingPageDto(
 
 val landingPage = Page.build(
     name = "landingPage$UniqueId",
-    template = LandingPageModule.template,
-    externalDocument = LandingPageModule.document,
+    template = landingPageModule.template,
+    externalDocument = landingPageModule.document,
     visitors = DebugVisitors
 )
 

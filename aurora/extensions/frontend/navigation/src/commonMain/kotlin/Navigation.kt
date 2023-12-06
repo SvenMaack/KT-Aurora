@@ -8,28 +8,26 @@ import css.properties.DisplayTypeValue.`inline-block`
 import css.properties.ListStyleTypeValue.*
 import css.properties.PositionValue.absolute
 import css.properties.TextTransformValues.uppercase
-import template.Template
-import template.childs
-import template.tags.Div
 import page_lib.ClassGenerator
+import template.TemplateExtension
+import template.tags.BodyTagContainer
 
 private val NAVIGATION: String = ClassGenerator("nav")
 private val NAVIGATION__ITEM: String = ClassGenerator("nav")
 
-internal val NavigationTemplate: Template<NavigationVM> = { _, data ->
-    Div().apply {
-        nav {
-            ul(clazz=NAVIGATION) {
-                data.entries.forEach { entry ->
-                    li(clazz=NAVIGATION__ITEM) {
-                        span {
-                            +entry
-                        }
+
+internal val NavigationTemplate: TemplateExtension<BodyTagContainer, NavigationVM> =  { _, data ->
+    nav {
+        ul(clazz=NAVIGATION) {
+            data.entries.forEach { entry ->
+                li(clazz=NAVIGATION__ITEM) {
+                    span {
+                        +entry
                     }
                 }
             }
         }
-    }.childs()
+    }
 }
 
 internal val navigationCssDocument: IDocument = Document().apply {
