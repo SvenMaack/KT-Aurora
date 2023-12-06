@@ -22,36 +22,36 @@ class TemplateRendererTest {
     @Test
     fun `test dynamic template render works`() {
         val tag = TagContainer("parent")
-        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
+        val context = Context(templateRendererMock)
         val vm = "test1"
         every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
         every { htmlVisitorMock.result }.returns("visitorResult")
         every { dynamicTemplateMock.invoke(context, vm) }.returns(tag)
 
-        val result = TemplateRenderer().render(context, dynamicTemplateMock::invoke, vm)
+        val result = TemplateRenderer(htmlVisitorStrategyMock).render(context, dynamicTemplateMock::invoke, vm)
         assertEquals("visitorResult", result)
     }
 
     @Test
     fun `test dynamic template render works for static template`() {
         val tag = TagContainer("parent")
-        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
+        val context = Context(templateRendererMock)
         every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
         every { htmlVisitorMock.result }.returns("visitorResult")
         every { staticTemplateMock.invoke(context, Unit) }.returns(tag)
 
-        val result = TemplateRenderer().render(context, staticTemplateMock::invoke)
+        val result = TemplateRenderer(htmlVisitorStrategyMock).render(context, staticTemplateMock::invoke)
         assertEquals("visitorResult", result)
     }
 
     @Test
     fun `test dynamic template render works for element`() {
         val tag = TagContainer("parent")
-        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
+        val context = Context(templateRendererMock)
         every { htmlVisitorMock.result }.returns("visitorResult")
         every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
 
-        val result = TemplateRenderer().render(context, tag)
+        val result = TemplateRenderer(htmlVisitorStrategyMock).render(context, tag)
         assertEquals("visitorResult", result)
     }
 }

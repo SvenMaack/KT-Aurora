@@ -2,12 +2,9 @@ package template
 
 import io.mockative.*
 import template.base.TagContainer
-import template.base.HtmlVisitorStrategy
 import kotlin.test.Test
 
 class TemplateCompositionTest {
-    @Mock
-    val htmlVisitorStrategyMock = mock(classOf<HtmlVisitorStrategy<String>>())
     @Mock
     val templateRendererMock = mock(classOf<ITemplateRenderer>())
     @Mock
@@ -18,7 +15,7 @@ class TemplateCompositionTest {
     @Test
     fun `include template works`() {
         val parent = TagContainer("parent")
-        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
+        val context = Context(templateRendererMock)
         val vm = "vm"
         every { templateExtensionMock.invoke(parent, context, vm) }.returns(Unit)
 
@@ -33,7 +30,7 @@ class TemplateCompositionTest {
     @Test
     fun `include static template works`() {
         val parent = TagContainer("parent")
-        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
+        val context = Context(templateRendererMock)
         every { staticTemplateExtensionMock.invoke(parent, context, Unit) }.returns(Unit)
 
         parent.apply {

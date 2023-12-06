@@ -1,13 +1,10 @@
 package template
 
 import io.mockative.*
-import template.base.HtmlVisitorStrategy
 import template.tags.Div
 import kotlin.test.Test
 
 class TemplateCacheTest {
-    @Mock
-    val htmlVisitorStrategyMock = mock(classOf<HtmlVisitorStrategy<String>>())
     @Mock
     val templateRendererMock = mock(classOf<ITemplateRenderer>())
     @Mock
@@ -15,7 +12,7 @@ class TemplateCacheTest {
 
     @Test
     fun `test cache object works`() {
-        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
+        val context = Context(templateRendererMock)
         every { templateRendererMock.render(context = any(), element = any()) }.returns("test")
         every { staticTemplateExtensionMock.invoke(any(), any(), any())}.returns(Unit)
 
@@ -31,7 +28,7 @@ class TemplateCacheTest {
     @Test
     fun `test cache function works`() {
         val parent = Div()
-        val context = Context(htmlVisitorStrategyMock, templateRendererMock)
+        val context = Context(templateRendererMock)
         every { templateRendererMock.render(context = any(), element = any()) }.returns("test")
         every { staticTemplateExtensionMock.invoke(any(), any(), any())}.returns(Unit)
 

@@ -9,7 +9,6 @@ import template.Context
 import template.ITemplateRenderer
 import template.TemplateRenderer
 import template.Template
-import template.base.HtmlVisitorStrategy
 import template.base.TagContainer
 
 class PageContext
@@ -43,7 +42,6 @@ class Page<ViewModel> private constructor(
     override fun getHtml(pageContext: PageContext, viewModel: ViewModel): String {
         val context = getContext(
             pageContext,
-            visitors.htmlVisitor,
             templateRenderer
         )
         return renderer.renderHtml(context, provider.getHtmlTag(context, viewModel))
@@ -57,11 +55,9 @@ class Page<ViewModel> private constructor(
 
     private inline fun getContext(
         @Suppress("UNUSED_PARAMETER") pageContext: PageContext,
-        templateVisitorFactory: HtmlVisitorStrategy<String>,
         templateRenderer: ITemplateRenderer
     ): Context =
         Context(
-            templateVisitorFactory,
             templateRenderer
         )
 
@@ -73,7 +69,7 @@ class Page<ViewModel> private constructor(
             visitors: Visitors<String> = ProductionVisitors,
             inlineDocument: IDocument = Document(),
             externalDocument: IDocument = Document(),
-            templateRenderer: ITemplateRenderer = TemplateRenderer()
+            templateRenderer: ITemplateRenderer = TemplateRenderer(visitors.htmlVisitor)
         ) : IPage<ViewModel> {
             val provider = object : IPageProvider<ViewModel> {
                 override fun getHtmlTag(context: Context, viewModel: ViewModel): TagContainer =

@@ -1,8 +1,9 @@
 package template
 
 import template.base.Element
+import template.base.HtmlVisitorStrategy
 
-public class TemplateRenderer : ITemplateRenderer {
+public class TemplateRenderer(private val htmlVisitorStrategy: HtmlVisitorStrategy<String>) : ITemplateRenderer {
     public override fun render(context: Context, template: Template<Unit>): String =
         render(context, template(context, Unit))
 
@@ -10,7 +11,7 @@ public class TemplateRenderer : ITemplateRenderer {
         render(context, template(context, vm))
 
     public override fun render(context: Context, element: Element): String =
-        context.htmlVisitorStrategy.create().apply {
+        htmlVisitorStrategy.create().apply {
             element.traverse(this)
         }.result
 }
