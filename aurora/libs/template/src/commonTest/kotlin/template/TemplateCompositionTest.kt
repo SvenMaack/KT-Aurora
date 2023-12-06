@@ -2,6 +2,9 @@ package template
 
 import io.mockative.*
 import template.base.TagContainer
+import template.tags.enums.CountryCode
+import template.tags.enums.GeneralLanguage
+import template.tags.enums.minus
 import kotlin.test.Test
 
 class TemplateCompositionTest {
@@ -15,7 +18,7 @@ class TemplateCompositionTest {
     @Test
     fun `include template works`() {
         val parent = TagContainer("parent")
-        val context = Context(templateRendererMock)
+        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English - CountryCode.UNITED_STATES)
         val vm = "vm"
         every { templateExtensionMock.invoke(parent, context, vm) }.returns(Unit)
 
@@ -30,7 +33,7 @@ class TemplateCompositionTest {
     @Test
     fun `include static template works`() {
         val parent = TagContainer("parent")
-        val context = Context(templateRendererMock)
+        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English - CountryCode.UNITED_STATES)
         every { staticTemplateExtensionMock.invoke(parent, context, Unit) }.returns(Unit)
 
         parent.apply {

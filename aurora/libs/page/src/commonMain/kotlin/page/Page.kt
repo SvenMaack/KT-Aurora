@@ -10,8 +10,11 @@ import template.ITemplateRenderer
 import template.TemplateRenderer
 import template.Template
 import template.base.TagContainer
+import template.tags.enums.SpecificLanguage
 
-class PageContext
+class PageContext(
+    val language: SpecificLanguage
+)
 
 interface IPage<ViewModel> {
     fun getExternalCss(): String
@@ -54,11 +57,12 @@ class Page<ViewModel> private constructor(
         )
 
     private inline fun getContext(
-        @Suppress("UNUSED_PARAMETER") pageContext: PageContext,
+        pageContext: PageContext,
         templateRenderer: ITemplateRenderer
     ): Context =
         Context(
-            templateRenderer
+            templateRenderer = templateRenderer,
+            language = pageContext.language
         )
 
     companion object {

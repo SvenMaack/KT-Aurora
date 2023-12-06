@@ -4,6 +4,9 @@ import io.mockative.*
 import template.base.TagContainer
 import template.base.HtmlVisitor
 import template.base.HtmlVisitorStrategy
+import template.tags.enums.CountryCode
+import template.tags.enums.GeneralLanguage
+import template.tags.enums.minus
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -22,7 +25,7 @@ class TemplateRendererTest {
     @Test
     fun `test dynamic template render works`() {
         val tag = TagContainer("parent")
-        val context = Context(templateRendererMock)
+        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English - CountryCode.UNITED_STATES)
         val vm = "test1"
         every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
         every { htmlVisitorMock.result }.returns("visitorResult")
@@ -35,7 +38,7 @@ class TemplateRendererTest {
     @Test
     fun `test dynamic template render works for static template`() {
         val tag = TagContainer("parent")
-        val context = Context(templateRendererMock)
+        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English - CountryCode.UNITED_STATES)
         every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
         every { htmlVisitorMock.result }.returns("visitorResult")
         every { staticTemplateMock.invoke(context, Unit) }.returns(tag)
@@ -47,7 +50,7 @@ class TemplateRendererTest {
     @Test
     fun `test dynamic template render works for element`() {
         val tag = TagContainer("parent")
-        val context = Context(templateRendererMock)
+        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English - CountryCode.UNITED_STATES)
         every { htmlVisitorMock.result }.returns("visitorResult")
         every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
 

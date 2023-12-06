@@ -13,7 +13,7 @@ import modules_lib.navigation.NavigationModule
 import page_lib.PageModule
 
 private val landingPageTemplate: Template<LandingPageDto> = { context, data ->
-    html(lang=English-UNITED_STATES) {
+    html(lang=context.language) {
         include(context=context, template=HeadModule.template, vm=data.head)
         include(context=context, template=BodyTemplate, vm=data.navigation)
     }

@@ -7,6 +7,9 @@ import io.ktor.server.routing.*
 import landingPage.landingPage
 import landingPage.pageData
 import page_lib.page.PageContext
+import template.tags.enums.CountryCode
+import template.tags.enums.GeneralLanguage
+import template.tags.enums.minus
 
 fun main() {
     embeddedServer(CIO, configure = {
@@ -16,7 +19,7 @@ fun main() {
             route("", HttpMethod.Get) {
                 handle {
                     call.response.header(HttpHeaders.ContentType, "text/html")
-                    call.respondText(landingPage.getHtml(PageContext(), pageData))
+                    call.respondText(landingPage.getHtml(PageContext(GeneralLanguage.English-CountryCode.UNITED_STATES), pageData))
                 }
             }
             route("/${landingPage.getExternalCssPath()}", HttpMethod.Get) {
