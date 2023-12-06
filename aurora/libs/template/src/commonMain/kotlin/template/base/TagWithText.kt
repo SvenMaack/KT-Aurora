@@ -1,5 +1,6 @@
 package template.base
 
+@OptIn(TemplatingApi::class)
 public open class TagWithText(name: String) : TagContainer(name) {
     public inline operator fun String.unaryPlus(): TextElement {
         val textElement = TextElement(this)

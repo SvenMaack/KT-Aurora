@@ -6,6 +6,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
+@OptIn(TemplatingApi::class)
 class TagContainerTest {
     @Mock
     val htmlVisitor = mock(classOf<HtmlVisitor<String>>())

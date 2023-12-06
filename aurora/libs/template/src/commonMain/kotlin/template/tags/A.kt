@@ -2,6 +2,7 @@ package template.tags
 
 import template.base.Attribute
 import template.base.TagContainer
+import template.base.TemplatingApi
 import template.base.get
 import template.tags.enums.Language
 import template.tags.enums.MediaType
@@ -12,6 +13,7 @@ import template.tags.enums.Target
 /**
  * The a-tag defines a hyperlink, which is used to link from one page to another.
  */
+@OptIn(TemplatingApi::class)
 public class A: BodyTagContainer("a") {
     @PublishedApi
     internal companion object {

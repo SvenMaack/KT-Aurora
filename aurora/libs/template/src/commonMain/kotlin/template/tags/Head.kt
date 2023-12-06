@@ -1,12 +1,14 @@
 package template.tags
 
 import template.base.TagContainer
+import template.base.TemplatingApi
 import template.base.get
 import template.tags.enums.Target
 
 /**
  * The head-element is a container for metadata (data about data) and is placed between the html-tag and the body-tag.
  */
+@OptIn(TemplatingApi::class)
 public class Head: TagContainer("head") {
     /**
      * The base-tag specifies the base URL and/or target for all relative URLs in a document. The base-tag must have either an href or a target attribute present, or both.

@@ -2,11 +2,13 @@ package template.tags
 
 import template.base.Attribute
 import template.base.TagContainer
+import template.base.TemplatingApi
 import template.base.get
 
 /**
  * The option-tag defines an option in a select list.
  */
+@OptIn(TemplatingApi::class)
 public class Option: TextContainer("option") {
     @PublishedApi
     internal companion object {

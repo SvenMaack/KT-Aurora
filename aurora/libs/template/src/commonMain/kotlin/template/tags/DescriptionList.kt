@@ -2,6 +2,7 @@ package template.tags
 
 import template.base.Attribute
 import template.base.TagContainer
+import template.base.TemplatingApi
 import template.base.get
 
 /**
@@ -17,6 +18,7 @@ public class Dd: TagContainer("dd")
 /**
  * A description list, with terms and descriptions:
  */
+@OptIn(TemplatingApi::class)
 public class Dl: TagContainer("dl") {
     /**
      * The dt tag defines a term/name in a description list.

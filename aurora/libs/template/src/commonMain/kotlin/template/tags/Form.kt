@@ -3,6 +3,7 @@ package template.tags
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import template.base.Attribute
+import template.base.TemplatingApi
 import template.base.get
 import template.tags.enums.EncType
 import template.tags.enums.Method
@@ -18,6 +19,7 @@ import template.tags.enums.Target
 /**
  * The form-tag is used to create an HTML form for user input.
  */
+@OptIn(TemplatingApi::class)
 @Suppress("LargeClass", "LongParameterList", "TooManyFunctions")
 public open class Form internal constructor(public val id: String, tagName: String): BodyTagContainer(tagName) {
 

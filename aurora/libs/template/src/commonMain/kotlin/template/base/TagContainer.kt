@@ -7,6 +7,7 @@ public open class TagContainer(name: String) : TagWithAttributes(name) {
     public val children: List<Element>
         get() = mChildren
 
+    @TemplatingApi
     public inline fun <T : Element> add(tag: T, init: T.() -> Unit = {}): T = tag.apply {
         init()
         mChildren.add(this)
@@ -22,6 +23,7 @@ public open class TagContainer(name: String) : TagWithAttributes(name) {
         htmlVisitor.visitTagContainerEnd(this)
     }
 
+    @OptIn(TemplatingApi::class)
     public inline operator fun String.not(): Comment =
         add(Comment(this))
 }

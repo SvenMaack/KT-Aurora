@@ -4,6 +4,7 @@ import template.base.Attribute
 import template.base.get
 import template.base.TagContainer
 import template.base.AttributeImpl
+import template.base.TemplatingApi
 import template.tags.enums.EncType
 import template.tags.enums.Target
 import template.tags.enums.Method
@@ -14,6 +15,7 @@ import template.tags.enums.AutoComplete
 import template.tags.enums.ReferrerPolicy
 
 @Suppress("TooManyFunctions", "LargeClass")
+@OptIn(TemplatingApi::class)
 public open class BodyTagContainer(name: String) : TagContainer(name) {
     /**
      * The a-tag defines a hyperlink, which is used to link from one page to another.

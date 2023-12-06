@@ -2,6 +2,7 @@ package template.tags
 
 import template.base.TagContainer
 import template.base.HtmlVisitor
+import template.base.TemplatingApi
 import template.base.get
 import template.tags.enums.Language
 
@@ -13,6 +14,7 @@ public enum class Direction(public val shortCode: String) {
 /**
  * The html-tag represents the root of an HTML document.
  */
+@OptIn(TemplatingApi::class)
 public class Html: TagContainer("html") {
     /**
      * The head-element is a container for metadata (data about data) and is placed between the html-tag and the body-tag.

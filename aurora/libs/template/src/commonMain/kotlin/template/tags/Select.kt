@@ -1,11 +1,13 @@
 package template.tags
 
 import template.base.Attribute
+import template.base.TemplatingApi
 import template.base.get
 
 /**
  * The select-element is used to create a drop-down list.
  */
+@OptIn(TemplatingApi::class)
 public class Select(public override val id: String): BodyTagContainer("select"), FormElement {
     /**
      * The optgroup-tag is used to group related options in a select-element (drop-down list).

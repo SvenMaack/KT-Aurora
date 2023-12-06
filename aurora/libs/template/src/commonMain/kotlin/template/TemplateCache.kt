@@ -4,8 +4,10 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import template.base.TagContainer
+import template.base.TemplatingApi
 import template.base.TransientTag
 
+@OptIn(TemplatingApi::class)
 public fun <P: TagContainer>P.cache(context: Context, template: StaticTemplateExtension<P>, ref: () -> P) {
     add(TransientTag().apply {
         +TemplateCache[context, template, ref]

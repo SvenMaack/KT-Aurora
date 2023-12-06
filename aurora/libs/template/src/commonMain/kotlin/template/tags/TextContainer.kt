@@ -3,6 +3,7 @@ package template.tags
 import kotlinx.datetime.LocalDateTime
 import template.base.Attribute
 import template.base.TagWithText
+import template.base.TemplatingApi
 import template.base.get
 import template.tags.enums.MediaType
 import template.tags.enums.Language
@@ -11,6 +12,7 @@ import template.tags.enums.Rel
 import template.tags.enums.Target
 
 @Suppress("TooManyFunctions")
+@OptIn(TemplatingApi::class)
 public open class TextContainer(name: String): TagWithText(name) {
     /**
      * The a-tag defines a hyperlink, which is used to link from one page to another.
