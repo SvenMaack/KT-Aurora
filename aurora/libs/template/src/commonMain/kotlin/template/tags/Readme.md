@@ -1,1 +1,1 @@
-Defines basic html tags
+Defines basic `Html` tags

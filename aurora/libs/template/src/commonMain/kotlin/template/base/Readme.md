@@ -25,4 +25,4 @@ The tree can be traversed using the `Visitor`
 
 Attributes can be created in 2 ways:
 - via the `Attribute` and `AttributeWithValue` interface
-- via an index-access of a string via string. e.g.: `class[value]` is the equivalent of `class="value"`
+- via an index-access of a string via string. e.g.: `class[value1,value2%optional]` is the equivalent of `class="value"`
