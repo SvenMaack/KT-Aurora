@@ -13,7 +13,7 @@ internal val SimpleHeadTemplate: TemplateExtension<Html, TechnicalData> = { cont
     }
 }
 
-internal val DynamicHead: TemplateExtension<Head, TechnicalData> = { _, data ->
+private val DynamicHead: TemplateExtension<Head, TechnicalData> = { _, data ->
     title {
         +data.seo.title
     }
@@ -28,7 +28,7 @@ internal val DynamicHead: TemplateExtension<Head, TechnicalData> = { _, data ->
         }
 }
 
-internal val StaticHead: StaticTemplateExtension<Head> =  { _, _ ->
+private val StaticHead: StaticTemplateExtension<Head> =  { _, _ ->
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1")
     metaHttpEquiv(content="text/html; charset=UTF-8")

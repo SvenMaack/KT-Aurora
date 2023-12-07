@@ -1,12 +1,12 @@
 package landingPage.module
 
-import modules_lib.navigation.NavigationVM
+import navigation.NavigationVM
 import template.StaticTemplateExtension
 import template.TemplateExtension
 import template.cache
 import template.include
 import template.tags.Html
-import modules_lib.navigation.NavigationModule
+import navigation.NavigationModule
 import template.tags.Body
 
 val BodyTemplate: TemplateExtension<Html, NavigationVM> = { context, data ->

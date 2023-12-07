@@ -6,7 +6,7 @@ import head.HeadModule
 import template.Template
 import template.include
 import template.tags.html
-import modules_lib.navigation.NavigationModule
+import navigation.NavigationModule
 import page_lib.PageModule
 
 private val landingPageTemplate: Template<LandingPageDto> = { context, data ->
