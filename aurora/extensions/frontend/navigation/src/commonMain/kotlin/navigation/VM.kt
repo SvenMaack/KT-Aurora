@@ -2,7 +2,7 @@ package navigation
 
 public data class NavigationEntry(
     val name: String,
-    val active: Boolean
+    val active: Boolean = false
 )
 
 public data class NavigationVM(

@@ -31,9 +31,9 @@ val seo = Seo(
 val technicalData = TechnicalData(seo, css)
 val NavigationEntries = listOf(
     NavigationEntry("Home"),
-    NavigationEntry("Trends"),
+    NavigationEntry("Trends", active = true),
     NavigationEntry("New Arrival"),
     NavigationEntry("Sales")
 )
-val navigationDto: NavigationVM = NavigationVM(NavigationEntries, NavigationEntries[0])
+val navigationDto: NavigationVM = NavigationVM(NavigationEntries)
 val pageData: LandingPageDto = LandingPageDto(technicalData, navigationDto)
