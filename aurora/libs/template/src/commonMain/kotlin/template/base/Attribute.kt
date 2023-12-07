@@ -21,6 +21,17 @@ internal data class AttributeWithValueImpl(
 
 public inline operator fun String.get(value: String?): Attribute =
     if(value == null)
-        AttributeImpl(this@get)
+        AttributeImpl(this)
     else
         AttributeWithValueImpl(this@get, value)
+
+public inline operator fun String.get(vararg value: String?): Attribute {
+    val notNull = value.filterNotNull()
+    return if(notNull.isEmpty())
+        AttributeImpl(this)
+    else
+        AttributeWithValueImpl(this, notNull.joinToString(" "))
+}
+
+public inline operator fun String.rem(condition: Boolean): String? =
+    if(condition) this else null

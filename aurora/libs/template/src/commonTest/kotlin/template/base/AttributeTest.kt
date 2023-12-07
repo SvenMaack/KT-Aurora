@@ -31,4 +31,45 @@ class AttributeTest {
         assertEquals("class", attribute.name)
         assertEquals(null, attribute.value)
     }
+
+    @Test
+    fun `attributes creation with several values`() {
+        val value1: String = "v1"
+        val value2: String = "v2"
+        val attribute: Attribute = "class"[value1, value2]
+        assertEquals("class", attribute.name)
+        assertEquals("$value1 $value2", attribute.value)
+    }
+
+    @Test
+    fun `attributes creation with several optional values`() {
+        val value1: String = "v1"
+        val value2: String? = null
+        val attribute: Attribute = "class"[value1, value2]
+        assertEquals("class", attribute.name)
+        assertEquals(value1, attribute.value)
+    }
+
+    @Test
+    fun `attributes creation with several null values`() {
+        val value1: String? = null
+        val value2: String? = null
+        val attribute: Attribute = "class"[value1, value2]
+        assertEquals("class", attribute.name)
+        assertEquals(value1, null)
+    }
+
+    @Test
+    fun `optional string`() {
+        val value: String = "v1"
+        val result: String? = value%true
+        assertEquals(value, result)
+    }
+
+    @Test
+    fun `optional string with false value`() {
+        val value: String = "v1"
+        val result: String? = value%false
+        assertEquals(null, result)
+    }
 }
