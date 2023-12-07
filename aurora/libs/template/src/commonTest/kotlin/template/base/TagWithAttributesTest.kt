@@ -60,6 +60,20 @@ class TagWithAttributesTest {
     }
 
     @Test
+    fun `attributes are only set once even when they are of different type`() {
+        val attributes = arrayOf(
+            AttributeWithValueImpl("same", "a"),
+            AttributeWithValueImpl("other", "b"),
+            AttributeImpl("same")
+        )
+        val expectedResult = mapOf(
+            "same" to listOf("a", null),
+            "other" to listOf("b")
+        )
+        assertEquals(expectedResult, TagWithAttributes("P").setAttributes(*attributes).attributes)
+    }
+
+    @Test
     fun `attributes can be set empty`() {
         val attributes = arrayOf<Attribute>()
         assertEquals(mapOf(), TagWithAttributes("P").setAttributes(*attributes).attributes)

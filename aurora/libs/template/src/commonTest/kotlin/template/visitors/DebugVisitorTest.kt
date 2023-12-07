@@ -1,5 +1,6 @@
 package template.visitors
 
+import template.base.AttributeImpl
 import template.base.AttributeWithValueImpl
 import template.base.Comment
 import template.base.TagContainer
@@ -76,6 +77,20 @@ class DebugVisitorTest {
         debugVisitor.visitTagWithAttributes(tagWithAttributes)
 
         assertEquals("<a same=\"a b\" other=\"c\">${DebugHtmlVisitor.LINE_BREAK}", debugVisitor.result)
+    }
+
+    @Test
+    fun `attribute mix is printed in tagWithAttributes`() {
+        val tagWithAttributes = TagWithAttributes("a").setAttributes(
+            AttributeWithValueImpl("same", "a"),
+            AttributeImpl("same"),
+            AttributeWithValueImpl("other", "c")
+        )
+
+        val debugVisitor = DebugHtmlVisitor()
+        debugVisitor.visitTagWithAttributes(tagWithAttributes)
+
+        assertEquals("<a same=\"a\" other=\"c\">${DebugHtmlVisitor.LINE_BREAK}", debugVisitor.result)
     }
 
     @Test
