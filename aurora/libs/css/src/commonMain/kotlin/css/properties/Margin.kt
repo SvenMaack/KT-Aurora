@@ -1,10 +1,11 @@
+@file:Suppress("FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList")
 package css.properties
 
 import css.base.Property
 import css.base.Rule
 import css.base.browser.SupportData
 
-//https://www.w3schools.com/cssref/css_pr_margin-block.php
+//https://www.w3schools.com/cssref/pr_margin.php
 
 private val support = SupportData(
     chrome = 1.0,
@@ -14,46 +15,19 @@ private val support = SupportData(
     opera = 3.5,
 )
 
-@Suppress("EnumEntryName", "EnumNaming")
-public enum class MarginValue(public val value: String) {
+public interface MarginValue{
+    public val value: String
+}
+
+public enum class MarginTextValue(public override val value: String): MarginValue {
     auto("auto"),
     initial("initial"),
     inherit("inherit"),
 }
 
-
-public fun Rule.margin(size: Size) {
-    +Property(
-        property = "margin",
-        value = size.toString(),
-        supportedBrowsers = support
-    )
-}
-
-public fun Rule.margin(topBottom: Size, rightLeft: Size) {
-    +Property(
-        property = "margin",
-        value = "$topBottom $rightLeft",
-        supportedBrowsers = support
-    )
-}
-
-public fun Rule.margin(top: Size, rightLeft: Size, bottom: Size) {
-    +Property(
-        property = "margin",
-        value = "$top $rightLeft $bottom",
-        supportedBrowsers = support
-    )
-}
-
-public fun Rule.margin(top: Size, right: Size, bottom: Size, left: Size) {
-    +Property(
-        property = "margin",
-        value = "$top $right $bottom $left",
-        supportedBrowsers = support
-    )
-}
-
+/**
+ * The margin property sets the margins for an element
+ */
 public fun Rule.margin(value: MarginValue) {
     +Property(
         property = "margin",
@@ -62,14 +36,43 @@ public fun Rule.margin(value: MarginValue) {
     )
 }
 
-public fun Rule.`margin-top`(size: Size) {
+/**
+ * The margin property sets the margins for an element
+ */
+public fun Rule.margin(topBottom: MarginValue, rightLeft: MarginValue) {
     +Property(
-        property = "margin-top",
-        value = size.toString(),
+        property = "margin",
+        value = "${topBottom.value} ${rightLeft.value}",
         supportedBrowsers = support
     )
 }
 
+/**
+ * The margin property sets the margins for an element
+ */
+public fun Rule.margin(top: MarginValue, rightLeft: MarginValue, bottom: MarginValue) {
+    +Property(
+        property = "margin",
+        value = "${top.value} ${rightLeft.value} ${bottom.value}",
+        supportedBrowsers = support
+    )
+}
+
+/**
+ * The margin property sets the margins for an element
+ */
+public fun Rule.margin(top: MarginValue, right: MarginValue, bottom: MarginValue, left: MarginValue) {
+    +Property(
+        property = "margin",
+        value = "${top.value} ${right.value} ${bottom.value} ${left.value}",
+        supportedBrowsers = support
+    )
+}
+
+/**
+ * The margin property sets the margins for an element
+ */
+@Deprecated("use margin-block-start")
 public fun Rule.`margin-top`(value: MarginValue) {
     +Property(
         property = "margin-top",
@@ -78,14 +81,10 @@ public fun Rule.`margin-top`(value: MarginValue) {
     )
 }
 
-public fun Rule.`margin-right`(size: Size) {
-    +Property(
-        property = "margin-right",
-        value = size.toString(),
-        supportedBrowsers = support
-    )
-}
-
+/**
+ * The margin property sets the margins for an element
+ */
+@Deprecated("use margin-inline-end")
 public fun Rule.`margin-right`(value: MarginValue) {
     +Property(
         property = "margin-right",
@@ -94,14 +93,10 @@ public fun Rule.`margin-right`(value: MarginValue) {
     )
 }
 
-public fun Rule.`margin-bottom`(size: Size) {
-    +Property(
-        property = "margin-bottom",
-        value = size.toString(),
-        supportedBrowsers = support
-    )
-}
-
+/**
+ * The margin property sets the margins for an element
+ */
+@Deprecated("use margin-block-end")
 public fun Rule.`margin-bottom`(value: MarginValue) {
     +Property(
         property = "margin-bottom",
@@ -110,14 +105,10 @@ public fun Rule.`margin-bottom`(value: MarginValue) {
     )
 }
 
-public fun Rule.`margin-left`(size: Size) {
-    +Property(
-        property = "margin-left",
-        value = size.toString(),
-        supportedBrowsers = support
-    )
-}
-
+/**
+ * The margin property sets the margins for an element
+ */
+@Deprecated("use margin-inline-start")
 public fun Rule.`margin-left`(value: MarginValue) {
     +Property(
         property = "margin-left",
@@ -128,20 +119,14 @@ public fun Rule.`margin-left`(value: MarginValue) {
 
 
 
-public fun Rule.`margin-block-start`(size: Size) {
-    +Property(
-        property = "margin-block-start",
-        value = size.toString(),
-        supportedBrowsers = SupportData(
-            chrome = 87.0,
-            edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
-            opera = 73.0,
-        )
-    )
-}
 
+
+
+
+
+/**
+ * The margin-block property specifies the margin at the start and end in the block direction (Top, Down)
+ */
 public fun Rule.`margin-block-start`(value: MarginValue) {
     +Property(
         property = "margin-block-start",
@@ -156,20 +141,9 @@ public fun Rule.`margin-block-start`(value: MarginValue) {
     )
 }
 
-public fun Rule.`margin-block-end`(size: Size) {
-    +Property(
-        property = "margin-block-end",
-        value = size.toString(),
-        supportedBrowsers = SupportData(
-            chrome = 87.0,
-            edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
-            opera = 73.0,
-        )
-    )
-}
-
+/**
+ * The margin-block property specifies the margin at the start and end in the block direction (Top, Down)
+ */
 public fun Rule.`margin-block-end`(value: MarginValue) {
     +Property(
         property = "margin-block-end",
@@ -184,6 +158,9 @@ public fun Rule.`margin-block-end`(value: MarginValue) {
     )
 }
 
+/**
+ * The margin-block property specifies the margin at the start and end in the block direction (Top, Down)
+ */
 public fun Rule.`margin-block`(start: MarginValue, end: MarginValue) {
     +Property(
         property = "margin-block",
@@ -191,55 +168,34 @@ public fun Rule.`margin-block`(start: MarginValue, end: MarginValue) {
         supportedBrowsers = SupportData(
             chrome = 87.0,
             edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
+            firefox = 66.0,
+            safari = 14.1,
             opera = 73.0,
         )
     )
 }
 
-public fun Rule.`margin-inline-start`(size: Size) {
-    +Property(
-        property = "margin-inline-start",
-        value = size.toString(),
-        supportedBrowsers = SupportData(
-            chrome = 87.0,
-            edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
-            opera = 73.0,
-        )
-    )
-}
 
+/**
+ * The margin-inline property specifies the margin at the start and end in the inline direction. (Left, Right)
+ */
 public fun Rule.`margin-inline-start`(value: MarginValue) {
     +Property(
         property = "margin-inline-start",
         value = value.value,
         supportedBrowsers = SupportData(
-            chrome = 87.0,
-            edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
-            opera = 73.0,
+            chrome = 69.0,
+            edge = 79.0,
+            firefox = 68.0,
+            safari = 14.1,
+            opera = 56.0,
         )
     )
 }
 
-public fun Rule.`margin-inline-end`(size: Size) {
-    +Property(
-        property = "margin-inline-end",
-        value = size.toString(),
-        supportedBrowsers = SupportData(
-            chrome = 87.0,
-            edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
-            opera = 73.0,
-        )
-    )
-}
-
+/**
+ * The margin-inline property specifies the margin at the start and end in the inline direction. (Left, Right)
+ */
 public fun Rule.`margin-inline-end`(value: MarginValue) {
     +Property(
         property = "margin-inline-end",
@@ -254,15 +210,18 @@ public fun Rule.`margin-inline-end`(value: MarginValue) {
     )
 }
 
+/**
+ * The margin-inline property specifies the margin at the start and end in the inline direction. (Left, Right)
+ */
 public fun Rule.`margin-inline`(start: MarginValue, end: MarginValue) {
     +Property(
         property = "margin-inline",
-        value = "$start $end",
+        value = "${start.value} ${end.value}",
         supportedBrowsers = SupportData(
             chrome = 87.0,
             edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
+            firefox = 66.0,
+            safari = 14.1,
             opera = 73.0,
         )
     )

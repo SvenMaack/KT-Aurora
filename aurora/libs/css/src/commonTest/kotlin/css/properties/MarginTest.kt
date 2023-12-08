@@ -1,12 +1,15 @@
+@file:Suppress("DEPRECATION")
+
 package css.properties
 
 import css.base.Rule
+import css.properties.MarginTextValue.auto
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class MarginTest {
     @Test
-    fun `test margin`() {
+    fun `margin`() {
         val rule = Rule("selector")
         rule.margin(auto)
 
@@ -16,7 +19,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-2`() {
+    fun `margin-2`() {
         val rule = Rule("selector")
         rule.margin(auto, auto)
 
@@ -26,7 +29,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-3`() {
+    fun `margin-3`() {
         val rule = Rule("selector")
         rule.margin(auto, auto, auto)
 
@@ -36,7 +39,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-4`() {
+    fun `margin-4`() {
         val rule = Rule("selector")
         rule.margin(auto, auto, auto, auto)
 
@@ -46,7 +49,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-top`() {
+    fun `margin-top`() {
         val rule = Rule("selector")
         rule.`margin-top`(auto)
 
@@ -56,7 +59,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-top-value`() {
+    fun `margin-top-value`() {
         val rule = Rule("selector")
         rule.`margin-top`(5.px)
 
@@ -66,7 +69,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-right`() {
+    fun `margin-right`() {
         val rule = Rule("selector")
         rule.`margin-right`(auto)
 
@@ -76,7 +79,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-right-value`() {
+    fun `margin-right-value`() {
         val rule = Rule("selector")
         rule.`margin-right`(5.px)
 
@@ -86,7 +89,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-bottom`() {
+    fun `margin-bottom`() {
         val rule = Rule("selector")
         rule.`margin-bottom`(auto)
 
@@ -96,7 +99,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-bottom-value`() {
+    fun `margin-bottom-value`() {
         val rule = Rule("selector")
         rule.`margin-bottom`(5.px)
 
@@ -106,7 +109,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-left`() {
+    fun `margin-left`() {
         val rule = Rule("selector")
         rule.`margin-left`(auto)
 
@@ -116,7 +119,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-left-value`() {
+    fun `margin-left-value`() {
         val rule = Rule("selector")
         rule.`margin-left`(5.px)
 
@@ -126,7 +129,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-block-start`() {
+    fun `margin-block-start`() {
         val rule = Rule("selector")
         rule.`margin-block-start`(auto)
 
@@ -136,7 +139,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-block-start-value`() {
+    fun `margin-block-start-value`() {
         val rule = Rule("selector")
         rule.`margin-block-start`(5.px)
 
@@ -146,7 +149,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-block-end`() {
+    fun `margin-block-end`() {
         val rule = Rule("selector")
         rule.`margin-block-end`(auto)
 
@@ -156,7 +159,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-block-end-value`() {
+    fun `margin-block-end-value`() {
         val rule = Rule("selector")
         rule.`margin-block-end`(5.px)
 
@@ -166,9 +169,9 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-block`() {
+    fun `margin-block`() {
         val rule = Rule("selector")
-        rule.`margin-block`(MarginValue.auto, MarginValue.auto)
+        rule.`margin-block`(auto, auto)
 
         assertEquals(1, rule.properties.size)
         assertEquals("margin-block", rule.properties[0].property)
@@ -177,7 +180,7 @@ class MarginTest {
 
 
     @Test
-    fun `test margin-inline-start`() {
+    fun `margin-inline-start`() {
         val rule = Rule("selector")
         rule.`margin-inline-start`(auto)
 
@@ -187,7 +190,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-inline-start-value`() {
+    fun `margin-inline-start-value`() {
         val rule = Rule("selector")
         rule.`margin-inline-start`(5.px)
 
@@ -197,7 +200,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-inline-end`() {
+    fun `margin-inline-end`() {
         val rule = Rule("selector")
         rule.`margin-inline-end`(auto)
 
@@ -207,7 +210,7 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-inline-end-value`() {
+    fun `margin-inline-end-value`() {
         val rule = Rule("selector")
         rule.`margin-inline-end`(5.px)
 
@@ -217,9 +220,9 @@ class MarginTest {
     }
 
     @Test
-    fun `test margin-inline`() {
+    fun `margin-inline`() {
         val rule = Rule("selector")
-        rule.`margin-inline`(MarginValue.auto, MarginValue.auto)
+        rule.`margin-inline`(auto, auto)
 
         assertEquals(1, rule.properties.size)
         assertEquals("margin-inline", rule.properties[0].property)

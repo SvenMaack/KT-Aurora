@@ -1,8 +1,11 @@
+@file:Suppress("DEPRECATION")
+
 package css.properties
 
 import css.base.Rule
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import css.properties.PaddingTextValue.auto
 
 class PaddingTest {
     @Test
@@ -168,7 +171,7 @@ class PaddingTest {
     @Test
     fun `test padding-block`() {
         val rule = Rule("selector")
-        rule.`padding-block`(PaddingValue.auto, PaddingValue.auto)
+        rule.`padding-block`(auto, auto)
 
         assertEquals(1, rule.properties.size)
         assertEquals("padding-block", rule.properties[0].property)
@@ -219,7 +222,7 @@ class PaddingTest {
     @Test
     fun `test padding-inline`() {
         val rule = Rule("selector")
-        rule.`padding-inline`(PaddingValue.auto, PaddingValue.auto)
+        rule.`padding-inline`(auto, auto)
 
         assertEquals(1, rule.properties.size)
         assertEquals("padding-inline", rule.properties[0].property)
