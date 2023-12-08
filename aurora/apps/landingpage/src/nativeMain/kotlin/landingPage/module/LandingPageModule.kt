@@ -1,6 +1,7 @@
 package landingPage.module
 
 import css.ResetDocument
+import css.base.DocumentList
 import css.base.IDocument
 import landingPage.LandingPageDto
 import head.HeadModule
@@ -17,7 +18,11 @@ private val landingPageTemplate: Template<LandingPageDto> = { context, data ->
     }
 }
 
-private val landingPageDocument: IDocument = ResetDocument
+private val landingPageDocument: IDocument = DocumentList().apply {
+    +ResetDocument
+    +NavigationModule.document
+    +HeadModule.document
+}
 
 internal val landingPageModule: PageModule<LandingPageDto> =
     PageModule(landingPageDocument, landingPageTemplate)
