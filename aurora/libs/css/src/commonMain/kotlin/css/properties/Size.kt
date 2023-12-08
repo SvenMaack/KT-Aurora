@@ -35,7 +35,7 @@ public interface Size
 public class ValueSize(
     private val number: String,
     private val unit: CssUnit
-): Size, MarginValue, PaddingValue {
+): Size, MarginValue, PaddingValue, PositionDistanceValue {
     override val value: String =
         toString()
 

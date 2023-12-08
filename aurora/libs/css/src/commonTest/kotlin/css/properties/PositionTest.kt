@@ -17,7 +17,7 @@ class PositionTest {
     @Test
     fun `test top`() {
         val rule = Rule("selector")
-        rule.top(PositionDistanceValue.inherit)
+        rule.top(PositionDistanceTextValue.inherit)
         check(rule, "top", "inherit")
     }
 
@@ -31,7 +31,7 @@ class PositionTest {
     @Test
     fun `test right`() {
         val rule = Rule("selector")
-        rule.right(PositionDistanceValue.inherit)
+        rule.right(PositionDistanceTextValue.inherit)
         check(rule, "right", "inherit")
     }
 
@@ -45,7 +45,7 @@ class PositionTest {
     @Test
     fun `test bottom`() {
         val rule = Rule("selector")
-        rule.bottom(PositionDistanceValue.inherit)
+        rule.bottom(PositionDistanceTextValue.inherit)
         check(rule, "bottom", "inherit")
     }
 
@@ -59,7 +59,7 @@ class PositionTest {
     @Test
     fun `test left`() {
         val rule = Rule("selector")
-        rule.left(PositionDistanceValue.inherit)
+        rule.left(PositionDistanceTextValue.inherit)
         check(rule, "left", "inherit")
     }
 
