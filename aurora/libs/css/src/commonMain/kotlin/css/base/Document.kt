@@ -9,9 +9,7 @@ public open class Document: IDocument {
 
     public operator fun set(vararg selectors: Selector, init: Rule.() -> Unit) {
         if(selectors.size == 1)
-            rules.add(
-                Rule(selectors[0]).apply(init)
-            )
+            rules.add(Rule(selectors[0]).apply(init))
         else if(selectors.size > 1)
             rules.add(
                 Rule(CombinedSelector(*selectors)).apply(init)
