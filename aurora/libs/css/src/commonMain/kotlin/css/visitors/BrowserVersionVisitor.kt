@@ -21,10 +21,10 @@ public class BrowserVersionVisitor: PropertyVisitor<Map<String, Double>>() {
 
     override fun visitProperty(property: IProperty): BrowserVersionVisitor {
         chrome = max(property.supportedBrowsers.chrome, chrome)
-        firefox = max(property.supportedBrowsers.chrome, firefox)
-        edge = max(property.supportedBrowsers.chrome, edge)
-        safari = max(property.supportedBrowsers.chrome, safari)
-        opera = max(property.supportedBrowsers.chrome, opera)
+        firefox = max(property.supportedBrowsers.firefox, firefox)
+        edge = max(property.supportedBrowsers.edge, edge)
+        safari = max(property.supportedBrowsers.safari, safari)
+        opera = max(property.supportedBrowsers.opera, opera)
         return this
     }
 }
