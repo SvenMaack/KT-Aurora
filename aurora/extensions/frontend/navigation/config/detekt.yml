@@ -507,7 +507,7 @@ style:
     active: true
     conversionFunctionPrefix:
       - 'to'
-    allowOperators: false
+    allowOperators: true
   DataClassShouldBeImmutable:
     active: true
   DestructuringDeclarationWithTooManyEntries:
@@ -704,7 +704,7 @@ style:
     active: true
     allowForUnclearPrecedence: false
   UnusedImports:
-    active: true
+    active: false
   UnusedParameter:
     active: true
     allowedNames: 'ignored|expected'
