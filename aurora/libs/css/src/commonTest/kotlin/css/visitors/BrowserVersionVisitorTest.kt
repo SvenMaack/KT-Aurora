@@ -2,7 +2,7 @@ package css.visitors
 
 import css.base.Property
 import css.base.Rule
-import css.base.browser.NotSupported
+import css.base.browser.NOT_SUPPORTED
 import css.base.browser.SupportData
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -35,9 +35,9 @@ class BrowserVersionVisitorTest {
         assertEquals(5, result.size)
         assertEquals(3.0, result["chrome"])
         assertEquals(2.0, result["firefox"])
-        assertEquals(NotSupported, result["opera"])
-        assertEquals(NotSupported, result["safari"])
-        assertEquals(NotSupported, result["edge"])
+        assertEquals(NOT_SUPPORTED, result["opera"])
+        assertEquals(NOT_SUPPORTED, result["safari"])
+        assertEquals(NOT_SUPPORTED, result["edge"])
     }
 
     @Test
@@ -65,9 +65,9 @@ class BrowserVersionVisitorTest {
 
         assertEquals(5, result.size)
         assertEquals(3.0, result["chrome"])
-        assertEquals(NotSupported, result["firefox"])
-        assertEquals(NotSupported, result["opera"])
-        assertEquals(NotSupported, result["safari"])
-        assertEquals(NotSupported, result["edge"])
+        assertEquals(NOT_SUPPORTED, result["firefox"])
+        assertEquals(NOT_SUPPORTED, result["opera"])
+        assertEquals(NOT_SUPPORTED, result["safari"])
+        assertEquals(NOT_SUPPORTED, result["edge"])
     }
 }

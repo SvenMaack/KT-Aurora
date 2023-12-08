@@ -2,7 +2,6 @@ package css.visitors
 
 import css.base.IProperty
 import css.base.IRule
-import css.base.Property
 import css.base.RuleVisitor
 
 public class ProductionVisitor: RuleVisitor<String> {

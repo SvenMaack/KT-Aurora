@@ -9,12 +9,13 @@ private interface ISupportData<Type> {
 }
 
 public data class SupportData(
-    public override val chrome: Double = NotSupported,
-    public override val edge: Double = NotSupported,
-    public override val firefox: Double = NotSupported,
-    public override val opera: Double = NotSupported,
-    public override val safari: Double = NotSupported,
+    public override val chrome: Double = NOT_SUPPORTED,
+    public override val edge: Double = NOT_SUPPORTED,
+    public override val firefox: Double = NOT_SUPPORTED,
+    public override val opera: Double = NOT_SUPPORTED,
+    public override val safari: Double = NOT_SUPPORTED,
 ): ISupportData<Double> {
+    @Suppress("CyclomaticComplexMethod")
     public operator fun plus(
         extension: SupportDataOverride
     ): SupportData = this.copy(
@@ -38,4 +39,4 @@ public interface Support {
     public val supportedBrowsers: SupportData
 }
 
-public const val NotSupported: Double = 1_000_000_000.0
+public const val NOT_SUPPORTED: Double = 1_000_000_000.0
