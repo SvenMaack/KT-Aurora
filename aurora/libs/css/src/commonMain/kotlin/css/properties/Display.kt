@@ -43,9 +43,8 @@ private val browserSupport = SupportImpl(
 ).supportedBrowsers
 
 public fun Rule.display(style: DisplayTypeValue): Property =
-    +Property.build(
+    +Property(
         property = "display",
         value = style.value,
-        defaultValue = null,
         supportedBrowsers = browserSupport
     )

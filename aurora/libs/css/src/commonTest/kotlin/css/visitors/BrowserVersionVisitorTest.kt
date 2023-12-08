@@ -11,19 +11,17 @@ class BrowserVersionVisitorTest {
     @Test
     fun `version calculated correctly`() {
         val rule = Rule("selector").apply {
-            +Property.build(
+            +Property(
                 "property1",
                 "value",
-                "0",
                 listOf(
                     Chrome { 1.0 },
                     Firefox { 2.0 }
                 )
             )
-            +Property.build(
+            +Property(
                 "property2",
                 "value",
-                "0",
                 listOf(
                     Chrome { 3.0 },
                     Firefox { 1.0 }
@@ -42,19 +40,17 @@ class BrowserVersionVisitorTest {
     @Test
     fun `version calculated correctly with missing browser`() {
         val rule = Rule("selector").apply {
-            +Property.build(
+            +Property(
                 "property1",
                 "value",
-                "0",
                 listOf(
                     Chrome { 1.0 },
                     Firefox { 2.0 }
                 )
             )
-            +Property.build(
+            +Property(
                 "property2",
                 "value",
-                "0",
                 listOf(
                     Chrome { 3.0 }
                 )

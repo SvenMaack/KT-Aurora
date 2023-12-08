@@ -11,8 +11,8 @@ class BrowserSupport<ViewModel>(private val inner: IPageProvider<ViewModel>): IP
     private val cachedSupport: Lazy<Map<String, Double>> = lazy {
         BrowserVersionVisitor().apply {
             DocumentList().apply {
-                add(inner.getInlineCssDocument())
-                add(inner.getExternalCssDocument())
+                +inner.getInlineCssDocument()
+                +inner.getExternalCssDocument()
             }.traverse(this)
         }.result
     }

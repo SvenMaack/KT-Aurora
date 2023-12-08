@@ -1,39 +1,67 @@
 package css.base
 
-import css.Callable
-import io.mockative.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertSame
 
 class RuleTest {
-    @Mock
-    val ruleMock = mock(classOf<Callable<Rule>>())
-
     @Test
-    fun `test rule creation works`() {
-        val rule: Rule = "selector".rule(ruleMock::test)
+    fun `rule creation works`() {
+        val rule = Rule(object : Selector {
+            override fun getType(): SelectorType = SelectorType.UNKNOWN
+            override fun asString(): String = "test"
+        })
 
-        assertEquals("selector", rule.classSelector)
-        verify { ruleMock.test(rule) }
-            .wasInvoked(exactly = once)
+        assertEquals("test", rule.selector.asString())
+        assertEquals(SelectorType.UNKNOWN , rule.selector.getType())
     }
 
     @Test
-    fun `test rule get class works`() {
-        val rule: Rule = "selector".rule(ruleMock::test)
+    fun `rule creation works from Selector`() {
+        val selector = object : Selector {
+            override fun getType(): SelectorType = SelectorType.UNKNOWN
+            override fun asString(): String = "test"
+        }
+        val rule = selector.rule {  }
 
-        assertEquals("selector", rule.getClass())
+        assertEquals("test", rule.selector.asString())
+        assertEquals(SelectorType.UNKNOWN , rule.selector.getType())
     }
 
     @Test
-    fun `test add property works`() {
-        val property = Property.build("a", "b")
-        val rule: Rule = "selector".rule {
-            +property
+    fun `rule creation works from String`() {
+        val selector = "c1"
+        val rule = selector.rule {  }
+
+        assertEquals(".c1", rule.selector.asString())
+        assertEquals(SelectorType.CLASS , rule.selector.getType())
+    }
+
+    @Test
+    fun `rule add Property works`() {
+        val rule = Rule(object : Selector {
+            override fun getType(): SelectorType = SelectorType.UNKNOWN
+            override fun asString(): String = "test"
+        })
+        val propertyList = mutableListOf(Property("a", "b", listOf()))
+
+        rule.apply {
+            +propertyList[0]
         }
 
-        assertEquals(1, rule.properties.size)
-        assertSame(property, rule.properties[0])
+        assertEquals(propertyList, rule.properties)
+    }
+
+    @Test
+    fun `rule returns class`() {
+        val rule = Rule(Class("test"))
+
+        assertEquals("test", rule.getClass())
+    }
+
+    @Test
+    fun `rule returns no class for other selectors`() {
+        val rule = Rule(Id("test"))
+
+        assertEquals(null, rule.getClass())
     }
 }

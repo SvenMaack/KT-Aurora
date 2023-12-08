@@ -1,6 +1,10 @@
-package css.base
+package css
 
-import css.CssRenderer
+import css.base.Class
+import css.base.Document
+import css.base.Property
+import css.base.RuleVisitor
+import css.base.RuleVisitorFactory
 import css.visitors.ProductionVisitor
 import io.mockative.*
 import kotlin.test.Test
@@ -29,11 +33,10 @@ class CssRendererTest {
         CssRenderer.render(
             { visitor },
             Document().apply {
-                this["class"] = {
-                    +Property.build(
+                this[Class("class")] = {
+                    +Property(
                         property = "property",
                         value = "value",
-                        defaultValue = "0",
                         supportedBrowsers = listOf()
                     )
                 }

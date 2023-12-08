@@ -9,11 +9,12 @@ public class DocumentList: IDocument {
         }
     }
 
-    public fun add(document: IDocument): DocumentList {
+    public operator fun plus(document: IDocument): DocumentList {
         documents.add(document)
         return this
     }
 
-    public fun getDocumentAmount(): Int =
-        documents.size
+    public operator fun IDocument.unaryPlus() {
+        documents.add(this)
+    }
 }

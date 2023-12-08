@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "MethodOverloading")
+@file:Suppress("FunctionName", "MethodOverloading", "TooManyFunctions")
 package css.properties
 
 import css.base.Property
@@ -24,116 +24,102 @@ public enum class MarginValue(public val value: String) {
 
 
 public fun Rule.margin(size: Size): Property =
-    +Property.build(
+    +Property(
         property = "margin",
         value = size.toString(),
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 public fun Rule.margin(topBottom: Size, rightLeft: Size): Property =
-    +Property.build(
+    +Property(
         property = "margin",
         value = "$topBottom $rightLeft",
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 public fun Rule.margin(top: Size, rightLeft: Size, bottom: Size): Property =
-    +Property.build(
+    +Property(
         property = "margin",
         value = "$top $rightLeft $bottom",
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 public fun Rule.margin(top: Size, right: Size, bottom: Size, left: Size): Property =
-    +Property.build(
+    +Property(
         property = "margin",
         value = "$top $right $bottom $left",
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 public fun Rule.margin(value: MarginValue): Property =
-    +Property.build(
+    +Property(
         property = "margin",
         value = value.value,
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 public fun Rule.`margin-top`(size: Size): Property =
-    +Property.build(
+    +Property(
         property = "margin-top",
         value = size.toString(),
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 public fun Rule.`margin-top`(value: MarginValue): Property =
-    +Property.build(
+    +Property(
         property = "margin-top",
         value = value.value,
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 public fun Rule.`margin-right`(size: Size): Property =
-    +Property.build(
+    +Property(
         property = "margin-right",
         value = size.toString(),
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 public fun Rule.`margin-right`(value: MarginValue): Property =
-    +Property.build(
+    +Property(
         property = "margin-right",
         value = value.value,
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 public fun Rule.`margin-bottom`(size: Size): Property =
-    +Property.build(
+    +Property(
         property = "margin-bottom",
         value = size.toString(),
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 public fun Rule.`margin-bottom`(value: MarginValue): Property =
-    +Property.build(
+    +Property(
         property = "margin-bottom",
         value = value.value,
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 public fun Rule.`margin-left`(size: Size): Property =
-    +Property.build(
+    +Property(
         property = "margin-left",
         value = size.toString(),
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 public fun Rule.`margin-left`(value: MarginValue): Property =
-    +Property.build(
+    +Property(
         property = "margin-left",
         value = value.value,
-        defaultValue = "0",
         supportedBrowsers = support.supportedBrowsers
     )
 
 
 
 public fun Rule.`margin-block-start`(size: Size): Property =
-    +Property.build(
+    +Property(
         property = "margin-block-start",
         value = size.toString(),
-        defaultValue = "0",
         supportedBrowsers = SupportImpl(
             chrome = { 87.0 },
             edge = { 87.0 },
@@ -144,10 +130,9 @@ public fun Rule.`margin-block-start`(size: Size): Property =
     )
 
 public fun Rule.`margin-block-start`(value: MarginValue): Property =
-    +Property.build(
+    +Property(
         property = "margin-block-start",
         value = value.value,
-        defaultValue = "0",
         supportedBrowsers = SupportImpl(
             chrome = { 87.0 },
             edge = { 87.0 },
@@ -158,10 +143,9 @@ public fun Rule.`margin-block-start`(value: MarginValue): Property =
     )
 
 public fun Rule.`margin-block-end`(size: Size): Property =
-    +Property.build(
+    +Property(
         property = "margin-block-end",
         value = size.toString(),
-        defaultValue = "0",
         supportedBrowsers = SupportImpl(
             chrome = { 87.0 },
             edge = { 87.0 },
@@ -172,10 +156,9 @@ public fun Rule.`margin-block-end`(size: Size): Property =
     )
 
 public fun Rule.`margin-block-end`(value: MarginValue): Property =
-    +Property.build(
+    +Property(
         property = "margin-block-end",
         value = value.value,
-        defaultValue = "0",
         supportedBrowsers = SupportImpl(
             chrome = { 87.0 },
             edge = { 87.0 },
@@ -186,10 +169,9 @@ public fun Rule.`margin-block-end`(value: MarginValue): Property =
     )
 
 public fun Rule.`margin-block`(start: MarginValue, end: MarginValue): Property =
-    +Property.build(
+    +Property(
         property = "margin-block",
         value = "$start $end",
-        defaultValue = "auto",
         supportedBrowsers = SupportImpl(
             chrome = { 87.0 },
             edge = { 87.0 },
@@ -200,10 +182,9 @@ public fun Rule.`margin-block`(start: MarginValue, end: MarginValue): Property =
     )
 
 public fun Rule.`margin-inline-start`(size: Size): Property =
-    +Property.build(
+    +Property(
         property = "margin-inline-start",
         value = size.toString(),
-        defaultValue = "0",
         supportedBrowsers = SupportImpl(
             chrome = { 87.0 },
             edge = { 87.0 },
@@ -214,10 +195,9 @@ public fun Rule.`margin-inline-start`(size: Size): Property =
     )
 
 public fun Rule.`margin-inline-start`(value: MarginValue): Property =
-    +Property.build(
+    +Property(
         property = "margin-inline-start",
         value = value.value,
-        defaultValue = "0",
         supportedBrowsers = SupportImpl(
             chrome = { 87.0 },
             edge = { 87.0 },
@@ -228,10 +208,9 @@ public fun Rule.`margin-inline-start`(value: MarginValue): Property =
     )
 
 public fun Rule.`margin-inline-end`(size: Size): Property =
-    +Property.build(
+    +Property(
         property = "margin-inline-end",
         value = size.toString(),
-        defaultValue = "0",
         supportedBrowsers = SupportImpl(
             chrome = { 87.0 },
             edge = { 87.0 },
@@ -242,10 +221,9 @@ public fun Rule.`margin-inline-end`(size: Size): Property =
     )
 
 public fun Rule.`margin-inline-end`(value: MarginValue): Property =
-    +Property.build(
+    +Property(
         property = "margin-inline-end",
         value = value.value,
-        defaultValue = "0",
         supportedBrowsers = SupportImpl(
             chrome = { 87.0 },
             edge = { 87.0 },
@@ -256,10 +234,9 @@ public fun Rule.`margin-inline-end`(value: MarginValue): Property =
     )
 
 public fun Rule.`margin-inline`(start: MarginValue, end: MarginValue): Property =
-    +Property.build(
+    +Property(
         property = "margin-inline",
         value = "$start $end",
-        defaultValue = "auto",
         supportedBrowsers = SupportImpl(
             chrome = { 87.0 },
             edge = { 87.0 },

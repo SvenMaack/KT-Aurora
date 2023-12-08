@@ -8,6 +8,15 @@ Document().apply {
     }
 }
 ```
+this uses the classes
+```
+<Document> {
+    this[String] = <Rule>{
+        <Property>
+    }
+}
+```
+
 `Document`s can be combined using the `DocumentComposite`
 
 `Visitor`s can be used to traverse the `Rules` of a `Document`. It can be used via the `CssRenderer`.

@@ -1,6 +1,6 @@
 package page_lib.page.base
 
-import css.base.CssRenderer
+import css.CssRenderer
 import css.base.IDocument
 import css.base.RuleVisitorFactory
 import template.Context

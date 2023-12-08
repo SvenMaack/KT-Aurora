@@ -10,10 +10,10 @@ class ProductionVisitorTest {
     fun `visit rules turns them into string`() {
         val document = Document()
         document["selector1"] = {
-            +Property.build("property1", "value")
+            +Property("property1", "value", listOf())
         }
         document["selector2"] = {
-            +Property.build("property2", "value")
+            +Property("property2", "value", listOf())
         }
         val productionVisitor = ProductionVisitor()
 

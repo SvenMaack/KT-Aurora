@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "MethodOverloading")
+@file:Suppress("FunctionName", "MethodOverloading", "TooManyFunctions")
 package css.properties
 
 import css.base.Property
@@ -57,10 +57,9 @@ public enum class ListStyleValue(public val value: String) {
 }
 
 public fun Rule.`list-style-type`(style: ListStyleTypeValue): Property =
-    +Property.build(
+    +Property(
         property = "list-style-type",
         value = style.value,
-        defaultValue = ListStyleTypeValue.disc.value,
         supportedBrowsers = SupportImpl(
             chrome = { 1.0 },
             edge = { 4.0 },
@@ -71,10 +70,9 @@ public fun Rule.`list-style-type`(style: ListStyleTypeValue): Property =
     )
 
 public fun Rule.`list-style-position`(style: ListStylePositionValue): Property =
-    +Property.build(
+    +Property(
         property = "list-style-position",
         value = style.value,
-        defaultValue = ListStylePositionValue.outside.value,
         supportedBrowsers = SupportImpl(
             chrome = { 1.0 },
             edge = { 4.0 },
@@ -85,10 +83,9 @@ public fun Rule.`list-style-position`(style: ListStylePositionValue): Property =
     )
 
 public fun Rule.`list-style-image`(style: ListStyleImageValue): Property =
-    +Property.build(
+    +Property(
         property = "list-style-image",
         value = style.value,
-        defaultValue = ListStyleImageValue.none.value,
         supportedBrowsers = SupportImpl(
             chrome = { 1.0 },
             edge = { 4.0 },
@@ -99,10 +96,9 @@ public fun Rule.`list-style-image`(style: ListStyleImageValue): Property =
     )
 
 public fun Rule.`list-style-image`(url: String): Property =
-    +Property.build(
+    +Property(
         property = "list-style-image",
         value = "url(\"$url\")",
-        defaultValue = ListStyleImageValue.none.value,
         supportedBrowsers = SupportImpl(
             chrome = { 1.0 },
             edge = { 4.0 },
@@ -147,10 +143,9 @@ public fun Rule.`list-style`(type: ListStyleTypeValue): Property =
 
 
 private fun Rule.setListStyle(type: ListStyleTypeValue?, position: ListStylePositionValue?, image: String?): Property =
-    +Property.build(
+    +Property(
         property = "list-style",
         value = "${type?.value ?: ""} ${position?.value ?: ""} ${image ?: ""}".replace("  ", " ").trim(),
-        defaultValue = ListStyleImageValue.none.value,
         supportedBrowsers = SupportImpl(
             chrome = { 1.0 },
             edge = { 4.0 },

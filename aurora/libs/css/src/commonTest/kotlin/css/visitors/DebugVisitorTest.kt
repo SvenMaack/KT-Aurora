@@ -10,7 +10,7 @@ class DebugVisitorTest {
     fun `visit rules turns them into string`() {
         val document = Document()
         document["selector"] = {
-            +Property.build("property", "value")
+            +Property("property", "value", listOf())
         }
         val debugVisitor = DebugVisitor()
 

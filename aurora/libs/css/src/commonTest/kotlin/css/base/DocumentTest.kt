@@ -1,6 +1,5 @@
 package css.base
 
-import css.Callable
 import io.mockative.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -8,55 +7,78 @@ import kotlin.test.assertSame
 
 class DocumentTest {
     @Mock
-    val ruleMock = mock(classOf<Callable<Rule>>())
-    @Mock
     val visitor = mock(classOf<RuleVisitor<String>>())
-    private var document: Document = Document()
+    @Mock
+    val blockRule = mock(classOf<Fun1<IRule, Unit>>())
 
     @Test
-    fun `test property set works`() {
-        document["selector"] = ruleMock::test
+    fun `property set by selector works`() {
+        every { blockRule.invoke(any()) }.returns(Unit)
+        val document = Document()
+        document[Class("c1")] = blockRule::invoke
 
         assertEquals(1, document.rules.size)
-        assertEquals("selector", document.rules[0].classSelector)
-        verify { ruleMock.test(any()) }
+        verify { blockRule.invoke(document.rules[0]) }
             .wasInvoked(exactly = once)
     }
 
     @Test
-    fun `test property set works for multiple classes`() {
-        document["selector1", "selector2"] = ruleMock::test
+    fun `test property set by selector works for multiple properties`() {
+        every { blockRule.invoke(any()) }.returns(Unit)
+        val document = Document()
+        document[Class("c1"), Class("c2")] = blockRule::invoke
 
         assertEquals(2, document.rules.size)
-        assertEquals("selector1", document.rules[0].classSelector)
-        assertEquals("selector2", document.rules[1].classSelector)
-        verify { ruleMock.test(any()) }
-            .wasInvoked(exactly = twice)
+        verify { blockRule.invoke(document.rules[0]) }
+            .wasInvoked(exactly = once)
+        verify { blockRule.invoke(document.rules[1]) }
+            .wasInvoked(exactly = once)
     }
 
     @Test
-    fun `test rule set works`() {
-        val rule = Rule("selector")
-        document.set(rule)
+    fun `property set by string works`() {
+        every { blockRule.invoke(any()) }.returns(Unit)
+        val document = Document()
+        document["c1"] = blockRule::invoke
+
+        assertEquals(1, document.rules.size)
+        verify { blockRule.invoke(document.rules[0]) }
+            .wasInvoked(exactly = once)
+    }
+
+    @Test
+    fun `test property set by string works for multiple properties`() {
+        every { blockRule.invoke(any()) }.returns(Unit)
+        val document = Document()
+        document["c1", "c2"] = blockRule::invoke
+
+        assertEquals(2, document.rules.size)
+        verify { blockRule.invoke(document.rules[0]) }
+            .wasInvoked(exactly = once)
+        verify { blockRule.invoke(document.rules[1]) }
+            .wasInvoked(exactly = once)
+    }
+
+    @Test
+    fun `add rule works`() {
+        val document = Document()
+        val rule = Rule("c1")
+        document.apply {
+            +rule
+        }
 
         assertEquals(1, document.rules.size)
         assertSame(rule, document.rules[0])
     }
 
     @Test
-    fun `test rule get size works`() {
-        val rule = Rule("selector")
-        document.set(rule)
-
-        assertEquals(1, document.getRuleAmount())
-    }
-
-    @Test
     fun `visitor is being called`() {
         every { visitor.visitRule(any()) }.returns(visitor)
-        val property = Property.build("property", "value")
-        document["selector"] = {
-            +property
+        val property = Property("property", "value", listOf())
+        val document = Document().apply {
+            this["selector"] = {
+                +property
+            }
         }
         document.traverse(visitor)
 
@@ -67,9 +89,11 @@ class DocumentTest {
     @Test
     fun `visitor is being called for every rule`() {
         every { visitor.visitRule(any()) }.returns(visitor)
-        val property = Property.build("property", "value")
-        document["selector1", "selector2"] = {
-            +property
+        val property = Property("property", "value", listOf())
+        val document = Document().apply {
+            this["s1", "s2"] = {
+                +property
+            }
         }
         document.traverse(visitor)
 

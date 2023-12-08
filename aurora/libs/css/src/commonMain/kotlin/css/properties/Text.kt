@@ -17,10 +17,9 @@ public enum class TextTransformValues(public val value: String) {
 }
 
 public fun Rule.`text-transform`(style: TextTransformValues): Property =
-    +Property.build(
+    +Property(
         property = "text-transform",
         value = style.value,
-        defaultValue = null,
         supportedBrowsers = SupportImpl(
             chrome = { 1.0 },
             edge = { 4.0 },

@@ -6,10 +6,9 @@ import css.base.browser.SupportImpl
 
 public fun Rule.transform(x: Size, y: Size): List<Property> =
     listOf(
-        +Property.build(
+        +Property(
             property = "-webkit-transform",
             value = "translate($x,$y)",
-            defaultValue = null,
             supportedBrowsers = SupportImpl(
                 chrome = { 36.0 },
                 edge = { 10.0 },
@@ -18,10 +17,9 @@ public fun Rule.transform(x: Size, y: Size): List<Property> =
                 opera = { 23.0 },
             ).supportedBrowsers
         ),
-        +Property.build(
+        +Property(
             property = "transform",
             value = "translate($x,$y)",
-            defaultValue = null,
             supportedBrowsers = SupportImpl(
                 chrome = { 36.0 },
                 edge = { 10.0 },

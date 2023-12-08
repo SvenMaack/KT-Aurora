@@ -14,10 +14,10 @@ class DocumentListTest {
         val documentList = DocumentList()
         val childDocument = Document()
 
-        documentList.add(childDocument)
+        val result = documentList + childDocument
 
-        assertEquals(1, documentList.documents.size)
-        assertSame(childDocument, documentList.documents[0])
+        assertEquals(1, result.documents.size)
+        assertSame(childDocument, result.documents[0])
     }
 
     @Test
@@ -26,13 +26,12 @@ class DocumentListTest {
 
         val documentList = DocumentList()
         val childDocument = Document()
-
-        documentList.add(childDocument)
+        val result = documentList + childDocument
         childDocument["selector"] = {
-            +Property.build("property", "value")
+            +Property("property", "value", listOf())
         }
 
-        documentList.traverse(visitor)
+        result.traverse(visitor)
 
         verify { visitor.visitRule(any()) }
             .wasInvoked(exactly = once)

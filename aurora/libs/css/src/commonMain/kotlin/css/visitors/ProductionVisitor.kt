@@ -1,7 +1,7 @@
 package css.visitors
 
+import css.base.IRule
 import css.base.Property
-import css.base.Rule
 import css.base.RuleVisitor
 
 public class ProductionVisitor: RuleVisitor<String> {
@@ -9,8 +9,8 @@ public class ProductionVisitor: RuleVisitor<String> {
     override val result: String
         get() = _rules.toString()
 
-    override fun visitRule(rule: Rule): ProductionVisitor {
-        _rules.append(".${rule.classSelector}{${renderProperties(rule.properties)}}")
+    override fun visitRule(rule: IRule): ProductionVisitor {
+        _rules.append("${rule.selector}{${renderProperties(rule.properties)}}")
         return this
     }
 

@@ -1,16 +1,15 @@
 package css.base
 
-import css.Callable
 import io.mockative.*
 import kotlin.test.Test
 
 class PropertyVisitorTest {
     @Mock
-    val visitPropertyMock = mock(classOf<Callable<Property>>())
+    val visitPropertyMock = mock(classOf<Fun1<Property, Unit>>())
 
-    val visitor: RuleVisitor<String> = object: PropertyVisitor<String>() {
+    private val visitor: PropertyVisitor<String> = object: PropertyVisitor<String>() {
         override fun visitProperty(property: Property): PropertyVisitor<String> {
-            visitPropertyMock.test(property)
+            visitPropertyMock.invoke(property)
             return this
         }
 
@@ -19,15 +18,16 @@ class PropertyVisitorTest {
 
     @Test
     fun `test properties are visited`() {
+        every { visitPropertyMock.invoke(any()) }.returns(Unit)
         val document = Document()
-        val property = Property.build("property", "value")
+        val property = Property("property", "value", listOf())
         document["selector"] = {
             +property
         }
 
         visitor.visitRule(document.rules[0])
 
-        verify { visitPropertyMock.test(property) }
+        verify { visitPropertyMock.invoke(property) }
             .wasInvoked(exactly = once)
     }
 }
