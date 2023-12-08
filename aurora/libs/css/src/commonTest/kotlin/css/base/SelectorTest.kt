@@ -9,7 +9,7 @@ class SelectorTest {
         val selector = Class("c1")
 
         assertEquals("c1", selector.name)
-        assertEquals(".c1", selector.asString())
+        assertEquals(".c1", selector.toString())
         assertEquals(SelectorType.CLASS, selector.getType())
     }
 
@@ -19,7 +19,7 @@ class SelectorTest {
         val selector = Class("c1 +>~.,")
 
         assertEquals("c1 +>~.,", selector.name)
-        assertEquals(".c1", selector.asString())
+        assertEquals(".c1", selector.toString())
         assertEquals(SelectorType.CLASS, selector.getType())
     }
 
@@ -27,7 +27,7 @@ class SelectorTest {
     fun `universal works`() {
         val selector = UNIVERSAL
 
-        assertEquals("*", selector.asString())
+        assertEquals("*", selector.toString())
         assertEquals(SelectorType.UNIVERSAL, selector.getType())
     }
 
@@ -36,7 +36,7 @@ class SelectorTest {
         val selector = Id("i1")
 
         assertEquals("i1", selector.name)
-        assertEquals("#i1", selector.asString())
+        assertEquals("#i1", selector.toString())
         assertEquals(SelectorType.ID, selector.getType())
     }
 
@@ -45,7 +45,7 @@ class SelectorTest {
         val selector = Id("i1 +>~.,")
 
         assertEquals("i1 +>~.,", selector.name)
-        assertEquals("#i1", selector.asString())
+        assertEquals("#i1", selector.toString())
         assertEquals(SelectorType.ID, selector.getType())
     }
 
@@ -54,8 +54,17 @@ class SelectorTest {
         val selector = Tag("t1")
 
         assertEquals("t1", selector.name)
-        assertEquals("t1", selector.asString())
+        assertEquals("t1", selector.toString())
         assertEquals(SelectorType.TAG, selector.getType())
+    }
+
+    @Test
+    fun `pseudo works`() {
+        val selector = Tag("t1")
+        val pseudo = Pseudo(selector, PseudoValues.AFTER)
+
+        assertEquals("t1:after", pseudo.toString())
+        assertEquals(SelectorType.PSEUDO, pseudo.getType())
     }
 
     @Test
@@ -63,7 +72,7 @@ class SelectorTest {
         val selector = Tag("t1 +>~.,")
 
         assertEquals("t1 +>~.,", selector.name)
-        assertEquals("t1", selector.asString())
+        assertEquals("t1", selector.toString())
         assertEquals(SelectorType.TAG, selector.getType())
     }
 }

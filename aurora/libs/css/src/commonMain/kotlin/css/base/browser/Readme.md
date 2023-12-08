@@ -1,1 +1,1 @@
-These interfaces can be used to check browser support.
+These can be used to check browser support.

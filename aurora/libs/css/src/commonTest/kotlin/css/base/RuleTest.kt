@@ -9,10 +9,10 @@ class RuleTest {
     fun `rule creation works`() {
         val rule = Rule(object : Selector {
             override fun getType(): SelectorType = SelectorType.UNKNOWN
-            override fun asString(): String = "test"
+            override fun toString(): String = "test"
         })
 
-        assertEquals("test", rule.selector.asString())
+        assertEquals("test", rule.selector.toString())
         assertEquals(SelectorType.UNKNOWN , rule.selector.getType())
     }
 
@@ -20,11 +20,11 @@ class RuleTest {
     fun `rule creation works from Selector`() {
         val selector = object : Selector {
             override fun getType(): SelectorType = SelectorType.UNKNOWN
-            override fun asString(): String = "test"
+            override fun toString(): String = "test"
         }
         val rule = selector.rule {  }
 
-        assertEquals("test", rule.selector.asString())
+        assertEquals("test", rule.selector.toString())
         assertEquals(SelectorType.UNKNOWN , rule.selector.getType())
     }
 
@@ -33,7 +33,7 @@ class RuleTest {
         val selector = "c1"
         val rule = selector.rule {  }
 
-        assertEquals(".c1", rule.selector.asString())
+        assertEquals(".c1", rule.selector.toString())
         assertEquals(SelectorType.CLASS , rule.selector.getType())
     }
 
@@ -41,7 +41,7 @@ class RuleTest {
     fun `rule add Property works`() {
         val rule = Rule(object : Selector {
             override fun getType(): SelectorType = SelectorType.UNKNOWN
-            override fun asString(): String = "test"
+            override fun toString(): String = "test"
         })
         val propertyList: List<IProperty> = mutableListOf(Property("a", "b", SupportData()))
 

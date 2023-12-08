@@ -4,7 +4,9 @@ public enum class SelectorType {
     CLASS,
     ID,
     UNIVERSAL,
-    TAG,/*
+    TAG,
+    PSEUDO,
+    /*
     PSEUDO_CLASS,
     PSEUDO_ELEMENT,
     ATTRIBUTE,
@@ -17,9 +19,13 @@ public enum class SelectorType {
     UNKNOWN
 }
 
+public enum class PseudoValues(public val value: String) {
+    AFTER("after"),
+    BEFORE("before"),
+}
+
 public interface Selector {
     public fun getType(): SelectorType
-    public fun asString(): String
 }
 
 /**
@@ -27,26 +33,27 @@ public interface Selector {
  */
 public object UNIVERSAL: Selector {
     override fun getType(): SelectorType = SelectorType.UNIVERSAL
-    override fun asString(): String = "*"
-    public override fun toString(): String = asString()
+    public override fun toString(): String = "*"
+}
+
+public class Pseudo(private val selector: Selector, private val pseudo: PseudoValues): Selector {
+    override fun getType(): SelectorType = SelectorType.PSEUDO
+    public override fun toString(): String = "$selector:${pseudo.value}"
 }
 
 public class Class(public val name: String): Selector {
     override fun getType(): SelectorType = SelectorType.CLASS
-    override fun asString(): String = ".${cleanSelector(name)}"
-    public override fun toString(): String = asString()
+    public override fun toString(): String = ".${cleanSelector(name)}"
 }
 
 public class Id(public val name: String): Selector {
     override fun getType(): SelectorType = SelectorType.ID
-    override fun asString(): String = "#${cleanSelector(name)}"
-    public override fun toString(): String = asString()
+    public override fun toString(): String = "#${cleanSelector(name)}"
 }
 
 public class Tag(public val name: String): Selector {
     override fun getType(): SelectorType = SelectorType.TAG
-    override fun asString(): String = cleanSelector(name)
-    public override fun toString(): String = asString()
+    public override fun toString(): String = cleanSelector(name)
 }
 
 private fun cleanSelector(selector: String): String =
@@ -57,3 +64,6 @@ private fun cleanSelector(selector: String): String =
         .replace(">", "")
         .replace("+", "")
         .replace("~", "")
+
+public operator fun Selector.rangeTo(pseudo: PseudoValues): Selector =
+    Pseudo(this, pseudo)
