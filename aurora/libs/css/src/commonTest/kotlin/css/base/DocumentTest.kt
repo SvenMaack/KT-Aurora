@@ -29,10 +29,9 @@ class DocumentTest {
         val document = Document()
         document[Class("c1"), Class("c2")] = blockRule::invoke
 
-        assertEquals(2, document.rules.size)
+        assertEquals(1, document.rules.size)
+        assertEquals(".c1, .c2", document.rules[0].selector.toString())
         verify { blockRule.invoke(document.rules[0]) }
-            .wasInvoked(exactly = once)
-        verify { blockRule.invoke(document.rules[1]) }
             .wasInvoked(exactly = once)
     }
 

@@ -7,12 +7,15 @@ public interface IDocument {
 public open class Document: IDocument {
     internal val rules : MutableList<IRule> = mutableListOf()
 
-    public operator fun set(vararg selector: Selector, init: Rule.() -> Unit) {
-        selector.forEach {
+    public operator fun set(vararg selectors: Selector, init: Rule.() -> Unit) {
+        if(selectors.size == 1)
             rules.add(
-                Rule(it).apply(init)
+                Rule(selectors[0]).apply(init)
             )
-        }
+        else if(selectors.size > 1)
+            rules.add(
+                Rule(CombinedSelector(*selectors)).apply(init)
+            )
     }
 
     public operator fun set(vararg selector: String, init: Rule.() -> Unit) {

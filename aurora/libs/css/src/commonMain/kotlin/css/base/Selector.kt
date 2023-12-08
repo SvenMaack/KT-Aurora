@@ -6,9 +6,8 @@ public enum class SelectorType {
     UNIVERSAL,
     TAG,
     PSEUDO,
+    COMBINATOR,
     /*
-    PSEUDO_CLASS,
-    PSEUDO_ELEMENT,
     ATTRIBUTE,
     COMBINATOR,
     NESTED,
@@ -39,6 +38,11 @@ public object UNIVERSAL: Selector {
 public class Pseudo(private val selector: Selector, private val pseudo: PseudoValues): Selector {
     override fun getType(): SelectorType = SelectorType.PSEUDO
     public override fun toString(): String = "$selector:${pseudo.value}"
+}
+
+public class CombinedSelector(private vararg val selector: Selector): Selector {
+    override fun getType(): SelectorType = SelectorType.COMBINATOR
+    public override fun toString(): String = selector.joinToString(", ")
 }
 
 public class Class(public val name: String): Selector {
