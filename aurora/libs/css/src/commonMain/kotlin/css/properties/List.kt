@@ -1,4 +1,4 @@
-
+@file:Suppress("FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList")
 package css.properties
 
 import css.base.Property
@@ -56,6 +56,9 @@ public enum class ListStyleValue(public val value: String) {
     inherit("inherit"),
 }
 
+/**
+ * The list-style-type specifies the type of list-item marker in a list.
+ */
 public fun Rule.`list-style-type`(style: ListStyleTypeValue) {
     +Property(
         property = "list-style-type",
@@ -70,6 +73,9 @@ public fun Rule.`list-style-type`(style: ListStyleTypeValue) {
     )
 }
 
+/**
+ * The list-style-position property specifies the position of the list-item markers (bullet points).
+ */
 public fun Rule.`list-style-position`(style: ListStylePositionValue) {
     +Property(
         property = "list-style-position",
@@ -84,6 +90,9 @@ public fun Rule.`list-style-position`(style: ListStylePositionValue) {
     )
 }
 
+/**
+ * The list-style-image property replaces the list-item marker with an image.
+ */
 public fun Rule.`list-style-image`(style: ListStyleImageValue) {
     +Property(
         property = "list-style-image",
@@ -98,6 +107,9 @@ public fun Rule.`list-style-image`(style: ListStyleImageValue) {
     )
 }
 
+/**
+ * The list-style-image property replaces the list-item marker with an image.
+ */
 public fun Rule.`list-style-image`(url: String) {
     +Property(
         property = "list-style-image",
@@ -166,7 +178,7 @@ private fun Rule.setListStyle(type: ListStyleTypeValue?, position: ListStylePosi
             edge = 4.0,
             firefox = 1.0,
             safari = 1.0,
-            opera = 7.0,
+            opera = if(image==null) 3.5 else 7.0,
         )
     )
 }
