@@ -1,21 +1,21 @@
 package css.base
 
 public interface IRule {
-    public val properties: List<Property>
+    public val properties: List<IProperty>
 
     public val selector: Selector
     public fun getClass(): String?
 }
 
 public data class Rule(public override val selector: Selector): IRule {
-    override val properties: MutableList<Property> = mutableListOf()
+    override val properties: MutableList<IProperty> = mutableListOf()
 
     public constructor(classSelector: String): this(Class(classSelector))
 
     public override fun getClass(): String? =
         if (selector is Class) selector.name else null
 
-    public operator fun Property.unaryPlus(): Property {
+    public operator fun IProperty.unaryPlus(): IProperty {
         properties.add(this)
         return this
     }

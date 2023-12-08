@@ -3,7 +3,10 @@ package css.properties
 
 import css.base.Property
 import css.base.Rule
-import css.base.browser.SupportImpl
+import css.base.browser.SupportData
+import css.base.browser.SupportDataOverride
+import css.base.moz
+import css.base.webkit
 
 //https://www.w3schools.com/cssref/css3_pr_box-sizing.php
 
@@ -29,31 +32,44 @@ public enum class BoxSizingValue(public val value: String) {
     inherit("inherit"),
 }
 
-private val browserSupport = SupportImpl(
-    chrome = { 4.0 },
-    edge = { 8.0 },
-    firefox = { 2.0 },
-    safari = { 3.2 },
-    opera = { 9.5 },
-).supportedBrowsers
+public enum class SpecialBoxSizingValue(public val value: String) {
+    /**
+     * 	The width and height properties (and min/max properties) includes content and padding but no border.
+     */
+    `padding-box`("padding-box"),
+}
+
+private val browserSupport = SupportData(
+    chrome = 10.0,
+    edge = 8.0,
+    firefox = 29.0,
+    safari = 5.1,
+    opera = 9.5,
+)
 
 /**
  * The box-sizing property defines how the width and height of an element are calculated: should they include padding and borders, or not.
  */
 public fun Rule.`box-sizing`(sizing: BoxSizingValue) {
     +Property(
-        property = "-webkit-box-sizing",
-        value = sizing.value,
-        supportedBrowsers = browserSupport
-    )
-    +Property(
-        property = "-moz-box-sizing",
-        value = sizing.value,
-        supportedBrowsers = browserSupport
-    )
-    +Property(
         property = "box-sizing",
         value = sizing.value,
         supportedBrowsers = browserSupport
+    ).moz(SupportDataOverride(
+        firefox = 2.0,
+    )).webkit(SupportDataOverride(
+        chrome = 4.0,
+        safari = 3.2,
+    ))
+}
+
+/**
+ * The box-sizing property defines how the width and height of an element are calculated: should they include padding and borders, or not.
+ */
+public fun Rule.`box-sizing`(sizing: SpecialBoxSizingValue) {
+    +Property(
+        property = "box-sizing",
+        value = sizing.value,
+        supportedBrowsers = SupportData(firefox = 49.0)
     )
 }

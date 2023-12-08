@@ -1,5 +1,6 @@
 package css.base
 
+import css.base.browser.SupportData
 import io.mockative.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -74,7 +75,7 @@ class DocumentTest {
     @Test
     fun `visitor is being called`() {
         every { visitor.visitRule(any()) }.returns(visitor)
-        val property = Property("property", "value", listOf())
+        val property = Property("property", "value", SupportData())
         val document = Document().apply {
             this["selector"] = {
                 +property
@@ -89,7 +90,7 @@ class DocumentTest {
     @Test
     fun `visitor is being called for every rule`() {
         every { visitor.visitRule(any()) }.returns(visitor)
-        val property = Property("property", "value", listOf())
+        val property = Property("property", "value", SupportData())
         val document = Document().apply {
             this["s1", "s2"] = {
                 +property

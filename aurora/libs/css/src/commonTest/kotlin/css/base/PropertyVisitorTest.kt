@@ -1,14 +1,15 @@
 package css.base
 
+import css.base.browser.SupportData
 import io.mockative.*
 import kotlin.test.Test
 
 class PropertyVisitorTest {
     @Mock
-    val visitPropertyMock = mock(classOf<Fun1<Property, Unit>>())
+    val visitPropertyMock = mock(classOf<Fun1<IProperty, Unit>>())
 
     private val visitor: PropertyVisitor<String> = object: PropertyVisitor<String>() {
-        override fun visitProperty(property: Property): PropertyVisitor<String> {
+        override fun visitProperty(property: IProperty): PropertyVisitor<String> {
             visitPropertyMock.invoke(property)
             return this
         }
@@ -20,7 +21,7 @@ class PropertyVisitorTest {
     fun `test properties are visited`() {
         every { visitPropertyMock.invoke(any()) }.returns(Unit)
         val document = Document()
-        val property = Property("property", "value", listOf())
+        val property = Property("property", "value", SupportData())
         document["selector"] = {
             +property
         }

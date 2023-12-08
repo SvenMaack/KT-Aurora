@@ -5,6 +5,7 @@ import css.base.Document
 import css.base.Property
 import css.base.RuleVisitor
 import css.base.RuleVisitorFactory
+import css.base.browser.SupportData
 import css.visitors.ProductionVisitor
 import io.mockative.*
 import kotlin.test.Test
@@ -37,7 +38,7 @@ class CssRendererTest {
                     +Property(
                         property = "property",
                         value = "value",
-                        supportedBrowsers = listOf()
+                        supportedBrowsers = SupportData()
                     )
                 }
             }

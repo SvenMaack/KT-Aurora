@@ -1,5 +1,6 @@
 package css.base
 
+import css.base.browser.SupportData
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -42,7 +43,7 @@ class RuleTest {
             override fun getType(): SelectorType = SelectorType.UNKNOWN
             override fun asString(): String = "test"
         })
-        val propertyList = mutableListOf(Property("a", "b", listOf()))
+        val propertyList: List<IProperty> = mutableListOf(Property("a", "b", SupportData()))
 
         rule.apply {
             +propertyList[0]

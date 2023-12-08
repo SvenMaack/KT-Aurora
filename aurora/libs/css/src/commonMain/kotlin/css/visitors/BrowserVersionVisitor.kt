@@ -1,19 +1,30 @@
 package css.visitors
 
-import css.base.Property
+import css.base.IProperty
 import css.base.PropertyVisitor
 import kotlin.math.max
 
 public class BrowserVersionVisitor: PropertyVisitor<Map<String, Double>>() {
-    override val result: MutableMap<String, Double> = mutableMapOf()
+    private var chrome: Double = 0.0
+    private var firefox: Double = 0.0
+    private var edge: Double = 0.0
+    private var safari: Double = 0.0
+    private var opera: Double = 0.0
+    override val result: MutableMap<String, Double>
+        get() = mutableMapOf(
+            "chrome" to chrome,
+            "firefox" to firefox,
+            "edge" to edge,
+            "safari" to safari,
+            "opera" to opera
+        )
 
-    override fun visitProperty(property: Property): BrowserVersionVisitor {
-        property.supportedBrowsers.forEach { support ->
-            result[support.browserName] = max(
-                support.minimalSupportedVersion(),
-                result.getOrElse(support.browserName) {0.0}
-            )
-        }
+    override fun visitProperty(property: IProperty): BrowserVersionVisitor {
+        chrome = max(property.supportedBrowsers.chrome, chrome)
+        firefox = max(property.supportedBrowsers.chrome, firefox)
+        edge = max(property.supportedBrowsers.chrome, edge)
+        safari = max(property.supportedBrowsers.chrome, safari)
+        opera = max(property.supportedBrowsers.chrome, opera)
         return this
     }
 }

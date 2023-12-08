@@ -6,5 +6,5 @@ public abstract class PropertyVisitor<RESULT>: RuleVisitor<RESULT> {
         return this
     }
 
-    public abstract fun visitProperty(property: Property): PropertyVisitor<RESULT>
+    public abstract fun visitProperty(property: IProperty): PropertyVisitor<RESULT>
 }

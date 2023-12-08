@@ -2,7 +2,7 @@ package css.properties
 
 import css.base.Property
 import css.base.Rule
-import css.base.browser.SupportImpl
+import css.base.browser.SupportData
 
 //https://www.w3schools.com/cssref/pr_class_display.php
 
@@ -34,17 +34,18 @@ public enum class DisplayTypeValue(public val value: String) {
     unset("unset")
 }
 
-private val browserSupport = SupportImpl(
-    chrome = { 4.0 },
-    edge = { 8.0 },
-    firefox = { 3.0 },
-    safari = { 3.1 },
-    opera = { 7.0 },
-).supportedBrowsers
+private val browserSupport = SupportData(
+    chrome = 4.0,
+    edge = 8.0,
+    firefox = 3.0,
+    safari = 3.1,
+    opera = 7.0,
+)
 
-public fun Rule.display(style: DisplayTypeValue): Property =
+public fun Rule.display(style: DisplayTypeValue) {
     +Property(
         property = "display",
         value = style.value,
         supportedBrowsers = browserSupport
     )
+}

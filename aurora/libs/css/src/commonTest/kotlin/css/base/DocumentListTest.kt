@@ -1,5 +1,6 @@
 package css.base
 
+import css.base.browser.SupportData
 import io.mockative.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -28,7 +29,7 @@ class DocumentListTest {
         val childDocument = Document()
         val result = documentList + childDocument
         childDocument["selector"] = {
-            +Property("property", "value", listOf())
+            +Property("property", "value", SupportData())
         }
 
         result.traverse(visitor)

@@ -1,5 +1,6 @@
 package css.visitors
 
+import css.base.IProperty
 import css.base.IRule
 import css.base.Property
 import css.base.RuleVisitor
@@ -14,6 +15,6 @@ public class ProductionVisitor: RuleVisitor<String> {
         return this
     }
 
-    private inline fun renderProperties(properties: List<Property>) =
+    private inline fun renderProperties(properties: List<IProperty>) =
         properties.joinToString("")
 }

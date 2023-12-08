@@ -1,8 +1,9 @@
 package css.visitors
 
+import css.base.IProperty
 import css.base.IRule
-import css.base.Property
 import css.base.RuleVisitor
+import css.base.browser.SupportData
 
 public class DebugVisitor: RuleVisitor<String> {
     private val _rules = StringBuilder()
@@ -18,10 +19,13 @@ public class DebugVisitor: RuleVisitor<String> {
         return this
     }
 
-    private inline fun renderProperties(properties: List<Property>) =
+    private inline fun renderProperties(properties: List<IProperty>) =
         properties.joinToString(LINE_BREAK){
-            INDENTATION + it.toString()
+            INDENTATION + "/* ${renderBrowserVersion(it.supportedBrowsers)} */" + LINE_BREAK + INDENTATION + it.toString()
         }
+
+    private inline fun renderBrowserVersion(supportData: SupportData): String =
+        "chrome: ${supportData.chrome}, firefox: ${supportData.firefox}, safari: ${supportData.safari}, edge: ${supportData.edge}, opera: ${supportData.opera}"
 
     public companion object {
         public const val LINE_BREAK: String = "\n"
