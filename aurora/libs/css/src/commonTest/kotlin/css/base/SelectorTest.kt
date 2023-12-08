@@ -13,6 +13,7 @@ class SelectorTest {
         assertEquals(SelectorType.CLASS, selector.getType())
     }
 
+
     @Test
     fun `invalid characters are removed from class`() {
         val selector = Class("c1 +>~.,")
@@ -20,6 +21,14 @@ class SelectorTest {
         assertEquals("c1 +>~.,", selector.name)
         assertEquals(".c1", selector.asString())
         assertEquals(SelectorType.CLASS, selector.getType())
+    }
+
+    @Test
+    fun `universal works`() {
+        val selector = UNIVERSAL
+
+        assertEquals("*", selector.asString())
+        assertEquals(SelectorType.UNIVERSAL, selector.getType())
     }
 
     @Test

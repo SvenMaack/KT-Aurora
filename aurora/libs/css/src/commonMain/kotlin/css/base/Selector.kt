@@ -3,12 +3,12 @@ package css.base
 public enum class SelectorType {
     CLASS,
     ID,
+    UNIVERSAL,
     TAG,/*
     PSEUDO_CLASS,
     PSEUDO_ELEMENT,
     ATTRIBUTE,
     COMBINATOR,
-    UNIVERSAL,
     NESTED,
     CHILD,
     DESCENDANT,
@@ -20,6 +20,15 @@ public enum class SelectorType {
 public interface Selector {
     public fun getType(): SelectorType
     public fun asString(): String
+}
+
+/**
+ * *
+ */
+public object UNIVERSAL: Selector {
+    override fun getType(): SelectorType = SelectorType.UNIVERSAL
+    override fun asString(): String = "*"
+    public override fun toString(): String = asString()
 }
 
 public class Class(public val name: String): Selector {

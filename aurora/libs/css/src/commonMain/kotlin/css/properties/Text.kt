@@ -1,5 +1,3 @@
-@file:Suppress("FunctionName")
-
 package css.properties
 
 import css.base.Property

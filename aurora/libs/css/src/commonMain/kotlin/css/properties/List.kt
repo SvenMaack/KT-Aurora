@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "MethodOverloading", "TooManyFunctions")
+
 package css.properties
 
 import css.base.Property
