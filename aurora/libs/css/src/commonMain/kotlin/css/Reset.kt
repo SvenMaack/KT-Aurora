@@ -4,13 +4,16 @@ import css.base.Document
 import css.base.IDocument
 import css.base.PseudoValues.AFTER
 import css.base.PseudoValues.BEFORE
+import css.base.PseudoValues.FOCUS_WITHIN
 import css.base.Tag
 import css.base.UNIVERSAL
 import css.base.rangeTo
 import css.properties.BoxSizingValue.*
+import css.properties.ScrollBehaviour.smooth
 import css.properties.`box-sizing`
 import css.properties.margin
 import css.properties.px
+import css.properties.`scroll-behavior`
 
 //<editor-fold desc="Tags">
 private val html = Tag("html")
@@ -38,5 +41,9 @@ public val ResetDocument: IDocument = Document().apply {
     /* Remove default margin */
     this[body, h1, h2, h3, h4, h5, p, figure, blockquote, dl, dd] = {
         margin(0.px)
+    }
+    /* Set core root defaults */
+    this[html..FOCUS_WITHIN] = {
+        `scroll-behavior`(smooth)
     }
 }

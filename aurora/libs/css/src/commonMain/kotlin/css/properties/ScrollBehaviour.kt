@@ -4,9 +4,6 @@ package css.properties
 import css.base.Property
 import css.base.Rule
 import css.base.browser.SupportData
-import css.base.browser.SupportDataOverride
-import css.base.moz
-import css.base.webkit
 
 //https://www.w3schools.com/cssref/pr_scroll-behavior.php
 
