@@ -21,6 +21,7 @@ public enum class SelectorType {
 public enum class PseudoValues(public val value: String) {
     AFTER("after"),
     BEFORE("before"),
+    FOCUS_WITHIN("focus-within"),
 }
 
 public interface Selector {
