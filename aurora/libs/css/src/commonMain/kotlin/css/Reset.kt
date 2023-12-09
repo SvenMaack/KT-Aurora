@@ -1,35 +1,18 @@
 package css
 
-import css.base.Document
-import css.base.IDocument
+import css.base.*
 import css.base.PseudoValues.AFTER
 import css.base.PseudoValues.BEFORE
 import css.base.PseudoValues.FOCUS_WITHIN
-import css.base.Tag
-import css.base.UNIVERSAL
-import css.base.rangeTo
+import css.properties.*
 import css.properties.BoxSizingValue.*
+import css.properties.DisplayTypeValue.block
+import css.properties.ListStyleImageValue.none
 import css.properties.ScrollBehaviour.smooth
-import css.properties.`box-sizing`
-import css.properties.margin
-import css.properties.px
-import css.properties.`scroll-behavior`
+import css.properties.TextRenderingValues.optimizeSpeed
+import css.properties.FontValue.inherit as fontInherit
 
-//<editor-fold desc="Tags">
-private val html = Tag("html")
-private val body = Tag("body")
-private val h1 = Tag("h1")
-private val h2 = Tag("h2")
-private val h3 = Tag("h3")
-private val h4 = Tag("h3")
-private val h5 = Tag("h3")
-private val p = Tag("p")
-private val figure = Tag("figure")
-private val blockquote = Tag("blockquote")
-private val dl = Tag("dl")
-private val dd = Tag("dd")
-//</editor-fold>
-
+@Suppress("MagicNumber")
 public val ResetDocument: IDocument = Document().apply {
     /* Box sizing rules */
     this[html] = {
@@ -42,8 +25,27 @@ public val ResetDocument: IDocument = Document().apply {
     this[body, h1, h2, h3, h4, h5, p, figure, blockquote, dl, dd] = {
         margin(0.px)
     }
+    /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+    this[Attribute("ol", "role", "list"), Attribute("ul", "role", "list")] = {
+        `list-style`(none)
+    }
     /* Set core root defaults */
     this[html..FOCUS_WITHIN] = {
         `scroll-behavior`(smooth)
+    }
+    /* Set core body defaults */
+    this[body] = {
+        `min-height`(100.vh)
+        `text-rendering`(optimizeSpeed)
+        `line-height`(1.5)
+    }
+    /* Make images easier to work with */
+    this[img, picture] = {
+        `max-width`(100.percentage)
+        display(block)
+    }
+    /* Inherit fonts for inputs and buttons */
+    this[input, button, textarea, select] = {
+        font(fontInherit)
     }
 }
