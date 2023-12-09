@@ -38,7 +38,7 @@ internal val NavigationDocument: IDocument = Document().apply {
         position(absolute)
         top(50.percentage)
         left(50.percentage)
-        transform(-50.percentage, -50.percentage)
+        transform2D(Translate(-50.percentage, -50.percentage))
         `list-style-type`(none)
     }
     this[NAVIGATION__ITEM] = {

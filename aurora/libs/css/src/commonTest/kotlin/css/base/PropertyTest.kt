@@ -8,7 +8,7 @@ import kotlin.test.assertSame
 
 class PropertyTest {
     @Test
-    fun `test builder`() {
+    fun `builder`() {
         val property = Property(
             property = "property",
             value = "value",
@@ -21,14 +21,14 @@ class PropertyTest {
     }
 
     @Test
-    fun `test property is rendered correctly`() {
+    fun `property is rendered correctly`() {
         val property = Property("property", "value", SupportData())
 
         assertEquals("property:value;", property.toString())
     }
 
     @Test
-    fun `test moz prefix works`() {
+    fun `moz prefix works`() {
         val property = Property("property", "value", SupportData())
         val prefixedProperty = property.moz(SupportDataOverride(chrome = 42.0))
 
@@ -37,7 +37,16 @@ class PropertyTest {
     }
 
     @Test
-    fun `test webkit prefix works`() {
+    fun `o prefix works`() {
+        val property = Property("property", "value", SupportData())
+        val prefixedProperty = property.o(SupportDataOverride(chrome = 42.0))
+
+        assertEquals("-o-property:value;property:value;", prefixedProperty.toString())
+        assertEquals(42.0, prefixedProperty.supportedBrowsers.chrome)
+    }
+
+    @Test
+    fun `webkit prefix works`() {
         val property = Property("property", "value", SupportData())
         val prefixedProperty = property.webkit(SupportDataOverride(chrome = 42.0))
 

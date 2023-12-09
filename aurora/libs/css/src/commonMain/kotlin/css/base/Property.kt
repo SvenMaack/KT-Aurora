@@ -35,5 +35,8 @@ private data class PrefixedProperty(
 public fun IProperty.moz(supportExtension: SupportDataOverride): IProperty =
     PrefixedProperty(this, "-moz", this.supportedBrowsers + supportExtension)
 
+public fun IProperty.o(supportExtension: SupportDataOverride): IProperty =
+    PrefixedProperty(this, "-o", this.supportedBrowsers + supportExtension)
+
 public fun IProperty.webkit(supportExtension: SupportDataOverride): IProperty =
     PrefixedProperty(this, "-webkit", this.supportedBrowsers + supportExtension)

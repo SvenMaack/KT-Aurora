@@ -1,3 +1,4 @@
+@file:Suppress("FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList")
 package css.properties
 
 import css.base.Property
@@ -14,6 +15,9 @@ public enum class TextTransformValues(public val value: String) {
     inherit("inherit"),
 }
 
+/**
+ * The text-transform property controls the capitalization of text.
+ */
 public fun Rule.`text-transform`(style: TextTransformValues) {
     +Property(
         property = "text-transform",
