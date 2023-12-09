@@ -84,3 +84,16 @@ private fun cleanSelector(selector: String): String =
 
 public operator fun Selector.rangeTo(pseudo: PseudoValues): Selector =
     Pseudo(this, pseudo)
+
+public val html: Tag = Tag("html")
+public val body: Tag = Tag("body")
+public val h1: Tag = Tag("h1")
+public val h2: Tag = Tag("h2")
+public val h3: Tag = Tag("h3")
+public val h4: Tag = Tag("h3")
+public val h5: Tag = Tag("h3")
+public val p: Tag = Tag("p")
+public val figure: Tag = Tag("figure")
+public val blockquote: Tag = Tag("blockquote")
+public val dl: Tag = Tag("dl")
+public val dd: Tag = Tag("dd")
