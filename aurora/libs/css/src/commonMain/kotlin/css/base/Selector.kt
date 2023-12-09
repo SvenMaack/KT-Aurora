@@ -7,8 +7,8 @@ public enum class SelectorType {
     TAG,
     PSEUDO,
     COMBINATOR,
-    /*
     ATTRIBUTE,
+    /*
     COMBINATOR,
     NESTED,
     CHILD,
@@ -34,6 +34,18 @@ public interface Selector {
 public object UNIVERSAL: Selector {
     override fun getType(): SelectorType = SelectorType.UNIVERSAL
     public override fun toString(): String = "*"
+}
+
+public class Attribute(private val selector: Selector, private val attribute: String, private val value: String? = null): Selector {
+    public constructor(clazz: String, attribute: String, value: String? = null):
+            this(Class(clazz), attribute, value)
+
+    override fun getType(): SelectorType = SelectorType.ATTRIBUTE
+    public override fun toString(): String =
+        if(value.isNullOrEmpty())
+            "$selector[$attribute]"
+        else
+            "$selector[$attribute='$value']"
 }
 
 public class Pseudo(private val selector: Selector, private val pseudo: PseudoValues): Selector {

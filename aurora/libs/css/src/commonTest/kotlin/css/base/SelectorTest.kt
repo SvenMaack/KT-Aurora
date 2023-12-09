@@ -68,6 +68,22 @@ class SelectorTest {
     }
 
     @Test
+    fun `attribute works`() {
+        val selector = Attribute("c1", "attr", "value")
+
+        assertEquals(".c1[attr='value']", selector.toString())
+        assertEquals(SelectorType.ATTRIBUTE, selector.getType())
+    }
+
+    @Test
+    fun `attribute works without value`() {
+        val selector = Attribute("c1", "attr")
+
+        assertEquals(".c1[attr]", selector.toString())
+        assertEquals(SelectorType.ATTRIBUTE, selector.getType())
+    }
+
+    @Test
     fun `invalid characters are removed from tag`() {
         val selector = Tag("t1 +>~.,")
 
