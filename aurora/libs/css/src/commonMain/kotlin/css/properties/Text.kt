@@ -21,7 +21,7 @@ public enum class TextRenderingValues(public val value: String) {
 }
 
 public enum class LineHeightValue(public val value: String) {
-    auto("auto"),
+    normal("normal"),
     initial("initial"),
     inherit("inherit")
 }
