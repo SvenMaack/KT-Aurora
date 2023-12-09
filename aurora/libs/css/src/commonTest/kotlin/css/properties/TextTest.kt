@@ -16,4 +16,16 @@ class TextTest {
             assertEquals(it.value, rule.properties[0].value)
         }
     }
+
+    @Test
+    fun `test text-rendering`() {
+        TextRenderingValues.entries.forEach {
+            val rule = Rule("selector")
+            rule.`text-rendering`(it)
+
+            assertEquals(1, rule.properties.size)
+            assertEquals("text-rendering", rule.properties[0].property)
+            assertEquals(it.value, rule.properties[0].value)
+        }
+    }
 }
