@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 
 class TextTest {
     @Test
-    fun `test text-transform`() {
+    fun `text-transform`() {
         TextTransformValues.entries.forEach {
             val rule = Rule("selector")
             rule.`text-transform`(it)
@@ -18,7 +18,7 @@ class TextTest {
     }
 
     @Test
-    fun `test text-rendering`() {
+    fun `text-rendering`() {
         TextRenderingValues.entries.forEach {
             val rule = Rule("selector")
             rule.`text-rendering`(it)
@@ -27,5 +27,37 @@ class TextTest {
             assertEquals("text-rendering", rule.properties[0].property)
             assertEquals(it.value, rule.properties[0].value)
         }
+    }
+
+    @Test
+    fun `line-height`() {
+        LineHeightValue.entries.forEach {
+            val rule = Rule("selector")
+            rule.`line-height`(it)
+
+            assertEquals(1, rule.properties.size)
+            assertEquals("line-height", rule.properties[0].property)
+            assertEquals(it.value, rule.properties[0].value)
+        }
+    }
+
+    @Test
+    fun `line-height value`() {
+        val rule = Rule("selector")
+        rule.`line-height`(5.px)
+
+        assertEquals(1, rule.properties.size)
+        assertEquals("line-height", rule.properties[0].property)
+        assertEquals("5px", rule.properties[0].value)
+    }
+
+    @Test
+    fun `line-height number`() {
+        val rule = Rule("selector")
+        rule.`line-height`(5.0)
+
+        assertEquals(1, rule.properties.size)
+        assertEquals("line-height", rule.properties[0].property)
+        assertEquals("5.0", rule.properties[0].value)
     }
 }

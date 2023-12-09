@@ -20,6 +20,12 @@ public enum class TextRenderingValues(public val value: String) {
     optimizeLegibility("optimizeLegibility")
 }
 
+public enum class LineHeightValue(public val value: String) {
+    auto("auto"),
+    initial("initial"),
+    inherit("inherit")
+}
+
 /**
  * The text-transform property controls the capitalization of text.
  */
@@ -50,6 +56,57 @@ public fun Rule.`text-rendering`(style: TextRenderingValues) {
             firefox = 1.0,
             safari = 5.0,
             opera = 15.0,
+        )
+    )
+}
+
+/**
+ * The line-height property specifies the height of a line.
+ */
+public fun Rule.`line-height`(size: Size) {
+    +Property(
+        property = "line-height",
+        value = size.toString(),
+        supportedBrowsers = SupportData(
+            chrome = 1.0,
+            edge = 4.0,
+            firefox = 1.0,
+            safari = 1.0,
+            opera = 7.0,
+        )
+    )
+}
+
+/**
+ * The line-height property specifies the height of a line.
+ */
+public fun Rule.`line-height`(size: Double) {
+    +Property(
+        property = "line-height",
+        value = size.toString(),
+        supportedBrowsers = SupportData(
+            chrome = 1.0,
+            edge = 4.0,
+            firefox = 1.0,
+            safari = 1.0,
+            opera = 7.0,
+        )
+    )
+}
+
+/**
+ * The line-height property specifies the height of a line.
+ */
+public fun Rule.`line-height`(size: LineHeightValue) {
+    +Property(
+        property = "line-height",
+        value = size.value,
+        supportedBrowsers = SupportData(
+            chrome = 1.0,
+            edge = 4.0,
+            firefox = 1.0,
+            safari = 1.0,
+            opera = 7.0,
         )
     )
 }
