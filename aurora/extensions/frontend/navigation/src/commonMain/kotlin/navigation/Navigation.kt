@@ -11,13 +11,11 @@ import css.properties.TextTransformValues.uppercase
 import page_lib.ClassGenerator
 import template.TemplateExtension
 import template.tags.BodyTagContainer
-import template.base.get
-import template.base.rem
+import template.base.*
 
-private const val NAME = "nav"
-private val NAVIGATION: String = ClassGenerator(NAME)
-private val NAVIGATION__ITEM: String = ClassGenerator(NAME)
-private val NAVIGATION__ITEM__ACTIVE: String = ClassGenerator(NAME)
+private val NAVIGATION: String = ClassGenerator()
+private val NAVIGATION__ITEM: String = ClassGenerator()
+private val NAVIGATION__ITEM__ACTIVE: String = ClassGenerator()
 
 internal val NavigationTemplate: TemplateExtension<BodyTagContainer, NavigationVM> =  { _, vm ->
     nav {

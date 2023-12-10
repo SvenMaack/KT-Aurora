@@ -7,7 +7,10 @@ import template.cache
 import template.include
 import template.tags.Html
 import navigation.NavigationModule
+import page_lib.ClassGenerator
 import template.tags.Body
+
+private val Test: String = ClassGenerator()
 
 val BodyTemplate: TemplateExtension<Html, NavigationVM> = { context, data ->
     body {
@@ -19,7 +22,7 @@ val BodyTemplate: TemplateExtension<Html, NavigationVM> = { context, data ->
 private val Example: StaticTemplateExtension<Body> = { _, _ ->
     main {
         div(clazz="MyClass") {
-            p(clazz="test") {
+            p(clazz=Test) {
                 +"This is my first kotlin rendered page"
             }
         }

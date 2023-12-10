@@ -55,7 +55,7 @@ public class Pseudo(private val selector: Selector, private val pseudo: PseudoVa
 
 public class CombinedSelector(private vararg val selector: Selector): Selector {
     override fun getType(): SelectorType = SelectorType.COMBINATOR
-    public override fun toString(): String = selector.joinToString(", ")
+    public override fun toString(): String = selector.joinToString(",")
 }
 
 public class Class(public val name: String): Selector {
