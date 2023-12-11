@@ -9,7 +9,7 @@ import template.Template
 import template.include
 import template.tags.html
 import navigation.NavigationModule
-import page_lib.PageModule
+import page.PageModule
 
 private val landingPageTemplate: Template<LandingPageDto> = { context, data ->
     html(lang=context.language) {

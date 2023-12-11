@@ -1,10 +1,10 @@
-package page_lib.page
+package page
 
 import css.base.Document
 import css.base.IDocument
-import page_lib.page.base.*
-import page_lib.page.extensions.BrowserSupport
-import page_lib.page.extensions.CachedStyling
+import page.base.*
+import page.extensions.BrowserSupport
+import page.extensions.CachedStyling
 import template.Context
 import template.ITemplateRenderer
 import template.TemplateRenderer
@@ -12,21 +12,21 @@ import template.Template
 import template.base.TagContainer
 import template.tags.enums.SpecificLanguage
 
-class PageContext(
-    val language: SpecificLanguage
+public data class PageContext(
+    public val language: SpecificLanguage
 )
 
-interface IPage<ViewModel> {
-    fun getExternalCss(): String
+public interface IPage<ViewModel> {
+    public fun getExternalCss(): String
 
-    fun getExternalCssPath(): String
+    public fun getExternalCssPath(): String
 
-    fun getInlineCss(): String
+    public fun getInlineCss(): String
 
-    fun getHtml(pageContext: PageContext, viewModel: ViewModel): String
+    public fun getHtml(pageContext: PageContext, viewModel: ViewModel): String
 }
 
-class Page<ViewModel> private constructor(
+public class Page<ViewModel> private constructor(
     private val name: String,
     private var provider: IPageProvider<ViewModel>,
     private var renderer: IPageRenderer,
@@ -50,7 +50,7 @@ class Page<ViewModel> private constructor(
         return renderer.renderHtml(context, provider.getHtmlTag(context, viewModel))
     }
 
-    override fun getInlineCss() =
+    override fun getInlineCss(): String =
         renderer.renderInlineCss(
             visitors.cssVisitor,
             provider.getInlineCssDocument()
@@ -65,8 +65,8 @@ class Page<ViewModel> private constructor(
             language = pageContext.language
         )
 
-    companion object {
-        fun <ViewModel> build(
+    public companion object {
+        public fun <ViewModel> build(
             name: String,
             template: Template<ViewModel>,
             renderer: IPageRenderer = DefaultRenderer,

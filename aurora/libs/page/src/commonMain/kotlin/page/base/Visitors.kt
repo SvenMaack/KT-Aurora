@@ -1,4 +1,4 @@
-package page_lib.page.base
+package page.base
 
 import css.base.RuleVisitorFactory
 import template.base.HtmlVisitorStrategy
@@ -7,17 +7,17 @@ import css.visitors.DebugVisitor as CssDebugVisitor
 import template.visitors.DebugHtmlVisitor
 import template.visitors.ProductionHtmlVisitor
 
-open class Visitors<Result> (
-    val cssVisitor: RuleVisitorFactory<Result>,
-    val htmlVisitor: HtmlVisitorStrategy<Result>
+public open class Visitors<Result> (
+    public val cssVisitor: RuleVisitorFactory<Result>,
+    public val htmlVisitor: HtmlVisitorStrategy<Result>
 )
 
-object ProductionVisitors: Visitors<String>(
+public object ProductionVisitors: Visitors<String>(
     { CssProductionVisitor() },
     { ProductionHtmlVisitor() }
 )
 
-object DebugVisitors: Visitors<String>(
+public object DebugVisitors: Visitors<String>(
     { CssDebugVisitor() },
     { DebugHtmlVisitor() }
 )

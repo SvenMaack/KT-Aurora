@@ -1,19 +1,19 @@
-package page_lib.page.base
+package page.base
 
 import css.base.IDocument
 import template.Context
 import template.base.TagContainer
 
-interface InlineCssProvider {
-    fun getInlineCssDocument(): IDocument
+public interface InlineCssProvider {
+    public fun getInlineCssDocument(): IDocument
 }
-interface ExternalCssProvider {
-    fun getExternalCssDocument(): IDocument
+public interface ExternalCssProvider {
+    public fun getExternalCssDocument(): IDocument
 }
-interface CssProvider: InlineCssProvider, ExternalCssProvider
+public interface CssProvider: InlineCssProvider, ExternalCssProvider
 
-interface HtmlProvider<ViewModel> {
-    fun getHtmlTag(context: Context, viewModel: ViewModel): TagContainer
+public interface HtmlProvider<ViewModel> {
+    public fun getHtmlTag(context: Context, viewModel: ViewModel): TagContainer
 }
 
-interface IPageProvider<ViewModel>: HtmlProvider<ViewModel>, CssProvider
+public interface IPageProvider<ViewModel>: HtmlProvider<ViewModel>, CssProvider

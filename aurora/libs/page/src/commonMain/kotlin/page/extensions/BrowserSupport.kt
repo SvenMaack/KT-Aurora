@@ -1,12 +1,12 @@
-package page_lib.page.extensions
+package page.extensions
 
 import css.base.DocumentList
 import css.visitors.BrowserVersionVisitor
-import page_lib.page.base.IPageProvider
+import page.base.IPageProvider
 import template.Context
 import template.base.TagContainer
 
-class BrowserSupport<ViewModel>(private val inner: IPageProvider<ViewModel>): IPageProvider<ViewModel> by inner
+public class BrowserSupport<ViewModel>(private val inner: IPageProvider<ViewModel>): IPageProvider<ViewModel> by inner
 {
     private val cachedSupport: Lazy<Map<String, Double>> = lazy {
         BrowserVersionVisitor().apply {

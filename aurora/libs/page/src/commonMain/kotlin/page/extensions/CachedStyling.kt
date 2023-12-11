@@ -1,10 +1,10 @@
-package page_lib.page.extensions
+package page.extensions
 
 import css.base.IDocument
 import css.base.RuleVisitorFactory
-import page_lib.page.base.IPageRenderer
+import page.base.IPageRenderer
 
-class CachedStyling(private val inner: IPageRenderer): IPageRenderer by inner {
+public class CachedStyling(private val inner: IPageRenderer): IPageRenderer by inner {
     private var cachedInnerStyling: String? = null
 
     private var cachedExternalStyling: String? = null

@@ -8,7 +8,7 @@ import css.properties.DisplayTypeValue.`inline-block`
 import css.properties.ListStyleTypeValue.*
 import css.properties.PositionValue.absolute
 import css.properties.TextTransformValues.uppercase
-import page_lib.ClassGenerator
+import page.ClassGenerator
 import template.TemplateExtension
 import template.tags.BodyTagContainer
 import template.base.*

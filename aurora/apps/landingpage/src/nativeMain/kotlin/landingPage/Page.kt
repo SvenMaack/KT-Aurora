@@ -6,8 +6,8 @@ import head.TechnicalData
 import landingPage.module.landingPageModule
 import navigation.NavigationEntry
 import navigation.NavigationVM
-import page_lib.page.Page
-import page_lib.page.base.DebugVisitors
+import page.Page
+import page.base.DebugVisitors
 
 data class LandingPageDto(
     val technicalData: TechnicalData,

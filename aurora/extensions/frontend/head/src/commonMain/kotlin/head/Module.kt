@@ -1,7 +1,7 @@
 package head
 
 import css.base.EmptyDocument
-import page_lib.Module
+import page.Module
 import template.tags.Html
 
 public val HeadModule: Module<Html, TechnicalData> =

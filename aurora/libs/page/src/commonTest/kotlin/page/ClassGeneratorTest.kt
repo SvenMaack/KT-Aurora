@@ -1,4 +1,4 @@
-package page_lib
+package page
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

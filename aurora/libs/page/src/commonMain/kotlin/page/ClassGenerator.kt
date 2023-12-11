@@ -1,5 +1,5 @@
-@file:Suppress("EnumEntryName", "unused", "SpellCheckingInspection")
-package page_lib
+@file:Suppress("EnumEntryName", "EnumNaming", "SpellCheckingInspection")
+package page
 
 internal enum class Anagram {
     abc,
@@ -42,8 +42,8 @@ internal class IdentifierGenerator(private val availableLetters: String) {
 
 }
 
-object ClassGenerator {
+public object ClassGenerator {
     private val generator = IdentifierGenerator(Anagram.abcdefghijklmnopqrstuvwxyz.name)
-    operator fun invoke(): String =
+    public operator fun invoke(): String =
         generator()
 }

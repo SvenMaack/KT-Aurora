@@ -7,7 +7,7 @@ import template.cache
 import template.include
 import template.tags.Html
 import navigation.NavigationModule
-import page_lib.ClassGenerator
+import page.ClassGenerator
 import template.tags.Body
 
 private val Test: String = ClassGenerator()
