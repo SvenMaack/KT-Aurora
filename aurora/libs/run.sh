@@ -25,6 +25,7 @@ case $1 in
         set -x #echo on
         ( cd css && ./run.sh build)
         ( cd template && ./run.sh build)
+        ( cd di && ./run.sh build)
         ( cd page && ./run.sh build)
         ;;
     create)
@@ -33,6 +34,7 @@ case $1 in
         set -x #echo on
         ( cd css && ./run.sh create)
         ( cd template && ./run.sh create)
+        ( cd di && ./run.sh create)
         ( cd page && ./run.sh create)
         ;;
     test)
@@ -41,6 +43,7 @@ case $1 in
         set -x #echo on
         ( cd css && ./run.sh test)
         ( cd template && ./run.sh test)
+        ( cd di && ./run.sh test)
         ( cd page && ./run.sh test)
         ;;
     clean)
@@ -49,6 +52,7 @@ case $1 in
         set -x #echo on
         ( cd css && ./run.sh clean)
         ( cd template && ./run.sh clean)
+        ( cd di && ./run.sh clean)
         ( cd page && ./run.sh clean)
         ;;
     *)
