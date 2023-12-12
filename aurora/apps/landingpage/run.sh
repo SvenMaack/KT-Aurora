@@ -18,6 +18,7 @@ case $1 in
         ;;
     test)
         echo "Running Gradle tests..."
+        ./gradlew detekt
         ./gradlew nativeTest
         ;;
     clean)

@@ -1,6 +1,9 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
 plugins {
     kotlin("multiplatform") version "1.9.10"
     id("com.google.devtools.ksp") version "1.9.10-1.0.13"
+    id("io.gitlab.arturbosch.detekt") version "1.23.4"
 }
 
 group = "maack.aurora"
@@ -12,6 +15,7 @@ repositories {
 }
 
 kotlin {
+    explicitApi()
     val hostOs = System.getProperty("os.name")
     val isArm64 = System.getProperty("os.arch") == "aarch64"
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -60,3 +64,16 @@ dependencies {
             add(it.name, "io.mockative:mockative-processor:2.0.0")
         }
 }
+
+detekt {
+    source.setFrom("src/commonMain/kotlin")
+    allRules = true
+    config.setFrom("$projectDir/config/detekt.yml")
+    parallel = true
+}
+tasks.withType<Detekt>().configureEach {
+    reports {
+        html.required.set(true)
+    }
+}
+
