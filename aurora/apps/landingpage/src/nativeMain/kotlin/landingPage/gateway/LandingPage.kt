@@ -1,8 +1,6 @@
 package landingPage.gateway
 
 import css.base.EmptyDocument
-import head.Css
-import head.TechnicalData
 import landingPage.domain.LandingPageProvider
 import landingPage.domain.NavigationProvider
 import landingPage.gateway.module.LandingPageModule
@@ -24,20 +22,15 @@ internal object LandingPage {
         debug = true
     )
 
-    fun renderLandingPage(): String =
+    suspend fun getHtml(): String =
         landingPage.getHtml(
             PageContext(
                 GeneralLanguage.English,
                 CountryCode.UNITED_STATES
             ),
             LandingPageVM(
-                TechnicalData(
-                    LandingPageProvider().getLandingPage(),
-                    Css(
-                        externalStylingPath = landingPage.getExternalCssPath(),
-                        inlineStyling = landingPage.getInlineCss()
-                    )
-                ),
+                landingPage,
+                LandingPageProvider().getLandingPage(),
                 NavigationProvider().getNavigation()
             )
         )

@@ -1,13 +1,18 @@
 package landingPage.domain
 
-import head.Seo
+private data class DummySeo (
+    override val title: String,
+    override val description: String,
+    override val keywords: String,
+    override val canonicalUrl: String
+): Seo
 
 internal class LandingPageProvider: ILandingPageProvider {
-    override fun getLandingPage(): Seo =
-        Seo(
+    override suspend fun getLandingPage(): Seo =
+        DummySeo(
             title = "Aurora",
             description = "A PoC for the power of kotlin",
-            keywords = "landingpage, kotlin, multiplatform",
+            keywords = "landingPage, kotlin, multiplatform",
             canonicalUrl = "https://www.example.com"
         )
 }

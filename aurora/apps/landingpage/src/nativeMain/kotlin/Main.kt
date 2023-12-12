@@ -14,7 +14,7 @@ public fun main() {
             route("", HttpMethod.Get) {
                 handle {
                     call.response.header(HttpHeaders.ContentType, "text/html")
-                    call.respondText(LandingPage.renderLandingPage())
+                    call.respondText(LandingPage.getHtml())
                 }
             }
             route("/${LandingPage.getExternalCssPath()}", HttpMethod.Get) {

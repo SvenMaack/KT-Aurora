@@ -1,7 +1,12 @@
 package landingPage.domain
 
-import head.Seo
+public interface Seo {
+    public val title: String
+    public val description: String
+    public val keywords: String
+    public val canonicalUrl: String
+}
 
 internal interface ILandingPageProvider {
-    fun getLandingPage(): Seo
+    suspend fun getLandingPage(): Seo
 }

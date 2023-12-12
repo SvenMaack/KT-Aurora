@@ -1,16 +1,22 @@
 package landingPage.domain
 
-import navigation.NavigationEntry
-import navigation.NavigationVM
+private data class DummyNavigationEntry(
+    override val name: String,
+    override val active: Boolean = false
+) : NavigationEntry
+
+private data class DummyNavigation(
+    override val entries: List<NavigationEntry>
+): Navigation
 
 internal class NavigationProvider: INavigationProvider {
-    override fun getNavigation(): NavigationVM {
-        return NavigationVM(
+    override suspend fun getNavigation(): Navigation {
+        return DummyNavigation(
             listOf(
-                NavigationEntry("Home"),
-                NavigationEntry("Trends", active = true),
-                NavigationEntry("New Arrival"),
-                NavigationEntry("Sales")
+                DummyNavigationEntry("Home"),
+                DummyNavigationEntry("Trends", active = true),
+                DummyNavigationEntry("New Arrival"),
+                DummyNavigationEntry("Sales")
             )
         )
     }

@@ -6,14 +6,14 @@ import template.include
 import template.tags.Head
 import template.tags.Html
 
-internal val SimpleHeadTemplate: TemplateExtension<Html, TechnicalData> = { context, data ->
+internal val SimpleHeadTemplate: TemplateExtension<Html, TechnicalDataVM> = { context, data ->
     head {
         include(context=context, template=StaticHead)
         include(context=context, template=DynamicHead, vm=data)
     }
 }
 
-private val DynamicHead: TemplateExtension<Head, TechnicalData> = { _, data ->
+private val DynamicHead: TemplateExtension<Head, TechnicalDataVM> = { _, data ->
     title {
         +data.seo.title
     }

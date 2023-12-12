@@ -1,10 +1,10 @@
 package navigation
 
-public data class NavigationEntry(
-    val name: String,
-    val active: Boolean = false
-)
+public interface NavigationEntryVM {
+    public val name: String
+    public val active: Boolean
+}
 
-public data class NavigationVM(
-    val entries: List<NavigationEntry>
-)
+public interface NavigationVM {
+    public val entries: List<NavigationEntryVM>
+}
