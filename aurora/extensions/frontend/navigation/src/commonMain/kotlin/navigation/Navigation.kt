@@ -6,6 +6,7 @@ import basic._typography
 import css.base.Document
 import css.base.IDocument
 import css.properties.*
+import css.properties.CursorValue.POINTER
 import css.properties.DisplayTypeValue.`inline-block`
 import css.properties.ListStyleTypeValue.*
 import css.properties.PositionValue.absolute
@@ -44,5 +45,6 @@ internal val NavigationDocument: IDocument = Document().apply {
         _typography(TYPOGRAPHY.BUTTON)
         display(`inline-block`)
         padding(15.px)
+        cursor(POINTER)
     }
 }
