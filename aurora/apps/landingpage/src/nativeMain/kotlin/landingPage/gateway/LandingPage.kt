@@ -13,7 +13,7 @@ import page.PageContext
 import template.tags.enums.CountryCode
 import template.tags.enums.GeneralLanguage
 
-object LandingPage {
+internal object LandingPage {
     private val landingPage: IPage<LandingPageVM> = Page(
         name = "landingPage_$UniqueId",
         provider = IPageProvider.build(

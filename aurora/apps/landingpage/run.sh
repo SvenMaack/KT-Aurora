@@ -13,7 +13,7 @@ case $1 in
     create)
         echo "Creates files..."
         current_timestamp=$(date +%s)
-        sed -i "3s/.*/const val UniqueId = -${current_timestamp}/" src/nativeMain/kotlin/landingPage/UniqueId.kt
+        sed -i "3s/.*/internal const val UniqueId = -${current_timestamp}/" src/nativeMain/kotlin/landingPage/UniqueId.kt
         ./gradlew build --refresh-dependencies
         ;;
     test)

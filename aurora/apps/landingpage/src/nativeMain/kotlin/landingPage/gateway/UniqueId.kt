@@ -1,3 +1,3 @@
 package landingPage.gateway
 
-const val UniqueId = -1702210582
+internal const val UniqueId = -1702210582

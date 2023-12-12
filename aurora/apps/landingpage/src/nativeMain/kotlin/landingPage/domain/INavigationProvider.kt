@@ -2,6 +2,6 @@ package landingPage.domain
 
 import navigation.NavigationVM
 
-interface INavigationProvider {
+internal interface INavigationProvider {
     fun getNavigation(): NavigationVM
 }

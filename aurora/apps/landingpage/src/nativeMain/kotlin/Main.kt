@@ -6,7 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import landingPage.gateway.LandingPage
 
-fun main() {
+public fun main() {
     embeddedServer(CIO, configure = {
         connectionIdleTimeoutSeconds = 30
     }, port = 8080) {

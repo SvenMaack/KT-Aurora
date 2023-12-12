@@ -2,7 +2,7 @@ package landingPage.domain
 
 import head.Seo
 
-class LandingPageProvider: ILandingPageProvider {
+internal class LandingPageProvider: ILandingPageProvider {
     override fun getLandingPage(): Seo =
         Seo(
             title = "Hello World",

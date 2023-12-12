@@ -2,6 +2,6 @@ package landingPage.domain
 
 import head.Seo
 
-interface ILandingPageProvider {
+internal interface ILandingPageProvider {
     fun getLandingPage(): Seo
 }

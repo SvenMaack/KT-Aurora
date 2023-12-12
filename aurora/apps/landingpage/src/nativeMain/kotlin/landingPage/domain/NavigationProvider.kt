@@ -3,7 +3,7 @@ package landingPage.domain
 import navigation.NavigationEntry
 import navigation.NavigationVM
 
-class NavigationProvider: INavigationProvider {
+internal class NavigationProvider: INavigationProvider {
     override fun getNavigation(): NavigationVM {
         return NavigationVM(
             listOf(
