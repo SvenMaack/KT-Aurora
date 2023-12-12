@@ -1,13 +1,14 @@
 @file:Suppress("WrapUnaryOperator")
 package navigation
 
+import basic.TYPOGRAPHY
+import basic._typography
 import css.base.Document
 import css.base.IDocument
 import css.properties.*
 import css.properties.DisplayTypeValue.`inline-block`
 import css.properties.ListStyleTypeValue.*
 import css.properties.PositionValue.absolute
-import css.properties.TextTransformValues.uppercase
 import page.ClassGenerator
 import template.TemplateExtension
 import template.tags.BodyTagContainer
@@ -36,11 +37,11 @@ internal val NavigationDocument: IDocument = Document().apply {
         position(absolute)
         top(50.percentage)
         left(50.percentage)
-        transform2D(Translate(-50.percentage, -50.percentage))
+        transform2D(Translate((-50).percentage, (-50).percentage))
         `list-style-type`(none)
     }
     this[NAVIGATION__ITEM] = {
-        `text-transform`(uppercase)
+        _typography(TYPOGRAPHY.BUTTON)
         display(`inline-block`)
         padding(15.px)
     }

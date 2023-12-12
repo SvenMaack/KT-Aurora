@@ -9,10 +9,4 @@ class SizeTest {
         val size = ValueSize("2", CssUnit.px)
         assertEquals("2px", size.toString())
     }
-
-    @Test
-    fun `test negative value size`() {
-        val size = -ValueSize("2", CssUnit.px)
-        assertEquals("-2px", size.toString())
-    }
 }

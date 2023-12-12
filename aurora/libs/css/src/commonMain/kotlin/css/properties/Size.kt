@@ -35,12 +35,9 @@ public interface Size
 public class ValueSize(
     private val number: String,
     private val unit: CssUnit
-): Size, MarginValue, PaddingValue, PositionDistanceValue, HeightValue, WidthValue {
+): Size, MarginValue, PaddingValue, PositionDistanceValue, HeightValue, WidthValue, LetterSpacingValue {
     override val value: String =
         toString()
-
-    public operator fun unaryMinus(): Size =
-        ValueSize("-" + this.number, this.unit)
 
     override fun toString(): String =
         "${number}${unit.value}"

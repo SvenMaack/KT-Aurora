@@ -42,6 +42,7 @@ kotlin {
                 implementation("maack.aurora:page:1.0.0")
                 implementation("maack.aurora:navigation:1.0.0")
                 implementation("maack.aurora:head:1.0.0")
+                implementation("maack.aurora:basic:1.0.0")
 
                 implementation("io.ktor:ktor-server-core:2.3.5")
                 implementation("io.ktor:ktor-server-cio:2.3.5")

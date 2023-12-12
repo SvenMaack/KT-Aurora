@@ -3,6 +3,7 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/apps/landingpage" />
+    <file type="web" url="file://$PROJECT_DIR$/extensions/frontend/basic" />
     <file type="web" url="file://$PROJECT_DIR$/extensions/frontend/head" />
     <file type="web" url="file://$PROJECT_DIR$/extensions/frontend/navigation" />
     <file type="web" url="file://$PROJECT_DIR$/libs/css" />

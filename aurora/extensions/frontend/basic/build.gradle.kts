@@ -32,7 +32,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("maack.aurora:page:1.0.0")
-                implementation("maack.aurora:basic:1.0.0")
             }
         }
         val commonTest by getting
