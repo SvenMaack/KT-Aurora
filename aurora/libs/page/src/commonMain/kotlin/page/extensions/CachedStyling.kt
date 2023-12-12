@@ -13,7 +13,8 @@ internal object CssCache {
     operator fun get(document: IDocument, init: ()->String): String =
         cache.getOrElse(getCacheKey(document)) {
             val timestamp = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
-            val result = "/*" + timestamp.toString() + "*/\n" + init()
+            val innerResult = init()
+            val result = if(innerResult.isEmpty()) "" else "/*$timestamp*/\n$innerResult"
             result.apply {
                 cache[getCacheKey(document)] = this
             }

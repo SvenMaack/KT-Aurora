@@ -8,6 +8,7 @@ import css.visitors.ProductionVisitor
 import di.Strategy
 import di.get
 import di.by
+import page.extensions.BrowserSupport
 import page.extensions.CachedStyling
 import template.ITemplateRenderer
 import template.TemplateRenderer
@@ -17,7 +18,7 @@ import template.visitors.productionHtmlVisitorStrategy
 private class CssRendererToString: CssRenderer<String>()
 
 public object STRATEGY {
-    public val cssRenderer: Strategy<ICssRenderer<String>> = ::CssRendererToString by ::CachedStyling
+    public val cssRenderer: Strategy<ICssRenderer<String>> = ::CssRendererToString by ::BrowserSupport by ::CachedStyling
     public val debugCssVisitor: Strategy<RuleVisitor<String>> = ::DebugVisitor
     public val productionCssVisitor: Strategy<RuleVisitor<String>> = ::ProductionVisitor
     public val debugTemplateRenderer: Strategy<ITemplateRenderer> = ::TemplateRenderer[::debugHtmlVisitorStrategy]

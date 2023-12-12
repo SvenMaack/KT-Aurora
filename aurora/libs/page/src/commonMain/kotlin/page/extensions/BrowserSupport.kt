@@ -1,29 +1,25 @@
 package page.extensions
 
+import css.ICssRenderer
 import css.base.DocumentList
+import css.base.IDocument
+import css.base.RuleVisitorFactory
+import css.base.browser.NOT_SUPPORTED
 import css.visitors.BrowserVersionVisitor
-import page.IPageProvider
-import template.Template
-import template.base.TemplatingApi
-import template.base.TransientTag
 
-public class BrowserSupport<ViewModel>(private val inner: IPageProvider<ViewModel>): IPageProvider<ViewModel> by inner
-{
-    private val cachedSupport: Lazy<Map<String, Double>> = lazy {
-        BrowserVersionVisitor().apply {
+public class BrowserSupport(private val inner: ICssRenderer<String>): ICssRenderer<String> {
+    private fun renderSupport(support: Map<String, Double>) : String =
+        support.entries.joinToString(", ") { (browser, version) ->
+            "$browser ${if(version == NOT_SUPPORTED) "not supported" else " >= $version"}"
+        }
+
+    override fun render(ruleVisitorFactory: RuleVisitorFactory<String>, document: IDocument): String {
+        val support = BrowserVersionVisitor().apply {
             DocumentList().apply {
-                +inner.getInlineCssDocument()
-                +inner.getExternalCssDocument()
+                +document
             }.traverse(this)
         }.result
+        val innerResult = inner.render(ruleVisitorFactory, document)
+        return if(innerResult.isEmpty()) "" else "/*${renderSupport(support)}*/\n$innerResult"
     }
-
-    @OptIn(TemplatingApi::class)
-    override fun getTemplate(): Template<ViewModel> =
-        { context, model ->
-            TransientTag().apply {
-                !cachedSupport.toString()
-                add(inner.getTemplate()(context, model))
-            }
-        }
 }
