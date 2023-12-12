@@ -10,6 +10,7 @@ import page.Page
 import page.PageContext
 import template.tags.enums.CountryCode
 import template.tags.enums.GeneralLanguage
+import kotlinx.coroutines.*
 
 internal object LandingPage {
     private val landingPage: IPage<LandingPageVM> = Page(
@@ -19,21 +20,25 @@ internal object LandingPage {
             externalCss = LandingPageModule.document,
             template = LandingPageModule.template
         ),
-        debug = true
+        debug = false
     )
 
     suspend fun getHtml(): String =
-        landingPage.getHtml(
-            PageContext(
-                GeneralLanguage.English,
-                CountryCode.UNITED_STATES
-            ),
-            LandingPageVM(
-                landingPage,
-                LandingPageProvider().getLandingPage(),
-                NavigationProvider().getNavigation()
+        coroutineScope {
+            val landingPageData = async { LandingPageProvider().getLandingPage() }
+            val navigationData = async { NavigationProvider().getNavigation() }
+            landingPage.getHtml(
+                PageContext(
+                    GeneralLanguage.English,
+                    CountryCode.UNITED_STATES
+                ),
+                LandingPageVM(
+                    landingPage,
+                    landingPageData.await(),
+                    navigationData.await()
+                )
             )
-        )
+        }
 
     fun getExternalCss(): String =
         landingPage.getExternalCss()
