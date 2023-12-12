@@ -2,9 +2,10 @@ package page.extensions
 
 import css.base.DocumentList
 import css.visitors.BrowserVersionVisitor
-import page.base.IPageProvider
-import template.Context
-import template.base.TagContainer
+import page.IPageProvider
+import template.Template
+import template.base.TemplatingApi
+import template.base.TransientTag
 
 public class BrowserSupport<ViewModel>(private val inner: IPageProvider<ViewModel>): IPageProvider<ViewModel> by inner
 {
@@ -17,13 +18,12 @@ public class BrowserSupport<ViewModel>(private val inner: IPageProvider<ViewMode
         }.result
     }
 
-    override fun getHtmlTag(context: Context, viewModel: ViewModel): TagContainer =
-        inner.getHtmlTag(context, viewModel).apply {
-            val newAttributes: MutableMap<String, List<String?>> = mutableMapOf()
-            newAttributes.putAll(attributes)
-            cachedSupport.value.forEach {
-                newAttributes[it.key] = listOf(it.value.toString())
+    @OptIn(TemplatingApi::class)
+    override fun getTemplate(): Template<ViewModel> =
+        { context, model ->
+            TransientTag().apply {
+                !cachedSupport.toString()
+                add(inner.getTemplate()(context, model))
             }
-            attributes = newAttributes
         }
 }

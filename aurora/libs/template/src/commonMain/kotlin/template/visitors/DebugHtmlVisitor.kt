@@ -2,6 +2,7 @@ package template.visitors
 
 import template.base.HtmlVisitor
 import template.base.Comment
+import template.base.HtmlVisitorStrategy
 import template.base.TagContainer
 import template.base.TextElement
 import template.base.TagWithAttributes
@@ -50,3 +51,5 @@ public class DebugHtmlVisitor: HtmlVisitor<String> {
         const val INDENTATION = "\t"
     }
 }
+
+public val debugHtmlVisitorStrategy: HtmlVisitorStrategy<String> = HtmlVisitorStrategy{ DebugHtmlVisitor() }

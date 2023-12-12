@@ -2,6 +2,7 @@ package template.visitors
 
 import template.base.HtmlVisitor
 import template.base.Comment
+import template.base.HtmlVisitorStrategy
 import template.base.TagContainer
 import template.base.TextElement
 import template.base.TagWithAttributes
@@ -42,3 +43,5 @@ public class ProductionHtmlVisitor: HtmlVisitor<String> {
         return if(renderedAttributes.isEmpty()) "" else " $renderedAttributes"
     }
 }
+
+public val productionHtmlVisitorStrategy: HtmlVisitorStrategy<String> = HtmlVisitorStrategy{ ProductionHtmlVisitor() }

@@ -80,4 +80,16 @@ class ClassGeneratorTest {
         )
         assertEquals(expected, expected.map { generator() })
     }
+
+    @Test
+    fun `generate empty`() {
+        val generator = IdentifierGenerator("")
+        val expected = listOf(
+            "a",
+            "aa",
+            "aaa",
+            "aaaa",
+        )
+        assertEquals(expected, expected.map { generator() })
+    }
 }

@@ -8,7 +8,8 @@ internal enum class Anagram {
     abcdefghijklmnopqrstuvwxyz,
 }
 
-internal class IdentifierGenerator(private val availableLetters: String) {
+internal class IdentifierGenerator(anagram: String) {
+    private val availableLetters: String = anagram.ifEmpty { "a" }
     private val firstLetter: String = availableLetters.first().toString()
     private val lastLetter: Char = availableLetters.last()
     private val length: Int = availableLetters.length

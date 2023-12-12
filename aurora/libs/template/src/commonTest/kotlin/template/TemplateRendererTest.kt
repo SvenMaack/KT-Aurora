@@ -25,7 +25,7 @@ class TemplateRendererTest {
     @Test
     fun `test dynamic template render works`() {
         val tag = TagContainer("parent")
-        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English - CountryCode.UNITED_STATES)
+        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English, country = CountryCode.UNITED_STATES)
         val vm = "test1"
         every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
         every { htmlVisitorMock.result }.returns("visitorResult")
@@ -38,7 +38,7 @@ class TemplateRendererTest {
     @Test
     fun `test dynamic template render works for static template`() {
         val tag = TagContainer("parent")
-        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English - CountryCode.UNITED_STATES)
+        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English, country = CountryCode.UNITED_STATES)
         every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
         every { htmlVisitorMock.result }.returns("visitorResult")
         every { staticTemplateMock.invoke(context, Unit) }.returns(tag)
@@ -50,7 +50,7 @@ class TemplateRendererTest {
     @Test
     fun `test dynamic template render works for element`() {
         val tag = TagContainer("parent")
-        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English - CountryCode.UNITED_STATES)
+        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English, country = CountryCode.UNITED_STATES)
         every { htmlVisitorMock.result }.returns("visitorResult")
         every { htmlVisitorStrategyMock.create() }.returns(htmlVisitorMock)
 

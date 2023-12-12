@@ -1,21 +1,35 @@
 package page.extensions
 
+import css.ICssRenderer
 import css.base.IDocument
 import css.base.RuleVisitorFactory
-import page.base.IPageRenderer
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
-public class CachedStyling(private val inner: IPageRenderer): IPageRenderer by inner {
-    private var cachedInnerStyling: String? = null
+internal object CssCache {
+    private val cache: MutableMap<String, String> = mutableMapOf()
 
-    private var cachedExternalStyling: String? = null
-
-    override fun renderInlineCss(ruleVisitorFactory: RuleVisitorFactory<String>, document: IDocument): String =
-        cachedInnerStyling ?: inner.renderInlineCss(ruleVisitorFactory, document).apply {
-            this@CachedStyling.cachedInnerStyling = this
+    operator fun get(document: IDocument, init: ()->String): String =
+        cache.getOrElse(getCacheKey(document)) {
+            val timestamp = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
+            val result = "/*" + timestamp.toString() + "*/\n" + init()
+            result.apply {
+                cache[getCacheKey(document)] = this
+            }
         }
 
-    override fun renderExternalCss(ruleVisitorFactory: RuleVisitorFactory<String>, document: IDocument): String =
-        cachedExternalStyling ?: inner.renderExternalCss(ruleVisitorFactory, document).apply {
-            this@CachedStyling.cachedExternalStyling = this
-        }
+    internal fun clear() {
+        cache.clear()
+    }
+
+    private inline fun getCacheKey(document: IDocument): String =
+        document.toString()
+}
+
+public class CachedStyling(private val inner: ICssRenderer<String>): ICssRenderer<String> {
+    override fun render(ruleVisitorFactory: RuleVisitorFactory<String>, document: IDocument): String =
+        CssCache[document, {
+            inner.render(ruleVisitorFactory, document)
+        }]
 }

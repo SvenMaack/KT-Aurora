@@ -30,7 +30,7 @@ class DocumentTest {
         document[Class("c1"), Class("c2")] = blockRule::invoke
 
         assertEquals(1, document.rules.size)
-        assertEquals(".c1, .c2", document.rules[0].selector.toString())
+        assertEquals(".c1,.c2", document.rules[0].selector.toString())
         verify { blockRule.invoke(document.rules[0]) }
             .wasInvoked(exactly = once)
     }

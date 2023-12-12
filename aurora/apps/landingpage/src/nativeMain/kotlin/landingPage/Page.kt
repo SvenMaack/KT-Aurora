@@ -1,24 +1,28 @@
 package landingPage
 
+import css.base.EmptyDocument
 import head.Css
 import head.Seo
 import head.TechnicalData
 import landingPage.module.landingPageModule
 import navigation.NavigationEntry
 import navigation.NavigationVM
+import page.IPageProvider
 import page.Page
-import page.base.DebugVisitors
 
 data class LandingPageDto(
     val technicalData: TechnicalData,
     val navigation: NavigationVM
 )
 
-val landingPage = Page.build(
+val landingPage = Page(
     name = "landingPage$UniqueId",
-    template = landingPageModule.template,
-    externalDocument = landingPageModule.document,
-    visitors = DebugVisitors
+    provider = IPageProvider.build(
+        inlineCss = EmptyDocument,
+        externalCss = landingPageModule.document,
+        template = landingPageModule.template
+    ),
+    debug = true
 )
 
 val css = Css(externalStylingPath = landingPage.getExternalCssPath(), inlineStyling = landingPage.getInlineCss())

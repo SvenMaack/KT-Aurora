@@ -1,42 +1,30 @@
 package page
 
-import css.base.Document
-import css.base.IDocument
-import page.base.*
-import page.extensions.BrowserSupport
-import page.extensions.CachedStyling
+import css.ICssRenderer
+import css.base.RuleVisitor
+import di.Strategy
 import template.Context
 import template.ITemplateRenderer
-import template.TemplateRenderer
-import template.Template
-import template.base.TagContainer
-import template.tags.enums.SpecificLanguage
 
-public data class PageContext(
-    public val language: SpecificLanguage
-)
-
-public interface IPage<ViewModel> {
-    public fun getExternalCss(): String
-
-    public fun getExternalCssPath(): String
-
-    public fun getInlineCss(): String
-
-    public fun getHtml(pageContext: PageContext, viewModel: ViewModel): String
-}
-
-public class Page<ViewModel> private constructor(
+public class Page<ViewModel>(
     private val name: String,
-    private var provider: IPageProvider<ViewModel>,
-    private var renderer: IPageRenderer,
-    private val visitors: Visitors<String>,
-    private val templateRenderer: ITemplateRenderer
+    private val provider: IPageProvider<ViewModel>,
+    private val debug: Boolean = false,
+    private val strategy: STRATEGY = STRATEGY
 ): IPage<ViewModel> {
+    private val templateRenderer: ITemplateRenderer = getTemplateRenderer()
+    private val cssRenderer: ICssRenderer<String> = strategy.cssRenderer()
+
     override fun getExternalCss(): String =
-        renderer.renderExternalCss(
-            visitors.cssVisitor,
+        cssRenderer.render(
+            getCssVisitor(),
             provider.getExternalCssDocument()
+        )
+
+    override fun getInlineCss(): String =
+        cssRenderer.render(
+            getCssVisitor(),
+            provider.getInlineCssDocument()
         )
 
     override fun getExternalCssPath(): String =
@@ -47,52 +35,25 @@ public class Page<ViewModel> private constructor(
             pageContext,
             templateRenderer
         )
-        return renderer.renderHtml(context, provider.getHtmlTag(context, viewModel))
+        return templateRenderer.render(context, provider.getTemplate(), viewModel)
     }
 
-    override fun getInlineCss(): String =
-        renderer.renderInlineCss(
-            visitors.cssVisitor,
-            provider.getInlineCssDocument()
-        )
-
-    private inline fun getContext(
-        pageContext: PageContext,
-        templateRenderer: ITemplateRenderer
-    ): Context =
+    private inline fun getContext(pageContext: PageContext, templateRenderer: ITemplateRenderer): Context =
         Context(
             templateRenderer = templateRenderer,
-            language = pageContext.language
+            language = pageContext.language,
+            country = pageContext.country,
         )
 
-    public companion object {
-        public fun <ViewModel> build(
-            name: String,
-            template: Template<ViewModel>,
-            renderer: IPageRenderer = DefaultRenderer,
-            visitors: Visitors<String> = ProductionVisitors,
-            inlineDocument: IDocument = Document(),
-            externalDocument: IDocument = Document(),
-            templateRenderer: ITemplateRenderer = TemplateRenderer(visitors.htmlVisitor)
-        ) : IPage<ViewModel> {
-            val provider = object : IPageProvider<ViewModel> {
-                override fun getHtmlTag(context: Context, viewModel: ViewModel): TagContainer =
-                    template(context, viewModel)
+    private inline fun getCssVisitor(): Strategy<RuleVisitor<String>> =
+        if (debug)
+            strategy.debugCssVisitor
+        else
+            strategy.productionCssVisitor
 
-                override fun getInlineCssDocument(): IDocument =
-                    inlineDocument
-
-                override fun getExternalCssDocument(): IDocument =
-                    externalDocument
-            }
-
-            return Page(
-                name,
-                BrowserSupport(provider),
-                CachedStyling(renderer),
-                visitors,
-                templateRenderer
-            )
-        }
-    }
+    private inline fun getTemplateRenderer(): ITemplateRenderer =
+        if (debug)
+            strategy.debugTemplateRenderer()
+        else
+            strategy.productionTemplateRenderer()
 }

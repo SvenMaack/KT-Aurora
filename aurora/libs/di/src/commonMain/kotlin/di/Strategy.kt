@@ -10,7 +10,7 @@ public typealias Strategy<T> = () -> T
 public infix fun <R> KFunction0<R>.by(decorator: KFunction1<R, R>): () -> R =
     { decorator(this()) }
 
-public  fun<P1,R> KFunction1<P1, R>.get(p: () -> P1): () -> R =
+public operator fun<P1,R> KFunction1<P1, R>.get(p: () -> P1): () -> R =
     { this(p()) }
 public operator fun<P1,P2,R> KFunction2<P1,P2,R>.get(p1: () -> P1, p2: () -> P2): () -> R =
     { this(p1(),p2()) }

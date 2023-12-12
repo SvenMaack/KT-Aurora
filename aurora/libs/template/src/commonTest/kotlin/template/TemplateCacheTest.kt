@@ -15,7 +15,7 @@ class TemplateCacheTest {
 
     @Test
     fun `test cache object works`() {
-        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English - CountryCode.UNITED_STATES)
+        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English, country =  CountryCode.UNITED_STATES)
         every { templateRendererMock.render(context = any(), element = any()) }.returns("test")
         every { staticTemplateExtensionMock.invoke(any(), any(), any())}.returns(Unit)
 
@@ -31,7 +31,7 @@ class TemplateCacheTest {
     @Test
     fun `test cache function works`() {
         val parent = Div()
-        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English - CountryCode.UNITED_STATES)
+        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English, country = CountryCode.UNITED_STATES)
         every { templateRendererMock.render(context = any(), element = any()) }.returns("test")
         every { staticTemplateExtensionMock.invoke(any(), any(), any())}.returns(Unit)
 

@@ -20,7 +20,7 @@ class CssRendererTest {
     fun `test rendering uses factory`() {
         every { visitorFactory.create() }.returns(ProductionVisitor())
 
-        CssRenderer.render(visitorFactory, Document())
+        CssRenderer<String>().render(visitorFactory, Document())
 
         verify { visitorFactory.create() }
             .wasInvoked(exactly = once)
@@ -31,7 +31,7 @@ class CssRendererTest {
         every { visitor.visitRule(any()) }.returns(visitor)
         every { visitor.result }.returns("")
 
-        CssRenderer.render(
+        CssRenderer<String>().render(
             { visitor },
             Document().apply {
                 this[Class("class")] = {

@@ -4,9 +4,9 @@ public interface Language {
     public val value: String
 }
 
-public class SpecificLanguage(
-    language: GeneralLanguage,
-    country: CountryCode
+public data class SpecificLanguage(
+    val language: GeneralLanguage,
+    val country: CountryCode
 ): Language {
     override val value: String =
         "${language.value}-${country.value}"

@@ -18,7 +18,7 @@ class TemplateCompositionTest {
     @Test
     fun `include template works`() {
         val parent = TagContainer("parent")
-        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English - CountryCode.UNITED_STATES)
+        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English, country =  CountryCode.UNITED_STATES)
         val vm = "vm"
         every { templateExtensionMock.invoke(parent, context, vm) }.returns(Unit)
 
@@ -33,7 +33,7 @@ class TemplateCompositionTest {
     @Test
     fun `include static template works`() {
         val parent = TagContainer("parent")
-        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English - CountryCode.UNITED_STATES)
+        val context = Context(templateRenderer = templateRendererMock, language = GeneralLanguage.English, country = CountryCode.UNITED_STATES)
         every { staticTemplateExtensionMock.invoke(parent, context, Unit) }.returns(Unit)
 
         parent.apply {

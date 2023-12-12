@@ -19,7 +19,12 @@ fun main() {
             route("", HttpMethod.Get) {
                 handle {
                     call.response.header(HttpHeaders.ContentType, "text/html")
-                    call.respondText(landingPage.getHtml(PageContext(GeneralLanguage.English-CountryCode.UNITED_STATES), pageData))
+                    call.respondText(
+                        landingPage.getHtml(
+                            PageContext(GeneralLanguage.English, CountryCode.UNITED_STATES),
+                            pageData
+                        )
+                    )
                 }
             }
             route("/${landingPage.getExternalCssPath()}", HttpMethod.Get) {
