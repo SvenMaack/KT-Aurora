@@ -1,28 +1,27 @@
-package landingPage.module
+package landingPage.gateway.module
 
 import css.ResetDocument
 import css.base.DocumentList
 import css.base.IDocument
-import landingPage.LandingPageDto
 import head.HeadModule
+import landingPage.gateway.LandingPageVM
 import template.Template
 import template.include
 import template.tags.html
-import navigation.NavigationModule
 import page.PageModule
 
-private val landingPageTemplate: Template<LandingPageDto> = { context, data ->
+private val landingPageTemplate: Template<LandingPageVM> = { context, data ->
     html(lang=context.language) {
         include(context=context, template=HeadModule.template, vm=data.technicalData)
-        include(context=context, template=BodyTemplate, vm=data.navigation)
+        include(context=context, template=BodyModule.template, vm=data.navigation)
     }
 }
 
 private val landingPageDocument: IDocument = DocumentList().apply {
     +ResetDocument
-    +NavigationModule.document
     +HeadModule.document
+    +BodyModule.document
 }
 
-internal val landingPageModule: PageModule<LandingPageDto> =
+internal val LandingPageModule: PageModule<LandingPageVM> =
     PageModule(landingPageDocument, landingPageTemplate)

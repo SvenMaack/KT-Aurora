@@ -4,12 +4,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.cio.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import landingPage.landingPage
-import landingPage.pageData
-import page.PageContext
-import template.tags.enums.CountryCode
-import template.tags.enums.GeneralLanguage
-import template.tags.enums.minus
+import landingPage.gateway.LandingPage
 
 fun main() {
     embeddedServer(CIO, configure = {
@@ -19,18 +14,13 @@ fun main() {
             route("", HttpMethod.Get) {
                 handle {
                     call.response.header(HttpHeaders.ContentType, "text/html")
-                    call.respondText(
-                        landingPage.getHtml(
-                            PageContext(GeneralLanguage.English, CountryCode.UNITED_STATES),
-                            pageData
-                        )
-                    )
+                    call.respondText(LandingPage.renderLandingPage())
                 }
             }
-            route("/${landingPage.getExternalCssPath()}", HttpMethod.Get) {
+            route("/${LandingPage.getExternalCssPath()}", HttpMethod.Get) {
                 handle {
                     call.response.header(HttpHeaders.ContentType, "text/css")
-                    call.respondText(landingPage.getExternalCss())
+                    call.respondText(LandingPage.getExternalCss())
                 }
             }
         }
