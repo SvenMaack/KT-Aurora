@@ -6,21 +6,7 @@ import basic._color
 import basic._typography
 import css.base.Document
 import css.base.IDocument
-import css.properties.CursorValue
-import css.properties.DisplayTypeValue
-import css.properties.ListStyleTypeValue
-import css.properties.PositionValue
-import css.properties.Translate
-import css.properties.cursor
-import css.properties.display
-import css.properties.left
-import css.properties.`list-style-type`
-import css.properties.padding
-import css.properties.percentage
-import css.properties.position
-import css.properties.px
-import css.properties.top
-import css.properties.transform2D
+import css.properties.*
 
 public val NavigationDocument: IDocument = Document().apply {
     this[NAVIGATION] = {
@@ -35,7 +21,7 @@ public val NavigationDocument: IDocument = Document().apply {
         display(DisplayTypeValue.`inline-block`)
         padding(15.px)
         cursor(CursorValue.POINTER)
-        _color(COLOR.PRIMARY_4)
+        _color(COLOR.PRIMARY_2)
     }
     this[NAVIGATION__ITEM__ACTIVE] = {
         _color(COLOR.PRIMARY)
