@@ -2,38 +2,25 @@ package basic
 
 import css.base.Rule
 import css.properties.HSLValue
+import css.properties.`background-color`
 import css.properties.color
 
-public enum class COLOR{
-    PRIMARY,
-    PRIMARY_2,
-    PRIMARY_3,
-    TEXT,
-    BACKGROUND,
-    ACCENT
+public enum class COLOR(public val color: HSLValue) {
+    PRIMARY(HSLValue(217, 64, 37)),
+    PRIMARY_2(HSLValue(216, 20, 75)),
+    PRIMARY_3(HSLValue(216, 20, 75)),
+    TEXT(HSLValue(0, 0, 0)),
+    BACKGROUND(HSLValue(255, 255, 255)),
+    ACCENT(HSLValue(341, 100, 72)) //cyclamen
 }
 
 public fun Rule._color(color: COLOR) {
-    when (color) {
-        COLOR.PRIMARY -> {
-            color(HSLValue(217, 64, 37))
-        }
-        COLOR.PRIMARY_2 -> {
-            color(HSLValue(216, 20, 75))
-        }
-        COLOR.PRIMARY_3 -> {
-            color(HSLValue(216, 20, 75))
-        }
-        COLOR.TEXT -> {
-            color(HSLValue(0, 0, 0))
-        }
-        COLOR.BACKGROUND -> {
-            color(HSLValue(255, 255, 255))
-        }
-        COLOR.ACCENT -> {
-            color(HSLValue(341, 100, 72)) //cyclamen
-        }
-    }
+    color(color.color)
+}
+
+@Suppress("FunctionName")
+public fun Rule.`_background-color`(color: COLOR) {
+    `background-color`(color.color)
 }
 
 /**
