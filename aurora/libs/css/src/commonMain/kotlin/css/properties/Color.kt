@@ -23,6 +23,11 @@ public enum class ColorTextValue(public override val value: String): ColorValue 
     inherit("inherit"),
 
     /**
+     * 	Specifies that the background color should be transparent.
+     */
+    transparent("transparent"),
+
+    /**
      * The currentcolor keyword refers to the value of the color property of an element.
      */
     currentcolor("currentcolor"),
@@ -53,14 +58,6 @@ public class HSLAValue(hue: Int, saturation: Int, lightness: Int, alpha: Double)
         "hsla($hue,$saturation%,$lightness%,$alpha)"
 }
 
-private val browserSupport = SupportData(
-    chrome = 1.0,
-    edge = 3.0,
-    firefox = 1.0,
-    safari = 1.0,
-    opera = 3.5,
-)
-
 /**
  * The color property specifies the color of text.
  */
@@ -68,6 +65,29 @@ public fun Rule.color(color: ColorValue) {
     +Property(
         property = "color",
         value = color.value,
-        supportedBrowsers = browserSupport
+        supportedBrowsers = SupportData(
+            chrome = 1.0,
+            edge = 3.0,
+            firefox = 1.0,
+            safari = 1.0,
+            opera = 3.5,
+        )
+    )
+}
+
+/**
+ * The color property specifies the color of text.
+ */
+public fun Rule.`background-color`(color: ColorValue) {
+    +Property(
+        property = "background-color",
+        value = color.value,
+        supportedBrowsers = SupportData(
+            chrome = 1.0,
+            edge = 4.0,
+            firefox = 1.0,
+            safari = 1.0,
+            opera = 3.5,
+        )
     )
 }
