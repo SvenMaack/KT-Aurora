@@ -1,9 +1,10 @@
 package navigation
 
+import basic.COLOR
 import basic.TYPOGRAPHY
+import basic._color
 import basic._typography
 import css.base.Document
-import css.base.EmptyDocument
 import css.base.IDocument
 import css.properties.CursorValue
 import css.properties.DisplayTypeValue
@@ -34,5 +35,9 @@ public val NavigationDocument: IDocument = Document().apply {
         display(DisplayTypeValue.`inline-block`)
         padding(15.px)
         cursor(CursorValue.POINTER)
+        _color(COLOR.PRIMARY_4)
+    }
+    this[NAVIGATION__ITEM__ACTIVE] = {
+        _color(COLOR.PRIMARY)
     }
 }
