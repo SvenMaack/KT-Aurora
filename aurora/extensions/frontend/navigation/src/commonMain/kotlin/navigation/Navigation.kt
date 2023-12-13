@@ -1,25 +1,15 @@
 @file:Suppress("WrapUnaryOperator")
 package navigation
 
-import basic.TYPOGRAPHY
-import basic._typography
-import css.base.Document
-import css.base.IDocument
-import css.properties.*
-import css.properties.CursorValue.POINTER
-import css.properties.DisplayTypeValue.`inline-block`
-import css.properties.ListStyleTypeValue.*
-import css.properties.PositionValue.absolute
 import page.ClassGenerator
-import template.TemplateExtension
 import template.tags.BodyTagContainer
 import template.base.*
 
-private val NAVIGATION: String = ClassGenerator()
-private val NAVIGATION__ITEM: String = ClassGenerator()
-private val NAVIGATION__ITEM__ACTIVE: String = ClassGenerator()
+internal val NAVIGATION: String = ClassGenerator()
+internal val NAVIGATION__ITEM: String = ClassGenerator()
+internal val NAVIGATION__ITEM__ACTIVE: String = ClassGenerator()
 
-internal val NavigationTemplate: TemplateExtension<BodyTagContainer, NavigationVM> =  { _, vm ->
+public fun BodyTagContainer._navigation(vm: NavigationVM) {
     nav {
         ul(clazz= NAVIGATION) {
             vm.entries.forEach {
@@ -30,21 +20,5 @@ internal val NavigationTemplate: TemplateExtension<BodyTagContainer, NavigationV
                 }
             }
         }
-    }
-}
-
-internal val NavigationDocument: IDocument = Document().apply {
-    this[NAVIGATION] = {
-        position(absolute)
-        top(50.percentage)
-        left(50.percentage)
-        transform2D(Translate((-50).percentage, (-50).percentage))
-        `list-style-type`(none)
-    }
-    this[NAVIGATION__ITEM] = {
-        _typography(TYPOGRAPHY.BUTTON)
-        display(`inline-block`)
-        padding(15.px)
-        cursor(POINTER)
     }
 }
