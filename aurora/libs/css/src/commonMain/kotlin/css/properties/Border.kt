@@ -10,6 +10,18 @@ import css.base.webkit
 
 //https://www.w3schools.com/cssref/css3_pr_border-radius.php
 
+public enum class BorderValue(public val value: String) {
+    /**
+     * 	Sets this property to its default value.
+     */
+    initial("initial"),
+
+    /**
+     * Inherits this property from its parent element.
+     */
+    inherit("inherit"),
+}
+
 private val browserSupport = SupportData(
     chrome = 5.0,
     edge = 9.0,
@@ -25,6 +37,22 @@ public fun Rule.`border-radius`(sizing: Size) {
     +Property(
         property = "border-radius",
         value = sizing.toString(),
+        supportedBrowsers = browserSupport
+    ).moz(SupportDataOverride(
+        firefox = 3.0,
+    )).webkit(SupportDataOverride(
+        chrome = 4.0,
+        safari = 3.1,
+    ))
+}
+
+/**
+ * The border-radius property defines the radius of the element's corners.
+ */
+public fun Rule.`border-radius`(border: BorderValue) {
+    +Property(
+        property = "border-radius",
+        value = border.value,
         supportedBrowsers = browserSupport
     ).moz(SupportDataOverride(
         firefox = 3.0,

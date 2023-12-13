@@ -6,6 +6,17 @@ import kotlin.test.assertEquals
 
 class BorderTest {
     @Test
+    fun `test box-sizing`() {
+        BorderValue.entries.forEach {
+            val rule = Rule("selector")
+            rule.`border-radius`(it)
+            assertEquals(1, rule.properties.size)
+            assertEquals("border-radius", rule.properties[0].property)
+            assertEquals(it.value, rule.properties[0].value)
+        }
+    }
+
+    @Test
     fun `test border-radius 1`() {
         val rule = Rule("selector")
         rule.`border-radius`(1.px)
