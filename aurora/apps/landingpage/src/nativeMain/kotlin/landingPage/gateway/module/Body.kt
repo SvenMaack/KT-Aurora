@@ -1,23 +1,28 @@
 package landingPage.gateway.module
 
+import css.base.DocumentList
+import css.base.IDocument
 import navigation.NavigationVM
 import template.StaticTemplateExtension
-import template.TemplateExtension
 import template.cache
 import template.include
 import template.tags.Html
 import navigation.NavigationModule
-import page.Module
+import template.Context
 import template.tags.Body
 
-private val BodyTemplate: TemplateExtension<Html, NavigationVM> = { context, data ->
+internal fun Html._body(context: Context, vm: NavigationVM) {
     body {
-        include(template=NavigationModule.template, context=context, vm=data)
-        cache(template=Example, context=context, ref=::Body)
+        include(template=NavigationModule.template, context=context, vm=vm)
+        cache(template=StaticBody, context=context, ref=::Body)
     }
 }
 
-private val Example: StaticTemplateExtension<Body> = { _, _ ->
+internal val BodyDocument: IDocument = DocumentList().apply {
+    +NavigationModule.document
+}
+
+private val StaticBody: StaticTemplateExtension<Body> = { _, _ ->
     main {
         div(clazz="MyClass") {
             p(clazz="test") {
@@ -29,5 +34,3 @@ private val Example: StaticTemplateExtension<Body> = { _, _ ->
     }
 }
 
-internal val BodyModule: Module<Html, NavigationVM> =
-    Module(NavigationModule.document, BodyTemplate)

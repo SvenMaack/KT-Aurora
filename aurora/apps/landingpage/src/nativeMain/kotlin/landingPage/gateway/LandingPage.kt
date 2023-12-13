@@ -3,7 +3,6 @@ package landingPage.gateway
 import css.base.EmptyDocument
 import landingPage.domain.LandingPageProvider
 import landingPage.domain.NavigationProvider
-import landingPage.gateway.module.LandingPageModule
 import page.IPage
 import page.IPageProvider
 import page.Page
@@ -11,16 +10,18 @@ import page.PageContext
 import template.tags.enums.CountryCode
 import template.tags.enums.GeneralLanguage
 import kotlinx.coroutines.*
+import landingPage.gateway.module.LandingPageDocument
+import landingPage.gateway.module.LandingPageTemplate
 
 internal object LandingPage {
     private val landingPage: IPage<LandingPageVM> = Page(
         name = "landingPage_$UniqueId",
         provider = IPageProvider.build(
             inlineCss = EmptyDocument,
-            externalCss = LandingPageModule.document,
-            template = LandingPageModule.template
+            externalCss = LandingPageDocument,
+            template = LandingPageTemplate
         ),
-        debug = false
+        debug = true
     )
 
     suspend fun getHtml(): String =
