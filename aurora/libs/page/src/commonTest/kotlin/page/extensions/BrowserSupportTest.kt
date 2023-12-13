@@ -68,14 +68,14 @@ class BrowserSupportTest {
     fun `browserSupport works with multiple properties`() {
         val document = Document().apply {
             this["test"] = {
-                +Property("p", "v", SupportData(
+                +Property("p1", "v", SupportData(
                     1.0,
                     2.0,
                     3.0,
                     4.0,
                     9.0
                 ))
-                +Property("p", "v", SupportData(
+                +Property("p2", "v", SupportData(
                     5.0, //<--
                     2.0,
                     3.0,
