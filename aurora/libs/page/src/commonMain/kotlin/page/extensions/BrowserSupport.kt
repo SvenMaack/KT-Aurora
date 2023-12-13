@@ -9,8 +9,8 @@ import css.visitors.BrowserVersionVisitor
 
 public class BrowserSupport(private val inner: ICssRenderer<String>): ICssRenderer<String> {
     private fun renderSupport(support: Map<String, Double>) : String =
-        support.entries.joinToString(", ") { (browser, version) ->
-            "$browser ${if(version == NOT_SUPPORTED) "not supported" else " >= $version"}"
+        support.entries.joinToString(",") { (browser, version) ->
+            "$browser${if(version == NOT_SUPPORTED) " is not supported" else ">=$version"}"
         }
 
     override fun render(ruleVisitorFactory: RuleVisitorFactory<String>, document: IDocument): String {

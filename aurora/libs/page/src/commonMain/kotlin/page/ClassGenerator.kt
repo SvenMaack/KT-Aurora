@@ -1,6 +1,8 @@
 @file:Suppress("EnumEntryName", "EnumNaming", "SpellCheckingInspection")
 package page
 
+import kotlin.concurrent.Volatile
+
 internal enum class Anagram {
     abc,
     `01`,
@@ -14,6 +16,7 @@ internal class IdentifierGenerator(anagram: String) {
     private val lastLetter: Char = availableLetters.last()
     private val length: Int = availableLetters.length
 
+    @Volatile
     private var currentValue: String = availableLetters.first().toString()
 
     operator fun invoke(): String  {

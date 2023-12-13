@@ -1,11 +1,11 @@
 package css.base.browser
 
-private interface ISupportData<Type> {
-    val chrome: Type
-    val edge: Type
-    val firefox: Type
-    val opera: Type
-    val safari: Type
+public interface ISupportData<Type> {
+    public val chrome: Type
+    public val edge: Type
+    public val firefox: Type
+    public val opera: Type
+    public val safari: Type
 }
 
 public data class SupportData(

@@ -6,6 +6,7 @@ import di.Strategy
 import template.Context
 import template.ITemplateRenderer
 
+//Facade
 public class Page<ViewModel>(
     private val name: String,
     private val provider: IPageProvider<ViewModel>,
