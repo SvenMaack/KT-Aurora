@@ -16,6 +16,7 @@ public data class Rule(public override val selector: Selector): IRule {
         if (selector is Class) selector.name else null
 
     public operator fun IProperty.unaryPlus(): IProperty {
+        properties.removeAll { it.property == this.property }
         properties.add(this)
         return this
     }

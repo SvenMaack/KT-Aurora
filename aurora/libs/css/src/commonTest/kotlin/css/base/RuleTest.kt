@@ -65,4 +65,17 @@ class RuleTest {
 
         assertEquals(null, rule.getClass())
     }
+
+    @Test
+    fun `rule duplicates are removed`() {
+        val rule = Rule(object : Selector {
+            override fun getType(): SelectorType = SelectorType.UNKNOWN
+            override fun toString(): String = "test"
+        }).apply {
+            +Property("a", "b", SupportData())
+            +Property("a", "b", SupportData())
+        }
+
+        assertEquals(1, rule.properties.size)
+    }
 }

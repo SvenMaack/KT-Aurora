@@ -37,4 +37,46 @@ class DocumentListTest {
         verify { visitor.visitRule(any()) }
             .wasInvoked(exactly = once)
     }
+
+    @Test
+    fun `document duplicates are skipped`() {
+        every { visitor.visitRule(any()) }.returns(visitor)
+
+        val documentList = DocumentList()
+        val childDocument = Document()
+        val result = documentList + childDocument + childDocument
+        childDocument["selector"] = {
+            +Property("property", "value", SupportData())
+        }
+
+        result.traverse(visitor)
+
+        verify { visitor.visitRule(any()) }
+            .wasInvoked(exactly = once)
+    }
+
+
+    @Test
+    fun `document duplicates are skipped even when nested`() {
+        every { visitor.visitRule(any()) }.returns(visitor)
+
+        val childDocument = Document()
+        val result = DocumentList().apply {
+            +childDocument
+            +DocumentList().apply {
+                +DocumentList().apply {
+                    +childDocument
+                }
+            }
+        }
+
+        childDocument["selector"] = {
+            +Property("property", "value", SupportData())
+        }
+
+        result.traverse(visitor)
+
+        verify { visitor.visitRule(any()) }
+            .wasInvoked(exactly = once)
+    }
 }

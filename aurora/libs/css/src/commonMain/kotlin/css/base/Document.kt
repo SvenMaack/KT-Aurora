@@ -2,6 +2,7 @@ package css.base
 
 public interface IDocument {
     public fun traverse(visitor: RuleVisitor<*>)
+    public fun gatherDocuments(set: MutableSet<IDocument>)
 }
 
 public open class Document: IDocument {
@@ -32,6 +33,10 @@ public open class Document: IDocument {
         rules.forEach {
             visitor.visitRule(it)
         }
+    }
+
+    override fun gatherDocuments(set: MutableSet<IDocument>) {
+        set.add(this)
     }
 }
 
