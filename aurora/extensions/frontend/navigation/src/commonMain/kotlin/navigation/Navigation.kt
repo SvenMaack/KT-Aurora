@@ -7,15 +7,18 @@ import template.base.*
 
 internal val NAVIGATION: String = ClassGenerator()
 internal val NAVIGATION__ITEM: String = ClassGenerator()
+internal val NAVIGATION__ITEM_TEXT: String = ClassGenerator()
 internal val NAVIGATION__ITEM__ACTIVE: String = ClassGenerator()
 
 public fun BodyTagContainer._navigation(vm: NavigationVM) {
     nav {
-        ul(clazz= NAVIGATION) {
+        ul("role"["list"], clazz=NAVIGATION) {
             vm.entries.forEach {
                 li("class"[NAVIGATION__ITEM, NAVIGATION__ITEM__ACTIVE%it.active]) {
-                    span {
-                        +it.name
+                    a(href="#", clazz=NAVIGATION__ITEM_TEXT) {
+                        span {
+                            +it.name
+                        }
                     }
                 }
             }

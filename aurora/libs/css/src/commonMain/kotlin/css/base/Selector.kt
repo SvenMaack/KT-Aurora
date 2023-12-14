@@ -21,6 +21,7 @@ public enum class SelectorType {
 public enum class PseudoValues(public val value: String) {
     AFTER("after"),
     BEFORE("before"),
+    HOVER("hover"),
     FOCUS_WITHIN("focus-within"),
 }
 
@@ -93,6 +94,7 @@ public val h3: Tag = Tag("h3")
 public val h4: Tag = Tag("h3")
 public val h5: Tag = Tag("h3")
 public val p: Tag = Tag("p")
+public val a: Tag = Tag("a")
 public val figure: Tag = Tag("figure")
 public val blockquote: Tag = Tag("blockquote")
 public val dl: Tag = Tag("dl")

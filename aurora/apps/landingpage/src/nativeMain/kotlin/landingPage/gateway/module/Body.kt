@@ -24,11 +24,6 @@ internal val BodyDocument: IDocument = DocumentList().apply {
 
 private val StaticBody: StaticTemplateExtension<Body> = { _, _ ->
     main {
-        div(clazz="MyClass") {
-            p(clazz="test") {
-                +"This is my first kotlin rendered page"
-            }
-        }
     }
     footer {
     }

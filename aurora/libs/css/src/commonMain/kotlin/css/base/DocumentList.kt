@@ -6,7 +6,6 @@ public class DocumentList: IDocument {
     override fun traverse(visitor: RuleVisitor<*>) {
         val documentSet: MutableSet<IDocument> = mutableSetOf()
         gatherDocuments(documentSet)
-        println(documentSet)
         documentSet.forEach {
             it.traverse(visitor)
         }

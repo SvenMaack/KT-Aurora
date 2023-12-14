@@ -5,6 +5,12 @@ import css.base.Property
 import css.base.Rule
 import css.base.browser.SupportData
 
+public enum class TextDecorationValues(public val value: String) {
+    none("none"),
+    initial("initial"),
+    inherit("inherit"),
+}
+
 public enum class TextTransformValues(public val value: String) {
     none("none"),
     capitalize("capitalize"),
@@ -39,6 +45,23 @@ public fun Rule.`text-transform`(style: TextTransformValues) {
             firefox = 1.0,
             safari = 1.0,
             opera = 7.0,
+        )
+    )
+}
+
+/**
+ * The text-decoration property specifies the decoration added to text
+ */
+public fun Rule.`text-decoration`(style: TextDecorationValues) {
+    +Property(
+        property = "text-decoration",
+        value = style.value,
+        supportedBrowsers = SupportData(
+            chrome = 1.0,
+            edge = 3.0,
+            firefox = 1.0,
+            safari = 1.0,
+            opera = 3.5,
         )
     )
 }

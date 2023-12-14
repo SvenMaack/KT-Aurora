@@ -13,10 +13,12 @@ internal class NavigationProvider: INavigationProvider {
     override suspend fun getNavigation(): Navigation {
         return DummyNavigation(
             listOf(
-                DummyNavigationEntry("Home"),
-                DummyNavigationEntry("Trends", active = true),
-                DummyNavigationEntry("New Arrival"),
-                DummyNavigationEntry("Sales")
+                DummyNavigationEntry("Home", active = true),
+                DummyNavigationEntry("Men"),
+                DummyNavigationEntry("Women"),
+                DummyNavigationEntry("Kids"),
+                DummyNavigationEntry("Collection"),
+                DummyNavigationEntry("Trends"),
             )
         )
     }
