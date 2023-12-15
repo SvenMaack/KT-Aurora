@@ -36,8 +36,8 @@ public val NavigationDocument: IDocument = Document().apply {
             width = 40.percentage
             height = 2.px
             position = absolute
-            bottom = 0.px
-            left = 0.px
+            bottom = Zero
+            left = Zero
             `_background-color` = PRIMARY
         }
     }

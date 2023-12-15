@@ -32,7 +32,7 @@ public enum class CssUnit(public val value: String) {
 
 public interface Size
 
-public class ValueSize(
+public open class ValueSize(
     private val number: String,
     private val unit: CssUnit
 ): Size,
@@ -45,10 +45,18 @@ public class ValueSize(
     BorderRadiusValue,
     LineHeightValue {
     override val value: String =
-        toString()
+        "${number}${unit.value}"
 
     override fun toString(): String =
         "${number}${unit.value}"
+}
+
+public object Zero: ValueSize("0", CssUnit.px) {
+    override val value: String =
+        toString()
+
+    override fun toString(): String =
+        "0"
 }
 
 public val Double.px: ValueSize get() = ValueSize(this.toString(), CssUnit.px)
