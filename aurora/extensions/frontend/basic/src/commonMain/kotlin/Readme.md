@@ -4,4 +4,6 @@ Adds the following css mixins:
 
 and the following Document:
 - `BasicDocument`
-- 
+
+and the following helper function 
+- `_rem` to use rem when specifying pixels

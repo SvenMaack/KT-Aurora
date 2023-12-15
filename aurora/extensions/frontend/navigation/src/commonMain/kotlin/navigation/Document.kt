@@ -3,9 +3,7 @@ package navigation
 import basic.COLOR.PRIMARY
 import basic.COLOR.PRIMARY_2
 import basic.TYPOGRAPHY.BUTTON
-import basic.`_background-color`
-import basic._color
-import basic._typography
+import basic.*
 import css.base.*
 import css.properties.*
 import css.properties.DisplayTypeTextValue.`inline-block`
@@ -25,8 +23,8 @@ public val NavigationDocument: IDocument = Document().apply {
         _color = PRIMARY_2
         _typography = BUTTON
         display = `inline-block`
-        `padding-block-end` = (5/16).rem
-        `margin-inline` = (20/16).rem
+        `padding-block-end` = _rem(5)
+        `margin-inline` = _rem(20)
         position = relative
         hover {
             _color = PRIMARY
