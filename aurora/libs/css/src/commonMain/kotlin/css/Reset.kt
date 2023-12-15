@@ -1,51 +1,58 @@
+@file:Suppress("MagicNumber")
 package css
 
 import css.base.*
-import css.base.PseudoValues.AFTER
-import css.base.PseudoValues.BEFORE
-import css.base.PseudoValues.FOCUS_WITHIN
 import css.properties.*
-import css.properties.BoxSizingValue.*
-import css.properties.DisplayTypeValue.block
-import css.properties.ListStyleImageValue.none
-import css.properties.ScrollBehaviour.smooth
-import css.properties.TextRenderingValues.optimizeSpeed
-import css.properties.FontValue.inherit as fontInherit
+import css.properties.BoxSizingTextValue.`border-box`
+import css.properties.DisplayTypeTextValue.block
+import css.properties.ListStyleTypeTextValue.none
+import css.properties.ScrollBehaviourTextValue.smooth
+import css.properties.TextRenderingTextValue.optimizeSpeed
 
-@Suppress("MagicNumber")
 public val ResetDocument: IDocument = Document().apply {
     /* Box sizing rules */
-    this[html] = {
-        `box-sizing`(`border-box`)
+    tag["html"] = {
+        `box-sizing` = `border-box`
     }
-    this[UNIVERSAL, UNIVERSAL..BEFORE, UNIVERSAL..AFTER] = {
-        `box-sizing`(inherit)
+    tag["*"] = {
+        `box-sizing` = inherit
+        before {
+            `box-sizing` = inherit
+        }
+        after {
+            `box-sizing` = inherit
+        }
     }
     /* Remove default margin */
-    this[body, h1, h2, h3, h4, h5, p, figure, blockquote, dl, dd] = {
-        margin(0.px)
+    tag["body", "h1", "h2", "h3", "h4", "h5", "p", "figure", "blockquote", "dl", "dd"] = {
+        margin = 0.px
     }
     /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-    this[Attribute("ol", "role", "list"), Attribute("ul", "role", "list")] = {
-        `list-style`(none)
+    this[
+        Attribute(Tag("ol"), "role", "list"),
+        Attribute(Tag("ul"), "role", "list"),
+    ] = {
+        `list-style` = none
     }
     /* Set core root defaults */
-    this[html..FOCUS_WITHIN] = {
-        `scroll-behavior`(smooth)
+    tag["html"] = {
+        focusWithin {
+            `scroll-behavior` = smooth
+        }
     }
     /* Set core body defaults */
-    this[body] = {
-        `min-height`(100.vh)
-        `text-rendering`(optimizeSpeed)
-        `line-height`(1.5)
+    tag["body"] = {
+        `min-height` = 100.vh
+        `text-rendering` = optimizeSpeed
+        `line-height` = 1.5
     }
     /* Make images easier to work with */
-    this[img, picture] = {
-        `max-width`(100.percentage)
-        display(block)
+    tag["img", "picture"] = {
+        `max-width` = 100.percentage
+        display = block
     }
     /* Inherit fonts for inputs and buttons */
-    this[input, button, textarea, select] = {
-        font(fontInherit)
+    tag["input", "button", "textarea", "select"] = {
+        font = inherit
     }
 }

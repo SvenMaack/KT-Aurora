@@ -5,46 +5,39 @@ import css.base.Property
 import css.base.Rule
 import css.base.browser.SupportData
 
-//https://www.w3schools.com/cssref/css3_pr_border-radius.php
+//https://www.w3schools.com/cssref/css3_pr_opacity.php
 
-public enum class OpacityValue(public val value: String) {
-    /**
-     * 	Sets this property to its default value.
-     */
-    initial("initial"),
-
-    /**
-     * Inherits this property from its parent element.
-     */
-    inherit("inherit"),
+public interface OpacityValue {
+    public val value: String
 }
 
-private val browserSupport = SupportData(
-    chrome = 4.0,
-    edge = 9.0,
-    firefox = 2.0,
-    safari = 3.1,
-    opera = 9.0,
-)
+@PublishedApi internal inline fun Rule.opacity(opacity: String) {
+    +Property(
+        property = "opacity",
+        value = opacity,
+        supportedBrowsers = SupportData(
+            chrome = 4.0,
+            edge = 9.0,
+            firefox = 2.0,
+            safari = 3.1,
+            opera = 9.0,
+        )
+    )
+}
+
+
+/**
+ * The opacity property sets the opacity level for an element.
+ */
+public inline var Rule.opacity: Double
+    get() = 1.0
+    set(opacity) {
+        this.opacity(opacity.toString())
+    }
 
 /**
  * The opacity property sets the opacity level for an element.
  */
 public fun Rule.opacity(opacity: OpacityValue) {
-    +Property(
-        property = "opacity",
-        value = opacity.value,
-        supportedBrowsers = browserSupport
-    )
-}
-
-/**
- * The opacity property sets the opacity level for an element.
- */
-public fun Rule.opacity(opacity: Double) {
-    +Property(
-        property = "opacity",
-        value = opacity.toString(),
-        supportedBrowsers = browserSupport
-    )
+    this.opacity(opacity.value)
 }

@@ -6,39 +6,40 @@ import kotlin.test.assertEquals
 
 class DisplayTest {
     @Test
-    fun `test display`() {
-        DisplayTypeValue.entries.forEach {
+    fun `display creates property`() {
+        DisplayTypeTextValue.entries.forEach {
             val rule = Rule("selector")
-            rule.display(it)
-            check(rule, it)
-        }
-        DisplayTypeValuesWithPrefix.entries.forEach {
-            val rule = Rule("selector")
-            rule.display(it)
-            check(rule, it)
-        }
-        ModernDisplayTypeValues.entries.forEach {
-            val rule = Rule("selector")
-            rule.display(it)
-            check(rule, it)
+            rule.display = it
+            assertEquals(1, rule.properties.size)
+            assertEquals("display", rule.properties[0].property)
+            assertEquals(it.value, rule.properties[0].value)
         }
     }
 
-    private fun check(rule: Rule, displayTypeValue: DisplayTypeValue) {
+    @Test
+    fun `display creates initial property`() {
+        val rule = Rule("selector")
+        rule.display = initial
         assertEquals(1, rule.properties.size)
         assertEquals("display", rule.properties[0].property)
-        assertEquals(displayTypeValue.value, rule.properties[0].value)
+        assertEquals("initial", rule.properties[0].value)
     }
 
-    private fun check(rule: Rule, displayTypeValue: DisplayTypeValuesWithPrefix) {
+    @Test
+    fun `display creates inherit property`() {
+        val rule = Rule("selector")
+        rule.display = inherit
         assertEquals(1, rule.properties.size)
         assertEquals("display", rule.properties[0].property)
-        assertEquals(displayTypeValue.value, rule.properties[0].value)
+        assertEquals("inherit", rule.properties[0].value)
     }
 
-    private fun check(rule: Rule, displayTypeValue: ModernDisplayTypeValues) {
+    @Test
+    fun `display creates none property`() {
+        val rule = Rule("selector")
+        rule.display = none
         assertEquals(1, rule.properties.size)
         assertEquals("display", rule.properties[0].property)
-        assertEquals(displayTypeValue.value, rule.properties[0].value)
+        assertEquals("none", rule.properties[0].value)
     }
 }

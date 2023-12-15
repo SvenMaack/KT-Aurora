@@ -28,8 +28,10 @@ class DocumentListTest {
         val documentList = DocumentList()
         val childDocument = Document()
         val result = documentList + childDocument
-        childDocument["selector"] = {
-            +Property("property", "value", SupportData())
+        childDocument.apply {
+            clazz["c1"] = {
+                +Property("property", "value", SupportData())
+            }
         }
 
         result.traverse(visitor)
@@ -45,8 +47,10 @@ class DocumentListTest {
         val documentList = DocumentList()
         val childDocument = Document()
         val result = documentList + childDocument + childDocument
-        childDocument["selector"] = {
-            +Property("property", "value", SupportData())
+        childDocument.apply {
+            clazz["c1"] = {
+                +Property("property", "value", SupportData())
+            }
         }
 
         result.traverse(visitor)
@@ -70,8 +74,10 @@ class DocumentListTest {
             }
         }
 
-        childDocument["selector"] = {
-            +Property("property", "value", SupportData())
+        childDocument.apply {
+            clazz["c1"] = {
+                +Property("property", "value", SupportData())
+            }
         }
 
         result.traverse(visitor)

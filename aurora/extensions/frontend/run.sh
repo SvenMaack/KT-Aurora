@@ -9,24 +9,28 @@ case $1 in
     build)
         echo "Running Gradle build..."
         set -x #echo on
+        ( cd basic && ./run.sh build)
         ( cd navigation && ./run.sh build)
         ( cd head && ./run.sh build)
         ;;
     create)
         echo "Creates files..."
         set -x #echo on
+        ( cd basic && ./run.sh create)
         ( cd navigation && ./run.sh create)
         ( cd head && ./run.sh create)
         ;;
     test)
         echo "Running Gradle tests..."
         set -x #echo on
+        ( cd basic && ./run.sh test)
         ( cd navigation && ./run.sh test)
         ( cd head && ./run.sh test)
         ;;
     clean)
         echo "Cleaning Gradle build..."
         set -x #echo on
+        ( cd basic && ./run.sh clean)
         ( cd navigation && ./run.sh clean)
         ( cd head && ./run.sh clean)
         ;;

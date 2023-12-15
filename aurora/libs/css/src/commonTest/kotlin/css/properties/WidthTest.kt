@@ -6,62 +6,40 @@ import kotlin.test.assertEquals
 
 class WidthTest {
     @Test
-    fun width() {
+    fun `width creates property`() {
         WidthTextValue.entries.forEach {
             val rule = Rule("selector")
-            rule.width(it)
-            check(rule, "width", it)
+            rule.width = it
+            assertEquals(1, rule.properties.size)
+            assertEquals("width", rule.properties[0].property)
+            assertEquals(it.value, rule.properties[0].value)
         }
     }
 
     @Test
-    fun `width value`() {
+    fun `width creates initial property`() {
         val rule = Rule("selector")
-        rule.width(5.px)
+        rule.width = initial
         assertEquals(1, rule.properties.size)
         assertEquals("width", rule.properties[0].property)
-        assertEquals("5px", rule.properties[0].value)
+        assertEquals("initial", rule.properties[0].value)
     }
 
     @Test
-    fun `min-width`() {
-        WidthTextValue.entries.forEach {
-            val rule = Rule("selector")
-            rule.`min-width`(it)
-            check(rule, "min-width", it)
-        }
-    }
-
-    @Test
-    fun `min-width value`() {
+    fun `width creates inherit property`() {
         val rule = Rule("selector")
-        rule.`min-width`(5.px)
+        rule.width = inherit
         assertEquals(1, rule.properties.size)
-        assertEquals("min-width", rule.properties[0].property)
-        assertEquals("5px", rule.properties[0].value)
+        assertEquals("width", rule.properties[0].property)
+        assertEquals("inherit", rule.properties[0].value)
     }
 
     @Test
-    fun `max-width`() {
-        WidthTextValue.entries.forEach {
-            val rule = Rule("selector")
-            rule.`max-width`(it)
-            check(rule, "max-width", it)
-        }
-    }
-
-    @Test
-    fun `max-width value`() {
+    fun `width creates property with size values`() {
         val rule = Rule("selector")
-        rule.`max-width`(5.px)
+        rule.width = 1.px
         assertEquals(1, rule.properties.size)
-        assertEquals("max-width", rule.properties[0].property)
-        assertEquals("5px", rule.properties[0].value)
-    }
-
-    private fun check(rule: Rule, property: String, entries: WidthTextValue) {
-        assertEquals(1, rule.properties.size)
-        assertEquals(property, rule.properties[0].property)
-        assertEquals(entries.value, rule.properties[0].value)
+        assertEquals("width", rule.properties[0].property)
+        assertEquals("1px", rule.properties[0].value)
     }
 }

@@ -6,17 +6,31 @@ import kotlin.test.assertEquals
 
 class FontStyleTest {
     @Test
-    fun `test font-style`() {
-        FontStyleValue.entries.forEach {
-            val rule = Rule("selector")
-            rule.`font-style`(it)
-            check(rule, it)
-        }
-    }
-
-    private fun check(rule: Rule, entries: FontStyleValue) {
+    fun `font-style creates initial property`() {
+        val rule = Rule("selector")
+        rule.`font-style` = initial
         assertEquals(1, rule.properties.size)
         assertEquals("font-style", rule.properties[0].property)
-        assertEquals(entries.value, rule.properties[0].value)
+        assertEquals("initial", rule.properties[0].value)
+    }
+
+    @Test
+    fun `font-style creates inherit property`() {
+        val rule = Rule("selector")
+        rule.`font-style` = inherit
+        assertEquals(1, rule.properties.size)
+        assertEquals("font-style", rule.properties[0].property)
+        assertEquals("inherit", rule.properties[0].value)
+    }
+
+    @Test
+    fun `font-style creates text based property`() {
+        FontStyleTextValue.entries.forEach {
+            val rule = Rule("selector")
+            rule.`font-style` = it
+            assertEquals(1, rule.properties.size)
+            assertEquals("font-style", rule.properties[0].property)
+            assertEquals(it.value, rule.properties[0].value)
+        }
     }
 }

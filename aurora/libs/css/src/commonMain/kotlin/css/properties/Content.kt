@@ -1,8 +1,8 @@
 @file:Suppress("FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList")
 package css.properties
 
+import css.base.BeforeAfterRule
 import css.base.Property
-import css.base.Rule
 import css.base.browser.SupportData
 
 //https://www.w3schools.com/cssref/pr_gen_content.php
@@ -45,17 +45,7 @@ public enum class ContentTextValue(public override val value: String): ContentVa
     /**
      * Removes the closing quote from the content, if specified
      */
-    `no-close-quote`("no-close-quote"),
-
-    /**
-     * 	Sets this property to its default value.
-     */
-    initial("initial"),
-
-    /**
-     * Inherits this property from its parent element.
-     */
-    inherit("inherit"),
+    `no-close-quote`("no-close-quote")
 }
 
 public class ContentUrl(url: String): ContentValue {
@@ -68,32 +58,23 @@ public class ContentAttribute(attribute: String): ContentValue {
         "attr($attribute)"
 }
 
-private val browserSupport = SupportData(
-    chrome = 1.0,
-    edge = 8.0,
-    firefox = 1.0,
-    safari = 1.0,
-    opera = 4.0,
-)
+public data class ContentCustom(public override val value: String): ContentValue
 
 /**
  * The content property is used with the ::before and ::after pseudo-elements, to insert generated content.
  */
-public fun Rule.content(content: ContentValue) {
-    +Property(
-        property = "content",
-        value = content.value,
-        supportedBrowsers = browserSupport
-    )
-}
-
-/**
- * The content property is used with the ::before and ::after pseudo-elements, to insert generated content.
- */
-public fun Rule.content(content: String) {
-    +Property(
-        property = "content",
-        value = content,
-        supportedBrowsers = browserSupport
-    )
-}
+public inline var BeforeAfterRule.content: ContentValue
+    get() = ContentCustom("\"\"")
+    set(content) {
+        +Property(
+            property = "content",
+            value = content.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 8.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 4.0,
+            )
+        )
+    }

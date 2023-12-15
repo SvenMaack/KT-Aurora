@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList")
+@file:Suppress("TopLevelPropertyNaming", "FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList", "ObjectPropertyName")
 package css.properties
 
 import css.base.Property
@@ -15,26 +15,32 @@ private val support = SupportData(
     opera = 3.5,
 )
 
-public interface MarginValue{
+public interface MarginValue {
     public val value: String
 }
 
 public enum class MarginTextValue(public override val value: String): MarginValue {
-    auto("auto"),
-    initial("initial"),
-    inherit("inherit"),
+    auto("auto")
 }
 
 /**
  * The margin property sets the margins for an element
  */
-public fun Rule.margin(value: MarginValue) {
-    +Property(
-        property = "margin",
-        value = value.value,
-        supportedBrowsers = support
-    )
-}
+public inline var Rule.margin: MarginValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "margin",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 6.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 3.5,
+            )
+        )
+    }
 
 /**
  * The margin property sets the margins for an element
@@ -73,90 +79,119 @@ public fun Rule.margin(top: MarginValue, right: MarginValue, bottom: MarginValue
  * The margin property sets the margins for an element
  */
 @Deprecated("use margin-block-start")
-public fun Rule.`margin-top`(value: MarginValue) {
-    +Property(
-        property = "margin-top",
-        value = value.value,
-        supportedBrowsers = support
-    )
-}
+public inline var Rule.`margin-top`: MarginValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "margin-top",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 6.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 3.5,
+            )
+        )
+    }
 
 /**
  * The margin property sets the margins for an element
  */
 @Deprecated("use margin-inline-end")
-public fun Rule.`margin-right`(value: MarginValue) {
-    +Property(
-        property = "margin-right",
-        value = value.value,
-        supportedBrowsers = support
-    )
-}
+public inline var Rule.`margin-right`: MarginValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "margin-right",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 6.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 3.5,
+            )
+        )
+    }
 
 /**
  * The margin property sets the margins for an element
  */
 @Deprecated("use margin-block-end")
-public fun Rule.`margin-bottom`(value: MarginValue) {
-    +Property(
-        property = "margin-bottom",
-        value = value.value,
-        supportedBrowsers = support
-    )
-}
+public inline var Rule.`margin-bottom`: MarginValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "margin-bottom",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 6.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 3.5,
+            )
+        )
+    }
 
 /**
  * The margin property sets the margins for an element
  */
 @Deprecated("use margin-inline-start")
-public fun Rule.`margin-left`(value: MarginValue) {
-    +Property(
-        property = "margin-left",
-        value = value.value,
-        supportedBrowsers = support
-    )
-}
-
-
-
-
-
-
-
+public inline var Rule.`margin-left`: MarginValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "margin-left",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 6.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 3.5,
+            )
+        )
+    }
 
 /**
  * The margin-block property specifies the margin at the start and end in the block direction (Top, Down)
  */
-public fun Rule.`margin-block-start`(value: MarginValue) {
-    +Property(
-        property = "margin-block-start",
-        value = value.value,
-        supportedBrowsers = SupportData(
-            chrome = 87.0,
-            edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
-            opera = 73.0,
+public inline var Rule.`margin-block-start`: MarginValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "margin-block-start",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 87.0,
+                edge = 87.0,
+                firefox = 41.0,
+                safari = 12.1,
+                opera = 73.0,
+            )
         )
-    )
-}
+    }
 
 /**
  * The margin-block property specifies the margin at the start and end in the block direction (Top, Down)
  */
-public fun Rule.`margin-block-end`(value: MarginValue) {
-    +Property(
-        property = "margin-block-end",
-        value = value.value,
-        supportedBrowsers = SupportData(
-            chrome = 87.0,
-            edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
-            opera = 73.0,
+public inline var Rule.`margin-block-end`: MarginValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "margin-block-end",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 87.0,
+                edge = 87.0,
+                firefox = 41.0,
+                safari = 12.1,
+                opera = 73.0,
+            )
         )
-    )
-}
+    }
 
 /**
  * The margin-block property specifies the margin at the start and end in the block direction (Top, Down)
@@ -164,7 +199,7 @@ public fun Rule.`margin-block-end`(value: MarginValue) {
 public fun Rule.`margin-block`(start: MarginValue, end: MarginValue) {
     +Property(
         property = "margin-block",
-        value = "$start $end",
+        value = "${start.value} ${end.value}",
         supportedBrowsers = SupportData(
             chrome = 87.0,
             edge = 87.0,
@@ -175,40 +210,63 @@ public fun Rule.`margin-block`(start: MarginValue, end: MarginValue) {
     )
 }
 
+/**
+ * The margin-block property specifies the margin at the start and end in the block direction (Top, Down)
+ */
+public inline var Rule.`margin-block`: MarginValue
+    get() = inherit
+    set(block) {
+        +Property(
+            property = "margin-block",
+            value = block.value,
+            supportedBrowsers = SupportData(
+                chrome = 87.0,
+                edge = 87.0,
+                firefox = 66.0,
+                safari = 14.1,
+                opera = 73.0,
+            )
+        )
+    }
+
 
 /**
  * The margin-inline property specifies the margin at the start and end in the inline direction. (Left, Right)
  */
-public fun Rule.`margin-inline-start`(value: MarginValue) {
-    +Property(
-        property = "margin-inline-start",
-        value = value.value,
-        supportedBrowsers = SupportData(
-            chrome = 69.0,
-            edge = 79.0,
-            firefox = 68.0,
-            safari = 14.1,
-            opera = 56.0,
+public inline var Rule.`margin-inline-start`: MarginValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "margin-inline-start",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 69.0,
+                edge = 79.0,
+                firefox = 68.0,
+                safari = 14.1,
+                opera = 56.0,
+            )
         )
-    )
-}
+    }
 
 /**
  * The margin-inline property specifies the margin at the start and end in the inline direction. (Left, Right)
  */
-public fun Rule.`margin-inline-end`(value: MarginValue) {
-    +Property(
-        property = "margin-inline-end",
-        value = value.value,
-        supportedBrowsers = SupportData(
-            chrome = 87.0,
-            edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
-            opera = 73.0,
+public inline var Rule.`margin-inline-end`: MarginValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "margin-inline-end",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 87.0,
+                edge = 87.0,
+                firefox = 41.0,
+                safari = 12.1,
+                opera = 73.0,
+            )
         )
-    )
-}
+    }
 
 /**
  * The margin-inline property specifies the margin at the start and end in the inline direction. (Left, Right)
@@ -226,3 +284,22 @@ public fun Rule.`margin-inline`(start: MarginValue, end: MarginValue) {
         )
     )
 }
+
+/**
+ * The margin-inline property specifies the margin at the start and end in the inline direction. (Left, Right)
+ */
+public inline var Rule.`margin-inline`: MarginValue
+    get() = inherit
+    set(inline) {
+        +Property(
+            property = "margin-inline",
+            value = inline.value,
+            supportedBrowsers = SupportData(
+                chrome = 87.0,
+                edge = 87.0,
+                firefox = 66.0,
+                safari = 14.1,
+                opera = 73.0,
+            )
+        )
+    }

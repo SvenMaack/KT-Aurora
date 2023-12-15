@@ -22,8 +22,10 @@ class PropertyVisitorTest {
         every { visitPropertyMock.invoke(any()) }.returns(Unit)
         val document = Document()
         val property = Property("property", "value", SupportData())
-        document["selector"] = {
-            +property
+        document.apply {
+            clazz["c1"] = {
+                +property
+            }
         }
 
         visitor.visitRule(document.rules[0])

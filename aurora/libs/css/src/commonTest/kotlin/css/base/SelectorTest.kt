@@ -24,14 +24,6 @@ class SelectorTest {
     }
 
     @Test
-    fun `universal works`() {
-        val selector = UNIVERSAL
-
-        assertEquals("*", selector.toString())
-        assertEquals(SelectorType.UNIVERSAL, selector.getType())
-    }
-
-    @Test
     fun `id works`() {
         val selector = Id("i1")
 

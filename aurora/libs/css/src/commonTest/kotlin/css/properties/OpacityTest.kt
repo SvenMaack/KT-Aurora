@@ -6,22 +6,29 @@ import kotlin.test.assertEquals
 
 class OpacityTest {
     @Test
-    fun opacity() {
-        OpacityValue.entries.forEach {
-            val rule = Rule("selector")
-            rule.opacity(it)
-            assertEquals(1, rule.properties.size)
-            assertEquals("opacity", rule.properties[0].property)
-            assertEquals(it.value, rule.properties[0].value)
-        }
-    }
-
-    @Test
-    fun `opacity value`() {
+    fun `opacity creates property`() {
         val rule = Rule("selector")
-        rule.opacity(0.5)
+        rule.opacity = 0.5
         assertEquals(1, rule.properties.size)
         assertEquals("opacity", rule.properties[0].property)
         assertEquals("0.5", rule.properties[0].value)
+    }
+
+    @Test
+    fun `opacity creates inherit property`() {
+        val rule = Rule("selector")
+        rule.opacity(inherit)
+        assertEquals(1, rule.properties.size)
+        assertEquals("opacity", rule.properties[0].property)
+        assertEquals("inherit", rule.properties[0].value)
+    }
+
+    @Test
+    fun `opacity creates initial property`() {
+        val rule = Rule("selector")
+        rule.opacity(initial)
+        assertEquals(1, rule.properties.size)
+        assertEquals("opacity", rule.properties[0].property)
+        assertEquals("initial", rule.properties[0].value)
     }
 }

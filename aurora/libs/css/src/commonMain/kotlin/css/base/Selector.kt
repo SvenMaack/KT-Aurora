@@ -18,7 +18,7 @@ public enum class SelectorType {
     UNKNOWN
 }
 
-public enum class PseudoValues(public val value: String) {
+internal enum class PseudoValues(val value: String) {
     AFTER("after"),
     BEFORE("before"),
     HOVER("hover"),
@@ -27,14 +27,6 @@ public enum class PseudoValues(public val value: String) {
 
 public interface Selector {
     public fun getType(): SelectorType
-}
-
-/**
- * *
- */
-public object UNIVERSAL: Selector {
-    override fun getType(): SelectorType = SelectorType.UNIVERSAL
-    public override fun toString(): String = "*"
 }
 
 public class Attribute(private val selector: Selector, private val attribute: String, private val value: String? = null): Selector {
@@ -49,9 +41,9 @@ public class Attribute(private val selector: Selector, private val attribute: St
             "$selector[$attribute='$value']"
 }
 
-public class Pseudo(private val selector: Selector, private val pseudo: PseudoValues): Selector {
+internal class Pseudo(private val selector: Selector, private val pseudo: PseudoValues): Selector {
     override fun getType(): SelectorType = SelectorType.PSEUDO
-    public override fun toString(): String = "$selector:${pseudo.value}"
+    override fun toString(): String = "$selector:${pseudo.value}"
 }
 
 public class CombinedSelector(private vararg val selector: Selector): Selector {
@@ -82,26 +74,3 @@ private fun cleanSelector(selector: String): String =
         .replace(">", "")
         .replace("+", "")
         .replace("~", "")
-
-public operator fun Selector.rangeTo(pseudo: PseudoValues): Selector =
-    Pseudo(this, pseudo)
-
-public val html: Tag = Tag("html")
-public val body: Tag = Tag("body")
-public val h1: Tag = Tag("h1")
-public val h2: Tag = Tag("h2")
-public val h3: Tag = Tag("h3")
-public val h4: Tag = Tag("h3")
-public val h5: Tag = Tag("h3")
-public val p: Tag = Tag("p")
-public val a: Tag = Tag("a")
-public val figure: Tag = Tag("figure")
-public val blockquote: Tag = Tag("blockquote")
-public val dl: Tag = Tag("dl")
-public val dd: Tag = Tag("dd")
-public val img: Tag = Tag("img")
-public val picture: Tag = Tag("picture")
-public val input: Tag = Tag("input")
-public val button: Tag = Tag("button")
-public val textarea: Tag = Tag("textarea")
-public val select: Tag = Tag("select")

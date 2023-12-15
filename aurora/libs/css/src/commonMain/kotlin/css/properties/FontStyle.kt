@@ -1,11 +1,15 @@
-@file:Suppress("FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList")
+@file:Suppress("FunctionName", "TopLevelPropertyNaming", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList", "ObjectPropertyName")
 package css.properties
 
 import css.base.Property
 import css.base.Rule
 import css.base.browser.SupportData
 
-public enum class FontStyleValue(public val value: String) {
+public interface FontStyleValue {
+    public val value: String
+}
+
+public enum class FontStyleTextValue(public override val value: String): FontStyleValue {
     /**
      * The browser displays a normal font style. This is default.
      */
@@ -19,34 +23,24 @@ public enum class FontStyleValue(public val value: String) {
     /**
      * The browser displays an oblique font style
      */
-    oblique("oblique"),
-
-    /**
-     * Sets this property to its default value
-     */
-    initial("initial"),
-
-    /**
-     * Inherits this property from its parent element.
-     */
-    inherit("inherit"),
+    oblique("oblique")
 }
-
-private val browserSupport = SupportData(
-    chrome = 10.0,
-    edge = 4.0,
-    firefox = 1.0,
-    safari = 1.0,
-    opera = 7.0,
-)
 
 /**
  * The font-style property specifies the font style for a text.
  */
-public fun Rule.`font-style`(style: FontStyleValue) {
-    +Property(
-        property = "font-style",
-        value = style.value,
-        supportedBrowsers = browserSupport
-    )
-}
+public inline var Rule.`font-style`: FontStyleValue
+    get() = FontStyleTextValue.normal
+    set(style) {
+        +Property(
+            property = "font-style",
+            value = style.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 4.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 7.0,
+            )
+        )
+    }

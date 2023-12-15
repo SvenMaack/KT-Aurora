@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList")
+@file:Suppress("TopLevelPropertyNaming", "FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList", "ObjectPropertyName")
 package css.properties
 
 import css.base.Property
@@ -21,8 +21,6 @@ public interface PaddingValue{
 
 public enum class PaddingTextValue(public override val value: String): PaddingValue {
     auto("auto"),
-    initial("initial"),
-    inherit("inherit"),
 }
 
 public class PaddingSize: Size, PaddingValue {
@@ -32,13 +30,21 @@ public class PaddingSize: Size, PaddingValue {
 /**
  * The padding property sets the Paddings for an element
  */
-public fun Rule.padding(value: PaddingValue) {
-    +Property(
-        property = "padding",
-        value = value.toString(),
-        supportedBrowsers = support
-    )
-}
+public inline var Rule.padding: PaddingValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "padding",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 4.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 3.5,
+            )
+        )
+    }
 
 /**
  * The padding property sets the Paddings for an element
@@ -46,7 +52,7 @@ public fun Rule.padding(value: PaddingValue) {
 public fun Rule.padding(topBottom: PaddingValue, rightLeft: PaddingValue) {
     +Property(
         property = "padding",
-        value = "$topBottom $rightLeft",
+        value = "${topBottom.value} ${rightLeft.value}",
         supportedBrowsers = support
     )
 }
@@ -57,7 +63,7 @@ public fun Rule.padding(topBottom: PaddingValue, rightLeft: PaddingValue) {
 public fun Rule.padding(top: PaddingValue, rightLeft: PaddingValue, bottom: PaddingValue) {
     +Property(
         property = "padding",
-        value = "$top $rightLeft $bottom",
+        value = "${top.value} ${rightLeft.value} ${bottom.value}",
         supportedBrowsers = support
     )
 }
@@ -68,7 +74,7 @@ public fun Rule.padding(top: PaddingValue, rightLeft: PaddingValue, bottom: Padd
 public fun Rule.padding(top: PaddingValue, right: PaddingValue, bottom: PaddingValue, left: PaddingValue) {
     +Property(
         property = "padding",
-        value = "$top $right $bottom $left",
+        value = "${top.value} ${right.value} ${bottom.value} ${left.value}",
         supportedBrowsers = support
     )
 }
@@ -77,89 +83,119 @@ public fun Rule.padding(top: PaddingValue, right: PaddingValue, bottom: PaddingV
  * The padding property sets the Paddings for an element
  */
 @Deprecated("use padding-block-start")
-public fun Rule.`padding-top`(size: PaddingValue) {
-    +Property(
-        property = "padding-top",
-        value = size.toString(),
-        supportedBrowsers = support
-    )
-}
+public inline var Rule.`padding-top`: PaddingValue
+    get() = 0.px
+    set(size) {
+        +Property(
+            property = "padding-top",
+            value = size.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 4.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 3.5,
+            )
+        )
+    }
 
 /**
  * The padding property sets the Paddings for an element
  */
 @Deprecated("use padding-inline-end")
-public fun Rule.`padding-right`(value: PaddingValue) {
-    +Property(
-        property = "padding-right",
-        value = value.value,
-        supportedBrowsers = support
-    )
-}
+public inline var Rule.`padding-right`: PaddingValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "padding-right",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 4.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 3.5,
+            )
+        )
+    }
 
 /**
  * The padding property sets the Paddings for an element
  */
 @Deprecated("use padding-block-end")
-public fun Rule.`padding-bottom`(value: PaddingValue) {
-    +Property(
-        property = "padding-bottom",
-        value = value.value,
-        supportedBrowsers = support
-    )
-}
+public inline var Rule.`padding-bottom`: PaddingValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "padding-bottom",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 4.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 3.5,
+            )
+        )
+    }
 
 /**
  * The padding property sets the Paddings for an element
  */
 @Deprecated("use padding-inline-start")
-public fun Rule.`padding-left`(value: PaddingValue) {
-    +Property(
-        property = "padding-left",
-        value = value.value,
-        supportedBrowsers = support
-    )
-}
-
-
-
-
-
-
+public inline var Rule.`padding-left`: PaddingValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "padding-left",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 4.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 3.5,
+            )
+        )
+    }
 
 /**
  * The padding-block property specifies the Padding at the start and end in the block direction (Top, Down)
  */
-public fun Rule.`padding-block-start`(value: PaddingValue) {
-    +Property(
-        property = "padding-block-start",
-        value = value.value,
-        supportedBrowsers = SupportData(
-            chrome = 87.0,
-            edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
-            opera = 73.0,
+public inline var Rule.`padding-block-start`: PaddingValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "padding-block-start",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 87.0,
+                edge = 87.0,
+                firefox = 41.0,
+                safari = 12.1,
+                opera = 73.0,
+            )
         )
-    )
-}
+    }
 
 /**
  * The padding-block property specifies the Padding at the start and end in the block direction (Top, Down)
  */
-public fun Rule.`padding-block-end`(value: PaddingValue) {
-    +Property(
-        property = "padding-block-end",
-        value = value.value,
-        supportedBrowsers = SupportData(
-            chrome = 87.0,
-            edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
-            opera = 73.0,
+public inline var Rule.`padding-block-end`: PaddingValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "padding-block-end",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 87.0,
+                edge = 87.0,
+                firefox = 41.0,
+                safari = 12.1,
+                opera = 73.0,
+            )
         )
-    )
-}
+    }
 
 /**
  * The padding-block property specifies the Padding at the start and end in the block direction (Top, Down)
@@ -167,7 +203,7 @@ public fun Rule.`padding-block-end`(value: PaddingValue) {
 public fun Rule.`padding-block`(start: PaddingValue, end: PaddingValue) {
     +Property(
         property = "padding-block",
-        value = "$start $end",
+        value = "${start.value} ${end.value}",
         supportedBrowsers = SupportData(
             chrome = 87.0,
             edge = 87.0,
@@ -179,38 +215,61 @@ public fun Rule.`padding-block`(start: PaddingValue, end: PaddingValue) {
 }
 
 /**
- * The padding-inline property specifies the Padding at the start and end in the inline direction. (Left, Right)
+ * The padding-block property specifies the Padding at the start and end in the block direction (Top, Down)
  */
-public fun Rule.`padding-inline-start`(value: PaddingValue) {
-    +Property(
-        property = "padding-inline-start",
-        value = value.value,
-        supportedBrowsers = SupportData(
-            chrome = 87.0,
-            edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
-            opera = 73.0,
+public inline var Rule.`padding-block`: PaddingValue
+    get() = inherit
+    set(block) {
+        +Property(
+            property = "padding-block",
+            value = block.value,
+            supportedBrowsers = SupportData(
+                chrome = 87.0,
+                edge = 87.0,
+                firefox = 66.0,
+                safari = 14.1,
+                opera = 73.0,
+            )
         )
-    )
-}
+    }
 
 /**
  * The padding-inline property specifies the Padding at the start and end in the inline direction. (Left, Right)
  */
-public fun Rule.`padding-inline-end`(value: PaddingValue) {
-    +Property(
-        property = "padding-inline-end",
-        value = value.value,
-        supportedBrowsers = SupportData(
-            chrome = 87.0,
-            edge = 87.0,
-            firefox = 41.0,
-            safari = 12.1,
-            opera = 73.0,
+public inline var Rule.`padding-inline-start`: PaddingValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "padding-inline-start",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 87.0,
+                edge = 87.0,
+                firefox = 41.0,
+                safari = 12.1,
+                opera = 73.0,
+            )
         )
-    )
-}
+    }
+
+/**
+ * The padding-inline property specifies the Padding at the start and end in the inline direction. (Left, Right)
+ */
+public inline var Rule.`padding-inline-end`: PaddingValue
+    get() = 0.px
+    set(value) {
+        +Property(
+            property = "padding-inline-end",
+            value = value.value,
+            supportedBrowsers = SupportData(
+                chrome = 87.0,
+                edge = 87.0,
+                firefox = 41.0,
+                safari = 12.1,
+                opera = 73.0,
+            )
+        )
+    }
 
 /**
  * The padding-inline property specifies the Padding at the start and end in the inline direction. (Left, Right)
@@ -218,7 +277,7 @@ public fun Rule.`padding-inline-end`(value: PaddingValue) {
 public fun Rule.`padding-inline`(start: PaddingValue, end: PaddingValue) {
     +Property(
         property = "padding-inline",
-        value = "$start $end",
+        value = "${start.value} ${end.value}",
         supportedBrowsers = SupportData(
             chrome = 87.0,
             edge = 87.0,
@@ -228,3 +287,22 @@ public fun Rule.`padding-inline`(start: PaddingValue, end: PaddingValue) {
         )
     )
 }
+
+/**
+ * The padding-inline property specifies the Padding at the start and end in the inline direction. (Left, Right)
+ */
+public inline var Rule.`padding-inline`: PaddingValue
+    get() = inherit
+    set(inline) {
+        +Property(
+            property = "padding-inline",
+            value = inline.value,
+            supportedBrowsers = SupportData(
+                chrome = 87.0,
+                edge = 87.0,
+                firefox = 66.0,
+                safari = 14.1,
+                opera = 73.0,
+            )
+        )
+    }

@@ -13,12 +13,6 @@ public interface TransformValue {
     public val value: String
 }
 
-public enum class TransformBasics(public override val value: String) : TransformValue {
-    NONE("none"),
-    INITIAL("initial"),
-    INHERIT("inherit"),
-}
-
 /**
  * Defines a 2D transformation, using a matrix of six values
  */
@@ -226,7 +220,32 @@ public class Perspective private constructor(n: String) : TransformValue {
 /**
  * The transform property applies a 2D transformation to an element. This property allows you to rotate, scale, move, skew, etc., elements.
  */
-public fun Rule.transform2D(vararg transformations: TransformValue) {
+public inline var Rule.transform: TransformValue
+    get() = inherit
+    set(transform) {
+        +Property(
+            property = "transform",
+            value = transform.value,
+            supportedBrowsers = SupportData(
+                chrome = 36.0,
+                edge = 10.0,
+                firefox = 16.0,
+                safari = 9.0,
+                opera = 23.0,
+            )
+        ).webkit(SupportDataOverride(
+            safari = 3.2,
+            chrome = 4.0,
+            opera = 15.0,
+        )).moz(SupportDataOverride(
+            edge = 9.0,
+            firefox = 3.5
+        )).o(SupportDataOverride(
+            opera = 10.5
+        ))
+    }
+
+public fun Rule.transform(vararg transformations: TransformValue) {
     +Property(
         property = "transform",
         value = transformations.joinToString(" ") { it.value },

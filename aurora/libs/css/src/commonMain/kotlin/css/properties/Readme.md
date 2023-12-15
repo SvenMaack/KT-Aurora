@@ -1,1 +1,1 @@
-Lists all properties.
+Lists css properties.

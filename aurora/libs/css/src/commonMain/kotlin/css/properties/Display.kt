@@ -7,11 +7,16 @@ import css.base.browser.NOT_SUPPORTED
 import css.base.browser.SupportData
 import css.base.browser.SupportDataOverride
 import css.base.webkit
+import css.properties.DisplayTypeTextValue.*
 
 //https://www.w3schools.com/cssref/pr_class_display.php
 
+public interface DisplayTypeValue {
+    public val value: String
+}
+
 @Suppress("EnumEntryName", "EnumNaming")
-public enum class DisplayTypeValue(public val value: String) {
+public enum class DisplayTypeTextValue(public override val value: String): DisplayTypeValue {
     /**
      * 	Displays an element as an inline element (like <span>). Any height and width properties will have no effect
      */
@@ -38,10 +43,10 @@ public enum class DisplayTypeValue(public val value: String) {
      */
     `inline-grid`("inline-grid"),
 
-    @Deprecated("use grid instead")
     /**
      * The element is displayed as an inline-level table
      */
+    @Deprecated("use grid instead")
     `inline-table`("inline-table"),
 
     /**
@@ -73,25 +78,6 @@ public enum class DisplayTypeValue(public val value: String) {
     `table-row`("table-row"),
 
     /**
-     * The element is completely removed
-     */
-    none("none"),
-
-    /**
-     * Sets this property to its default value.
-     */
-    initial("initial"),
-
-    /**
-     * Inherits this property from its parent element
-     */
-    inherit("inherit"),
-    unset("unset")
-}
-
-@Suppress("EnumEntryName", "EnumNaming")
-public enum class DisplayTypeValuesWithPrefix(public val value: String) {
-    /**
      * Displays an element as a block-level flex container
      */
     flex("flex"),
@@ -100,59 +86,74 @@ public enum class DisplayTypeValuesWithPrefix(public val value: String) {
      * Displays an element as an inline-level flex container
      */
     `inline-flex`("inline-flex"),
-}
 
-@Suppress("EnumEntryName", "EnumNaming")
-public enum class ModernDisplayTypeValues(public val value: String) {
     /**
      * Makes the container disappear, making the child elements children of the element the next level up in the DOM
      */
     contents("contents"),
 }
 
-private val browserSupport = SupportData(
-    chrome = 4.0,
-    edge = 8.0,
-    firefox = 3.0,
-    safari = 3.1,
-    opera = 7.0,
-)
-
 /**
  * The display property specifies the display behavior (the type of rendering box) of an element.
  */
-public fun Rule.display(style: DisplayTypeValue) {
-    +Property(
-        property = "display",
-        value = style.value,
-        supportedBrowsers = browserSupport
-    )
-}
+public inline var Rule.display: DisplayTypeValue
+    get() = inline
+    set(display) {
+        if(display is DisplayTypeTextValue)
+            when(display) {
+                flex, `inline-flex` -> {
+                    +Property(
+                        property = "display",
+                        value = display.value,
+                        supportedBrowsers = SupportData(
+                            chrome = 1.0,
+                            edge = 79.0,
+                            firefox = 1.0,
+                            safari = NOT_SUPPORTED,
+                            opera = 4.0,
+                        )
+                    ).webkit(SupportDataOverride(
+                        safari = 3.1,
+                    ))
+                }
+                contents -> {
+                    +Property(
+                        property = "display",
+                        value = display.value,
+                        supportedBrowsers = SupportData(
+                            chrome = 1.0,
+                            edge = 79.0,
+                            firefox = 1.0,
+                            safari = 1.0,
+                            opera = 4.0,
+                        )
+                    )
+                }
+                else -> {
+                    +Property(
+                        property = "display",
+                        value = display.value,
+                        supportedBrowsers = SupportData(
+                            chrome = 4.0,
+                            edge = 8.0,
+                            firefox = 3.0,
+                            safari = 3.1,
+                            opera = 7.0,
+                        )
+                    )
+                }
+            }
+        else
+            +Property(
+                property = "display",
+                value = display.value,
+                supportedBrowsers = SupportData(
+                    chrome = 4.0,
+                    edge = 8.0,
+                    firefox = 3.0,
+                    safari = 3.1,
+                    opera = 7.0,
+                )
+            )
 
-/**
- * The display property specifies the display behavior (the type of rendering box) of an element.
- */
-public fun Rule.display(style: ModernDisplayTypeValues) {
-    +Property(
-        property = "display",
-        value = style.value,
-        supportedBrowsers = browserSupport + SupportDataOverride(
-            edge = 79.0,
-        )
-    )
-}
-
-/**
- * The display property specifies the display behavior (the type of rendering box) of an element.
- */
-public fun Rule.display(style: DisplayTypeValuesWithPrefix) {
-    +Property(
-        property = "display",
-        value = style.value,
-        supportedBrowsers = browserSupport + SupportDataOverride(
-            safari = NOT_SUPPORTED,
-        )
-    ).webkit(SupportDataOverride(
-        safari = 3.1,
-    ))
-}
+    }

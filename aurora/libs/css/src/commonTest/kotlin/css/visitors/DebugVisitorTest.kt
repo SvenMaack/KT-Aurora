@@ -10,14 +10,16 @@ class DebugVisitorTest {
     @Test
     fun `visit rules turns them into string`() {
         val document = Document()
-        document["selector"] = {
-            +Property("property", "value", SupportData(
-                chrome = 1.0,
-                firefox = 1.0,
-                safari = 1.0,
-                edge = 1.0,
-                opera = 1.0
-            ))
+        document.apply {
+            clazz["selector"] = {
+                +Property("property", "value", SupportData(
+                    chrome = 1.0,
+                    firefox = 1.0,
+                    safari = 1.0,
+                    edge = 1.0,
+                    opera = 1.0
+                ))
+            }
         }
         val debugVisitor = DebugVisitor()
 

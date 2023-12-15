@@ -4,10 +4,15 @@ package css.properties
 import css.base.Property
 import css.base.Rule
 import css.base.browser.SupportData
+import css.properties.CursorTextValue.AUTO
 
 //https://www.w3schools.com/cssref/pr_class_cursor.php
 
-public enum class CursorValue(public val value: String) {
+public interface CursorValue {
+    public val value: String
+}
+
+public enum class CursorTextValue(public override val value: String): CursorValue {
     /**
      * The cursor indicates an alias of something is to be created
      */
@@ -192,33 +197,23 @@ public enum class CursorValue(public val value: String) {
      * The cursor indicates that something can be zoomed out
      */
     ZOOM_OUT("zoom-out"),
-
-    /**
-     * Sets this property to its default value. Read about initial
-     */
-    INITIAL("initial"),
-
-    /**
-     * Inherits this property from its parent element
-     */
-    INHERIT("inherit"),
 }
-
-private val browserSupport = SupportData(
-    chrome = 5.0,
-    edge = 5.5,
-    firefox = 4.0,
-    safari = 5.0,
-    opera = 9.6,
-)
 
 /**
  * The cursor property specifies the mouse cursor to be displayed when pointing over an element.
  */
-public fun Rule.cursor(cursor: CursorValue) {
-    +Property(
-        property = "cursor",
-        value = cursor.value,
-        supportedBrowsers = browserSupport
-    )
-}
+public inline var Rule.cursor: CursorValue
+    get() = AUTO
+    set(content) {
+        +Property(
+            property = "cursor",
+            value = content.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 8.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 4.0,
+            )
+        )
+    }

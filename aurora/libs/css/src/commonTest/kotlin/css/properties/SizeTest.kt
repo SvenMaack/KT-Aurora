@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class SizeTest {
     @Test
-    fun `test value size`() {
+    fun `size creation works`() {
         val size = ValueSize("2", CssUnit.px)
         assertEquals("2px", size.toString())
     }

@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList")
+@file:Suppress("TopLevelPropertyNaming", "UseIfInsteadOfWhen", "FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList", "ObjectPropertyName")
 package css.properties
 
 import css.base.Property
@@ -12,16 +12,6 @@ public interface ColorValue {
 }
 
 public enum class ColorTextValue(public override val value: String): ColorValue {
-    /**
-     * 	Sets this property to its default value.
-     */
-    initial("initial"),
-
-    /**
-     * Inherits this property from its parent element.
-     */
-    inherit("inherit"),
-
     /**
      * 	Specifies that the background color should be transparent.
      */
@@ -61,33 +51,18 @@ public class HSLAValue(hue: Int, saturation: Int, lightness: Int, alpha: Double)
 /**
  * The color property specifies the color of text.
  */
-public fun Rule.color(color: ColorValue) {
-    +Property(
-        property = "color",
-        value = color.value,
-        supportedBrowsers = SupportData(
-            chrome = 1.0,
-            edge = 3.0,
-            firefox = 1.0,
-            safari = 1.0,
-            opera = 3.5,
+public inline var Rule.color: ColorValue
+    get() = ColorTextValue.transparent
+    set(color) {
+        +Property(
+            property = "color",
+            value = color.value,
+            supportedBrowsers = SupportData(
+                chrome = 1.0,
+                edge = 3.0,
+                firefox = 1.0,
+                safari = 1.0,
+                opera = 3.5,
+            )
         )
-    )
-}
-
-/**
- * The color property specifies the color of text.
- */
-public fun Rule.`background-color`(color: ColorValue) {
-    +Property(
-        property = "background-color",
-        value = color.value,
-        supportedBrowsers = SupportData(
-            chrome = 1.0,
-            edge = 4.0,
-            firefox = 1.0,
-            safari = 1.0,
-            opera = 3.5,
-        )
-    )
-}
+    }

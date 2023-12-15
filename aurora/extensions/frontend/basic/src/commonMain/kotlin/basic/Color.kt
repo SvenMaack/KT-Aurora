@@ -1,3 +1,4 @@
+@file:Suppress("ObjectPropertyName")
 package basic
 
 import css.base.Rule
@@ -14,14 +15,17 @@ public enum class COLOR(public val color: HSLValue) {
     ACCENT(HSLValue(341, 100, 72)) //cyclamen
 }
 
-public fun Rule._color(color: COLOR) {
-    color(color.color)
-}
+public inline var Rule._color: COLOR
+    get() = COLOR.TEXT
+    set(value) {
+        color = value.color
+    }
 
-@Suppress("FunctionName")
-public fun Rule.`_background-color`(color: COLOR) {
-    `background-color`(color.color)
-}
+public inline var Rule.`_background-color`: COLOR
+    get() = COLOR.TEXT
+    set(value) {
+        `background-color` = value.color
+    }
 
 /**
 $gradient-top: linear-gradient(0deg, #2f457eff, #d9f0ffff, #a3d5ffff, #83c9f4ff, #ff729fff);
