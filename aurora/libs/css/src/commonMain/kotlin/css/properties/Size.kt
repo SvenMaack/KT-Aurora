@@ -32,9 +32,9 @@ public enum class CssUnit(public val value: String) {
 
 public interface Size
 
-public open class ValueSize(
+public open class ValueSize protected constructor(
     private val number: String,
-    private val unit: CssUnit
+    private val unit: String
 ): Size,
     MarginValue,
     PaddingValue,
@@ -44,20 +44,25 @@ public open class ValueSize(
     LetterSpacingValue,
     BorderRadiusValue,
     LineHeightValue {
-    override val value: String =
-        "${number}${unit.value}"
+        public constructor(
+            number: String,
+            unit: CssUnit
+        ): this(number, unit.value)
 
-    override fun toString(): String =
-        "${number}${unit.value}"
+        override val value: String =
+            "${number}${unit}"
+
+        override fun toString(): String =
+            "${number}${unit}"
+
+        public operator fun ValueSize.unaryMinus(): ValueSize =
+            if (this.number.startsWith("-"))
+                ValueSize(this.number.substring(1), this.unit)
+            else
+                ValueSize("-${this.number}", this.unit)
 }
 
-public object Zero: ValueSize("0", CssUnit.px) {
-    override val value: String =
-        toString()
-
-    override fun toString(): String =
-        "0"
-}
+public object Zero: ValueSize("0", "")
 
 public val Double.px: ValueSize get() = ValueSize(this.toString(), CssUnit.px)
 public val Double.rem: ValueSize get() = ValueSize(this.toString(), CssUnit.rem)

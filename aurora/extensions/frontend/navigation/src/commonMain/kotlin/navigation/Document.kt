@@ -1,3 +1,4 @@
+@file:Suppress("WrapUnaryOperator")
 package navigation
 
 import basic.COLOR.PRIMARY
@@ -10,13 +11,14 @@ import css.properties.DisplayTypeTextValue.`inline-block`
 import css.properties.ListStyleTypeTextValue.none
 import css.properties.PositionTextValue.absolute
 import css.properties.PositionTextValue.relative
+import css.properties.Zero.unaryMinus
 
 public val NavigationDocument: IDocument = Document().apply {
     clazz[NAVIGATION] = {
         position = absolute
         top = 50.percentage
         left = 50.percentage
-        transform = Translate((-50).percentage, (-50).percentage)
+        transform = Translate(-50.percentage, -50.percentage)
         `list-style-type` = none
     }
     clazz[NAVIGATION__ITEM] = {
