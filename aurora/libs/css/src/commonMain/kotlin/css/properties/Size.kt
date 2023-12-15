@@ -35,7 +35,7 @@ public interface Size
 public open class ValueSize protected constructor(
     private val number: String,
     private val unit: String
-): Size,
+):  Size,
     MarginValue,
     PaddingValue,
     PositionDistanceValue,
@@ -43,26 +43,26 @@ public open class ValueSize protected constructor(
     WidthValue,
     LetterSpacingValue,
     BorderRadiusValue,
-    LineHeightValue {
-        public constructor(
-            number: String,
-            unit: CssUnit
-        ): this(number, unit.value)
+    LineHeightValue
+{
+    override val value: String =
+        "${number}${unit}"
 
-        override val value: String =
-            "${number}${unit}"
+    public constructor(number: String, unit: CssUnit):
+            this(number, unit.value)
 
-        override fun toString(): String =
-            "${number}${unit}"
+    override fun toString(): String =
+        "${number}${unit}"
 
-        public operator fun ValueSize.unaryMinus(): ValueSize =
-            if (this.number.startsWith("-"))
-                ValueSize(this.number.substring(1), this.unit)
-            else
-                ValueSize("-${this.number}", this.unit)
+    public operator fun ValueSize.unaryMinus(): ValueSize =
+        if (this.number.startsWith("-"))
+            ValueSize(this.number.substring(1), this.unit)
+        else
+            ValueSize("-${this.number}", this.unit)
 }
 
-public object Zero: ValueSize("0", "")
+@Suppress("ClassName")
+public object `0`: ValueSize("0", "")
 
 public val Double.px: ValueSize get() = ValueSize(this.toString(), CssUnit.px)
 public val Double.rem: ValueSize get() = ValueSize(this.toString(), CssUnit.rem)

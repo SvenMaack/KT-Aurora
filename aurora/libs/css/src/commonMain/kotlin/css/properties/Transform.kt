@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList")
+@file:Suppress("ClassNaming", "FunctionName", "EnumEntryName", "EnumNaming", "MethodOverloading", "TooManyFunctions", "LongMethod", "LongParameterList")
 package css.properties
 
 import css.base.Property
@@ -16,7 +16,7 @@ public interface TransformValue {
 /**
  * Defines a 2D transformation, using a matrix of six values
  */
-public class Matrix private constructor(v1: String, v2: String, v3: String, v4: String, v5: String, v6: String) : TransformValue {
+public class matrix private constructor(v1: String, v2: String, v3: String, v4: String, v5: String, v6: String) : TransformValue {
     override val value: String = "matrix($v1,$v2,$v3,$v4,$v5,$v6)"
 
     public constructor(v1: Size, v2: Size, v3: Size, v4: Size, v5: Size, v6: Size):
@@ -28,7 +28,7 @@ public class Matrix private constructor(v1: String, v2: String, v3: String, v4: 
 /**
  * Defines a 2D translation
  */
-public class Translate private constructor(v1: String, v2: String) : TransformValue {
+public class translate private constructor(v1: String, v2: String) : TransformValue {
     override val value: String = "translate($v1,$v2)"
 
     public constructor(v1: Size, v2: Size):
@@ -40,7 +40,7 @@ public class Translate private constructor(v1: String, v2: String) : TransformVa
 /**
  * Defines a translation, using only the value for the X-axis
  */
-public class TranslateX private constructor(x: String) : TransformValue {
+public class translateX private constructor(x: String) : TransformValue {
     override val value: String = "translateX($x)"
 
     public constructor(x: Size):
@@ -52,7 +52,7 @@ public class TranslateX private constructor(x: String) : TransformValue {
 /**
  * Defines a translation, using only the value for the Y-axis
  */
-public class TranslateY private constructor(y: String) : TransformValue {
+public class translateY private constructor(y: String) : TransformValue {
     override val value: String = "translateY($y)"
 
     public constructor(y: Size):
@@ -64,7 +64,7 @@ public class TranslateY private constructor(y: String) : TransformValue {
 /**
  * Defines a 3D translation, using only the value for the Z-axis
  */
-public class TranslateZ private constructor(z: String) : TransformValue {
+public class translateZ private constructor(z: String) : TransformValue {
     override val value: String = "translateZ($z)"
 
     public constructor(z: Size):
@@ -76,7 +76,7 @@ public class TranslateZ private constructor(z: String) : TransformValue {
 /**
  * Defines a 2D scale transformation
  */
-public class Scale private constructor(v1: String, v2: String) : TransformValue {
+public class scale private constructor(v1: String, v2: String) : TransformValue {
     override val value: String = "scale($v1,$v2)"
 
     public constructor(v1: Size, v2: Size):
@@ -88,7 +88,7 @@ public class Scale private constructor(v1: String, v2: String) : TransformValue 
 /**
  * Defines a scale transformation by giving a value for the X-axis
  */
-public class ScaleX private constructor(x: String) : TransformValue {
+public class scaleX private constructor(x: String) : TransformValue {
     override val value: String = "scaleX($x)"
 
     public constructor(x: Size):
@@ -100,7 +100,7 @@ public class ScaleX private constructor(x: String) : TransformValue {
 /**
  * Defines a scale transformation by giving a value for the Y-axis
  */
-public class ScaleY private constructor(y: String) : TransformValue {
+public class scaleY private constructor(y: String) : TransformValue {
     override val value: String = "scaleY($y)"
 
     public constructor(y: Size):
@@ -112,7 +112,7 @@ public class ScaleY private constructor(y: String) : TransformValue {
 /**
  * Defines a 3D scale transformation by giving a value for the Z-axis
  */
-public class ScaleZ private constructor(z: String) : TransformValue {
+public class scaleZ private constructor(z: String) : TransformValue {
     override val value: String = "scaleZ($z)"
 
     public constructor(z: Size):
@@ -124,7 +124,7 @@ public class ScaleZ private constructor(z: String) : TransformValue {
 /**
  *	Defines a 2D rotation, the angle is specified in the parameter
  */
-public class Rotate private constructor(angle: String) : TransformValue {
+public class rotate private constructor(angle: String) : TransformValue {
     override val value: String = "rotate($angle)"
 
     public constructor(angle: Size):
@@ -136,7 +136,7 @@ public class Rotate private constructor(angle: String) : TransformValue {
 /**
  * Defines a 3D rotation along the X-axis
  */
-public class RotateX private constructor(x: String) : TransformValue {
+public class rotateX private constructor(x: String) : TransformValue {
     override val value: String = "rotateX($x)"
 
     public constructor(x: Size):
@@ -148,7 +148,7 @@ public class RotateX private constructor(x: String) : TransformValue {
 /**
  * Defines a 3D rotation along the Y-axis
  */
-public class RotateY private constructor(y: String) : TransformValue {
+public class rotateY private constructor(y: String) : TransformValue {
     override val value: String = "rotateY($y)"
 
     public constructor(y: Size):
@@ -160,7 +160,7 @@ public class RotateY private constructor(y: String) : TransformValue {
 /**
  * Defines a 3D rotation along the Z-axis
  */
-public class RotateZ private constructor(z: String) : TransformValue {
+public class rotateZ private constructor(z: String) : TransformValue {
     override val value: String = "rotateZ($z)"
 
     public constructor(z: Size):
@@ -172,7 +172,7 @@ public class RotateZ private constructor(z: String) : TransformValue {
 /**
  * Defines a 2D skew transformation along the X- and the Y-axis
  */
-public class Skew private constructor(x: String, y: String) : TransformValue {
+public class skew private constructor(x: String, y: String) : TransformValue {
     override val value: String = "skew($x,$y)"
 
     public constructor(x: Size, y: Size):
@@ -184,7 +184,7 @@ public class Skew private constructor(x: String, y: String) : TransformValue {
 /**
  * Defines a 2D skew transformation along the X-axis
  */
-public class SkewX private constructor(x: String) : TransformValue {
+public class skewX private constructor(x: String) : TransformValue {
     override val value: String = "skewX($x)"
 
     public constructor(x: Size):
@@ -196,7 +196,7 @@ public class SkewX private constructor(x: String) : TransformValue {
 /**
  * Defines a 2D skew transformation along the Y-axis
  */
-public class SkewY private constructor(y: String) : TransformValue {
+public class skewY private constructor(y: String) : TransformValue {
     override val value: String = "skewY($y)"
 
     public constructor(y: Size):
@@ -208,7 +208,7 @@ public class SkewY private constructor(y: String) : TransformValue {
 /**
  * Defines a perspective view for a 3D transformed element
  */
-public class Perspective private constructor(n: String) : TransformValue {
+public class perspective private constructor(n: String) : TransformValue {
     override val value: String = "perspective($n)"
 
     public constructor(n: Size):

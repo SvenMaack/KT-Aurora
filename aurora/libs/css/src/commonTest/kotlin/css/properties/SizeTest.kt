@@ -1,6 +1,6 @@
 package css.properties
 
-import css.properties.Zero.unaryMinus
+import css.properties.`0`.unaryMinus
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -25,6 +25,6 @@ class SizeTest {
 
     @Test
     fun `create 0 works`() {
-        assertEquals("0", Zero.toString())
+        assertEquals("0", `0`.toString())
     }
 }

@@ -32,7 +32,7 @@ class TransformTest {
     @Test
     fun `transform matrix`() {
         val rule = Rule("selector")
-        rule.transform = Matrix(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
+        rule.transform = matrix(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "matrix(1.0,2.0,3.0,4.0,5.0,6.0)")
     }
@@ -40,7 +40,7 @@ class TransformTest {
     @Test
     fun `transform translate`() {
         val rule = Rule("selector")
-        rule.transform = Translate(1.0, 2.0)
+        rule.transform = translate(1.0, 2.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "translate(1.0,2.0)")
     }
@@ -48,7 +48,7 @@ class TransformTest {
     @Test
     fun `transform translateX`() {
         val rule = Rule("selector")
-        rule.transform = TranslateX(1.0)
+        rule.transform = translateX(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "translateX(1.0)")
     }
@@ -56,7 +56,7 @@ class TransformTest {
     @Test
     fun `transform translateY`() {
         val rule = Rule("selector")
-        rule.transform = TranslateY(1.0)
+        rule.transform = translateY(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "translateY(1.0)")
     }
@@ -64,7 +64,7 @@ class TransformTest {
     @Test
     fun `transform translateZ`() {
         val rule = Rule("selector")
-        rule.transform = TranslateZ(1.0)
+        rule.transform = translateZ(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "translateZ(1.0)")
     }
@@ -72,7 +72,7 @@ class TransformTest {
     @Test
     fun `transform scale`() {
         val rule = Rule("selector")
-        rule.transform = Scale(1.0, 2.0)
+        rule.transform = scale(1.0, 2.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "scale(1.0,2.0)")
     }
@@ -80,7 +80,7 @@ class TransformTest {
     @Test
     fun `transform scaleX`() {
         val rule = Rule("selector")
-        rule.transform = ScaleX(1.0)
+        rule.transform = scaleX(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "scaleX(1.0)")
     }
@@ -88,7 +88,7 @@ class TransformTest {
     @Test
     fun `transform scaleY`() {
         val rule = Rule("selector")
-        rule.transform = ScaleY(1.0)
+        rule.transform = scaleY(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "scaleY(1.0)")
     }
@@ -96,7 +96,7 @@ class TransformTest {
     @Test
     fun `transform scaleZ`() {
         val rule = Rule("selector")
-        rule.transform = ScaleZ(1.0)
+        rule.transform = scaleZ(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "scaleZ(1.0)")
     }
@@ -104,7 +104,7 @@ class TransformTest {
     @Test
     fun `transform rotate`() {
         val rule = Rule("selector")
-        rule.transform = Rotate(1.0)
+        rule.transform = rotate(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "rotate(1.0)")
     }
@@ -112,7 +112,7 @@ class TransformTest {
     @Test
     fun `transform rotateX`() {
         val rule = Rule("selector")
-        rule.transform = RotateX(1.0)
+        rule.transform = rotateX(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "rotateX(1.0)")
     }
@@ -120,7 +120,7 @@ class TransformTest {
     @Test
     fun `transform rotateY`() {
         val rule = Rule("selector")
-        rule.transform = RotateY(1.0)
+        rule.transform = rotateY(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "rotateY(1.0)")
     }
@@ -128,7 +128,7 @@ class TransformTest {
     @Test
     fun `transform rotateZ`() {
         val rule = Rule("selector")
-        rule.transform = RotateZ(1.0)
+        rule.transform = rotateZ(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "rotateZ(1.0)")
     }
@@ -136,7 +136,7 @@ class TransformTest {
     @Test
     fun `transform skew`() {
         val rule = Rule("selector")
-        rule.transform = Skew(1.0, 2.0)
+        rule.transform = skew(1.0, 2.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "skew(1.0,2.0)")
     }
@@ -144,7 +144,7 @@ class TransformTest {
     @Test
     fun `transform skewX`() {
         val rule = Rule("selector")
-        rule.transform = SkewX(1.0)
+        rule.transform = skewX(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "skewX(1.0)")
     }
@@ -152,7 +152,7 @@ class TransformTest {
     @Test
     fun `transform skewY`() {
         val rule = Rule("selector")
-        rule.transform = SkewY(1.0)
+        rule.transform = skewY(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "skewY(1.0)")
     }
@@ -160,7 +160,7 @@ class TransformTest {
     @Test
     fun `transform perspective`() {
         val rule = Rule("selector")
-        rule.transform = Perspective(1.0)
+        rule.transform = perspective(1.0)
         assertEquals(1, rule.properties.size)
         checkProperty(rule, "perspective(1.0)")
     }

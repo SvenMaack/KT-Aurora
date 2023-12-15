@@ -1,33 +1,33 @@
 @file:Suppress("WrapUnaryOperator")
 package navigation
 
-import basic.COLOR.PRIMARY
-import basic.COLOR.PRIMARY_2
-import basic.TYPOGRAPHY.BUTTON
 import basic.*
 import css.base.*
 import css.properties.*
+import basic.COLOR.PRIMARY
+import basic.COLOR.PRIMARY_2
+import basic.TYPOGRAPHY.BUTTON
+import css.properties.`0`.unaryMinus
 import css.properties.DisplayTypeTextValue.`inline-block`
 import css.properties.ListStyleTypeTextValue.none
 import css.properties.PositionTextValue.absolute
 import css.properties.PositionTextValue.relative
-import css.properties.Zero.unaryMinus
 
 public val NavigationDocument: IDocument = Document().apply {
     clazz[NAVIGATION] = {
         position = absolute
+        transform = translate(-50.percentage, -50.percentage)
         top = 50.percentage
         left = 50.percentage
-        transform = Translate(-50.percentage, -50.percentage)
         `list-style-type` = none
     }
     clazz[NAVIGATION__ITEM] = {
+        position = relative
+        display = `inline-block`
+        `margin-inline` = _rem(20)
+        `padding-block-end` = _rem(5)
         _color = PRIMARY_2
         _typography = BUTTON
-        display = `inline-block`
-        `padding-block-end` = _rem(5)
-        `margin-inline` = _rem(20)
-        position = relative
         hover {
             _color = PRIMARY
         }
@@ -35,11 +35,11 @@ public val NavigationDocument: IDocument = Document().apply {
     clazz[NAVIGATION__ITEM__ACTIVE] = {
         _color = PRIMARY
         after {
+            position = absolute
+            bottom = `0`
+            left = `0`
             width = 40.percentage
             height = 2.px
-            position = absolute
-            bottom = Zero
-            left = Zero
             `_background-color` = PRIMARY
         }
     }
