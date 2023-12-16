@@ -1,28 +1,28 @@
-import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.engine.*
-import io.ktor.server.cio.*
 import io.ktor.server.response.*
-import io.ktor.server.routing.*
 import landingPage.gateway.LandingPage
+import landingPage.ktor.CssEndpoint
+import landingPage.ktor.HtmlEndpoint
+import landingPage.ktor.KtorServer
 
 public fun main() {
-    embeddedServer(CIO, configure = {
-        connectionIdleTimeoutSeconds = 30
-    }, port = 8080) {
-        routing {
-            route("", HttpMethod.Get) {
-                handle {
-                    call.response.header(HttpHeaders.ContentType, "text/html")
-                    call.respondText(LandingPage.getHtml())
-                }
+    val port = 8080
+    KtorServer(port)
+        .initEndpoint(HtmlEndpoint(
+            path = "",
+            block = { call ->
+                LandingPage.getHtml(
+                    id = call.request.queryParameters["id"]
+                )
+            },
+            recover = { call, e ->
+                call.respond(e.errorCode, e.message)
             }
-            route("/${LandingPage.getExternalCssPath()}", HttpMethod.Get) {
-                handle {
-                    call.response.header(HttpHeaders.ContentType, "text/css")
-                    call.respondText(LandingPage.getExternalCss())
-                }
-            }
-        }
-    }.start(wait=true)
+        ))
+        .initEndpoint(CssEndpoint(
+            path = "/${LandingPage.getExternalCssPath()}",
+            css = LandingPage.getExternalCss()
+        ))
+        .start()
+
+    println("Server started at http://localhost:$port/?id=1")
 }

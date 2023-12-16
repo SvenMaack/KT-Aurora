@@ -14,7 +14,7 @@ public fun BodyTagContainer._navigation(vm: NavigationVM) {
         ul("role"["list"], clazz=NAVIGATION) {
             vm.entries.forEach {
                 li("class"[NAVIGATION__ITEM, NAVIGATION__ITEM__ACTIVE%it.active]) {
-                    a("role"["cta"], href="#") {
+                    a("role"["cta"], href=it.url) {
                         span {
                             +it.name
                         }

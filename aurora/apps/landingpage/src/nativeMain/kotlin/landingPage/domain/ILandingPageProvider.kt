@@ -8,5 +8,5 @@ public interface Seo {
 }
 
 internal interface ILandingPageProvider {
-    suspend fun getLandingPage(): Seo
+    suspend fun getLandingPage(id: String): Seo
 }

@@ -3,6 +3,7 @@ package landingPage.domain
 public interface NavigationEntry {
     public val name: String
     public val active: Boolean
+    public val url: String
 }
 
 public interface Navigation {

@@ -46,6 +46,9 @@ kotlin {
 
                 implementation("io.ktor:ktor-server-core:2.3.5")
                 implementation("io.ktor:ktor-server-cio:2.3.5")
+
+                implementation("io.arrow-kt:arrow-core:1.2.1")
+                implementation("io.arrow-kt:arrow-fx-coroutines:1.2.1")
             }
         }
         val commonTest by getting {

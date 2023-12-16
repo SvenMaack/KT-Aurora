@@ -12,6 +12,7 @@ internal fun Navigation.toNavigationVM(): NavigationVM {
         override val entries: List<NavigationEntryVM> = navigation.entries.map { entry ->
             object : NavigationEntryVM {
                 override val name = entry.name
+                override val url: String = entry.url
                 override val active = entry.active
             }
         }

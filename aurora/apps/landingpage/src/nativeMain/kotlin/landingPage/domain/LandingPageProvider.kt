@@ -8,9 +8,9 @@ private data class DummySeo (
 ): Seo
 
 internal class LandingPageProvider: ILandingPageProvider {
-    override suspend fun getLandingPage(): Seo =
+    override suspend fun getLandingPage(id: String): Seo =
         DummySeo(
-            title = "Aurora",
+            title = "Aurora $id",
             description = "A PoC for the power of kotlin",
             keywords = "landingPage, kotlin, multiplatform",
             canonicalUrl = "https://www.example.com"
