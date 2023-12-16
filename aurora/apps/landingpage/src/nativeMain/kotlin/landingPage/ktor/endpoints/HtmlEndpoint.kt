@@ -20,9 +20,12 @@ public data class HtmlEndpoint<Error>(
     )
     override val executor: Executor<Error, String> = Executor(
         block = block,
-        recover = recover,
         response = { html, response ->
             response(HttpStatusCode.OK, html)
+        },
+        logicalRecover = recover,
+        fatalRecover = { error, response ->
+            response(HttpStatusCode.InternalServerError, error.message ?: "Unknown error")
         }
     )
 }

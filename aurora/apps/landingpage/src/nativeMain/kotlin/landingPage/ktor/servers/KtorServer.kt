@@ -1,6 +1,7 @@
 package landingPage.ktor.servers
 
 import arrow.core.Either
+import arrow.core.raise.catch
 import arrow.core.raise.fold
 import io.ktor.http.HttpMethod
 import io.ktor.server.application.*
@@ -27,17 +28,24 @@ public class KtorServer(port: Int = 8080): Server {
                     endpoint.header.forEach {(key, value) ->
                         call.response.header(key, value)
                     }
-                    fold(
-                        block = {
-                            block(endpoint, call).bind()
-                        },
-                        recover = { error: Error ->
-                            recover(endpoint, error, call)
-                        },
-                        transform = { data: Data ->
-                            transform(endpoint, data, call)
-                        }
-                    )
+                    catch({
+                        fold(
+                            block = {
+                                block(endpoint, call).bind()
+                            },
+                            recover = { error: Error ->
+                                logicalRecover(endpoint, error, call)
+                            },
+                            transform = { data: Data ->
+                                transform(endpoint, data, call)
+                            },
+                            catch = { error: Throwable ->
+                                fatalRecover(endpoint, error, call)
+                            },
+                        )
+                    }) { error ->
+                        fatalRecover(endpoint, error, call)
+                    }
                 }
             }
         }
@@ -65,12 +73,22 @@ public class KtorServer(port: Int = 8080): Server {
         return endpoint.executor.block(request)
     }
 
-    private suspend fun <Error, Data>recover(
+    private suspend fun <Error, Data>fatalRecover(
+        endpoint: Endpoint<Error, Data>,
+        error: Throwable,
+        call: ApplicationCall
+    ) {
+        endpoint.executor.fatalRecover(error) { httpCode, errorAsString ->
+            call.respond(io.ktor.http.HttpStatusCode.fromValue(httpCode.code), errorAsString)
+        }
+    }
+
+    private suspend fun <Error, Data>logicalRecover(
         endpoint: Endpoint<Error, Data>,
         error: Error,
         call: ApplicationCall
     ) {
-        endpoint.executor.recover(error) { httpCode, errorAsString ->
+        endpoint.executor.logicalRecover(error) { httpCode, errorAsString ->
             call.respond(io.ktor.http.HttpStatusCode.fromValue(httpCode.code), errorAsString)
         }
     }

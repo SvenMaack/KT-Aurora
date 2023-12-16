@@ -19,11 +19,14 @@ public data class CssEndpoint(
         block = {
             either { css }
         },
-        recover = { _, response ->
-            response(HttpStatusCode.NotFound, "$path doesn't exist")
-        },
         response = { css, response ->
             response(HttpStatusCode.OK, css)
+        },
+        logicalRecover = { _, response ->
+            response(HttpStatusCode.NotFound, "$path doesn't exist")
+        },
+        fatalRecover = { error, response ->
+            response(HttpStatusCode.InternalServerError, error.message ?: "Unknown error")
         }
     )
 }
