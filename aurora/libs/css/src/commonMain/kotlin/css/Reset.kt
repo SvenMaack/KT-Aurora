@@ -5,7 +5,6 @@ import css.base.*
 import css.properties.*
 import css.properties.BoxSizingTextValue.`border-box`
 import css.properties.DisplayTypeTextValue.block
-import css.properties.ListStyleTypeTextValue.none
 import css.properties.ScrollBehaviourTextValue.smooth
 import css.properties.TextRenderingTextValue.optimizeSpeed
 
@@ -33,6 +32,13 @@ public val ResetDocument: IDocument = Document().apply {
         Attribute(Tag("ul"), "role", "list"),
     ] = {
         `list-style` = none
+    }
+    /* Remove link styles on elements with a cta role, which suggests default styling will be removed */
+    this[
+        Attribute(Tag("a"), "role", "cta"),
+    ] = {
+        `text-decoration` = none
+        color = inherit
     }
     /* Set core root defaults */
     tag["html"] = {

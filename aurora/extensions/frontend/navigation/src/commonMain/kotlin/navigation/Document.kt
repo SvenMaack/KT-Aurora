@@ -39,8 +39,4 @@ public val NavigationDocument: IDocument = Document().apply {
             `_background-color` = PRIMARY
         }
     }
-    clazz[NAVIGATION__ITEM_TEXT] = {
-        color = inherit
-        //`text-decoration`(none)
-    }
 }
