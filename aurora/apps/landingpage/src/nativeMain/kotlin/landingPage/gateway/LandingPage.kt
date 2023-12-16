@@ -11,7 +11,7 @@ import template.tags.enums.GeneralLanguage
 import kotlinx.coroutines.*
 import landingPage.gateway.template.LandingPageDocument
 import landingPage.gateway.template.LandingPageTemplate
-import landingPage.ktor.HttpStatusCode
+import landingPage.server.HttpStatusCode
 
 public interface Error {
     public val message: String

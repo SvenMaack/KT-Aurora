@@ -1,4 +1,4 @@
-package landingPage.ktor.servers
+package landingPage.server.servers
 
 import arrow.core.Either
 import arrow.core.raise.catch
@@ -11,9 +11,9 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.*
-import landingPage.ktor.Endpoint
-import landingPage.ktor.Request
-import landingPage.ktor.Server
+import landingPage.server.Endpoint
+import landingPage.server.Request
+import landingPage.server.Server
 
 public class KtorServer(port: Int = 8080): Server {
     private val server = embeddedServer(CIO, configure = {

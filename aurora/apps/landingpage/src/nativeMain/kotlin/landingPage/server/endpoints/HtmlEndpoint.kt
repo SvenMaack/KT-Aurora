@@ -1,13 +1,13 @@
-package landingPage.ktor.endpoints
+package landingPage.server.endpoints
 
 import arrow.core.Either
-import landingPage.ktor.Endpoint
-import landingPage.ktor.Executor
-import landingPage.ktor.HttpHeader
-import landingPage.ktor.HttpMethod
-import landingPage.ktor.HttpStatusCode
-import landingPage.ktor.Request
-import landingPage.ktor.ResponseFunction
+import landingPage.server.Endpoint
+import landingPage.server.Executor
+import landingPage.server.HttpHeader
+import landingPage.server.HttpMethod
+import landingPage.server.HttpStatusCode
+import landingPage.server.Request
+import landingPage.server.ResponseFunction
 
 public data class HtmlEndpoint<Error>(
     override val path: String,

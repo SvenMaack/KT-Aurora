@@ -1,10 +1,10 @@
 import landingPage.gateway.Error
 import landingPage.gateway.LandingPage
-import landingPage.ktor.Request
-import landingPage.ktor.ResponseFunction
-import landingPage.ktor.endpoints.CssEndpoint
-import landingPage.ktor.endpoints.HtmlEndpoint
-import landingPage.ktor.servers.KtorServer
+import landingPage.server.Request
+import landingPage.server.ResponseFunction
+import landingPage.server.endpoints.CssEndpoint
+import landingPage.server.endpoints.HtmlEndpoint
+import landingPage.server.servers.KtorServer
 
 public fun main() {
     val port = 8080

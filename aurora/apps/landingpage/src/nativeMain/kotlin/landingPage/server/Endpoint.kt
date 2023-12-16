@@ -1,4 +1,4 @@
-package landingPage.ktor
+package landingPage.server
 
 import arrow.core.Either
 

@@ -1,11 +1,11 @@
-package landingPage.ktor.endpoints
+package landingPage.server.endpoints
 
 import arrow.core.raise.either
-import landingPage.ktor.Endpoint
-import landingPage.ktor.Executor
-import landingPage.ktor.HttpHeader
-import landingPage.ktor.HttpMethod
-import landingPage.ktor.HttpStatusCode
+import landingPage.server.Endpoint
+import landingPage.server.Executor
+import landingPage.server.HttpHeader
+import landingPage.server.HttpMethod
+import landingPage.server.HttpStatusCode
 
 public data class CssEndpoint(
     override val path: String,

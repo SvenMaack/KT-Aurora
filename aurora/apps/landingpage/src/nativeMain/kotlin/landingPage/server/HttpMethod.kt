@@ -1,4 +1,4 @@
-package landingPage.ktor
+package landingPage.server
 
 public data class HttpMethod(
     public val method: String

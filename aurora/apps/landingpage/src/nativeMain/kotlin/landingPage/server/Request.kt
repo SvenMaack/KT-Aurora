@@ -1,4 +1,4 @@
-package landingPage.ktor
+package landingPage.server
 
 public data class Request(
     public val queryParameters: Map<String, String>,

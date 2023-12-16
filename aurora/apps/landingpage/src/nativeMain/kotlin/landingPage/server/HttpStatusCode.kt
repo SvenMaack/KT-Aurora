@@ -1,4 +1,4 @@
-package landingPage.ktor
+package landingPage.server
 
 public enum class HttpStatusCode(public val code: Int) {
     OK(200),
