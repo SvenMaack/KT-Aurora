@@ -14,7 +14,7 @@ internal class NavigationProvider: INavigationProvider {
     override suspend fun getNavigation(): Navigation {
         return DummyNavigation(
             listOf(
-                DummyNavigationEntry("Home", active = true, url = "/?id=1"),
+                DummyNavigationEntry("Home", url = "/?id=1", active = true),
                 DummyNavigationEntry("Men", url = "/?id=2"),
                 DummyNavigationEntry("Women", url = "/?id=3"),
                 DummyNavigationEntry("Kids", url = "/?id=4"),

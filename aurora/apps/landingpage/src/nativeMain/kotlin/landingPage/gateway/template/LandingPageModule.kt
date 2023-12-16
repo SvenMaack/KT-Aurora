@@ -1,4 +1,4 @@
-package landingPage.gateway.module
+package landingPage.gateway.template
 
 import basic.BasicDocument
 import css.ResetDocument

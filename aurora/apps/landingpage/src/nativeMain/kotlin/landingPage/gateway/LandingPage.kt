@@ -13,8 +13,8 @@ import page.PageContext
 import template.tags.enums.CountryCode
 import template.tags.enums.GeneralLanguage
 import kotlinx.coroutines.*
-import landingPage.gateway.module.LandingPageDocument
-import landingPage.gateway.module.LandingPageTemplate
+import landingPage.gateway.template.LandingPageDocument
+import landingPage.gateway.template.LandingPageTemplate
 
 public interface Error {
     public val message: String

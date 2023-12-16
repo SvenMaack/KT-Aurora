@@ -1,4 +1,4 @@
-package landingPage.gateway.module
+package landingPage.gateway.template
 
 import css.base.DocumentList
 import css.base.IDocument
