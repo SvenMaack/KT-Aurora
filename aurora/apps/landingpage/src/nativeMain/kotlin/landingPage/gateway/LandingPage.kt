@@ -42,7 +42,7 @@ internal object LandingPage {
         debug = true
     )
 
-    suspend fun getHtml(id: String?): Either<Error, String> =
+    suspend fun getHtml(id: String?, currentUrl: String): Either<Error, String> =
         coroutineScope {
             either {
                 if(id == null)
@@ -51,7 +51,7 @@ internal object LandingPage {
                     raise(Error.NotFound(id))
 
                 val landingPageData = async { LandingPageProvider().getLandingPage(id) }
-                val navigationData = async { NavigationProvider().getNavigation() }
+                val navigationData = async { NavigationProvider().getNavigation(currentUrl) }
                 landingPage.getHtml(
                     PageContext(
                         GeneralLanguage.English,

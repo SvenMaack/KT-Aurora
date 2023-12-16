@@ -11,5 +11,5 @@ public interface Navigation {
 }
 
 internal interface INavigationProvider {
-    suspend fun getNavigation(): Navigation
+    suspend fun getNavigation(currentPath: String): Navigation
 }

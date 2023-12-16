@@ -1,3 +1,4 @@
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import landingPage.gateway.LandingPage
 import landingPage.ktor.CssEndpoint
@@ -11,7 +12,8 @@ public fun main() {
             path = "",
             block = { call ->
                 LandingPage.getHtml(
-                    id = call.request.queryParameters["id"]
+                    id = call.request.queryParameters["id"],
+                    currentUrl = call.request.uri
                 )
             },
             recover = { call, e ->
