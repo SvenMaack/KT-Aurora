@@ -1,23 +1,26 @@
-import io.ktor.server.request.*
-import io.ktor.server.response.*
+import landingPage.gateway.Error
 import landingPage.gateway.LandingPage
-import landingPage.ktor.CssEndpoint
-import landingPage.ktor.HtmlEndpoint
-import landingPage.ktor.KtorServer
+import landingPage.ktor.Request
+import landingPage.ktor.ResponseFunction
+import landingPage.ktor.endpoints.CssEndpoint
+import landingPage.ktor.endpoints.HtmlEndpoint
+import landingPage.ktor.servers.KtorServer
 
 public fun main() {
     val port = 8080
+    println("Server will start at http://localhost:$port/?id=1")
+
     KtorServer(port)
         .initEndpoint(HtmlEndpoint(
             path = "",
-            block = { call ->
+            block = { request: Request ->
                 LandingPage.getHtml(
-                    id = call.request.queryParameters["id"],
-                    currentUrl = call.request.uri
+                    id = request.queryParameters["id"],
+                    currentUrl = request.uri
                 )
             },
-            recover = { call, e ->
-                call.respond(e.errorCode, e.message)
+            recover = { error: Error, call: ResponseFunction<String> ->
+                call(error.errorCode, error.message)
             }
         ))
         .initEndpoint(CssEndpoint(
@@ -25,6 +28,4 @@ public fun main() {
             css = LandingPage.getExternalCss()
         ))
         .start()
-
-    println("Server started at http://localhost:$port/?id=1")
 }
