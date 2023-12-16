@@ -7,7 +7,6 @@ import css.properties.*
 import basic.COLOR.PRIMARY
 import basic.COLOR.PRIMARY_2
 import basic.TYPOGRAPHY.BUTTON
-import css.properties.`0`.unaryMinus
 import css.properties.DisplayTypeTextValue.`inline-block`
 import css.properties.ListStyleTypeTextValue.none
 import css.properties.PositionTextValue.absolute
@@ -15,10 +14,7 @@ import css.properties.PositionTextValue.relative
 
 public val NavigationDocument: IDocument = Document().apply {
     clazz[NAVIGATION] = {
-        position = absolute
-        transform = translate(-50.percentage, -50.percentage)
-        top = 50.percentage
-        left = 50.percentage
+        _center()
         `list-style-type` = none
     }
     clazz[NAVIGATION__ITEM] = {
