@@ -1,6 +1,6 @@
 package css.properties
 
-import css.base.BeforeAfterRule
+import css.base.Rule
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -8,7 +8,7 @@ class RightTest {
     @Test
     fun `right creates property`() {
         PositionDistanceTextValue.entries.forEach {
-            val rule = BeforeAfterRule("selector")
+            val rule = Rule("selector")
             rule.right(it)
             assertEquals(1, rule.properties.size)
             assertEquals("right", rule.properties[0].property)
@@ -18,7 +18,7 @@ class RightTest {
 
     @Test
     fun `right creates number property`() {
-        val rule = BeforeAfterRule("selector")
+        val rule = Rule("selector")
         rule.right = 1.px
         assertEquals(1, rule.properties.size)
         assertEquals("right", rule.properties[0].property)
@@ -27,7 +27,7 @@ class RightTest {
 
     @Test
     fun `right creates inherit property`() {
-        val rule = BeforeAfterRule("selector")
+        val rule = Rule("selector")
         rule.right(inherit)
         assertEquals(1, rule.properties.size)
         assertEquals("right", rule.properties[0].property)
@@ -36,7 +36,7 @@ class RightTest {
 
     @Test
     fun `right creates initial property`() {
-        val rule = BeforeAfterRule("selector")
+        val rule = Rule("selector")
         rule.right(initial)
         assertEquals(1, rule.properties.size)
         assertEquals("right", rule.properties[0].property)

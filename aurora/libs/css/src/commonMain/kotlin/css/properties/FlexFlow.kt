@@ -11,9 +11,6 @@ import css.base.webkit
 //https://www.w3schools.com/cssref/css3_pr_flex-flow.php
 
 /**
- * The flex-direction property specifies the direction of the flexible items.
- */
-/**
  * The flex-flow property is a shorthand property.
  */
 public fun Rule.`flex-flow`(direction: FlexDirectionValue, wrap: FlexWrapValue) {

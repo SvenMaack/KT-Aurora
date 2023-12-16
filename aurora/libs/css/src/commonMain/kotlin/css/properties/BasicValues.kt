@@ -38,7 +38,12 @@ public object inherit:
     FlexBasisValue,
     FlexGrowValue,
     FlexShrinkValue,
-    FlexValue
+    FlexValue,
+    TextDecorationColorValue,
+    TextDecorationLineValue,
+    TextDecorationStyleValue,
+    TextDecorationThicknessValue,
+    TextDecorationValue
 {
     override val value: String
         get() = "inherit"
@@ -81,7 +86,12 @@ public object initial:
     FlexBasisValue,
     FlexGrowValue,
     FlexShrinkValue,
-    FlexValue
+    FlexValue,
+    TextDecorationColorValue,
+    TextDecorationLineValue,
+    TextDecorationStyleValue,
+    TextDecorationThicknessValue,
+    TextDecorationValue
 {
     override val value: String
         get() = "initial"
@@ -91,7 +101,10 @@ public object none:
     DisplayTypeValue,
     TextTransformValue,
     TransformValue,
-    FlexValue
+    FlexValue,
+    TextDecorationLineValue,
+    TextDecorationValue,
+    ListStyleTypeValue
 {
     override val value: String
         get() = "none"

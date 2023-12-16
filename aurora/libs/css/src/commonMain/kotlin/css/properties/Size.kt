@@ -43,7 +43,8 @@ public open class ValueSize protected constructor(
     WidthValue,
     LetterSpacingValue,
     BorderRadiusValue,
-    LineHeightValue
+    LineHeightValue,
+    TextDecorationThicknessValue
 {
     override val value: String =
         "${number}${unit}"
