@@ -60,7 +60,7 @@ public class KtorServer(port: Int = 8080): Server {
                 .mapValues {
                     it.value.last()
                 },
-            uri = call.request.uri
+            path = call.request.path()
         )
         return endpoint.executor.block(request)
     }

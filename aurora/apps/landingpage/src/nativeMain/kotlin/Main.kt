@@ -16,11 +16,11 @@ public fun main() {
             block = { request: Request ->
                 LandingPage.getHtml(
                     id = request.queryParameters["id"],
-                    currentUrl = request.uri
+                    currentUrl = request.toUri()
                 )
             },
-            recover = { error: Error, call: ResponseFunction<String> ->
-                call(error.errorCode, error.message)
+            recover = { error: Error, response: ResponseFunction<String> ->
+                response(error.errorCode, error.message)
             }
         ))
         .initEndpoint(CssEndpoint(
