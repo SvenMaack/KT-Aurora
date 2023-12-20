@@ -2,6 +2,10 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="apps.navigation" target="1.8" />
+      <module name="apps.navigation.main" target="1.8" />
+      <module name="apps.navigation.test" target="1.8" />
+      <module name="landingpage" target="17" />
       <module name="landingpage.main" target="17" />
       <module name="landingpage.test" target="17" />
     </bytecodeTargetLevel>

@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform") version "1.9.10"
     id("com.google.devtools.ksp") version "1.9.10-1.0.13"
     id("io.gitlab.arturbosch.detekt") version "1.23.4"
+    id("com.squareup.wire") version "4.9.3"
 }
 
 group = "maack.aurora"
@@ -49,6 +50,12 @@ kotlin {
 
                 implementation("io.arrow-kt:arrow-core:1.2.1")
                 implementation("io.arrow-kt:arrow-fx-coroutines:1.2.1")
+
+                implementation("com.squareup.wire:wire-runtime:4.9.3")
+                implementation("com.squareup.wire:wire-grpc-client:4.9.3")
+
+                implementation("io.grpc:grpc-protobuf:1.60.0")
+
             }
         }
         val commonTest by getting {
@@ -81,3 +88,17 @@ tasks.withType<Detekt>().configureEach {
     }
 }
 
+kotlin.targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+    binaries.all {
+        freeCompilerArgs += "-Xdisable-phases=EscapeAnalysis"
+    }
+}
+wire {
+    sourcePath {
+        srcDir("src/nativeMain/proto/example")
+    }
+
+    kotlin {
+        rpcRole = "client"
+    }
+}
