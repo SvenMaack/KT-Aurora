@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  landingPage_cassandra:
+    image: amd64/cassandra:5.0
+    container_name: landingPage_cassandra
+    ports:
+      - '7000:7000' #Cassandra inter-node cluster communication.
+      - '9042:9042' #Cassandra client port.
+    volumes:
+      - 'landingPage_cassandra_data:/var/lib/cassandra'
+    networks:
+      - landingPage_network
+    healthcheck:
+      test: [ "CMD", "/opt/cassandra/bin/cqlsh", "-u cassandra", "-p cassandra" ,"-e \"describe keyspaces\"" ]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+    #depends_on:
+    #secrets:
+    #environment:
+
+volumes:
+  landingPage_cassandra_data:
+    name: landingPage_cassandra_data
+    driver: local
+
+
+networks:
+  landingPage_network:
+    name: landingPage_network
+    driver: bridge
