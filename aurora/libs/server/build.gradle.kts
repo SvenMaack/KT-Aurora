@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform") version "1.9.10"
     id("com.google.devtools.ksp") version "1.9.10-1.0.13"
     id("io.gitlab.arturbosch.detekt") version "1.23.4"
+    id("maven-publish")
 }
 
 group = "maack.aurora"
@@ -12,6 +13,7 @@ version = "1.0.0"
 repositories {
     mavenCentral()
     mavenLocal()
+    google()
 }
 
 kotlin {
@@ -28,28 +30,21 @@ kotlin {
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
-    nativeTarget.apply {
-        binaries {
-            executable {
-                entryPoint = "main"
-            }
-        }
+    dependencies {
+        ksp("me.tatarka.inject:kotlin-inject-compiler-ksp:0.6.3")
+        detektPlugins("com.wolt.arrow.detekt:rules:0.4.0")
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("maack.aurora:page:1.0.0")
-                implementation("maack.aurora:navigation:1.0.0")
-                implementation("maack.aurora:head:1.0.0")
-                implementation("maack.aurora:basic:1.0.0")
-                implementation("maack.aurora:lib.server:1.0.0")
-
                 implementation("io.ktor:ktor-server-core:2.3.5")
                 implementation("io.ktor:ktor-server-cio:2.3.5")
 
                 implementation("io.arrow-kt:arrow-core:1.2.1")
                 implementation("io.arrow-kt:arrow-fx-coroutines:1.2.1")
+
+                implementation("me.tatarka.inject:kotlin-inject-runtime:0.6.3")
             }
         }
         val commonTest by getting {
@@ -81,10 +76,3 @@ tasks.withType<Detekt>().configureEach {
         html.required.set(true)
     }
 }
-
-kotlin.targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-    binaries.all {
-        freeCompilerArgs += "-Xdisable-phases=EscapeAnalysis"
-    }
-}
-

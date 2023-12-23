@@ -24,11 +24,10 @@ dependencies {
 
     implementation("io.arrow-kt:arrow-core:1.2.1")
     implementation("io.arrow-kt:arrow-fx-coroutines:1.2.1")
+    detektPlugins("com.wolt.arrow.detekt:rules:0.4.0")
 
     ksp("me.tatarka.inject:kotlin-inject-compiler-ksp:0.6.3")
     implementation("me.tatarka.inject:kotlin-inject-runtime:0.6.3")
-
-    detektPlugins("com.wolt.arrow.detekt:rules:0.4.0")
 
     testImplementation(kotlin("test"))
     testImplementation("io.mockative:mockative:2.0.0")

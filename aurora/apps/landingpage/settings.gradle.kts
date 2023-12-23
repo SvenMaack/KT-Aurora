@@ -5,4 +5,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "landingpage"
+rootProject.name = "app.landingpage"

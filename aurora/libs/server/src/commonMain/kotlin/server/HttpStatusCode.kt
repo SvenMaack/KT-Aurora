@@ -1,5 +1,6 @@
-package landingPage.server
+package server
 
+@Suppress("MagicNumber")
 public enum class HttpStatusCode(public val code: Int) {
     OK(200),
 

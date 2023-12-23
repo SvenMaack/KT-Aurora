@@ -1,17 +1,21 @@
 import landingPage.gateway.Error
 import landingPage.gateway.LandingPage
-import landingPage.server.Request
-import landingPage.server.ResponseFunction
-import landingPage.server.endpoints.CssEndpoint
-import landingPage.server.endpoints.HtmlEndpoint
-import landingPage.server.servers.KtorServer
+import server.Request
+import server.ServerComponent
+import server.create
+import server.endpoints.CssEndpoint
+import server.endpoints.HtmlEndpoint
 
 public fun main() {
     val port = 8080
     println("Server will start at http://localhost:$port/?id=1")
 
-    KtorServer(port)
-        .initEndpoint(HtmlEndpoint(
+    val server = ServerComponent::class
+        .create()
+        .server
+
+    server.initEndpoint(
+        HtmlEndpoint(
             path = "",
             block = { request: Request ->
                 LandingPage.getHtml(
@@ -19,13 +23,14 @@ public fun main() {
                     currentUrl = request.toUri()
                 )
             },
-            recover = { error: Error, response: ResponseFunction<String> ->
-                response(error.errorCode, error.message)
+            recover = { error: Error ->
+                Pair(error.errorCode, error.message)
             }
-        ))
-        .initEndpoint(CssEndpoint(
+        )
+    ).initEndpoint(
+        CssEndpoint(
             path = "/${LandingPage.getExternalCssPath()}",
             css = LandingPage.getExternalCss()
-        ))
-        .start()
+        )
+    ).start()
 }

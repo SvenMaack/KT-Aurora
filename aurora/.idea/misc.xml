@@ -10,6 +10,7 @@
     <file type="web" url="file://$PROJECT_DIR$/libs/css" />
     <file type="web" url="file://$PROJECT_DIR$/libs/di" />
     <file type="web" url="file://$PROJECT_DIR$/libs/page" />
+    <file type="web" url="file://$PROJECT_DIR$/libs/server" />
     <file type="web" url="file://$PROJECT_DIR$/libs/template" />
   </component>
   <component name="ProjectRootManager">

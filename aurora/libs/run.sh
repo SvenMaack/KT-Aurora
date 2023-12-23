@@ -27,6 +27,7 @@ case $1 in
         ( cd template && ./run.sh build)
         ( cd di && ./run.sh build)
         ( cd page && ./run.sh build)
+        ( cd server && ./run.sh build)
         ;;
     create)
         identify
@@ -36,6 +37,7 @@ case $1 in
         ( cd template && ./run.sh create)
         ( cd di && ./run.sh create)
         ( cd page && ./run.sh create)
+        ( cd server && ./run.sh create)
         ;;
     test)
         identify
@@ -45,6 +47,7 @@ case $1 in
         ( cd template && ./run.sh test)
         ( cd di && ./run.sh test)
         ( cd page && ./run.sh test)
+        ( cd server && ./run.sh test)
         ;;
     clean)
         identif
@@ -54,6 +57,7 @@ case $1 in
         ( cd template && ./run.sh clean)
         ( cd di && ./run.sh clean)
         ( cd page && ./run.sh clean)
+        ( cd server && ./run.sh clean)
         ;;
     *)
         identify

@@ -2,8 +2,10 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="landingpage" target="17" />
       <module name="landingpage.main" target="17" />
       <module name="landingpage.test" target="17" />
+      <module name="server" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

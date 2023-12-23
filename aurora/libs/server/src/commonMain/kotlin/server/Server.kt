@@ -1,4 +1,4 @@
-package landingPage.server
+package server
 
 public interface Server {
     public fun <Error, Data>initEndpoint(endpoint: Endpoint<Error, Data>): Server

@@ -1,4 +1,4 @@
-package landingPage.server
+package server
 
 public data class Request(
     public val queryParameters: Map<String, String>,
@@ -8,11 +8,10 @@ public data class Request(
         val keys = queryParameters.keys.sorted()
         return keys.joinToString("&") { key -> "$key=${queryParameters[key]}" }
             .let { query ->
-                if (query.isNotEmpty()) {
+                if (query.isNotEmpty())
                     "$path?$query"
-                } else {
+                else
                     path
-                }
             }
     }
 }
